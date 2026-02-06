@@ -305,14 +305,46 @@ img {
 }
 
 .stat-bar {
+  position: relative;
   height: 8px;
   border-radius: 999px;
   background: rgba(247, 251, 255, 0.12);
   overflow: hidden;
 }
 
+.stat-bar::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 2;
+  background-image: linear-gradient(
+    to right,
+    transparent 0,
+    transparent calc(20% - 1px),
+    rgba(12, 16, 24, 0.85) calc(20% - 1px),
+    rgba(12, 16, 24, 0.85) 20%,
+    transparent 20%,
+    transparent calc(40% - 1px),
+    rgba(12, 16, 24, 0.85) calc(40% - 1px),
+    rgba(12, 16, 24, 0.85) 40%,
+    transparent 40%,
+    transparent calc(60% - 1px),
+    rgba(12, 16, 24, 0.85) calc(60% - 1px),
+    rgba(12, 16, 24, 0.85) 60%,
+    transparent 60%,
+    transparent calc(80% - 1px),
+    rgba(12, 16, 24, 0.85) calc(80% - 1px),
+    rgba(12, 16, 24, 0.85) 80%,
+    transparent 80%,
+    transparent 100%
+  );
+}
+
 .stat-fill {
   --stat-width: 0%;
+  position: relative;
+  z-index: 1;
   display: block;
   width: var(--stat-width);
   height: 100%;

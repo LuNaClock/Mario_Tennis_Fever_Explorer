@@ -219,7 +219,7 @@ function createRacketCard(racket) {
 }
 
 function sortItems(items, key, order) {
-  if (order === "game") {
+  if (order === "game" && key === "name") {
     return [...items];
   }
 
@@ -234,6 +234,20 @@ function sortItems(items, key, order) {
     return order === "asc" ? a.stats[key] - b.stats[key] : b.stats[key] - a.stats[key];
   });
   return sorted;
+}
+
+function syncCharacterOrderAvailability() {
+  const isNameSort = characterSort.value === "name";
+  const gameOrderOptions = Array.from(document.querySelectorAll('#character-order option[value="game"]'));
+
+  gameOrderOptions.forEach((option) => {
+    option.hidden = !isNameSort;
+    option.disabled = !isNameSort;
+  });
+
+  if (!isNameSort && characterOrder.value === "game") {
+    characterOrder.value = "asc";
+  }
 }
 
 function updateApplyButtonCount(buttonId, count) {
@@ -308,6 +322,8 @@ function updateCharacterActiveFilterChips() {
 }
 
 function renderCharacters() {
+  syncCharacterOrderAvailability();
+
   const sortKey = characterSort.value;
   const orderValue = characterOrder.value;
   const sorted = sortItems(getFilteredCharacters(), sortKey, orderValue);
