@@ -7,6 +7,11 @@ const statLabels = {
   spin: "スピン",
 };
 
+const characterSortLabels = {
+  name: "名前",
+  ...statLabels,
+};
+
 const maxStatValue = 5;
 
 const characterList = document.getElementById("character-list");
@@ -155,20 +160,22 @@ function createRacketCard(racket) {
 function sortItems(items, key, order) {
   const sorted = [...items];
   sorted.sort((a, b) => {
-    let aValue;
-    let bValue;
-
     if (key === "name") {
-      aValue = a.name;
-      bValue = b.name;
-      return order === "asc" ? aValue.localeCompare(bValue, "ja") : bValue.localeCompare(aValue, "ja");
+      return order === "asc"
+        ? a.name.localeCompare(b.name, "ja")
+        : b.name.localeCompare(a.name, "ja");
     }
 
-    aValue = a.stats[key];
-    bValue = b.stats[key];
-    return order === "asc" ? aValue - bValue : bValue - aValue;
+    return order === "asc" ? a.stats[key] - b.stats[key] : b.stats[key] - a.stats[key];
   });
   return sorted;
+}
+
+function updateApplyButtonCount(buttonId, count) {
+  const applyButton = document.getElementById(buttonId);
+  if (applyButton) {
+    applyButton.textContent = `${count}件を表示`;
+  }
 }
 
 function getFilteredCharacters() {
@@ -197,8 +204,7 @@ function updateCharacterActiveFilterChips() {
     chips.push({ key: "search", label: `検索: ${characterSearch.value.trim()}` });
   }
   if (characterSort.value !== "name") {
-    const map = { speed: "スピード", power: "パワー", control: "コントロール", spin: "スピン" };
-    chips.push({ key: "sort", label: `ソート: ${map[characterSort.value] ?? characterSort.value}` });
+    chips.push({ key: "sort", label: `ソート: ${characterSortLabels[characterSort.value] ?? characterSort.value}` });
   }
   if (characterOrder.value !== "desc") {
     chips.push({ key: "order", label: "並び順: 昇順" });
@@ -223,11 +229,7 @@ function renderCharacters() {
   sorted.forEach((character) => characterList.append(createCharacterCard(character)));
 
   characterCount.textContent = `${sorted.length}件表示`;
-
-  const characterApply = document.getElementById("character-filter-apply");
-  if (characterApply) {
-    characterApply.textContent = `${sorted.length}件を表示`;
-  }
+  updateApplyButtonCount("character-filter-apply", sorted.length);
 
   updateCharacterActiveFilterChips();
 }
@@ -254,11 +256,7 @@ function renderRackets() {
   sorted.forEach((racket) => racketList.append(createRacketCard(racket)));
 
   racketCount.textContent = `${sorted.length}件表示`;
-
-  const racketApply = document.getElementById("racket-filter-apply");
-  if (racketApply) {
-    racketApply.textContent = `${sorted.length}件を表示`;
-  }
+  updateApplyButtonCount("racket-filter-apply", sorted.length);
 }
 
 function setupCharacterFilterChips() {
@@ -304,9 +302,10 @@ function setupFilterModal(modalId, inlineFilterId, modalFilterId, applyButtonId,
 
   const sourceControls = Array.from(inlineFilters.querySelectorAll("select,input"));
   const modalControls = Array.from(modalFilters.querySelectorAll("select,input"));
+  const modalControlById = new Map(modalControls.map((control) => [control.id, control]));
 
   sourceControls.forEach((sourceControl) => {
-    const targetControl = modalControls.find((item) => item.id === sourceControl.id);
+    const targetControl = modalControlById.get(sourceControl.id);
     if (!targetControl) {
       return;
     }
@@ -325,7 +324,7 @@ function setupFilterModal(modalId, inlineFilterId, modalFilterId, applyButtonId,
 
   const syncModalWithSource = () => {
     sourceControls.forEach((sourceControl) => {
-      const targetControl = modalControls.find((item) => item.id === sourceControl.id);
+      const targetControl = modalControlById.get(sourceControl.id);
       if (targetControl) {
         targetControl.value = sourceControl.value;
       }
@@ -406,14 +405,13 @@ function setupMobileSectionNav() {
   activateMobileNav(initialId || mobileSections[0].id);
 }
 
-[characterTypeFilter, characterSort, characterOrder].forEach((element) => {
-  element.addEventListener("change", renderCharacters);
-});
-characterSearch.addEventListener("input", renderCharacters);
+function bindChangeListeners(elements, handler) {
+  elements.forEach((element) => element.addEventListener("change", handler));
+}
 
-[racketTypeFilter, racketTimingFilter, racketOrder].forEach((element) => {
-  element.addEventListener("change", renderRackets);
-});
+bindChangeListeners([characterTypeFilter, characterSort, characterOrder], renderCharacters);
+bindChangeListeners([racketTypeFilter, racketTimingFilter, racketOrder], renderRackets);
+characterSearch.addEventListener("input", renderCharacters);
 
 
 setupCharacterFilterChips();
