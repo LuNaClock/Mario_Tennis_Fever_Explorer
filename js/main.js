@@ -20,6 +20,7 @@ const characterCount = document.getElementById("character-count");
 const racketCount = document.getElementById("racket-count");
 
 const characterTypeFilter = document.getElementById("character-type-filter");
+const characterSpecialFilter = document.getElementById("character-special-filter");
 const characterSort = document.getElementById("character-sort");
 const characterOrder = document.getElementById("character-order");
 const characterSearch = document.getElementById("character-search");
@@ -181,6 +182,7 @@ function updateApplyButtonCount(buttonId, count) {
 function getFilteredCharacters() {
   const typeValue = characterTypeFilter.value;
   const searchValue = characterSearch.value.trim().toLowerCase();
+  const specialValue = characterSpecialFilter.value;
 
   let filtered = characters;
   if (typeValue !== "all") {
@@ -188,6 +190,12 @@ function getFilteredCharacters() {
   }
   if (searchValue) {
     filtered = filtered.filter((character) => character.name.toLowerCase().includes(searchValue));
+  }
+  if (specialValue === "yes") {
+    filtered = filtered.filter((character) => character.special !== "なし");
+  }
+  if (specialValue === "no") {
+    filtered = filtered.filter((character) => character.special === "なし");
   }
 
   return filtered;
@@ -202,6 +210,12 @@ function updateCharacterActiveFilterChips() {
   }
   if (characterSearch.value.trim()) {
     chips.push({ key: "search", label: `検索: ${characterSearch.value.trim()}` });
+  }
+  if (characterSpecialFilter.value === "yes") {
+    chips.push({ key: "special", label: "特殊能力: あり" });
+  }
+  if (characterSpecialFilter.value === "no") {
+    chips.push({ key: "special", label: "特殊能力: なし" });
   }
   if (characterSort.value !== "name") {
     chips.push({ key: "sort", label: `ソート: ${characterSortLabels[characterSort.value] ?? characterSort.value}` });
@@ -272,6 +286,9 @@ function setupCharacterFilterChips() {
         break;
       case "search":
         characterSearch.value = "";
+        break;
+      case "special":
+        characterSpecialFilter.value = "all";
         break;
       case "sort":
         characterSort.value = "name";
@@ -435,7 +452,7 @@ function bindChangeListeners(elements, handler) {
   elements.forEach((element) => element.addEventListener("change", handler));
 }
 
-bindChangeListeners([characterTypeFilter, characterSort, characterOrder], renderCharacters);
+bindChangeListeners([characterTypeFilter, characterSpecialFilter, characterSort, characterOrder], renderCharacters);
 bindChangeListeners([racketTypeFilter, racketTimingFilter, racketOrder], renderRackets);
 characterSearch.addEventListener("input", renderCharacters);
 
