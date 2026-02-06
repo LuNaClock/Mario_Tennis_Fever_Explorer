@@ -30,7 +30,17 @@
         <div class="section-meta" id="character-count"></div>
       </div>
 
-      <div class="filters">
+      <div class="mobile-filter-trigger-wrap">
+        <button type="button" class="mobile-filter-trigger" data-modal-target="character-filter-modal">検索・絞り込み</button>
+      </div>
+
+      <div class="active-filter-chips" id="character-active-filters" aria-live="polite"></div>
+
+      <div class="filters" id="character-inline-filters">
+        <label class="filter">
+          <span>検索</span>
+          <input type="search" id="character-search" placeholder="キャラクター名で検索" />
+        </label>
         <label class="filter">
           <span>タイプ</span>
           <select id="character-type-filter">
@@ -62,6 +72,17 @@
         </label>
       </div>
 
+      <div class="filter-modal" id="character-filter-modal" aria-hidden="true">
+        <div class="filter-modal__panel">
+          <div class="filter-modal__header">
+            <h3>キャラクターの検索・絞り込み</h3>
+            <button type="button" class="filter-modal__close" data-modal-close="character-filter-modal" aria-label="閉じる">✕</button>
+          </div>
+          <div class="filters filters--modal" id="character-modal-filters"></div>
+          <button type="button" class="filter-modal__apply" id="character-filter-apply">0件を表示</button>
+        </div>
+      </div>
+
       <div id="character-list" class="card-grid"></div>
     </section>
 
@@ -75,7 +96,11 @@
         <div class="section-meta" id="racket-count"></div>
       </div>
 
-      <div class="filters">
+      <div class="mobile-filter-trigger-wrap">
+        <button type="button" class="mobile-filter-trigger" data-modal-target="racket-filter-modal">絞り込み</button>
+      </div>
+
+      <div class="filters" id="racket-inline-filters">
         <label class="filter">
           <span>種類</span>
           <select id="racket-type-filter">
@@ -100,6 +125,17 @@
             <option value="asc">昇順</option>
           </select>
         </label>
+      </div>
+
+      <div class="filter-modal" id="racket-filter-modal" aria-hidden="true">
+        <div class="filter-modal__panel">
+          <div class="filter-modal__header">
+            <h3>ラケットの絞り込み</h3>
+            <button type="button" class="filter-modal__close" data-modal-close="racket-filter-modal" aria-label="閉じる">✕</button>
+          </div>
+          <div class="filters filters--modal" id="racket-modal-filters"></div>
+          <button type="button" class="filter-modal__apply" id="racket-filter-apply">0件を表示</button>
+        </div>
       </div>
 
       <div id="racket-list" class="card-grid"></div>
