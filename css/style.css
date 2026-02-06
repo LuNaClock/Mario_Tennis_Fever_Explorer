@@ -468,6 +468,82 @@ img {
     font-size: 0.95rem;
   }
 
+
+  .card--compact {
+    gap: 10px;
+    padding: 12px;
+    border-radius: 14px;
+  }
+
+  .card--compact .card-header {
+    gap: 10px;
+    align-items: flex-start;
+  }
+
+  .card--compact .card-header h3 {
+    margin-bottom: 4px;
+    font-size: 1rem;
+    line-height: 1.35;
+  }
+
+  .card--compact .badge {
+    padding: 3px 10px;
+    font-size: 0.7rem;
+    line-height: 1.2;
+  }
+
+  .card--compact .card-image,
+  .card--compact .card-image--racket {
+    width: 60px;
+    height: 60px;
+    border-radius: 12px;
+  }
+
+  .card--compact .card-image--racket {
+    padding: 6px;
+  }
+
+  .card--compact .stats {
+    gap: 6px;
+  }
+
+  .card--compact .stat-row {
+    font-size: 0.78rem;
+    gap: 6px;
+  }
+
+  .card--compact .effect {
+    margin: 0;
+    padding: 9px 10px;
+    font-size: 0.8rem;
+    line-height: 1.45;
+  }
+
+  .card--compact .accordion {
+    padding-top: 8px;
+    gap: 6px;
+  }
+
+  .card--compact .accordion-toggle {
+    font-size: 0.85rem;
+    line-height: 1.35;
+  }
+
+  .card--compact .accordion-panel {
+    font-size: 0.8rem;
+    line-height: 1.5;
+  }
+
+  .card--compact .card-details {
+    display: grid;
+    gap: 10px;
+  }
+
+  .card-grid {
+    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+    gap: 12px;
+  }
+
   .mobile-bottom-nav {
     position: fixed;
     left: 0;

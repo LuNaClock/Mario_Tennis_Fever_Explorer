@@ -79,7 +79,11 @@ function createAccordion(title, content) {
   const panel = document.createElement("div");
   panel.className = "accordion-panel";
   panel.hidden = true;
-  panel.textContent = content;
+  if (content instanceof Node) {
+    panel.append(content);
+  } else {
+    panel.textContent = content;
+  }
 
   button.addEventListener("click", () => {
     const isExpanded = button.getAttribute("aria-expanded") === "true";
@@ -91,9 +95,18 @@ function createAccordion(title, content) {
   return wrapper;
 }
 
+function isMobileView() {
+  return window.matchMedia("(max-width: 768px)").matches;
+}
+
 function createCharacterCard(character) {
   const card = document.createElement("article");
   card.className = "card";
+
+  const mobileView = isMobileView();
+  if (mobileView) {
+    card.classList.add("card--compact");
+  }
 
   const header = document.createElement("div");
   header.className = "card-header";
@@ -118,9 +131,33 @@ function createCharacterCard(character) {
     stats.append(createStatRow(statLabels[key], value));
   });
 
+  if (mobileView) {
+    const compactStats = document.createElement("div");
+    compactStats.className = "stats stats--compact";
+
+    Object.entries(character.stats)
+      .sort((a, b) => b[1] - a[1])
+      .slice(0, 2)
+      .forEach(([key, value]) => {
+        compactStats.append(createStatRow(statLabels[key], value));
+      });
+
+    const detailsBody = document.createElement("div");
+    detailsBody.className = "card-details";
+    detailsBody.append(
+      stats,
+      createAccordion("特殊能力", character.special),
+      createAccordion("ゲーム内テキスト", character.text)
+    );
+
+    const details = createAccordion("詳細を見る", detailsBody);
+    details.classList.add("accordion--details");
+    card.append(header, compactStats, details);
+    return card;
+  }
+
   const special = createAccordion("特殊能力", character.special);
   const text = createAccordion("ゲーム内テキスト", character.text);
-
   card.append(header, stats, special, text);
   return card;
 }
@@ -128,6 +165,11 @@ function createCharacterCard(character) {
 function createRacketCard(racket) {
   const card = document.createElement("article");
   card.className = "card";
+
+  const mobileView = isMobileView();
+  if (mobileView) {
+    card.classList.add("card--compact");
+  }
 
   const header = document.createElement("div");
   header.className = "card-header";
@@ -152,6 +194,17 @@ function createRacketCard(racket) {
   const effect = document.createElement("p");
   effect.className = "effect";
   effect.textContent = racket.effect;
+
+  if (mobileView) {
+    const detailsBody = document.createElement("div");
+    detailsBody.className = "card-details";
+    detailsBody.append(effect, createAccordion("ゲーム内テキスト", racket.text));
+
+    const details = createAccordion("詳細を見る", detailsBody);
+    details.classList.add("accordion--details");
+    card.append(header, details);
+    return card;
+  }
 
   const text = createAccordion("ゲーム内テキスト", racket.text);
 
