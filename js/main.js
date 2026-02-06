@@ -405,6 +405,32 @@ function setupMobileSectionNav() {
   activateMobileNav(initialId || mobileSections[0].id);
 }
 
+
+function setupSectionCollapse() {
+  const toggles = Array.from(document.querySelectorAll(".section-title-toggle"));
+
+  toggles.forEach((toggle) => {
+    const targetId = toggle.dataset.collapseTarget;
+    const content = document.getElementById(targetId);
+
+    if (!content) {
+      return;
+    }
+
+    const updateState = (isExpanded) => {
+      toggle.setAttribute("aria-expanded", String(isExpanded));
+      content.hidden = !isExpanded;
+    };
+
+    updateState(toggle.getAttribute("aria-expanded") !== "false");
+
+    toggle.addEventListener("click", () => {
+      const isExpanded = toggle.getAttribute("aria-expanded") === "true";
+      updateState(!isExpanded);
+    });
+  });
+}
+
 function bindChangeListeners(elements, handler) {
   elements.forEach((element) => element.addEventListener("change", handler));
 }
@@ -420,4 +446,5 @@ setupFilterModal("racket-filter-modal", "racket-inline-filters", "racket-modal-f
 
 renderCharacters();
 renderRackets();
+setupSectionCollapse();
 setupMobileSectionNav();
