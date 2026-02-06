@@ -231,7 +231,7 @@ function sortItems(items, key, order) {
         : b.name.localeCompare(a.name, "ja");
     }
 
-    return order === "asc" ? a.stats[key] - b.stats[key] : b.stats[key] - a.stats[key];
+    return order === "asc" ? b.stats[key] - a.stats[key] : a.stats[key] - b.stats[key];
   });
   return sorted;
 }
