@@ -86,6 +86,61 @@ img {
   color: var(--accent);
 }
 
+.preset-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 16px 0 10px;
+}
+
+.preset-chip {
+  border: 1px solid var(--border);
+  background: rgba(8, 26, 42, 0.9);
+  color: var(--muted);
+  border-radius: 999px;
+  padding: 8px 14px;
+  font-weight: 700;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+.preset-chip.is-active {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+  color: var(--accent);
+}
+
+.mobile-filter-trigger-wrap {
+  display: none;
+}
+
+.mobile-filter-trigger {
+  width: 100%;
+  border: 1px solid var(--border);
+  background: rgba(9, 29, 47, 0.9);
+  color: var(--text);
+  border-radius: 12px;
+  padding: 12px 14px;
+  font-weight: 700;
+}
+
+.active-filter-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0 0 14px;
+}
+
+.active-filter-chip {
+  border: 1px solid var(--border);
+  background: rgba(8, 26, 42, 0.9);
+  color: var(--text);
+  border-radius: 999px;
+  padding: 6px 12px;
+  font-size: 0.8rem;
+  cursor: pointer;
+}
+
 .filters {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
@@ -100,13 +155,18 @@ img {
   color: var(--muted);
 }
 
-.filter select {
+.filter select,
+.filter input {
   padding: 10px 12px;
   border: 1px solid var(--border);
   border-radius: 10px;
   font-size: 0.95rem;
   background: rgba(10, 30, 48, 0.9);
   color: var(--text);
+}
+
+.filter-modal {
+  display: none;
 }
 
 .card-grid {
@@ -270,7 +330,6 @@ img {
   color: var(--muted);
 }
 
-
 .info-panel {
   padding: 16px 18px;
   border: 1px solid var(--border);
@@ -301,6 +360,79 @@ img {
 
   body {
     padding-bottom: 84px;
+  }
+
+  body.modal-open {
+    overflow: hidden;
+  }
+
+  .filters {
+    display: none;
+  }
+
+  .mobile-filter-trigger-wrap {
+    display: block;
+    margin: 12px 0;
+  }
+
+  .filter-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 30;
+    background: rgba(2, 8, 14, 0.7);
+    padding: 16px;
+  }
+
+  .filter-modal.is-open {
+    display: flex;
+    align-items: flex-end;
+  }
+
+  .filter-modal__panel {
+    width: 100%;
+    max-height: min(90vh, 700px);
+    background: rgba(9, 27, 43, 0.98);
+    border: 1px solid var(--border);
+    border-radius: 16px 16px 0 0;
+    padding: 14px;
+    display: grid;
+    gap: 12px;
+  }
+
+  .filter-modal__header {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    align-items: center;
+  }
+
+  .filter-modal__header h3 {
+    margin: 0;
+    font-size: 1rem;
+  }
+
+  .filter-modal__close {
+    border: 1px solid var(--border);
+    background: rgba(6, 20, 33, 0.9);
+    color: var(--text);
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+  }
+
+  .filters.filters--modal {
+    display: grid;
+    margin: 0;
+  }
+
+  .filter-modal__apply {
+    border: 1px solid var(--accent);
+    background: var(--accent-soft);
+    color: var(--accent);
+    padding: 12px;
+    border-radius: 12px;
+    font-weight: 700;
+    font-size: 0.95rem;
   }
 
   .mobile-bottom-nav {
