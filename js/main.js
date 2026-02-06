@@ -239,10 +239,20 @@ function sortItems(items, key, order) {
 function syncCharacterOrderAvailability() {
   const isNameSort = characterSort.value === "name";
   const gameOrderOptions = Array.from(document.querySelectorAll('#character-order option[value="game"]'));
+  const ascOptions = Array.from(document.querySelectorAll('#character-order option[value="asc"]'));
+  const descOptions = Array.from(document.querySelectorAll('#character-order option[value="desc"]'));
 
   gameOrderOptions.forEach((option) => {
     option.hidden = !isNameSort;
     option.disabled = !isNameSort;
+  });
+
+  ascOptions.forEach((option) => {
+    option.textContent = isNameSort ? "昇順" : "数値が低い順";
+  });
+
+  descOptions.forEach((option) => {
+    option.textContent = isNameSort ? "降順" : "数値が高い順";
   });
 
   if (!isNameSort && characterOrder.value === "game") {
@@ -314,10 +324,16 @@ function updateCharacterActiveFilterChips() {
     chips.push({ key: "sort", label: `ソート: ${characterSortLabels[characterSort.value] ?? characterSort.value}` });
   }
   if (characterOrder.value === "asc") {
-    chips.push({ key: "order", label: "並び順: 昇順" });
+    chips.push({
+      key: "order",
+      label: `並び順: ${characterSort.value === "name" ? "昇順" : "数値が低い順"}`,
+    });
   }
   if (characterOrder.value === "desc") {
-    chips.push({ key: "order", label: "並び順: 降順" });
+    chips.push({
+      key: "order",
+      label: `並び順: ${characterSort.value === "name" ? "降順" : "数値が高い順"}`,
+    });
   }
 
   chips.forEach((chip) => {
