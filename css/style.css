@@ -305,14 +305,32 @@ img {
 }
 
 .stat-bar {
+  position: relative;
   height: 8px;
   border-radius: 999px;
   background: rgba(247, 251, 255, 0.12);
   overflow: hidden;
 }
 
+.stat-bar::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 2;
+  background-image: repeating-linear-gradient(
+    to right,
+    transparent 0,
+    transparent calc(20% - 1px),
+    rgba(247, 251, 255, 0.45) calc(20% - 1px),
+    rgba(247, 251, 255, 0.45) 20%
+  );
+}
+
 .stat-fill {
   --stat-width: 0%;
+  position: relative;
+  z-index: 1;
   display: block;
   width: var(--stat-width);
   height: 100%;
