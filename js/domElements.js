@@ -1,0 +1,122 @@
+// Character Grid and Filters
+export const characterGrid = document.getElementById('characterGrid');
+export const characterSearchInput = document.getElementById('characterSearch');
+export const searchIcon = document.querySelector('.search-icon');
+export const costFilterButtons = document.querySelectorAll('#costFilter .filter-button');
+export const sortFilterButtons = document.querySelectorAll('#sortFilter .filter-button');
+export const recentCharactersGrid = document.getElementById('recentCharactersGrid');
+export const showRecentCardsButton = document.getElementById('showRecentCardsButton');
+export const resetRecentFilterButton = document.getElementById('resetRecentFilterButton');
+export const clearHistoryButton = document.getElementById('clearSimulationHistoryButton');
+export const historyList = document.getElementById('simulationHistoryList');
+
+// Accordions
+export const mainAccordionHeaders = document.querySelectorAll('.accordion-header:not(.sub-accordion-header)');
+export const subAccordionHeaders = document.querySelectorAll('.sub-accordion-header');
+export const totalHpAccordionHeaders = document.querySelectorAll('.total-hp-accordion-header');
+
+// New: Main section accordion headers and contents
+export const totalHpMainAccordionHeader = document.querySelector('#total-hp-accordion .accordion-header');
+export const totalHpMainAccordionContent = document.querySelector('#total-hp-accordion .accordion-content');
+export const selectedCharactersFullCardAccordionHeader = document.querySelector('#selected-characters-full-card-accordion .accordion-header');
+export const selectedCharactersFullCardAccordionContent = document.querySelector('#selected-characters-full-card-accordion .accordion-content');
+
+// New: Redeploy Simulation Section
+export const redeploySimulationSection = document.getElementById('redeploy-simulation-section');
+export const redeploySimulationContent = document.getElementById('redeploy-simulation-content');
+
+// Loading Overlay
+export const loadingOverlay = document.getElementById('loadingOverlay');
+
+// Redeploy Simulation Section
+export const playerCharSelect = document.getElementById('playerCharSelect');
+export const partnerCharSelect = document.getElementById('partnerCharSelect');
+export const totalTeamCostSpan = document.getElementById('totalTeamCost');
+export const selectedCharsDisplay = document.getElementById('selectedCharsDisplay');
+export const remainingTeamCostInput = document.getElementById('remainingTeamCostInput');
+export const redeployTargetChips = document.getElementById('redeployTargetChips');
+
+// Redeploy Simulation Results
+export const simulationResultsDiv = document.getElementById('simulationResults');
+export const redeployCharNameSpan = document.getElementById('redeployCharName');
+export const redeployCharCostSpan = document.getElementById('redeployCharCost');
+export const redeployOriginalHpSpan = document.getElementById('redeployOriginalHp');
+export const redeployCostConsumedSpan = document.getElementById('redeployCostConsumed');
+export const redeployCalculatedHpSpan = document.getElementById('redeployCalculatedHp');
+export const simulationHpBarFill = simulationResultsDiv?.querySelector('.hp-bar-fill');
+export const redeployPredictionResultsSection = document.querySelector('#simulationResults h3');
+
+// New element for full character cards in Redeploy Simulation
+export const redeploySimulationSelectedCharactersGrid = document.getElementById('redeploySimulationSelectedCharactersGrid');
+
+// Awakening Gauge Prediction
+export const awakeningSimulationArea = document.querySelector('.awakening-simulation-area');
+export const beforeShotdownAwakeningGaugeInput = document.getElementById('beforeShotdownAwakeningGaugeInput');
+export const beforeShotdownHpInput = document.getElementById('beforeShotdownHpInput');
+export const considerOwnDownCheckbox = document.getElementById('considerOwnDownCheckbox');
+export const considerDamageDealtCheckbox = document.getElementById('considerDamageDealtCheckbox');
+export const damageDealtOptionsContainer = document.getElementById('damageDealtOptionsContainer');
+export const damageDealtAwakeningBonusSelect = document.getElementById('damageDealtAwakeningBonusSelect');
+export const considerShieldSuccessCheckbox = document.getElementById('considerShieldSuccessCheckbox');
+export const shieldSuccessOptionsContainer = document.getElementById('shieldSuccessOptionsContainer');
+export const shieldSuccessAwakeningBonusSelect = document.getElementById('shieldSuccessAwakeningBonusSelect');
+export const considerPartnerDownCheckbox = document.getElementById('considerPartnerDownCheckbox');
+export const predictedAwakeningGaugeSpan = document.getElementById('predictedAwakeningGauge');
+export const awakeningAvailabilitySpan = document.getElementById('awakeningAvailability');
+export const awakeningBreakdownDetails = document.getElementById('awakeningBreakdownDetails');
+export const awakeningDetailPreGaugeValue = document.getElementById('awakeningDetailPreGaugeValue');
+export const awakeningDetailDamageValue = document.getElementById('awakeningDetailDamageValue');
+export const awakeningDetailDamageNote = document.getElementById('awakeningDetailDamageNote');
+export const awakeningDetailOwnDownValue = document.getElementById('awakeningDetailOwnDownValue');
+export const awakeningDetailOwnDownStatus = document.getElementById('awakeningDetailOwnDownStatus');
+export const awakeningDetailDamageBonusValue = document.getElementById('awakeningDetailDamageBonusValue');
+export const awakeningDetailDamageBonusStatus = document.getElementById('awakeningDetailDamageBonusStatus');
+export const awakeningDetailShieldBonusValue = document.getElementById('awakeningDetailShieldBonusValue');
+export const awakeningDetailShieldBonusStatus = document.getElementById('awakeningDetailShieldBonusStatus');
+export const awakeningDetailPartnerBonusValue = document.getElementById('awakeningDetailPartnerBonusValue');
+export const awakeningDetailPartnerBonusStatus = document.getElementById('awakeningDetailPartnerBonusStatus');
+export const awakeningDetailTotalValue = document.getElementById('awakeningDetailTotalValue');
+
+// Awakening Gauge Calculation Details (for dynamic value insertion)
+export const avgGaugeCoeffValue30Span = document.getElementById('avgGaugeCoeffValue30');
+export const avgGaugeCoeffValueOthersSpan = document.getElementById('avgGaugeCoeffValueOthers');
+export const avgGaugeCoeffExample30Span = document.getElementById('avgGaugeCoeffExample30');
+export const avgGaugeCoeffExampleOthersSpan = document.getElementById('avgGaugeCoeffExampleOthers');
+export const ownDownBonus30Span = document.getElementById('ownDownBonus30');
+export const ownDownBonus20Span = document.getElementById('ownDownBonus20');
+export const ownDownBonus15Span = document.getElementById('ownDownBonus15');
+export const partnerDownBonus30Span = document.getElementById('partnerDownBonus30');
+export const partnerDownBonus25Span = document.getElementById('partnerDownBonus25');
+export const partnerDownBonus20Span = document.getElementById('partnerDownBonus20');
+export const partnerDownBonus15Span = document.getElementById('partnerDownBonus15');
+export const awakeningThresholdValueSpan = document.getElementById('awakeningThresholdValue');
+
+
+// Total Team HP Display Area
+export const totalHpDisplayArea = document.getElementById('totalHpDisplayArea');
+export const selectedPlayerCharNameSummary = document.getElementById('selectedPlayerCharNameSummary');
+export const selectedPartnerCharNameSummary = document.getElementById('selectedPartnerCharNameSummary');
+
+export const highestHpScenarioTitleSpan = document.getElementById('highestHpScenarioTitle');
+export const idealGainedHpSpan = document.getElementById('idealGainedHp');
+export const idealSequenceList = document.getElementById('idealSequenceList');
+
+export const compromiseHpScenarioTitleSpan = document.getElementById('compromiseHpScenarioTitle');
+export const minGainedHpSpan = document.getElementById('minGainedHpSpan');
+export const minSequenceList = document.getElementById('minSequenceList');
+
+export const bombHpScenarioTitleSpan = document.getElementById('bombHpScenarioTitle');
+export const bombGainedHpSpan = document.getElementById('bombGainedHp');
+export const bombSequenceList = document.getElementById('bombSequenceList');
+
+export const lowestHpScenarioTitleSpan = document.getElementById('lowestHpScenarioTitle');
+export const lowestGainedHpSpan = document.getElementById('lowestGainedHp');
+export const lowestSequenceList = document.getElementById('lowestSequenceList');
+
+// Share Buttons
+export const shareRedeployResultBtn = document.getElementById('shareRedeployResultBtn');
+export const shareTotalHpResultBtn = document.getElementById('shareTotalHpResultBtn');
+
+// New URL Copy Buttons (IDs will be defined in HTML later)
+export const copyRedeployUrlBtn = document.getElementById('copyRedeployUrlBtn');
+export const copyTotalHpUrlBtn = document.getElementById('copyTotalHpUrlBtn');

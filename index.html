@@ -1,0 +1,1175 @@
+﻿<!DOCTYPE html>
+<html lang="ja">
+<head>
+        <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-X6GK53JEWH"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-X6GK53JEWH');
+    </script>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <!-- Content Security Policy (CSP) -->
+    <meta http-equiv="Content-Security-Policy"
+          content="default-src 'self';
+                   script-src 'self' https://cdnjs.cloudflare.com 'unsafe-inline';
+                   style-src 'self' https://fonts.googleapis.com https://cdnjs.cloudflare.com 'unsafe-inline';
+                   style-src-elem 'self' https://fonts.googleapis.com https://cdnjs.cloudflare.com;
+                   font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com;
+                   connect-src 'self';
+                   img-src 'self' data: blob: assets:;
+                   form-action 'none';">
+    <meta name="description" content="『星の翼』の総合耐久・覚醒ゲージをシミュレーションできる無料ツール。チーム編成や残コスト、再出撃時の耐久力を素早く把握し、最適な立ち回りをサポートします。">
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "星の翼 総合耐久・覚醒シミュレーター",
+        "description": "『星の翼』の総合耐久や覚醒ゲージを条件別に計算できる無料のコストシミュレーターです。",
+        "url": "https://starward-cost-calculator.example.com/",
+        "operatingSystem": "Web",
+        "applicationCategory": "GameApplication",
+        "inLanguage": "ja",
+        "author": {
+            "@type": "Person",
+            "name": "StarWard Cost Calculator Team"
+        }
+    }
+    </script>
+    <title>星の翼 コスオバ・総体力・覚醒シミュレーター</title>
+    <!-- Google Fonts - Noto Sans JP (標準用) をインポート -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet" crossorigin="anonymous">
+    <!-- Google Fonts - SF的なフォントをインポート -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Rajdhani:wght@600&display=swap" rel="stylesheet" crossorigin="anonymous">
+    <!-- Font Awesome (アイコン用) をインポート - SRI追加 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+          integrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0v4LLanw2qksYuRlEzO+tcaEPQogQ0KaoGN26/zrn20ImR1DfuLWnOo7aBA=="
+          crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- 分離したCSSファイルを読み込む -->
+    <link rel="stylesheet" href="css/main.css?v=1.4">
+    <link rel="stylesheet" href="css/mobile-app.css">
+</head>
+<body data-theme="dark">
+    <div class="mobile-app" data-theme="dark">
+        <div class="app-shell">
+            <header class="app-header">
+                <p class="app-title">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                        <path d="M4 12a8 8 0 0116 0v4.5a2.5 2.5 0 01-2.5 2.5H6.5A2.5 2.5 0 014 16.5V12z" stroke="currentColor" stroke-width="1.6" fill="none"></path>
+                        <path d="M9 18.5v1.5a2.5 2.5 0 005 0v-1.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"></path>
+                        </svg>
+                        星の翼 コスオバ・総体力・覚醒シミュレーター
+                </p>
+            </header>
+
+            <main class="app-main">
+                <section id="home" class="screen" role="tabpanel" aria-labelledby="tab-home">
+                    <article class="panel hero-card">
+                        <div class="hero-content">
+                            <p class="panel-subtitle hero-description">
+                                最近のシミュレーションで計算したキャラクターのカードをまとめて確認できます。<br>
+                                元々の体力やコストオーバー時の体力を確認したい場合に役立ちます。
+                            </p>
+                            <div class="hero-actions">
+                                <button class="cta-secondary" data-nav-target="#cards" data-card-scope="recent">
+                                    最近シミュレーションしたキャラを確認する
+                                </button>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="panel">
+                        <div class="panel-header">
+                            <h2 class="panel-title">シミュレーション履歴</h2>
+                            <button class="cta-secondary" data-action="clear-history">履歴をクリア</button>
+                        </div>
+                        <p class="panel-subtitle panel-description">
+                            直近に行ったシミュレーションの条件や結果が時系列で表示されます。<br>
+                            各履歴をタップすると同じ条件でシミュレーションを再現できます。
+                        </p>
+                        <div class="quick-list" id="recentList" aria-live="polite">
+                            <p class="panel-subtitle">まだ計算履歴がありません</p>
+                        </div>
+                    </article>
+
+                    <article class="panel">
+                        <div class="panel-header">
+                            <h2 class="panel-title">クイックリンク</h2>
+                            <p class="panel-subtitle">よく使う機能に素早くアクセス</p>
+                        </div>
+                        <div class="quick-list">
+                            <div class="quick-item" data-nav-target="#sim">
+                                <div class="quick-label">
+                                    <span>再出撃シミュレーター</span>
+                                    <span>自機/相方・残りコスト・覚醒ゲージ予測</span>
+                                </div>
+                                <span class="quick-value">開く</span>
+                            </div>
+                            <div class="quick-item" data-nav-target="#cards" data-card-scope="all">
+                                <div class="quick-label">
+                                    <span>キャラクターカード一覧</span>
+                                    <span>残コスト別の耐久テーブル</span>
+                                </div>
+                                <span class="quick-value">開く</span>
+                            </div>
+                            <div class="quick-item" data-nav-target="#settings">
+                                <div class="quick-label">
+                                    <span>ツール情報</span>
+                                    <span>ツールに関する情報を確認できます。</span>
+                                </div>
+                                <span class="quick-value">開く</span>
+                            </div>
+                        </div>
+                    </article>
+                </section>
+
+                <section id="sim" class="screen" role="tabpanel" aria-labelledby="tab-sim" hidden>
+                    <article class="panel panel--spotlight">
+                        <div class="panel-header">
+                            <h2 class="panel-title panel-title--spotlight">
+                                <span class="panel-title__icon" aria-hidden="true">
+                                    <i class="fas fa-rocket"></i>
+                                </span>
+                                <span class="panel-title__text">シミュレーター</span>
+                            </h2>
+                            <p class="panel-subtitle">チーム構成を入力</p>
+                        </div>
+                            <div class="section-group">
+                                <button class="section-toggle" type="button" aria-expanded="true" data-collapse="#sim-team">
+                                    チーム情報
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                                        <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path>
+                                    </svg>
+                                </button>
+                                <div id="sim-team" class="collapse" data-open="true">
+                                    <p class="panel-subtitle panel-description">
+                                        自機と相方を選択することで、どちらかの機体が再出撃した場合の体力をシミュレーションできます。
+                                    </p>
+                                    <div class="input-list">
+                                        <div class="form-field">
+                                            <label for="mobilePlayerPickerToggle">自機</label>
+                                            <div class="character-picker" data-picker-role="player">
+                                            <button id="mobilePlayerPickerToggle" class="character-picker-toggle" type="button" data-picker-toggle="player" aria-expanded="false">
+                                                <div class="character-picker-toggle-content">
+                                                    <div class="character-picker-selected-icon is-placeholder" data-picker-selected-icon="player">?</div>
+                                                    <div class="character-picker-selected-text">
+                                                        <span class="character-picker-label">自機を選択</span>
+                                                        <span class="character-picker-selected-name" data-picker-selected-name="player">未選択</span>
+                                                    </div>
+                                                </div>
+                                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                                                    <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path>
+                                                </svg>
+                                            </button>
+                                            <div class="character-picker-panel" data-picker-panel="player" role="dialog" aria-modal="false" hidden>
+                                                <div class="character-picker-search">
+                                                    <label class="character-picker-search-label" for="simPlayerPickerSearch">キャラ名で検索</label>
+                                                    <div class="character-picker-search-input-wrapper">
+                                                        <i class="fas fa-search" aria-hidden="true"></i>
+                                                        <input id="simPlayerPickerSearch" type="text" class="character-picker-search-input" data-picker-search="player" placeholder="例: ベータ" aria-label="自機候補を検索" aria-describedby="simPlayerPickerHint" autocomplete="off">
+                                                    </div>
+                                                    <p class="character-picker-search-helper" id="simPlayerPickerHint" aria-live="polite" data-default-text="候補の名前や一部の文字列でも絞り込みできます">候補の名前や一部の文字列でも絞り込みできます</p>
+                                                </div>
+                                                <div class="character-picker-cost-filter" role="group" aria-label="コスト帯で絞り込む">
+                                                    <button type="button" class="picker-filter-button active" data-picker-cost="all" aria-pressed="true">すべて</button>
+                                                    <button type="button" class="picker-filter-button" data-picker-cost="3.0" aria-pressed="false">3.0</button>
+                                                    <button type="button" class="picker-filter-button" data-picker-cost="2.5" aria-pressed="false">2.5</button>
+                                                    <button type="button" class="picker-filter-button" data-picker-cost="2.0" aria-pressed="false">2.0</button>
+                                                    <button type="button" class="picker-filter-button" data-picker-cost="1.5" aria-pressed="false">1.5</button>
+                                                </div>
+                                                <div class="character-picker-list" data-picker-list="player" role="listbox" aria-label="自機候補一覧"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-field">
+                                        <label for="mobilePartnerPickerToggle">相方</label>
+                                        <div class="character-picker" data-picker-role="partner">
+                                            <button id="mobilePartnerPickerToggle" class="character-picker-toggle" type="button" data-picker-toggle="partner" aria-expanded="false">
+                                                <div class="character-picker-toggle-content">
+                                                    <div class="character-picker-selected-icon is-placeholder" data-picker-selected-icon="partner">?</div>
+                                                    <div class="character-picker-selected-text">
+                                                        <span class="character-picker-label">相方を選択</span>
+                                                        <span class="character-picker-selected-name" data-picker-selected-name="partner">未選択</span>
+                                                    </div>
+                                                </div>
+                                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                                                    <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path>
+                                                </svg>
+                                            </button>
+                                            <div class="character-picker-panel" data-picker-panel="partner" role="dialog" aria-modal="false" hidden>
+                                                <div class="character-picker-search">
+                                                    <label class="character-picker-search-label" for="simPartnerPickerSearch">キャラ名で検索</label>
+                                                    <div class="character-picker-search-input-wrapper">
+                                                        <i class="fas fa-search" aria-hidden="true"></i>
+                                                        <input id="simPartnerPickerSearch" type="text" class="character-picker-search-input" data-picker-search="partner" placeholder="例: ベータ" aria-label="相方候補を検索" aria-describedby="simPartnerPickerHint" autocomplete="off">
+                                                    </div>
+                                                    <p class="character-picker-search-helper" id="simPartnerPickerHint" aria-live="polite" data-default-text="候補の名前や一部の文字列でも絞り込みできます">候補の名前や一部の文字列でも絞り込みできます</p>
+                                                </div>
+                                                <div class="character-picker-cost-filter" role="group" aria-label="コスト帯で絞り込む">
+                                                    <button type="button" class="picker-filter-button active" data-picker-cost="all" aria-pressed="true">すべて</button>
+                                                    <button type="button" class="picker-filter-button" data-picker-cost="3.0" aria-pressed="false">3.0</button>
+                                                    <button type="button" class="picker-filter-button" data-picker-cost="2.5" aria-pressed="false">2.5</button>
+                                                    <button type="button" class="picker-filter-button" data-picker-cost="2.0" aria-pressed="false">2.0</button>
+                                                    <button type="button" class="picker-filter-button" data-picker-cost="1.5" aria-pressed="false">1.5</button>
+                                                </div>
+                                                <div class="character-picker-list" data-picker-list="partner" role="listbox" aria-label="相方候補一覧"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-field">
+                                        <span id="redeployLabel">再出撃する機体</span>
+                                        <div class="chip-row" role="radiogroup" aria-labelledby="redeployLabel" id="redeployChips">
+                                            <button class="filter-chip" type="button" data-value="player" aria-pressed="true">自機</button>
+                                            <button class="filter-chip" type="button" data-value="partner" aria-pressed="false">相方</button>
+                                        </div>
+                                        <p class="input-helper">再出撃対象に合わせて覚醒計算も行います</p>
+                                    </div>
+                                    <div class="form-field">
+                                        <label for="remainingCost">残りチームコスト</label>
+                                        <input id="remainingCost" type="number" inputmode="decimal" step="0.1" min="0" max="6" value="6">
+                                        <p class="input-helper">チーム合計コスト: <span data-bind="team-total">0.0</span> / 6.0</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </article>
+
+                    <section class="results-panel-group" id="simResults" hidden aria-label="シミュレーション結果">
+                        <article class="results-panel results-panel--redeploy" id="simRedeployResults">
+                            <h3 class="panel-title">再出撃結果</h3>
+                            <div class="results-section" role="group" aria-label="再出撃計算の概要">
+                                <div class="results-grid">
+                                    <div class="result-figure">
+                                        <span>再出撃体力</span>
+                                        <strong data-bind="result-hp">0</strong>
+                                    </div>
+                                    <div class="result-figure">
+                                        <span>消費コスト</span>
+                                        <strong data-bind="result-cost">0</strong>
+                                    </div>
+                                </div>
+                                <dl class="results-details" aria-label="再出撃詳細">
+                                    <div class="results-details__item">
+                                        <dt class="results-details__label">再出撃機体</dt>
+                                        <dd class="results-details__value" data-bind="result-unit">--</dd>
+                                    </div>
+                                    <div class="results-details__item">
+                                        <dt class="results-details__label">機体コスト</dt>
+                                        <dd class="results-details__value" data-bind="result-base-cost">--</dd>
+                                    </div>
+                                    <div class="results-details__item">
+                                        <dt class="results-details__label">本来の体力</dt>
+                                        <dd class="results-details__value" data-bind="result-original-hp">--</dd>
+                                    </div>
+                                    <div class="results-details__item">
+                                        <dt class="results-details__label">再出撃時コスト消費</dt>
+                                        <dd class="results-details__value" data-bind="result-cost-detail">--</dd>
+                                    </div>
+                                    <div class="results-details__item">
+                                        <dt class="results-details__label">再出撃時体力</dt>
+                                        <dd class="results-details__value" data-bind="result-hp-detail">--</dd>
+                                    </div>
+                                </dl>
+                                <div class="hp-bar" aria-hidden="true">
+                                    <span data-bind="result-hp-bar" style="width: 0%"></span>
+                                </div>
+                            </div>
+                        </article>
+                    </section>
+
+                    <article class="panel panel--spotlight">
+                        <div class="panel-header">
+                            <h2 class="panel-title panel-title--spotlight">
+                                <span class="panel-title__icon" aria-hidden="true">
+                                    <i class="fas fa-bolt"></i>
+                                </span>
+                                <span class="panel-title__text">覚醒ゲージ予測</span>
+                            </h2>
+                            <p class="panel-subtitle">覚醒ゲージ量の計算が出来ます</p>
+                        </div>
+                        <div class="section-group">
+                            <button class="section-toggle" type="button" aria-expanded="false" data-collapse="#sim-awakening">
+                                覚醒ゲージ量を計算する
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                                    <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path>
+                                </svg>
+                            </button>
+                            <div id="sim-awakening" class="collapse">
+                                <div class="input-list">
+                                    <div class="form-field">
+                                        <label for="preGauge">被弾前の覚醒ゲージ量</label>
+                                        <input id="preGauge" type="number" inputmode="numeric" min="0" max="100" placeholder="例:0～100">
+                                    </div>
+                                    <div class="form-field">
+                                        <label for="damageTaken">想定被ダメージ量</label>
+                                        <input id="damageTaken" type="number" inputmode="numeric" min="0" placeholder="例:300">
+                                        <p class="input-helper">※被弾を想定しない場合は、数値を0にしてください。</p>
+                                    </div>
+                                    <label class="checkbox-field">
+                                        <span class="checkbox-field__control">
+                                            <input type="checkbox" id="ownDown">
+                                            <span class="checkbox-field__label">再出撃時のゲージ量加算</span>
+                                        </span>
+                                        <span class="checkbox-field__helper input-helper">※被撃墜直後のゲージ量を計算したい場合にチェック</span>
+                                    </label>
+                                    <label class="checkbox-field">
+                                        <span class="checkbox-field__control">
+                                            <input type="checkbox" id="damageBonus">
+                                            <span class="checkbox-field__label">攻撃時のゲージ量加算</span>
+                                        </span>
+                                    </label>
+                                    <div class="form-field" data-field="bonus-select" hidden>
+                                        <label for="bonusSelect">攻撃時のゲージ量加算</label>
+                                        <select id="bonusSelect">
+                                            <option value="0">なし</option>
+                                            <option value="2">約2% (ズンダ1回分)</option>
+                                            <option value="4">約4% (ズンダ2回分)</option>
+                                            <option value="6">約6% (ズンダ3回分)</option>
+                                        </select>
+                                    </div>
+                                    <label class="checkbox-field">
+                                        <span class="checkbox-field__control">
+                                            <input type="checkbox" id="shieldBonus">
+                                            <span class="checkbox-field__label">シールド成功時のゲージ量加算</span>
+                                        </span>
+                                    </label>
+                                    <div class="form-field" data-field="shield-bonus-select" hidden>
+                                        <label for="shieldBonusSelect">シールド成功時のゲージ量加算</label>
+                                        <select id="shieldBonusSelect">
+                                            <option value="0">なし</option>
+                                            <option value="3">約3% (シールド成功1回分)</option>
+                                            <option value="6">約6% (シールド成功2回分)</option>
+                                            <option value="9">約9% (シールド成功3回分)</option>
+                                        </select>
+                                    </div>
+                                    <label class="checkbox-field">
+                                        <span class="checkbox-field__control">
+                                            <input type="checkbox" id="partnerDown">
+                                            <span class="checkbox-field__label">相方被撃墜時のゲージ量加算</span>
+                                        </span>
+                                    </label>
+                                </div>
+                                <div class="inline-result" id="awakeningInlineResults" aria-live="polite" hidden>
+                                    <div class="inline-result__header">
+                                        <span class="inline-result__title">覚醒ゲージ予測</span>
+                                        <span class="inline-result__status" data-inline="awaken">--</span>
+                                    </div>
+                                    <div class="inline-result__body">
+                                        <div class="inline-result__item">
+                                            <span class="inline-result__label">予測覚醒ゲージ量</span>
+                                            <strong class="inline-result__value" data-inline="gauge">--%</strong>
+                                        </div>
+                                    </div>
+                                </div>
+                                <details id="awakeningBreakdownMobile" class="calc-breakdown" hidden>
+                                    <summary class="calc-breakdown__summary">
+                                        <span class="calc-breakdown__summary-text">
+                                            <i class="fas fa-list-ul" aria-hidden="true"></i>
+                                            計算内訳を表示
+                                        </span>
+                                    </summary>
+                                    <div class="calc-breakdown__content">
+                                        <dl class="calc-breakdown__list">
+                                            <div class="calc-breakdown__item">
+                                                <dt>被弾前の覚醒ゲージ量</dt>
+                                                <dd>
+                                                    <span data-awakening-mobile="pre-gauge">--%</span>
+                                                </dd>
+                                            </div>
+                                            <div class="calc-breakdown__item">
+                                                <dt>被ダメージによる増加</dt>
+                                                <dd>
+                                                    <span data-awakening-mobile="damage">+--%</span>
+                                                    <small data-awakening-mobile="damage-note">想定被ダメージ: --</small>
+                                                </dd>
+                                            </div>
+                                            <div class="calc-breakdown__item">
+                                                <dt>再出撃時のゲージ量加算</dt>
+                                                <dd>
+                                                    <span data-awakening-mobile="own-down">+--%</span>
+                                                    <small data-awakening-mobile-status="own-down" hidden>未適用</small>
+                                                </dd>
+                                            </div>
+                                            <div class="calc-breakdown__item">
+                                                <dt>攻撃時のゲージ量加算</dt>
+                                                <dd>
+                                                    <span data-awakening-mobile="damage-bonus">+--%</span>
+                                                    <small data-awakening-mobile-status="damage-bonus" hidden>未適用</small>
+                                                </dd>
+                                            </div>
+                                            <div class="calc-breakdown__item">
+                                                <dt>シールド成功時のゲージ量加算</dt>
+                                                <dd>
+                                                    <span data-awakening-mobile="shield-bonus">+--%</span>
+                                                    <small data-awakening-mobile-status="shield-bonus" hidden>未適用</small>
+                                                </dd>
+                                            </div>
+                                            <div class="calc-breakdown__item">
+                                                <dt>相方被撃墜時のゲージ量加算</dt>
+                                                <dd>
+                                                    <span data-awakening-mobile="partner-bonus">+--%</span>
+                                                    <small data-awakening-mobile-status="partner-bonus" hidden>未適用</small>
+                                                </dd>
+                                            </div>
+                                            <div class="calc-breakdown__item calc-breakdown__item--total">
+                                                <dt>合計</dt>
+                                                <dd>
+                                                    <span data-awakening-mobile="total">--%</span>
+                                                </dd>
+                                            </div>
+                                        </dl>
+                                    </div>
+                                </details>
+
+                                <details class="info-details" data-role="awakening-guide">
+                                    <summary>覚醒ゲージ計算の詳細 </summary>
+                                    <p>覚醒ゲージは以下の要素に基づいて計算されます。</p>
+                                    <div class="info-details__section">
+                                        <h4>基礎増加（被ダメージ）</h4>
+                                        <p>受けたダメージ量に応じてゲージが増加します。本来の体力に対する割合をもとにしています。</p>
+                                        <p class="info-details__formula"><strong>増加量 = (被ダメージ量 / 本来の体力) × 100 × 約0.598（3.0コスト） / 約0.640（2.5/2.0/1.5コスト）</strong></p>
+                                        <p class="info-details__tip">例: 体力3000の機体が1500ダメージを受けた場合、3.0コスト機体なら (1500 / 3000) × 100 × 約0.598 ≒ 約29.9% 増加、2.5/2.0/1.5コスト機体なら (1500 / 3000) × 100 × 約0.640 ≒ 約32.0% 増加します。</p>
+                                    </div>
+                                    <div class="info-details__section">
+                                        <h4>再出撃直後のゲージ量（最低保証値）</h4>
+                                        <p>「再出撃直後ボーナスを加算」にチェックを入れると、被撃墜による覚醒ゲージ増加分が加わります。自機コストに応じてツール内で計測した最低保証値を適用しています。</p>
+                                        <ul>
+                                            <li>コスト3.0 / 2.5: 約22%</li>
+                                            <li>コスト2.0: 約20%</li>
+                                            <li>コスト1.5: 約15%</li>
+                                        </ul>
+                                        <p class="info-details__tip">撃墜時に最大体力を超えるダメージを受けた分も加算されるため、実際の値とは誤差が生じる場合があります。</p>
+                                    </div>
+                                    <div class="info-details__section">
+                                        <h4>与ダメージ考慮</h4>
+                                        <p>「与ダメージボーナスを加算」にチェックを入れ、ドロップダウンから与ダメージ量に応じたボーナスを選ぶと、その分が加算されます。</p>
+                                    </div>
+                                    <div class="info-details__section">
+                                        <h4>相方被撃墜考慮</h4>
+                                        <p>「相方被撃墜ボーナスを加算」にチェックを入れると、相方が被撃墜されたときの覚醒ゲージ増加分が加わります。こちらも自機のコストごとに増加量が変わります。</p>
+                                        <ul>
+                                            <li>コスト3.0: 約10%</li>
+                                            <li>コスト2.5: 約9%</li>
+                                            <li>コスト2.0: 約7%</li>
+                                            <li>コスト1.5: 約5%</li>
+                                        </ul>
+                                    </div>
+                                    <p>最終的な覚醒ゲージが50%以上になると覚醒を使用できます。計算結果は常に0%から100%の範囲になります。</p>
+                                    <div class="info-details__note">
+                                        <h4>注意点</h4>
+                                        <ul>
+                                            <li>被ダメージによる覚醒ゲージ増加率の係数は機体ごとに異なります。本ツールではコスト帯ごとに数例ほど計測した平均的な係数を採用しています。</li>
+                                            <li>再出撃直後のゲージ量は基本的に自機コスト依存ですが、一部機体では異なる数値が設定されている場合があります。</li>
+                                            <li>覚醒ゲージは小数点以下まで計算されていると推測されるため、ゲーム内の表示と多少の誤差が生じます。</li>
+                                        </ul>
+                                        <p>以上の理由から、計算結果は目安としてご利用ください。</p>
+                                    </div>
+                                </details>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="panel panel--spotlight team-summary" id="teamSummaryPanel">
+                        <div class="panel-header">
+                            <h3 class="panel-title panel-title--spotlight">
+                                <span class="panel-title__icon" aria-hidden="true">
+                                    <i class="fas fa-heartbeat"></i>
+                                </span>
+                                <span class="panel-title__text">チーム合計体力予測</span>
+                            </h3>
+                            <p class="panel-subtitle" data-role="team-summary-empty">理想/妥協/爆弾/最低パターン別の合計体力が表示されます。</p>
+                        </div>
+                        <details class="info-details" data-role="team-summary-guide">
+                            <summary>チーム合計体力予測の見方</summary>
+                            <p>「再出撃シミュレーション」でチームを組むと、表示される4つのシナリオが自動で更新され、撃墜順序による合計体力の差を確認できます。</p>
+                            <p>理想的な落ち方から最悪なパターンまで一度に把握し、実践に活かしましょう。</p>
+                            <div class="info-details__section">
+                                <h4>各パターンの概要</h4>
+                                <ul>
+                                    <li><strong>チーム合計体力(理想):</strong> 高コスト機から撃墜される理想的なケース。</li>
+                                    <li><strong>チーム合計体力(妥協):</strong> 低コスト機から撃墜されるケース。</li>
+                                    <li><strong>チーム合計体力(爆弾):</strong> 低コスト機のみが連続で撃墜されるケース。</li>
+                                    <li><strong>チーム合計体力(最低):</strong> 片方の機体だけが落ち続ける最も非効率なケース。</li>
+                                </ul>
+                            </div>
+                            <p class="info-details__note">各カードの「撃墜順序と総体力」をタップすると、撃墜順や各段階での体力・残りコストの内訳を確認できます。</p>
+                        </details>
+                        <div class="team-summary-grid" data-role="team-summary-grid" hidden>
+                            <div class="team-summary-card" data-scenario="ideal">
+                                <p class="team-summary-title" data-role="title">チーム合計体力(理想)</p>
+                                <p class="team-summary-value" data-role="value">--</p>
+                                <details class="scenario-details">
+                                    <summary>撃墜順序と総体力</summary>
+                                    <ul class="scenario-list" data-role="list"></ul>
+                                </details>
+                            </div>
+                            <div class="team-summary-card" data-scenario="compromise">
+                                <p class="team-summary-title" data-role="title">チーム合計体力(妥協)</p>
+                                <p class="team-summary-value" data-role="value">--</p>
+                                <details class="scenario-details">
+                                    <summary>撃墜順序と総体力</summary>
+                                    <ul class="scenario-list" data-role="list"></ul>
+                                </details>
+                            </div>
+                            <div class="team-summary-card" data-scenario="bomb">
+                                <p class="team-summary-title" data-role="title">チーム合計体力(爆弾)</p>
+                                <p class="team-summary-value" data-role="value">--</p>
+                                <details class="scenario-details">
+                                    <summary>撃墜順序と総体力</summary>
+                                    <ul class="scenario-list" data-role="list"></ul>
+                                </details>
+                            </div>
+                            <div class="team-summary-card" data-scenario="lowest">
+                                <p class="team-summary-title" data-role="title">チーム合計体力(最低)</p>
+                                <p class="team-summary-value" data-role="value">--</p>
+                                <details class="scenario-details">
+                                    <summary>撃墜順序と総体力</summary>
+                                    <ul class="scenario-list" data-role="list"></ul>
+                                </details>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="panel panel--spotlight selected-characters" id="selectedCharactersPanel">
+                        <div class="panel-header">
+                            <h3 class="panel-title panel-title--spotlight">
+                                <span class="panel-title__icon" aria-hidden="true">
+                                    <i class="fas fa-id-card"></i>
+                                </span>
+                                <span class="panel-title__text">選択キャラクター詳細</span>
+                            </h3>
+                            <p class="panel-subtitle" data-role="selected-empty">選択した機体の基礎体力と残コスト別の再出撃耐久を確認できます。</p>
+                        </div>
+                        <div class="selected-character-grid card-grid" id="selectedCharacterGrid" hidden></div>
+                    </article>
+                </section>
+
+                <section id="cards" class="screen" role="tabpanel" aria-labelledby="tab-cards" hidden>
+                    <article class="panel">
+                        <div class="panel-header">
+                            <h2 class="panel-title">キャラクターカード</h2>
+                            <p class="panel-subtitle">耐久と残コストを一覧で確認</p>
+                        </div>
+                        <div class="input-list">
+                            <div class="form-field">
+                                <label for="cardSearch">キャラクター検索</label>
+                                <input id="cardSearch" type="text" placeholder="名前・読みで検索" autocomplete="off">
+                            </div>
+                            <div class="chip-row" role="toolbar" aria-label="コスト帯フィルタ" id="costFilters">
+                                <button class="filter-chip" type="button" data-cost="all" aria-pressed="true">すべて</button>
+                                <button class="filter-chip" type="button" data-cost="3.0">コスト3.0</button>
+                                <button class="filter-chip" type="button" data-cost="2.5">コスト2.5</button>
+                                <button class="filter-chip" type="button" data-cost="2.0">コスト2.0</button>
+                                <button class="filter-chip" type="button" data-cost="1.5">コスト1.5</button>
+                            </div>
+                            <div class="sort-controls">
+                                <button class="sort-select" type="button" data-sort="hp-desc">HP 高い順</button>
+                                <button class="sort-select" type="button" data-sort="hp-asc">HP 低い順</button>
+                                <button class="sort-select" type="button" data-sort="cost-desc">コスト 高い順</button>
+                                <button class="sort-select" type="button" data-sort="cost-asc">コスト 低い順</button>
+                            </div>
+                            <p class="filter-notice" id="recentFilterNotice" hidden>
+                                <span class="filter-notice__text" data-role="recent-notice-text"></span>
+                                <button type="button" class="filter-notice__action" data-action="reset-card-scope">すべて表示</button>
+                            </p>
+                        </div>
+                    </article>
+
+                    <div class="card-grid" id="cardGrid" aria-live="polite"></div>
+                </section>
+
+                <section id="settings" class="screen" role="tabpanel" aria-labelledby="tab-settings" hidden>
+                    <article class="panel">
+                        <div class="panel-header">
+                            <h2 class="panel-title">ツール情報</h2>
+                            <p class="panel-subtitle">ツールに関する情報を確認できます。</p>
+                        </div>
+                        <div class="setting-group">
+                        <div class="setting-item setting-item--about">
+                            <h3 class="setting-item__title">お問い合わせ</h3>
+                            <p class="setting-item__description">
+                                    ツール作者:
+                                    <span class="setting-item__accent">Lu:Na:Clock</span>
+                                </p>
+                                <p class="setting-item__description">
+                                    バグ報告・要望はXにて:
+                                    <a class="setting-item__link" href="https://x.com/Lu_Na_Clock" target="_blank" rel="noopener noreferrer">@Lu_Na_Clock</a>
+                                </p>
+                            </div>
+                            <div class="setting-item setting-item--credits">
+                                <h3 class="setting-item__title">画像クレジット</h3>
+                                <p class="setting-item__description">
+                                    お借りしたキャラクター画像元:
+                                    <a class="setting-item__link" href="https://tiermaker.com/categories/pc-gaming/convallaria-17195343" target="_blank" rel="noopener noreferrer">TierMaker 星の翼</a>
+                                </p>
+                            </div>
+                        </div>
+                    </article>
+                </section>
+            </main>
+
+            <nav class="bottom-nav" role="tablist" aria-label="主要タブ">
+                <button class="tab-button" id="tab-home" role="tab" aria-controls="home" aria-selected="true">
+                    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                        <path d="M4 11.5L12 4l8 7.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path>
+                        <path d="M6.5 10.5V19a1.5 1.5 0 001.5 1.5H16a1.5 1.5 0 001.5-1.5v-8.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"></path>
+                    </svg>
+                    Home
+                </button>
+                <button class="tab-button" id="tab-sim" role="tab" aria-controls="sim" aria-selected="false">
+                    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                        <path d="M4 7h16M7 4v6M12 4v6M17 4v6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"></path>
+                        <rect x="6" y="11" width="12" height="9" rx="2" stroke="currentColor" stroke-width="1.6"></rect>
+                    </svg>
+                    Simulator
+                </button>
+                <button class="tab-button" id="tab-cards" role="tab" aria-controls="cards" aria-selected="false">
+                    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                        <rect x="4" y="4" width="7" height="16" rx="2" stroke="currentColor" stroke-width="1.6"></rect>
+                        <rect x="13" y="7" width="7" height="13" rx="2" stroke="currentColor" stroke-width="1.6"></rect>
+                    </svg>
+                    Cards
+                </button>
+                <button class="tab-button" id="tab-settings" role="tab" aria-controls="settings" aria-selected="false">
+                    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                        <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.6"></circle>
+                        <path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 01-2.83 2.83l-.06-.06A1.65 1.65 0 0015 19.4a1.65 1.65 0 00-1 .6 1.65 1.65 0 00-.33 1.82l-.02.07a2 2 0 01-3.3 0l-.02-.07a1.65 1.65 0 00-.33-1.82 1.65 1.65 0 00-1-.6 1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.6 15a1.65 1.65 0 00-.6-1 1.65 1.65 0 00-1.82-.33l-.07.02a2 2 0 010-3.3l.07-.02a1.65 1.65 0 001.82-.33 1.65 1.65 0 00.6-1 1.65 1.65 0 00-.6-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.6a1.65 1.65 0 001-.6 1.65 1.65 0 00.33-1.82l.02-.07a2 2 0 013.3 0l.02.07a1.65 1.65 0 00.33 1.82 1.65 1.65 0 001 .6 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06a1.65 1.65 0 00-.6 1 1.65 1.65 0 00.6 1.82z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path>
+                    </svg>
+                    Info
+                </button>
+            </nav>
+        </div>
+
+    </div>
+
+    <div class="desktop-app">
+    <main>
+        <h1 class="title-sf-effect">星の翼 コスオバ・総体力・覚醒シミュレーター</h1>
+
+        <section class="recent-simulations" aria-labelledby="recentSimulationsHeading">
+            <article class="history-card history-card--recent" aria-labelledby="recentCharactersHeading">
+                <h3 class="history-card__title" id="recentCharactersHeading">最近シミュレーションしたキャラを確認する</h3>
+                <p class="history-card__description">直近で計算したキャラクターのカードを一覧で確認できます。</p>
+                <div class="history-card__actions">
+                    <button type="button" class="history-action-button history-card__cta" id="showRecentCardsButton" aria-pressed="false">
+                        最近シミュレーションしたキャラを確認
+                    </button>
+                    <button type="button" class="history-action-button history-action-button--secondary" id="resetRecentFilterButton" hidden>
+                        全キャラクターを表示する
+                    </button>
+                </div>
+            </article>
+        </section>
+
+        <section class="history-overview" aria-labelledby="simulationHistoryHeading">
+            <article class="history-card history-card--log" aria-labelledby="simulationHistoryHeading">
+                <div class="history-card__header">
+                    <h2 class="history-card__title" id="simulationHistoryHeading">シミュレーション履歴</h2>
+                    <button type="button" class="history-action-button history-action-button--danger" id="clearSimulationHistoryButton" disabled>
+                        履歴をクリア
+                    </button>
+                </div>
+                <p class="history-card__description">過去に実行したシミュレーション条件を一覧表示します。クリックすると同じ条件で再計算できます。</p>
+                <div class="history-list" id="simulationHistoryList" aria-live="polite">
+                    <p class="history-empty">まだ計算履歴がありません</p>
+                </div>
+            </article>
+        </section>
+
+        <!-- 再出撃シミュレーションセクションをアコーディオン化 -->
+        <div id="redeploy-simulation-section">
+            <div class="accordion-item">
+                <button class="accordion-header main-section-accordion-header" aria-expanded="true">
+                    <span><i class="fas fa-robot"></i> 再出撃シミュレーション</span>
+                    <i class="fas fa-chevron-down accordion-icon"></i>
+                </button>
+                <div class="accordion-content" id="redeploy-simulation-content">
+                    <div class="simulation-container">
+                        <p class="guide-intro">自機と相方を選択することで、どちらかの機体が再出撃した場合の体力をシミュレーションできます。</p>
+                        <div class="character-select-group">
+                            <div class="select-wrapper">
+                                <label for="playerCharPickerToggle"><i class="fas fa-user-astronaut"></i> 自機:</label>
+                                <div class="character-picker" data-role="player">
+                                    <button id="playerCharPickerToggle" class="character-picker-toggle" type="button">
+                                        <div class="character-picker-toggle-content">
+                                            <div class="character-picker-selected-icon is-placeholder" aria-hidden="true">?</div>
+                                            <div class="character-picker-selected-text">
+                                                <span class="character-picker-label">自機を選択</span>
+                                                <span class="character-picker-selected-name">未選択</span>
+                                            </div>
+                                        </div>
+                                        <i class="fas fa-chevron-down"></i>
+                                    </button>
+                                    <div class="character-picker-panel" role="dialog" aria-modal="false">
+                                        <div class="character-picker-search">
+                                            <label class="character-picker-search-label" for="redeployPlayerPickerSearch">キャラ名で検索</label>
+                                            <div class="character-picker-search-input-wrapper">
+                                                <i class="fas fa-search"></i>
+                                                <input id="redeployPlayerPickerSearch" type="text" class="character-picker-search-input" placeholder="例: ベータ" aria-label="自機候補を検索" aria-describedby="redeployPlayerPickerHint" autocomplete="off">
+                                            </div>
+                                            <p class="character-picker-search-helper" id="redeployPlayerPickerHint" aria-live="polite" data-default-text="候補の名前や一部の文字列でも絞り込みできます">候補の名前や一部の文字列でも絞り込みできます</p>
+                                        </div>
+                                        <div class="character-picker-cost-filter" role="group" aria-label="自機のコストで絞り込む">
+                                            <button type="button" class="picker-filter-button active" data-cost="all">全て</button>
+                                            <button type="button" class="picker-filter-button" data-cost="3.0">3.0</button>
+                                            <button type="button" class="picker-filter-button" data-cost="2.5">2.5</button>
+                                            <button type="button" class="picker-filter-button" data-cost="2.0">2.0</button>
+                                            <button type="button" class="picker-filter-button" data-cost="1.5">1.5</button>
+                                        </div>
+                                        <div class="character-picker-list" role="listbox" aria-label="自機候補一覧"></div>
+                                    </div>
+                                </div>
+                                <select id="playerCharSelect" class="select-dropdown" hidden aria-hidden="true"></select>
+                            </div>
+                            <div class="select-wrapper">
+                                <label for="partnerCharPickerToggle"><i class="fas fa-user-friends"></i> 相方:</label>
+                                <div class="character-picker" data-role="partner">
+                                    <button id="partnerCharPickerToggle" class="character-picker-toggle" type="button">
+                                        <div class="character-picker-toggle-content">
+                                            <div class="character-picker-selected-icon is-placeholder" aria-hidden="true">?</div>
+                                            <div class="character-picker-selected-text">
+                                                <span class="character-picker-label">相方を選択</span>
+                                                <span class="character-picker-selected-name">未選択</span>
+                                            </div>
+                                        </div>
+                                        <i class="fas fa-chevron-down"></i>
+                                    </button>
+                                    <div class="character-picker-panel" role="dialog" aria-modal="false">
+                                        <div class="character-picker-search">
+                                            <label class="character-picker-search-label" for="redeployPartnerPickerSearch">キャラ名で検索</label>
+                                            <div class="character-picker-search-input-wrapper">
+                                                <i class="fas fa-search"></i>
+                                                <input id="redeployPartnerPickerSearch" type="text" class="character-picker-search-input" placeholder="例: ベータ" aria-label="相方候補を検索" aria-describedby="redeployPartnerPickerHint" autocomplete="off">
+                                            </div>
+                                            <p class="character-picker-search-helper" id="redeployPartnerPickerHint" aria-live="polite" data-default-text="候補の名前や一部の文字列でも絞り込みできます">候補の名前や一部の文字列でも絞り込みできます</p>
+                                        </div>
+                                        <div class="character-picker-cost-filter" role="group" aria-label="相方のコストで絞り込む">
+                                            <button type="button" class="picker-filter-button active" data-cost="all">全て</button>
+                                            <button type="button" class="picker-filter-button" data-cost="3.0">3.0</button>
+                                            <button type="button" class="picker-filter-button" data-cost="2.5">2.5</button>
+                                            <button type="button" class="picker-filter-button" data-cost="2.0">2.0</button>
+                                            <button type="button" class="picker-filter-button" data-cost="1.5">1.5</button>
+                                        </div>
+                                        <div class="character-picker-list" role="listbox" aria-label="相方候補一覧"></div>
+                                    </div>
+                                </div>
+                                <select id="partnerCharSelect" class="select-dropdown" hidden aria-hidden="true"></select>
+                            </div>
+                        </div>
+
+                        <div class="selected-characters-display" id="selectedCharsDisplay">
+                            <!-- 選択された自機と相方のミニカードがここに表示される -->
+                        </div>
+
+                        <div class="redeploy-target-control" id="redeployTargetGroup">
+                            <div class="redeploy-target-control__header">
+                                <span class="redeploy-target-control__label" id="redeployTargetLabel">
+                                    <i class="fas fa-sync-alt" aria-hidden="true"></i>
+                                    再出撃する機体を選択
+                                </span>
+                            </div>
+                            <div class="redeploy-target-toggle" role="radiogroup" aria-labelledby="redeployTargetLabel" id="redeployTargetChips">
+                                <button class="redeploy-target-button" type="button" data-target="player" aria-pressed="true">
+                                    <i class="fas fa-user-astronaut" aria-hidden="true"></i>
+                                    <span class="redeploy-target-button__text">自機</span>
+                                </button>
+                                <button class="redeploy-target-button" type="button" data-target="partner" aria-pressed="false">
+                                    <i class="fas fa-user-friends" aria-hidden="true"></i>
+                                    <span class="redeploy-target-button__text">相方</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="team-cost-display">
+                            <span class="cost-label"><i class="fas fa-users-cog"></i> チーム合計コスト:</span>
+                            <span id="totalTeamCost" class="cost-value">0.0</span>
+                        </div>
+
+                        <div class="simulation-input-group">
+                            <label for="remainingTeamCostInput"><i class="fas fa-coins"></i> 指定キャラ撃墜後の残りコスト:</label>
+                            <select id="remainingTeamCostInput" class="select-dropdown"></select>
+                        </div>
+
+                        <div class="simulation-results" id="simulationResults">
+                            <h3><i class="fas fa-bolt"></i> 再出撃予測結果</h3>
+                            <div class="result-display-area">
+                                <div class="redeploy-char-info">
+                                    <span class="info-label">再出撃機体:</span> <span id="redeployCharName" class="info-value">--</span>
+                                </div>
+                                <div class="redeploy-char-info">
+                                    <span class="info-label">機体コスト:</span> <span id="redeployCharCost" class="info-value">--</span>
+                                </div>
+                                <div class="redeploy-char-info">
+                                    <span class="info-label">本来の体力:</span> <span id="redeployOriginalHp" class="info-value">--</span>
+                                </div>
+                                <div class="redeploy-char-info">
+                                    <span class="info-label">再出撃時コスト消費:</span> <span id="redeployCostConsumed" class="info-value">--</span>
+                                </div>
+                                <div class="redeploy-char-info">
+                                    <span class="info-label">再出撃時体力:</span> <span id="redeployCalculatedHp" class="info-value">--</span>
+                                </div>
+                            </div>
+                            <div class="hp-bar-container simulation-hp-bar">
+                                <div class="hp-bar-fill"></div>
+                            </div>
+
+                            <!-- Awakening Simulation Area with new features -->
+                            <div class="awakening-simulation-area">
+                                <h4><i class="fas fa-brain"></i> 覚醒ゲージ予測</h4>
+
+                                <div class="simulation-input-group">
+                                    <label for="beforeShotdownAwakeningGaugeInput"><i class="fas fa-meteor"></i> 被弾前の覚醒ゲージ量</label>
+                                    <input type="number" id="beforeShotdownAwakeningGaugeInput" class="select-dropdown" min="0" max="100" step="1" placeholder="例:0～100">
+                                </div>
+                                <div class="simulation-input-group">
+                                    <label for="beforeShotdownHpInput"><i class="fas fa-heart-broken"></i> 想定被ダメージ量</label>
+                                    <input type="number" id="beforeShotdownHpInput" class="select-dropdown" min="0" step="1" placeholder="例:300">
+                                    <p class="input-helper">※被弾を想定しない場合は、数値を0にしてください。</p>
+                                </div>
+
+                                <div class="awakening-additional-options">
+                                    <div class="simulation-input-group checkbox-group">
+                                        <i class="fas fa-crosshairs"></i>
+                                        <input type="checkbox" id="considerOwnDownCheckbox">
+                                        <label for="considerOwnDownCheckbox">再出撃時のゲージ量加算</label>
+                                    </div>
+
+                                    <div class="simulation-input-group checkbox-group has-dropdown">
+                                        <i class="fas fa-fist-raised"></i>
+                                        <input type="checkbox" id="considerDamageDealtCheckbox">
+                                        <label for="considerDamageDealtCheckbox">攻撃時のゲージ量加算</label>
+                                        <div class="select-dropdown-container" id="damageDealtOptionsContainer">
+                                            <select id="damageDealtAwakeningBonusSelect" class="select-dropdown">
+                                                <option value="0">選択なし</option>
+                                                <option value="2">約2% (ズンダ1回分)</option>
+                                                <option value="4">約4% (ズンダ2回分)</option>
+                                                <option value="6">約6% (ズンダ3回分)</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="simulation-input-group checkbox-group has-dropdown">
+                                        <i class="fas fa-shield-alt"></i>
+                                        <input type="checkbox" id="considerShieldSuccessCheckbox">
+                                        <label for="considerShieldSuccessCheckbox">シールド成功時のゲージ量加算</label>
+                                        <div class="select-dropdown-container" id="shieldSuccessOptionsContainer">
+                                            <select id="shieldSuccessAwakeningBonusSelect" class="select-dropdown">
+                                                <option value="0">選択なし</option>
+                                                <option value="3">約3% (シールド成功1回分)</option>
+                                                <option value="6">約6% (シールド成功2回分)</option>
+                                                <option value="9">約9% (シールド成功3回分)</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="simulation-input-group checkbox-group">
+                                         <i class="fas fa-user-slash"></i>
+                                         <input type="checkbox" id="considerPartnerDownCheckbox">
+                                         <label for="considerPartnerDownCheckbox">相方被撃墜時のゲージ量加算</label>
+                                    </div>
+                                </div>
+
+                                <div class="result-display-area" style="margin-top: 30px;">
+                                    <div class="redeploy-char-info">
+                                        <span class="info-label">予測覚醒ゲージ量:</span>
+                                        <span id="predictedAwakeningGauge" class="info-value">--</span>
+                                    </div>
+                                    <div class="redeploy-char-info">
+                                        <span class="info-label">覚醒使用:</span>
+                                        <span id="awakeningAvailability" class="info-value">--</span>
+                                    </div>
+                                </div>
+
+                                <details id="awakeningBreakdownDetails" class="calculation-breakdown" hidden>
+                                    <summary class="calculation-breakdown__summary">
+                                        <i class="fas fa-list-ul" aria-hidden="true"></i>
+                                        <span>計算内訳を表示</span>
+                                    </summary>
+                                    <div class="calculation-breakdown__content">
+                                        <dl class="calculation-breakdown__list">
+                                            <div class="calculation-breakdown__item">
+                                                <dt>被弾前の覚醒ゲージ量</dt>
+                                                <dd>
+                                                    <span id="awakeningDetailPreGaugeValue" class="calculation-breakdown__value">--%</span>
+                                                </dd>
+                                            </div>
+                                            <div class="calculation-breakdown__item">
+                                                <dt>被ダメージによる増加</dt>
+                                                <dd>
+                                                    <span id="awakeningDetailDamageValue" class="calculation-breakdown__value">+--%</span>
+                                                    <small id="awakeningDetailDamageNote" class="calculation-breakdown__note">想定被ダメージ: --</small>
+                                                </dd>
+                                            </div>
+                                            <div class="calculation-breakdown__item">
+                                                <dt>再出撃時のゲージ量加算</dt>
+                                                <dd>
+                                                    <span id="awakeningDetailOwnDownValue" class="calculation-breakdown__value">+--%</span>
+                                                    <small id="awakeningDetailOwnDownStatus" class="calculation-breakdown__status" hidden>未適用</small>
+                                                </dd>
+                                            </div>
+                                            <div class="calculation-breakdown__item">
+                                                <dt>攻撃時のゲージ量加算</dt>
+                                                <dd>
+                                                    <span id="awakeningDetailDamageBonusValue" class="calculation-breakdown__value">+--%</span>
+                                                    <small id="awakeningDetailDamageBonusStatus" class="calculation-breakdown__status" hidden>未適用</small>
+                                                </dd>
+                                            </div>
+                                            <div class="calculation-breakdown__item">
+                                                <dt>シールド成功時のゲージ量加算</dt>
+                                                <dd>
+                                                    <span id="awakeningDetailShieldBonusValue" class="calculation-breakdown__value">+--%</span>
+                                                    <small id="awakeningDetailShieldBonusStatus" class="calculation-breakdown__status" hidden>未適用</small>
+                                                </dd>
+                                            </div>
+                                            <div class="calculation-breakdown__item">
+                                                <dt>相方被撃墜時のゲージ量加算</dt>
+                                                <dd>
+                                                    <span id="awakeningDetailPartnerBonusValue" class="calculation-breakdown__value">+--%</span>
+                                                    <small id="awakeningDetailPartnerBonusStatus" class="calculation-breakdown__status" hidden>未適用</small>
+                                                </dd>
+                                            </div>
+                                            <div class="calculation-breakdown__item calculation-breakdown__item--total">
+                                                <dt>合計</dt>
+                                                <dd>
+                                                    <span id="awakeningDetailTotalValue" class="calculation-breakdown__value">--%</span>
+                                                </dd>
+                                            </div>
+                                        </dl>
+                                    </div>
+                                </details>
+
+                                <div class="sub-accordion-container accordion">
+                                    <div class="accordion-item">
+                                        <button class="accordion-header sub-accordion-header" aria-expanded="false">
+                                            <span><i class="fas fa-info-circle"></i> 覚醒ゲージ計算の詳細</span>
+                                            <i class="fas fa-chevron-down accordion-icon"></i>
+                                        </button>
+                                        <div class="accordion-content sub-accordion-content">
+                                            <p>覚醒ゲージは以下の要素に基づいて計算されます:</p>
+
+                                            <div class="gauge-section">
+                                                <h5><i class="fas fa-heartbeat"></i> 基礎増加（被ダメージ）</h5>
+                                                <p>受けたダメージ量に応じて増加します。本来の体力に対するダメージ割合をもとにしています。</p>
+                                                <p class="formula small-formula"><strong>増加量 = (被ダメージ量 / 本来の体力) × 100 × 約<span id="avgGaugeCoeffValue30"></span>（3.0コスト） / 約<span id="avgGaugeCoeffValueOthers"></span>（2.5/2.0/1.5コスト）</strong></p>
+                                                <p class="tip"><i class="fas fa-lightbulb"></i> ヒント: 例として、体力3000の機体が1500ダメージを受けた場合、(1500/3000)*100*約<span id="avgGaugeCoeffExample30"></span> ≒ 約29.9%（3.0コスト機体）増加します。2.5/2.0/1.5コスト機体の場合は (1500/3000)*100*約<span id="avgGaugeCoeffExampleOthers"></span> ≒ 約31.9% 増加します。</p>
+                                            </div>
+                                            <div class="gauge-section">
+                                                <h5><i class="fas fa-rocket"></i> 再出撃直後のゲージ量（最低保証値）</h5>
+                                                <p>「再出撃直後のゲージ量にする」にチェックを入れると、撃墜によって増加する覚醒ゲージが加算されます。このボーナスは自機のコストによって異なり、ツール内では計測した範囲での最低保証値を適用しています。撃墜された際に体力以上のダメージを受けるとその分も加算される為、実際には誤差が発生しやすいです。</p>
+                                                <ul>
+                                                    <li>コスト3.0 / 2.5: 約<span id="ownDownBonus30"></span>%</li>
+                                                    <li>コスト2.0: 約<span id="ownDownBonus20"></span>%</li>
+                                                    <li>コスト1.5: 約<span id="ownDownBonus15"></span>%</li>
+                                                </ul>
+                                            </div>
+
+                                            <div class="gauge-section">
+                                                <h5><i class="fas fa-fist-raised"></i> 与ダメージ考慮</h5>
+                                                <p>「与ダメージ考慮」にチェックを入れ、ドロップダウンで与ダメージ量に応じたボーナスを選択すると、その分が加算されます。</p>
+                                            </div>
+
+                                            <div class="gauge-section">
+                                                <h5><i class="fas fa-user-slash"></i> 相方被撃墜考慮</h5>
+                                                <p>「相方被撃墜考慮」にチェックを入れると、相方が撃墜されたことによる覚醒ゲージ増加分が加算されます。このボーナスも自機のコストによって異なります。</p>
+                                                <ul>
+                                                    <li>コスト3.0: 約<span id="partnerDownBonus30"></span>%</li>
+                                                    <li>コスト2.5: 約<span id="partnerDownBonus25"></span>%</li>
+                                                    <li>コスト2.0: 約<span id="partnerDownBonus20"></span>%</li>
+                                                    <li>コスト1.5: 約<span id="partnerDownBonus15"></span>%</li>
+                                                </ul>
+                                            </div>
+
+                                            <p>最終的な覚醒ゲージが<span id="awakeningThresholdValue"></span>%以上で覚醒が使用可能となります。計算結果は常に0%から100%の範囲になります。</p>
+
+                                                    <h4>注意点:</h4>
+                                                    <ul>
+                                                        <li>被ダメージによる覚醒ゲージ増加率の係数は、各キャラクターによって異なります。このツールでは誤差を最小限にする為、自身で計測した平均的な係数を使用しています。</li>
+                                                        <li>再出撃直後のゲージ量は基本的に自機コストに依存しますが、一部のキャラクター（例: スコーピオンは約15%など）では異なる数値が設定されている場合があります。</li>
+                                                        <li>覚醒ゲージは小数点以下まで計算されていると推測されるため、ゲーム内の表示と多少の誤差が生じます。</li>
+                                                    </ul>
+                                                    以上のことから、本ツールの計算結果はあくまで目安としてご利用ください。
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Share Buttons for Redeploy Simulation -->
+                            <div class="simulation-buttons share-buttons-group">
+                                <button id="shareRedeployResultBtn" class="simulation-button share-button" style="display: none;">
+                                    <i class="fab fa-x-twitter"></i> Xで結果を共有
+                                </button>
+                                <button id="copyRedeployUrlBtn" class="simulation-button copy-url-button" style="display: none;">
+                                    <i class="fas fa-link"></i> URLをコピー
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- チーム合計体力予測セクションをアコーディオン化 -->
+        <div class="main-section-accordion" id="total-hp-accordion">
+            <div class="accordion-item">
+                <button class="accordion-header main-section-accordion-header" aria-expanded="false">
+                    <span><i class="fas fa-medal"></i> チーム合計体力予測</span>
+                    <i class="fas fa-chevron-down accordion-icon"></i>
+                </button>
+                <div class="accordion-content main-section-accordion-content">
+                    <div class="total-hp-display-area" id="totalHpDisplayArea">
+                        <p class="total-hp-summary">
+                            選択された<span class="cost-value-small" id="selectedPlayerCharNameSummary">自機</span>と<span class="cost-value-small" id="selectedPartnerCharNameSummary">相方</span>の組み合わせで、
+                            高コストから落ちた場合(理想)、低コストから落ちた場合(妥協)、低コストのみ落ちた場合(爆弾)、最も非効率的な落ち方をした場合の合計体力を予測します。
+                        </p>
+
+                        <div class="total-hp-grid">
+                            <div class="total-hp-scenario">
+                                <h4 id="highestHpScenarioTitleParent"><i class="fas fa-chart-line"></i> <span id="highestHpScenarioTitle">チーム合計体力(最高)</span></h4>
+                                <div class="redeploy-char-info">
+                                    <span class="info-label">合計獲得体力:</span> <span id="idealGainedHp" class="info-value">--</span>
+                                </div>
+                                <button class="total-hp-accordion-header" aria-expanded="false">
+                                    <span class="total-hp-accordion-title">撃墜順序と獲得HP</span>
+                                    <i class="fas fa-chevron-down accordion-icon"></i>
+                                </button>
+                                <ul id="idealSequenceList" class="total-hp-accordion-content"></ul>
+                            </div>
+
+                            <div class="total-hp-scenario">
+                                <h4 id="compromiseHpScenarioTitleParent"><i class="fas fa-chart-area"></i> <span id="compromiseHpScenarioTitle">チーム合計体力(妥協)</span></h4>
+                                <div class="redeploy-char-info">
+                                    <span class="info-label">合計獲得体力:</span> <span id="minGainedHpSpan" class="info-value">--</span>
+                                </div>
+                                <button class="total-hp-accordion-header" aria-expanded="false">
+                                    <span class="total-hp-accordion-title">撃墜順序と獲得HP</span>
+                                    <i class="fas fa-chevron-down accordion-icon"></i>
+                                </button>
+                                <ul id="minSequenceList" class="total-hp-accordion-content"></ul>
+                            </div>
+
+                            <div class="total-hp-scenario">
+                                <h4 id="bombHpScenarioTitleParent"><i class="fas fa-bomb"></i> <span id="bombHpScenarioTitle">チーム合計体力(爆弾)</span></h4>
+                                <div class="redeploy-char-info">
+                                    <span class="info-label">合計獲得体力:</span> <span id="bombGainedHp" class="info-value">--</span>
+                                </div>
+                                <button class="total-hp-accordion-header" aria-expanded="false">
+                                    <span class="total-hp-accordion-title">撃墜順序と獲得HP</span>
+                                    <i class="fas fa-chevron-down accordion-icon"></i>
+                                </button>
+                                <ul id="bombSequenceList" class="total-hp-accordion-content"></ul>
+                            </div>
+
+                            <div class="total-hp-scenario">
+                                <h4 id="lowestHpScenarioTitleParent"><i class="fas fa-arrow-down"></i> <span id="lowestHpScenarioTitle">チーム合計体力(最低)</span></h4>
+                                <div class="redeploy-char-info">
+                                    <span class="info-label">合計獲得体力:</span> <span id="lowestGainedHp" class="info-value">--</span>
+                                </div>
+                                <button class="total-hp-accordion-header" aria-expanded="false">
+                                    <span class="total-hp-accordion-title">撃墜順序と獲得HP</span>
+                                    <i class="fas fa-chevron-down accordion-icon"></i>
+                                </button>
+                                <ul id="lowestSequenceList" class="total-hp-accordion-content"></ul>
+                            </div>
+                        </div>
+                        <!-- Share Buttons for Total HP Prediction -->
+                        <div class="simulation-buttons share-buttons-group">
+                            <button id="shareTotalHpResultBtn" class="simulation-button share-button" style="display: none;">
+                                <i class="fab fa-x-twitter"></i> Xで予測を共有
+                            </button>
+                            <button id="copyTotalHpUrlBtn" class="simulation-button copy-url-button" style="display: none;">
+                                <i class="fas fa-link"></i> URLをコピー
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="main-section-accordion" id="selected-characters-full-card-accordion">
+            <div class="accordion-item">
+                <button class="accordion-header main-section-accordion-header" aria-expanded="false">
+                    <span><i class="fas fa-user-friends"></i> 選択キャラクター詳細</span>
+                    <i class="fas fa-chevron-down accordion-icon"></i>
+                </button>
+                <div class="accordion-content main-section-accordion-content">
+                    <div id="redeploySimulationSelectedCharactersGrid" class="character-grid">
+                        <!-- 自機と相方のキャラクターカードがここに挿入されます -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="controls-container" aria-labelledby="cardControlsHeading">
+            <div class="controls-header">
+                <h2 id="cardControlsHeading" class="controls-title"><i class="fas fa-id-card"></i> キャラクター体力一覧</h2>
+                <p class="controls-description">キャラクターカード一覧を対象に、名前検索やコスト・体力順での並び替えが行えます。</p>
+            </div>
+
+            <div class="search-container">
+                <label for="characterSearch" class="search-label">キャラクターカードを名前で検索</label>
+                <div class="search-input-wrapper">
+                    <i class="fas fa-search search-icon" aria-hidden="true"></i>
+                    <input type="text" id="characterSearch" placeholder="カード名で検索..." aria-label="表示中のキャラクターカードを検索" autocomplete="off">
+                </div>
+            </div>
+
+            <div class="filter-container">
+                <div class="filter-group">
+                    <span class="filter-label"><i class="fas fa-coins"></i> コスト:</span>
+                    <div class="filter-buttons" id="costFilter">
+                        <button class="filter-button active" data-cost="all">全て</button>
+                        <button class="filter-button" data-cost="3.0">3.0</button>
+                        <button class="filter-button" data-cost="2.5">2.5</button>
+                        <button class="filter-button" data-cost="2.0">2.0</button>
+                        <button class="filter-button" data-cost="1.5">1.5</button>
+                    </div>
+                </div>
+
+                <div class="filter-group">
+                    <span class="filter-label"><i class="fas fa-sort"></i> 並び替え:</span>
+                    <div class="filter-buttons" id="sortFilter">
+                        <button class="filter-button active" data-sort="name">名前順</button>
+                        <button class="filter-button" data-sort="cost-desc" aria-label="コスト 高い順">コスト <i class="fas fa-arrow-up" aria-hidden="true"></i></button>
+                        <button class="filter-button" data-sort="cost-asc" aria-label="コスト 低い順">コスト <i class="fas fa-arrow-down" aria-hidden="true"></i></button>
+                        <button class="filter-button" data-sort="hp-desc" aria-label="体力 高い順">体力 <i class="fas fa-arrow-up" aria-hidden="true"></i></button>
+                        <button class="filter-button" data-sort="hp-asc" aria-label="体力 低い順">体力 <i class="fas fa-arrow-down" aria-hidden="true"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="characterGrid" class="character-grid">
+            <!-- キャラクターカードがここに挿入されます -->
+        </div>
+    </main>
+
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-spinner"></div>
+    </div>
+
+    <footer class="footer" aria-label="サイト情報">
+        <p class="footer__text footer__text--contact">
+            バグ報告・要望はXにて:
+            <a class="footer__link" href="https://x.com/Lu_Na_Clock" target="_blank" rel="noopener noreferrer">@Lu_Na_Clock</a>
+        </p>
+        <p class="footer__text footer__text--credits">
+            お借りしたキャラクター画像元:
+            <a class="footer__link" href="https://tiermaker.com/categories/pc-gaming/convallaria-17195343" target="_blank" rel="noopener noreferrer">TierMaker 星の翼</a>
+        </p>
+        <p class="footer__text footer__text--copyright">© 2025 Lu:Na:Clock</p>
+    </footer>
+    </div>
+
+    <!-- GSAP for animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
+    <!-- Your application scripts -->
+    <script type="module" src="js/mobile-app.js"></script>
+    <script type="module" src="js/app.js"></script>
+</body>
+</html>
