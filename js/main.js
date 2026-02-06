@@ -150,7 +150,7 @@ function createCharacterCard(character) {
       createAccordion("ゲーム内テキスト", character.text)
     );
 
-    const details = createAccordion("詳細を見る", detailsBody);
+    const details = createAccordion("全項目を見る", detailsBody);
     details.classList.add("accordion--details");
     card.append(header, compactStats, details);
     return card;
@@ -200,7 +200,7 @@ function createRacketCard(racket) {
     detailsBody.className = "card-details";
     detailsBody.append(effect, createAccordion("ゲーム内テキスト", racket.text));
 
-    const details = createAccordion("詳細を見る", detailsBody);
+    const details = createAccordion("全項目を見る", detailsBody);
     details.classList.add("accordion--details");
     card.append(header, details);
     return card;
