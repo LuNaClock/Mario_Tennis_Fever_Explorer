@@ -86,30 +86,6 @@ img {
   color: var(--accent);
 }
 
-.preset-bar {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin: 16px 0 10px;
-}
-
-.preset-chip {
-  border: 1px solid var(--border);
-  background: rgba(8, 26, 42, 0.9);
-  color: var(--muted);
-  border-radius: 999px;
-  padding: 8px 14px;
-  font-weight: 700;
-  font-size: 0.85rem;
-  cursor: pointer;
-}
-
-.preset-chip.is-active {
-  border-color: var(--accent);
-  background: var(--accent-soft);
-  color: var(--accent);
-}
-
 .mobile-filter-trigger-wrap {
   display: none;
 }
@@ -385,18 +361,20 @@ img {
 
   .filter-modal.is-open {
     display: flex;
-    align-items: flex-end;
+    align-items: center;
+    justify-content: center;
   }
 
   .filter-modal__panel {
-    width: 100%;
-    max-height: min(90vh, 700px);
+    width: min(100%, 560px);
+    max-height: min(88vh, 700px);
     background: rgba(9, 27, 43, 0.98);
     border: 1px solid var(--border);
-    border-radius: 16px 16px 0 0;
+    border-radius: 16px;
     padding: 14px;
     display: grid;
     gap: 12px;
+    overflow: auto;
   }
 
   .filter-modal__header {

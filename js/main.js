@@ -18,7 +18,6 @@ const characterTypeFilter = document.getElementById("character-type-filter");
 const characterSort = document.getElementById("character-sort");
 const characterOrder = document.getElementById("character-order");
 const characterSearch = document.getElementById("character-search");
-const characterPresetButtons = Array.from(document.querySelectorAll("#character-presets .preset-chip"));
 const characterActiveFilters = document.getElementById("character-active-filters");
 
 const racketTypeFilter = document.getElementById("racket-type-filter");
@@ -30,11 +29,6 @@ const mobileSections = mobileNavItems
   .map((item) => document.getElementById(item.dataset.target))
   .filter(Boolean);
 
-const characterPresets = {
-  speed: { type: "スピード", sort: "speed", order: "desc", search: "" },
-  beginner: { type: "オールラウンド", sort: "control", order: "desc", search: "" },
-  serve: { type: "all", sort: "power", order: "desc", search: "" },
-};
 
 function createStatRow(label, value) {
   const row = document.createElement("div");
@@ -267,24 +261,6 @@ function renderRackets() {
   }
 }
 
-function applyCharacterPreset(presetKey) {
-  const preset = characterPresets[presetKey];
-  if (!preset) {
-    return;
-  }
-
-  characterTypeFilter.value = preset.type;
-  characterSort.value = preset.sort;
-  characterOrder.value = preset.order;
-  characterSearch.value = preset.search;
-
-  characterPresetButtons.forEach((button) => {
-    button.classList.toggle("is-active", button.dataset.preset === presetKey);
-  });
-
-  renderCharacters();
-}
-
 function setupCharacterFilterChips() {
   characterActiveFilters.addEventListener("click", (event) => {
     const button = event.target.closest(".active-filter-chip");
@@ -309,7 +285,6 @@ function setupCharacterFilterChips() {
         break;
     }
 
-    characterPresetButtons.forEach((presetButton) => presetButton.classList.remove("is-active"));
     renderCharacters();
   });
 }
@@ -432,23 +407,14 @@ function setupMobileSectionNav() {
 }
 
 [characterTypeFilter, characterSort, characterOrder].forEach((element) => {
-  element.addEventListener("change", () => {
-    characterPresetButtons.forEach((button) => button.classList.remove("is-active"));
-    renderCharacters();
-  });
+  element.addEventListener("change", renderCharacters);
 });
-characterSearch.addEventListener("input", () => {
-  characterPresetButtons.forEach((button) => button.classList.remove("is-active"));
-  renderCharacters();
-});
+characterSearch.addEventListener("input", renderCharacters);
 
 [racketTypeFilter, racketTimingFilter, racketOrder].forEach((element) => {
   element.addEventListener("change", renderRackets);
 });
 
-characterPresetButtons.forEach((button) => {
-  button.addEventListener("click", () => applyCharacterPreset(button.dataset.preset));
-});
 
 setupCharacterFilterChips();
 setupFilterModal("character-filter-modal", "character-inline-filters", "character-modal-filters", "character-filter-apply", renderCharacters);
