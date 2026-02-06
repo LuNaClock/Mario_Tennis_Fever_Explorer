@@ -311,11 +311,44 @@ img {
   overflow: hidden;
 }
 
-.stat-bar span {
+.stat-fill {
+  --stat-width: 0%;
   display: block;
+  width: var(--stat-width);
   height: 100%;
-  background: linear-gradient(90deg, #4fc3ff, #9be7ff);
   border-radius: inherit;
+  background: #43d37f;
+  animation: stat-bar-grow 700ms cubic-bezier(0.2, 0.9, 0.2, 1) forwards;
+}
+
+.stat-fill[data-stat-tier="1"] {
+  background: #ff6b6b;
+}
+
+.stat-fill[data-stat-tier="2"] {
+  background: #f59f4c;
+}
+
+.stat-fill[data-stat-tier="3"] {
+  background: #f4d35e;
+}
+
+.stat-fill[data-stat-tier="4"] {
+  background: #86d657;
+}
+
+.stat-fill[data-stat-tier="5"] {
+  background: #43d37f;
+}
+
+@keyframes stat-bar-grow {
+  from {
+    width: 0;
+  }
+
+  to {
+    width: var(--stat-width);
+  }
 }
 
 .stat-number {

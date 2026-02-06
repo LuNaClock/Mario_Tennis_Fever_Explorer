@@ -14,6 +14,10 @@ const characterSortLabels = {
 
 const maxStatValue = 5;
 
+function getStatTier(value) {
+  return Math.min(maxStatValue, Math.max(1, Math.floor(value)));
+}
+
 const characterList = document.getElementById("character-list");
 const racketList = document.getElementById("racket-list");
 const characterCount = document.getElementById("character-count");
@@ -52,7 +56,9 @@ function createStatRow(label, value) {
   bar.className = "stat-bar";
 
   const fill = document.createElement("span");
-  fill.style.width = `${(value / maxStatValue) * 100}%`;
+  fill.className = "stat-fill";
+  fill.dataset.statTier = String(getStatTier(value));
+  fill.style.setProperty("--stat-width", `${(value / maxStatValue) * 100}%`);
 
   bar.append(fill);
 
