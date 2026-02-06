@@ -288,11 +288,11 @@ export const characters = [
     image: "assets/character_icons/hana-chan.svg",
   },
   {
-    name: "ワリオ",
-    type: "トリッキー",
-    stats: { speed: 3.0, power: 3.5, control: 2.5, spin: 3.5 },
-    special: "トリックバウンド: 変化球で相手の位置を崩す。",
-    text: "変則的なショットと駆け引きで相手を翻弄するトリッキータイプ。",
+    name: "トッテン",
+    type: "スピード",
+    stats: { speed: 5, power: 1.5, control: 2.5, spin: 2.5 },
+    special: "フォアハンド強化、バックハンド弱化",
+    text: "逃げ足がとっても速い。フォアハンドのショットは強いが袋がジャマでバックハンドは弱い",
     image: "assets/character_icons/wario.svg",
   },
   {
