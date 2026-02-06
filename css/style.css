@@ -59,12 +59,22 @@ img {
 }
 
 .section {
-  margin: 40px 0 64px;
+  margin: 28px 0;
+  padding: 26px 0 30px;
+  border-top: 1px solid rgba(79, 195, 255, 0.25);
+}
+
+.section:first-of-type {
+  margin-top: 40px;
+}
+
+.section:last-of-type {
+  margin-bottom: 64px;
+  border-bottom: 1px solid rgba(79, 195, 255, 0.25);
 }
 
 .section-header {
   display: flex;
-  justify-content: space-between;
   align-items: flex-start;
   gap: 16px;
   flex-wrap: wrap;
@@ -101,8 +111,8 @@ img {
   font-weight: inherit;
   cursor: pointer;
   display: inline-flex;
-  align-items: center;
-  gap: 8px;
+  align-items: baseline;
+  gap: 12px;
 }
 
 .section-title-toggle::before {
