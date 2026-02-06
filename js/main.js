@@ -33,6 +33,15 @@ const mobileNavItems = Array.from(document.querySelectorAll(".mobile-bottom-nav_
 const mobileSections = mobileNavItems
   .map((item) => document.getElementById(item.dataset.target))
   .filter(Boolean);
+const mobileReadingProgress = document.querySelector(".mobile-reading-indicator__progress");
+const mobileSectionLabel = document.getElementById("mobile-section-label");
+
+const sectionHeadingById = new Map(
+  mobileSections.map((section) => {
+    const heading = section.querySelector("h2");
+    return [section.id, heading?.textContent?.trim() || section.dataset.navLabel || section.id];
+  })
+);
 
 
 function createStatRow(label, value) {
@@ -356,11 +365,31 @@ function setupFilterModal(modalId, inlineFilterId, modalFilterId, applyButtonId,
 }
 
 function activateMobileNav(sectionId) {
+  const sectionLabel = sectionHeadingById.get(sectionId);
+
   mobileNavItems.forEach((item) => {
     const isActive = item.dataset.target === sectionId;
     item.classList.toggle("is-active", isActive);
     item.setAttribute("aria-current", isActive ? "true" : "false");
   });
+
+  if (mobileSectionLabel && sectionLabel) {
+    mobileSectionLabel.textContent = sectionLabel;
+  }
+}
+
+function updateScrollProgress() {
+  if (!mobileReadingProgress) {
+    return;
+  }
+
+  const scrollableHeight = document.documentElement.scrollHeight - window.innerHeight;
+  const progress = scrollableHeight > 0 ? Math.min((window.scrollY / scrollableHeight) * 100, 100) : 0;
+  const roundedProgress = Math.round(progress);
+
+  mobileReadingProgress.style.width = `${progress}%`;
+  mobileReadingProgress.setAttribute("aria-valuenow", String(roundedProgress));
+  mobileReadingProgress.setAttribute("aria-valuetext", `ページ閲覧進捗 ${roundedProgress}%`);
 }
 
 function setupMobileSectionNav() {
@@ -380,6 +409,7 @@ function setupMobileSectionNav() {
       target.scrollIntoView({ behavior: "smooth", block: "start" });
       history.replaceState(null, "", `#${targetId}`);
       activateMobileNav(targetId);
+      updateScrollProgress();
     });
   });
 
@@ -403,6 +433,10 @@ function setupMobileSectionNav() {
 
   const initialId = window.location.hash?.replace("#", "");
   activateMobileNav(initialId || mobileSections[0].id);
+  updateScrollProgress();
+
+  window.addEventListener("scroll", updateScrollProgress, { passive: true });
+  window.addEventListener("resize", updateScrollProgress);
 }
 
 function bindChangeListeners(elements, handler) {
