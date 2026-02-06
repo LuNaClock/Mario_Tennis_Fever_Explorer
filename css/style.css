@@ -271,6 +271,110 @@ img {
 }
 
 
+
+.card--interactive {
+  cursor: pointer;
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.card--interactive:hover,
+.card--interactive:focus-visible {
+  transform: translateY(-2px);
+  border-color: var(--accent);
+  outline: none;
+}
+
+body.is-dialog-open {
+  overflow: hidden;
+}
+
+.detail-dialog {
+  border: none;
+  padding: 0;
+  margin: 0;
+  width: min(760px, 100%);
+  max-width: none;
+  height: 100%;
+  background: transparent;
+}
+
+.detail-dialog::backdrop {
+  background: rgba(0, 0, 0, 0.58);
+}
+
+.detail-sheet {
+  position: fixed;
+  left: 50%;
+  bottom: 0;
+  transform: translateX(-50%);
+  width: min(760px, 100%);
+  max-height: min(86vh, 920px);
+  overflow: auto;
+  background: rgba(8, 21, 35, 0.98);
+  border: 1px solid var(--border);
+  border-bottom: none;
+  border-radius: 20px 20px 0 0;
+  padding: 20px;
+  box-shadow: var(--shadow);
+  display: grid;
+  gap: 16px;
+}
+
+.detail-sheet__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.detail-sheet__eyebrow {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+.detail-sheet__header h2 {
+  margin: 4px 0 0;
+}
+
+.detail-close {
+  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  font-size: 1.4rem;
+  cursor: pointer;
+}
+
+.detail-sheet__content {
+  display: grid;
+  gap: 14px;
+}
+
+.detail-sheet__footer {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.detail-nav-button {
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: rgba(79, 195, 255, 0.12);
+  color: var(--text);
+  font-weight: 700;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.detail-nav-button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+
 .info-panel {
   padding: 16px 18px;
   border: 1px solid var(--border);
@@ -336,6 +440,15 @@ img {
 }
 
 @media (max-width: 640px) {
+  .detail-sheet {
+    width: 100%;
+    max-height: 100vh;
+    border-radius: 0;
+    inset: 0;
+    padding-top: calc(20px + env(safe-area-inset-top));
+    padding-bottom: calc(20px + env(safe-area-inset-bottom));
+  }
+
   .card-header {
     grid-template-columns: 1fr;
   }

@@ -132,6 +132,23 @@
     </section>
   </main>
 
+  <dialog id="detail-dialog" class="detail-dialog" aria-labelledby="detail-title">
+    <article class="detail-sheet" role="document">
+      <header class="detail-sheet__header">
+        <div>
+          <p class="detail-sheet__eyebrow" id="detail-kind"></p>
+          <h2 id="detail-title"></h2>
+        </div>
+        <button type="button" id="detail-close" class="detail-close" aria-label="詳細を閉じる">×</button>
+      </header>
+      <div id="detail-content" class="detail-sheet__content"></div>
+      <footer class="detail-sheet__footer">
+        <button type="button" id="detail-prev" class="detail-nav-button">前へ</button>
+        <button type="button" id="detail-next" class="detail-nav-button">次へ</button>
+      </footer>
+    </article>
+  </dialog>
+
   <nav class="mobile-bottom-nav" aria-label="モバイルセクションナビ">
     <a class="mobile-bottom-nav__item" href="#characters" data-target="characters">キャラ</a>
     <a class="mobile-bottom-nav__item" href="#rackets" data-target="rackets">ラケット</a>
