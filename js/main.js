@@ -407,7 +407,7 @@ function setupMobileSectionNav() {
 
 
 function setupSectionCollapse() {
-  const toggles = Array.from(document.querySelectorAll(".section-collapse-toggle"));
+  const toggles = Array.from(document.querySelectorAll(".section-title-toggle"));
 
   toggles.forEach((toggle) => {
     const targetId = toggle.dataset.collapseTarget;
@@ -419,7 +419,6 @@ function setupSectionCollapse() {
 
     const updateState = (isExpanded) => {
       toggle.setAttribute("aria-expanded", String(isExpanded));
-      toggle.textContent = isExpanded ? "折りたたむ" : "展開する";
       content.hidden = !isExpanded;
     };
 
