@@ -7,7 +7,16 @@ const statLabels = {
   spin: "スピン",
 };
 
+const characterSortLabels = {
+  name: "名前",
+  ...statLabels,
+};
+
 const maxStatValue = 5;
+
+function getStatTier(value) {
+  return Math.min(maxStatValue, Math.max(1, Math.floor(value)));
+}
 
 const characterList = document.getElementById("character-list");
 const racketList = document.getElementById("racket-list");
@@ -15,6 +24,7 @@ const characterCount = document.getElementById("character-count");
 const racketCount = document.getElementById("racket-count");
 
 const characterTypeFilter = document.getElementById("character-type-filter");
+const characterSpecialFilter = document.getElementById("character-special-filter");
 const characterSort = document.getElementById("character-sort");
 const characterOrder = document.getElementById("character-order");
 const characterSearch = document.getElementById("character-search");
@@ -23,6 +33,7 @@ const characterActiveFilters = document.getElementById("character-active-filters
 const racketTypeFilter = document.getElementById("racket-type-filter");
 const racketTimingFilter = document.getElementById("racket-timing-filter");
 const racketOrder = document.getElementById("racket-order");
+const racketSearch = document.getElementById("racket-search");
 
 const mobileNavItems = Array.from(document.querySelectorAll(".mobile-bottom-nav__item"));
 const mobileSections = mobileNavItems
@@ -45,7 +56,9 @@ function createStatRow(label, value) {
   bar.className = "stat-bar";
 
   const fill = document.createElement("span");
-  fill.style.width = `${(value / maxStatValue) * 100}%`;
+  fill.className = "stat-fill";
+  fill.dataset.statTier = String(getStatTier(value));
+  fill.style.setProperty("--stat-width", `${(value / maxStatValue) * 100}%`);
 
   bar.append(fill);
 
@@ -72,7 +85,11 @@ function createAccordion(title, content) {
   const panel = document.createElement("div");
   panel.className = "accordion-panel";
   panel.hidden = true;
-  panel.textContent = content;
+  if (content instanceof Node) {
+    panel.append(content);
+  } else {
+    panel.textContent = content;
+  }
 
   button.addEventListener("click", () => {
     const isExpanded = button.getAttribute("aria-expanded") === "true";
@@ -84,9 +101,18 @@ function createAccordion(title, content) {
   return wrapper;
 }
 
+function isMobileView() {
+  return window.matchMedia("(max-width: 768px)").matches;
+}
+
 function createCharacterCard(character) {
   const card = document.createElement("article");
   card.className = "card";
+
+  const mobileView = isMobileView();
+  if (mobileView) {
+    card.classList.add("card--compact");
+  }
 
   const header = document.createElement("div");
   header.className = "card-header";
@@ -111,9 +137,33 @@ function createCharacterCard(character) {
     stats.append(createStatRow(statLabels[key], value));
   });
 
+  if (mobileView) {
+    const compactStats = document.createElement("div");
+    compactStats.className = "stats stats--compact";
+
+    Object.entries(character.stats)
+      .sort((a, b) => b[1] - a[1])
+      .slice(0, 2)
+      .forEach(([key, value]) => {
+        compactStats.append(createStatRow(statLabels[key], value));
+      });
+
+    const detailsBody = document.createElement("div");
+    detailsBody.className = "card-details";
+    detailsBody.append(
+      stats,
+      createAccordion("特殊能力", character.special),
+      createAccordion("ゲーム内テキスト", character.text)
+    );
+
+    const details = createAccordion("全項目を見る", detailsBody);
+    details.classList.add("accordion--details");
+    card.append(header, compactStats, details);
+    return card;
+  }
+
   const special = createAccordion("特殊能力", character.special);
   const text = createAccordion("ゲーム内テキスト", character.text);
-
   card.append(header, stats, special, text);
   return card;
 }
@@ -121,6 +171,11 @@ function createCharacterCard(character) {
 function createRacketCard(racket) {
   const card = document.createElement("article");
   card.className = "card";
+
+  const mobileView = isMobileView();
+  if (mobileView) {
+    card.classList.add("card--compact");
+  }
 
   const header = document.createElement("div");
   header.className = "card-header";
@@ -146,6 +201,17 @@ function createRacketCard(racket) {
   effect.className = "effect";
   effect.textContent = racket.effect;
 
+  if (mobileView) {
+    const detailsBody = document.createElement("div");
+    detailsBody.className = "card-details";
+    detailsBody.append(effect, createAccordion("ゲーム内テキスト", racket.text));
+
+    const details = createAccordion("全項目を見る", detailsBody);
+    details.classList.add("accordion--details");
+    card.append(header, details);
+    return card;
+  }
+
   const text = createAccordion("ゲーム内テキスト", racket.text);
 
   card.append(header, effect, text);
@@ -153,34 +219,76 @@ function createRacketCard(racket) {
 }
 
 function sortItems(items, key, order) {
+  if (order === "game" && key === "name") {
+    return [...items];
+  }
+
   const sorted = [...items];
   sorted.sort((a, b) => {
-    let aValue;
-    let bValue;
-
     if (key === "name") {
-      aValue = a.name;
-      bValue = b.name;
-      return order === "asc" ? aValue.localeCompare(bValue, "ja") : bValue.localeCompare(aValue, "ja");
+      return order === "asc"
+        ? a.name.localeCompare(b.name, "ja")
+        : b.name.localeCompare(a.name, "ja");
     }
 
-    aValue = a.stats[key];
-    bValue = b.stats[key];
-    return order === "asc" ? aValue - bValue : bValue - aValue;
+    return order === "asc" ? a.stats[key] - b.stats[key] : b.stats[key] - a.stats[key];
   });
   return sorted;
 }
 
+function syncCharacterOrderAvailability() {
+  const isNameSort = characterSort.value === "name";
+  const gameOrderOptions = Array.from(document.querySelectorAll('#character-order option[value="game"]'));
+
+  gameOrderOptions.forEach((option) => {
+    option.hidden = !isNameSort;
+    option.disabled = !isNameSort;
+  });
+
+  if (!isNameSort && characterOrder.value === "game") {
+    characterOrder.value = "asc";
+  }
+}
+
+function handleCharacterSortChange() {
+  const isNameSort = characterSort.value === "name";
+  if (isNameSort) {
+    characterOrder.value = "game";
+  }
+
+  renderCharacters();
+}
+
+function updateApplyButtonCount(buttonId, count) {
+  const applyButton = document.getElementById(buttonId);
+  if (applyButton) {
+    applyButton.textContent = `${count}件を表示`;
+  }
+}
+
+function normalizeKana(value) {
+  return value
+    .toLowerCase()
+    .replace(/[ぁ-ゖ]/g, (char) => String.fromCharCode(char.charCodeAt(0) + 0x60));
+}
+
 function getFilteredCharacters() {
   const typeValue = characterTypeFilter.value;
-  const searchValue = characterSearch.value.trim().toLowerCase();
+  const searchValue = normalizeKana(characterSearch.value.trim());
+  const specialValue = characterSpecialFilter.value;
 
   let filtered = characters;
   if (typeValue !== "all") {
     filtered = filtered.filter((character) => character.type === typeValue);
   }
   if (searchValue) {
-    filtered = filtered.filter((character) => character.name.toLowerCase().includes(searchValue));
+    filtered = filtered.filter((character) => normalizeKana(character.name).includes(searchValue));
+  }
+  if (specialValue === "yes") {
+    filtered = filtered.filter((character) => character.special !== "なし");
+  }
+  if (specialValue === "no") {
+    filtered = filtered.filter((character) => character.special === "なし");
   }
 
   return filtered;
@@ -196,12 +304,20 @@ function updateCharacterActiveFilterChips() {
   if (characterSearch.value.trim()) {
     chips.push({ key: "search", label: `検索: ${characterSearch.value.trim()}` });
   }
-  if (characterSort.value !== "name") {
-    const map = { speed: "スピード", power: "パワー", control: "コントロール", spin: "スピン" };
-    chips.push({ key: "sort", label: `ソート: ${map[characterSort.value] ?? characterSort.value}` });
+  if (characterSpecialFilter.value === "yes") {
+    chips.push({ key: "special", label: "特殊能力: あり" });
   }
-  if (characterOrder.value !== "desc") {
+  if (characterSpecialFilter.value === "no") {
+    chips.push({ key: "special", label: "特殊能力: なし" });
+  }
+  if (characterSort.value !== "name") {
+    chips.push({ key: "sort", label: `ソート: ${characterSortLabels[characterSort.value] ?? characterSort.value}` });
+  }
+  if (characterOrder.value === "asc") {
     chips.push({ key: "order", label: "並び順: 昇順" });
+  }
+  if (characterOrder.value === "desc") {
+    chips.push({ key: "order", label: "並び順: 降順" });
   }
 
   chips.forEach((chip) => {
@@ -215,6 +331,8 @@ function updateCharacterActiveFilterChips() {
 }
 
 function renderCharacters() {
+  syncCharacterOrderAvailability();
+
   const sortKey = characterSort.value;
   const orderValue = characterOrder.value;
   const sorted = sortItems(getFilteredCharacters(), sortKey, orderValue);
@@ -223,11 +341,7 @@ function renderCharacters() {
   sorted.forEach((character) => characterList.append(createCharacterCard(character)));
 
   characterCount.textContent = `${sorted.length}件表示`;
-
-  const characterApply = document.getElementById("character-filter-apply");
-  if (characterApply) {
-    characterApply.textContent = `${sorted.length}件を表示`;
-  }
+  updateApplyButtonCount("character-filter-apply", sorted.length);
 
   updateCharacterActiveFilterChips();
 }
@@ -235,6 +349,7 @@ function renderCharacters() {
 function getFilteredRackets() {
   const typeValue = racketTypeFilter.value;
   const timingValue = racketTimingFilter.value;
+  const searchValue = normalizeKana(racketSearch.value.trim());
 
   let filtered = rackets;
   if (typeValue !== "all") {
@@ -242,6 +357,9 @@ function getFilteredRackets() {
   }
   if (timingValue !== "all") {
     filtered = filtered.filter((racket) => racket.timing === timingValue);
+  }
+  if (searchValue) {
+    filtered = filtered.filter((racket) => normalizeKana(racket.name).includes(searchValue));
   }
 
   return filtered;
@@ -254,11 +372,7 @@ function renderRackets() {
   sorted.forEach((racket) => racketList.append(createRacketCard(racket)));
 
   racketCount.textContent = `${sorted.length}件表示`;
-
-  const racketApply = document.getElementById("racket-filter-apply");
-  if (racketApply) {
-    racketApply.textContent = `${sorted.length}件を表示`;
-  }
+  updateApplyButtonCount("racket-filter-apply", sorted.length);
 }
 
 function setupCharacterFilterChips() {
@@ -275,11 +389,14 @@ function setupCharacterFilterChips() {
       case "search":
         characterSearch.value = "";
         break;
+      case "special":
+        characterSpecialFilter.value = "all";
+        break;
       case "sort":
         characterSort.value = "name";
         break;
       case "order":
-        characterOrder.value = "desc";
+        characterOrder.value = "game";
         break;
       default:
         break;
@@ -304,9 +421,10 @@ function setupFilterModal(modalId, inlineFilterId, modalFilterId, applyButtonId,
 
   const sourceControls = Array.from(inlineFilters.querySelectorAll("select,input"));
   const modalControls = Array.from(modalFilters.querySelectorAll("select,input"));
+  const modalControlById = new Map(modalControls.map((control) => [control.id, control]));
 
   sourceControls.forEach((sourceControl) => {
-    const targetControl = modalControls.find((item) => item.id === sourceControl.id);
+    const targetControl = modalControlById.get(sourceControl.id);
     if (!targetControl) {
       return;
     }
@@ -325,7 +443,7 @@ function setupFilterModal(modalId, inlineFilterId, modalFilterId, applyButtonId,
 
   const syncModalWithSource = () => {
     sourceControls.forEach((sourceControl) => {
-      const targetControl = modalControls.find((item) => item.id === sourceControl.id);
+      const targetControl = modalControlById.get(sourceControl.id);
       if (targetControl) {
         targetControl.value = sourceControl.value;
       }
@@ -406,14 +524,41 @@ function setupMobileSectionNav() {
   activateMobileNav(initialId || mobileSections[0].id);
 }
 
-[characterTypeFilter, characterSort, characterOrder].forEach((element) => {
-  element.addEventListener("change", renderCharacters);
-});
-characterSearch.addEventListener("input", renderCharacters);
 
-[racketTypeFilter, racketTimingFilter, racketOrder].forEach((element) => {
-  element.addEventListener("change", renderRackets);
-});
+function setupSectionCollapse() {
+  const toggles = Array.from(document.querySelectorAll(".section-title-toggle"));
+
+  toggles.forEach((toggle) => {
+    const targetId = toggle.dataset.collapseTarget;
+    const content = document.getElementById(targetId);
+
+    if (!content) {
+      return;
+    }
+
+    const updateState = (isExpanded) => {
+      toggle.setAttribute("aria-expanded", String(isExpanded));
+      content.hidden = !isExpanded;
+    };
+
+    updateState(toggle.getAttribute("aria-expanded") !== "false");
+
+    toggle.addEventListener("click", () => {
+      const isExpanded = toggle.getAttribute("aria-expanded") === "true";
+      updateState(!isExpanded);
+    });
+  });
+}
+
+function bindChangeListeners(elements, handler) {
+  elements.forEach((element) => element.addEventListener("change", handler));
+}
+
+bindChangeListeners([characterTypeFilter, characterSpecialFilter, characterOrder], renderCharacters);
+bindChangeListeners([racketTypeFilter, racketTimingFilter, racketOrder], renderRackets);
+characterSort.addEventListener("change", handleCharacterSortChange);
+characterSearch.addEventListener("input", renderCharacters);
+racketSearch.addEventListener("input", renderRackets);
 
 
 setupCharacterFilterChips();
@@ -422,4 +567,5 @@ setupFilterModal("racket-filter-modal", "racket-inline-filters", "racket-modal-f
 
 renderCharacters();
 renderRackets();
+setupSectionCollapse();
 setupMobileSectionNav();

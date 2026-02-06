@@ -23,12 +23,17 @@
     <section class="section" id="characters" data-nav-label="キャラ">
       <div class="section-header">
         <div>
-          <p class="section-eyebrow">キャラクター</p>
-          <h2>キャラクター一覧</h2>
+          <h2>
+            <button type="button" class="section-title-toggle" data-collapse-target="character-content" aria-expanded="true">
+              <span>キャラクター一覧</span>
+              <span class="section-meta" id="character-count"></span>
+            </button>
+          </h2>
           <p class="section-description">タイプ別の特徴やパラメータを比較できます。</p>
         </div>
-        <div class="section-meta" id="character-count"></div>
       </div>
+
+      <div id="character-content" class="section-content">
 
       <div class="mobile-filter-trigger-wrap">
         <button type="button" class="mobile-filter-trigger" data-modal-target="character-filter-modal">検索・絞り込み</button>
@@ -44,13 +49,21 @@
         <label class="filter">
           <span>タイプ</span>
           <select id="character-type-filter">
-            <option value="all">すべて</option>
+            <option value="all">指定なし</option>
             <option value="オールラウンド">オールラウンド</option>
             <option value="テクニック">テクニック</option>
             <option value="パワー">パワー</option>
             <option value="ディフェンス">ディフェンス</option>
             <option value="トリッキー">トリッキー</option>
             <option value="スピード">スピード</option>
+          </select>
+        </label>
+        <label class="filter">
+          <span>特殊能力</span>
+          <select id="character-special-filter">
+            <option value="all">指定なし</option>
+            <option value="yes">あり</option>
+            <option value="no">なし</option>
           </select>
         </label>
         <label class="filter">
@@ -66,6 +79,7 @@
         <label class="filter">
           <span>並び順</span>
           <select id="character-order">
+            <option value="game">ゲーム内順</option>
             <option value="desc">降順</option>
             <option value="asc">昇順</option>
           </select>
@@ -84,17 +98,23 @@
       </div>
 
       <div id="character-list" class="card-grid"></div>
+      </div>
     </section>
 
     <section class="section" id="rackets" data-nav-label="ラケット">
       <div class="section-header">
         <div>
-          <p class="section-eyebrow">ラケット</p>
-          <h2>ラケット一覧</h2>
+          <h2>
+            <button type="button" class="section-title-toggle" data-collapse-target="racket-content" aria-expanded="true">
+              <span>ラケット一覧</span>
+              <span class="section-meta" id="racket-count"></span>
+            </button>
+          </h2>
           <p class="section-description">効果やタイミングを比較できます。</p>
         </div>
-        <div class="section-meta" id="racket-count"></div>
       </div>
+
+      <div id="racket-content" class="section-content">
 
       <div class="mobile-filter-trigger-wrap">
         <button type="button" class="mobile-filter-trigger" data-modal-target="racket-filter-modal">絞り込み</button>
@@ -102,9 +122,13 @@
 
       <div class="filters" id="racket-inline-filters">
         <label class="filter">
+          <span>検索</span>
+          <input type="search" id="racket-search" placeholder="ラケット名で検索" />
+        </label>
+        <label class="filter">
           <span>種類</span>
           <select id="racket-type-filter">
-            <option value="all">すべて</option>
+            <option value="all">指定なし</option>
             <option value="妨害">妨害</option>
             <option value="強化">強化</option>
             <option value="その他">その他</option>
@@ -113,7 +137,7 @@
         <label class="filter">
           <span>効果タイミング</span>
           <select id="racket-timing-filter">
-            <option value="all">すべて</option>
+            <option value="all">指定なし</option>
             <option value="即時">即時</option>
             <option value="バウンド時">バウンド時</option>
           </select>
@@ -121,6 +145,7 @@
         <label class="filter">
           <span>並び順</span>
           <select id="racket-order">
+            <option value="game">ゲーム内順</option>
             <option value="desc">降順</option>
             <option value="asc">昇順</option>
           </select>
@@ -139,12 +164,12 @@
       </div>
 
       <div id="racket-list" class="card-grid"></div>
+      </div>
     </section>
 
     <section class="section" id="techniques" data-nav-label="テクニック">
       <div class="section-header">
         <div>
-          <p class="section-eyebrow">テクニック</p>
           <h2>基本テクニック</h2>
           <p class="section-description">試合で役立つ操作のポイントを素早く確認できます。</p>
         </div>
@@ -157,7 +182,6 @@
     <section class="section" id="favorites" data-nav-label="お気に入り">
       <div class="section-header">
         <div>
-          <p class="section-eyebrow">お気に入り</p>
           <h2>お気に入り候補</h2>
           <p class="section-description">よく使う構成のチェック用セクションです。</p>
         </div>
