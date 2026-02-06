@@ -311,11 +311,24 @@ img {
   overflow: hidden;
 }
 
-.stat-bar span {
+.stat-fill {
+  --stat-width: 0%;
   display: block;
+  width: 0;
   height: 100%;
-  background: linear-gradient(90deg, #4fc3ff, #9be7ff);
   border-radius: inherit;
+  background: linear-gradient(90deg, #43d37f 0%, #f4d35e 55%, #ff6b6b 100%);
+  animation: stat-bar-grow 700ms cubic-bezier(0.2, 0.9, 0.2, 1) forwards;
+}
+
+@keyframes stat-bar-grow {
+  from {
+    width: 0;
+  }
+
+  to {
+    width: var(--stat-width);
+  }
 }
 
 .stat-number {

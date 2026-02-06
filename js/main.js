@@ -52,7 +52,8 @@ function createStatRow(label, value) {
   bar.className = "stat-bar";
 
   const fill = document.createElement("span");
-  fill.style.width = `${(value / maxStatValue) * 100}%`;
+  fill.className = "stat-fill";
+  fill.style.setProperty("--stat-width", `${(value / maxStatValue) * 100}%`);
 
   bar.append(fill);
 
