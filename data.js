@@ -261,7 +261,7 @@ export const characters = [
     stats: { speed: 1, power: 1, control: 5, spin: 2 },
     special: "なし",
     text: "ベビィのころのピーチ。コート端ぎりぎりに入るような精度の高いショットが得意",
-    image: "assets/character_icons/wario.webp",
+    image: "assets/character_icons/baby-peach.webp",
   },
   {
     name: "ハナチャン",
