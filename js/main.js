@@ -120,7 +120,7 @@ function createRacketCard(racket) {
   const title = document.createElement("div");
   title.innerHTML = `
     <h3 class="racket-title">${racket.name}</h3>
-    <div class="badge-group">
+    <div class="badge-group badge-group--racket">
       <span class="badge">${racket.category}</span>
       <span class="badge badge--soft">${racket.timing}</span>
     </div>
@@ -130,7 +130,7 @@ function createRacketCard(racket) {
   image.src = racket.image;
   image.alt = `${racket.name}のアイコン`;
   image.loading = "lazy";
-  image.className = "card-image";
+  image.className = "card-image card-image--racket";
 
   header.append(title, image);
 

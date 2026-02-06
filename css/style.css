@@ -160,6 +160,10 @@ img {
   flex-wrap: wrap;
 }
 
+.badge-group--racket {
+  flex-wrap: nowrap;
+}
+
 .badge--soft {
   background: rgba(135, 206, 250, 0.18);
   color: #8ad7ff;
@@ -172,6 +176,13 @@ img {
   border-radius: 16px;
   border: 1px solid var(--border);
   background: rgba(8, 23, 36, 0.9);
+}
+
+.card-image--racket {
+  width: 88px;
+  height: 88px;
+  object-fit: contain;
+  padding: 8px;
 }
 
 .effect {
