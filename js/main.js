@@ -250,6 +250,15 @@ function syncCharacterOrderAvailability() {
   }
 }
 
+function handleCharacterSortChange() {
+  const isNameSort = characterSort.value === "name";
+  if (isNameSort) {
+    characterOrder.value = "game";
+  }
+
+  renderCharacters();
+}
+
 function updateApplyButtonCount(buttonId, count) {
   const applyButton = document.getElementById(buttonId);
   if (applyButton) {
@@ -545,8 +554,9 @@ function bindChangeListeners(elements, handler) {
   elements.forEach((element) => element.addEventListener("change", handler));
 }
 
-bindChangeListeners([characterTypeFilter, characterSpecialFilter, characterSort, characterOrder], renderCharacters);
+bindChangeListeners([characterTypeFilter, characterSpecialFilter, characterOrder], renderCharacters);
 bindChangeListeners([racketTypeFilter, racketTimingFilter, racketOrder], renderRackets);
+characterSort.addEventListener("change", handleCharacterSortChange);
 characterSearch.addEventListener("input", renderCharacters);
 racketSearch.addEventListener("input", renderRackets);
 
