@@ -318,12 +318,26 @@ img {
   inset: 0;
   pointer-events: none;
   z-index: 2;
-  background-image: repeating-linear-gradient(
+  background-image: linear-gradient(
     to right,
     transparent 0,
     transparent calc(20% - 1px),
-    rgba(247, 251, 255, 0.45) calc(20% - 1px),
-    rgba(247, 251, 255, 0.45) 20%
+    rgba(12, 16, 24, 0.85) calc(20% - 1px),
+    rgba(12, 16, 24, 0.85) 20%,
+    transparent 20%,
+    transparent calc(40% - 1px),
+    rgba(12, 16, 24, 0.85) calc(40% - 1px),
+    rgba(12, 16, 24, 0.85) 40%,
+    transparent 40%,
+    transparent calc(60% - 1px),
+    rgba(12, 16, 24, 0.85) calc(60% - 1px),
+    rgba(12, 16, 24, 0.85) 60%,
+    transparent 60%,
+    transparent calc(80% - 1px),
+    rgba(12, 16, 24, 0.85) calc(80% - 1px),
+    rgba(12, 16, 24, 0.85) 80%,
+    transparent 80%,
+    transparent 100%
   );
 }
 
