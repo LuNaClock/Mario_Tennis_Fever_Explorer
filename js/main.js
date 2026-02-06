@@ -29,6 +29,7 @@ const characterActiveFilters = document.getElementById("character-active-filters
 const racketTypeFilter = document.getElementById("racket-type-filter");
 const racketTimingFilter = document.getElementById("racket-timing-filter");
 const racketOrder = document.getElementById("racket-order");
+const racketSearch = document.getElementById("racket-search");
 
 const mobileNavItems = Array.from(document.querySelectorAll(".mobile-bottom-nav__item"));
 const mobileSections = mobileNavItems
@@ -183,9 +184,15 @@ function updateApplyButtonCount(buttonId, count) {
   }
 }
 
+function normalizeKana(value) {
+  return value
+    .toLowerCase()
+    .replace(/[ぁ-ゖ]/g, (char) => String.fromCharCode(char.charCodeAt(0) + 0x60));
+}
+
 function getFilteredCharacters() {
   const typeValue = characterTypeFilter.value;
-  const searchValue = characterSearch.value.trim().toLowerCase();
+  const searchValue = normalizeKana(characterSearch.value.trim());
   const specialValue = characterSpecialFilter.value;
 
   let filtered = characters;
@@ -193,7 +200,7 @@ function getFilteredCharacters() {
     filtered = filtered.filter((character) => character.type === typeValue);
   }
   if (searchValue) {
-    filtered = filtered.filter((character) => character.name.toLowerCase().includes(searchValue));
+    filtered = filtered.filter((character) => normalizeKana(character.name).includes(searchValue));
   }
   if (specialValue === "yes") {
     filtered = filtered.filter((character) => character.special !== "なし");
@@ -258,6 +265,7 @@ function renderCharacters() {
 function getFilteredRackets() {
   const typeValue = racketTypeFilter.value;
   const timingValue = racketTimingFilter.value;
+  const searchValue = normalizeKana(racketSearch.value.trim());
 
   let filtered = rackets;
   if (typeValue !== "all") {
@@ -265,6 +273,9 @@ function getFilteredRackets() {
   }
   if (timingValue !== "all") {
     filtered = filtered.filter((racket) => racket.timing === timingValue);
+  }
+  if (searchValue) {
+    filtered = filtered.filter((racket) => normalizeKana(racket.name).includes(searchValue));
   }
 
   return filtered;
@@ -462,6 +473,7 @@ function bindChangeListeners(elements, handler) {
 bindChangeListeners([characterTypeFilter, characterSpecialFilter, characterSort, characterOrder], renderCharacters);
 bindChangeListeners([racketTypeFilter, racketTimingFilter, racketOrder], renderRackets);
 characterSearch.addEventListener("input", renderCharacters);
+racketSearch.addEventListener("input", renderRackets);
 
 
 setupCharacterFilterChips();
