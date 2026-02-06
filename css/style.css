@@ -1,13 +1,14 @@
 :root {
-  color-scheme: light;
-  --bg: #f6f6f8;
-  --card-bg: #ffffff;
-  --text: #1f2933;
-  --muted: #6b7785;
-  --accent: #ff6f61;
-  --accent-soft: #fff1ef;
-  --border: #e0e5eb;
-  --shadow: 0 18px 40px rgba(20, 25, 34, 0.12);
+  color-scheme: dark;
+  --bg: #0b2a44;
+  --bg-highlight: #0f5fa8;
+  --card-bg: rgba(12, 24, 38, 0.92);
+  --text: #f6fbff;
+  --muted: #b9c9da;
+  --accent: #4fc3ff;
+  --accent-soft: rgba(79, 195, 255, 0.16);
+  --border: #1d4b69;
+  --shadow: 0 24px 40px rgba(2, 8, 16, 0.55);
 }
 
 * {
@@ -17,7 +18,10 @@
 body {
   margin: 0;
   font-family: "Noto Sans JP", "Hiragino Sans", "Yu Gothic", sans-serif;
-  background: var(--bg);
+  background:
+    radial-gradient(circle at top left, rgba(79, 195, 255, 0.25), transparent 45%),
+    linear-gradient(135deg, var(--bg) 0%, var(--bg-highlight) 100%);
+  background-attachment: fixed;
   color: var(--text);
   line-height: 1.6;
 }
@@ -33,7 +37,7 @@ img {
 }
 
 .site-header {
-  background: linear-gradient(135deg, #ffe7e5, #fff7d6);
+  background: linear-gradient(140deg, rgba(4, 35, 66, 0.96), rgba(10, 102, 177, 0.92));
   padding: 48px 0 36px;
   border-bottom: 1px solid var(--border);
 }
@@ -101,7 +105,8 @@ img {
   border: 1px solid var(--border);
   border-radius: 10px;
   font-size: 0.95rem;
-  background: #fff;
+  background: rgba(10, 30, 48, 0.9);
+  color: var(--text);
 }
 
 .card-grid {
@@ -156,8 +161,8 @@ img {
 }
 
 .badge--soft {
-  background: #eef2ff;
-  color: #4c51bf;
+  background: rgba(135, 206, 250, 0.18);
+  color: #8ad7ff;
 }
 
 .card-image {
@@ -166,14 +171,14 @@ img {
   object-fit: cover;
   border-radius: 16px;
   border: 1px solid var(--border);
-  background: #fff;
+  background: rgba(8, 23, 36, 0.9);
 }
 
 .effect {
   margin: 0;
   padding: 12px 14px;
   border-radius: 12px;
-  background: #f8fafc;
+  background: rgba(6, 20, 34, 0.85);
   color: var(--muted);
   font-size: 0.9rem;
 }
@@ -205,14 +210,14 @@ img {
 .stat-bar {
   height: 8px;
   border-radius: 999px;
-  background: #edf1f6;
+  background: rgba(247, 251, 255, 0.12);
   overflow: hidden;
 }
 
 .stat-bar span {
   display: block;
   height: 100%;
-  background: linear-gradient(90deg, #ff8a65, #ffb74d);
+  background: linear-gradient(90deg, #4fc3ff, #9be7ff);
   border-radius: inherit;
 }
 
@@ -255,7 +260,7 @@ img {
 }
 
 .site-footer {
-  background: #fff;
+  background: rgba(7, 22, 36, 0.9);
   padding: 28px 0 40px;
   border-top: 1px solid var(--border);
   color: var(--muted);
