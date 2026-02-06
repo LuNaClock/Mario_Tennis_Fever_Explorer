@@ -63,6 +63,14 @@
       </div>
 
       <div id="character-list" class="card-grid"></div>
+
+      <section class="compare-panel" aria-live="polite">
+        <div class="compare-panel__header">
+          <h3>キャラクター比較（最大3件）</h3>
+          <p id="compare-summary" class="compare-summary">比較したいキャラを選択してください。</p>
+        </div>
+        <div id="comparison-results"></div>
+      </section>
     </section>
 
     <section class="section" id="rackets" data-nav-label="ラケット">
@@ -138,6 +146,18 @@
     <a class="mobile-bottom-nav__item" href="#techniques" data-target="techniques">テクニック</a>
     <a class="mobile-bottom-nav__item" href="#favorites" data-target="favorites">お気に入り</a>
   </nav>
+
+  <aside class="compare-tray" id="compare-tray" aria-label="比較トレイ">
+    <div class="compare-tray__content">
+      <p class="compare-tray__title">比較中</p>
+      <div id="compare-tray-items" class="compare-tray__items"></div>
+    </div>
+    <div class="compare-tray__actions">
+      <button id="compare-share" type="button">共有URL</button>
+      <button id="compare-clear" type="button">クリア</button>
+    </div>
+    <p id="compare-share-status" class="compare-share-status" aria-live="polite"></p>
+  </aside>
 
   <footer class="site-footer">
     <div class="container">
