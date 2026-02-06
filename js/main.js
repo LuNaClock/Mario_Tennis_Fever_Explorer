@@ -248,11 +248,11 @@ function syncCharacterOrderAvailability() {
   });
 
   ascOptions.forEach((option) => {
-    option.textContent = isNameSort ? "昇順" : "数値が低い順";
+    option.textContent = isNameSort ? "昇順" : "数値が高い順";
   });
 
   descOptions.forEach((option) => {
-    option.textContent = isNameSort ? "降順" : "数値が高い順";
+    option.textContent = isNameSort ? "降順" : "数値が低い順";
   });
 
   if (!isNameSort && characterOrder.value === "game") {
@@ -326,13 +326,13 @@ function updateCharacterActiveFilterChips() {
   if (characterOrder.value === "asc") {
     chips.push({
       key: "order",
-      label: `並び順: ${characterSort.value === "name" ? "昇順" : "数値が低い順"}`,
+      label: `並び順: ${characterSort.value === "name" ? "昇順" : "数値が高い順"}`,
     });
   }
   if (characterOrder.value === "desc") {
     chips.push({
       key: "order",
-      label: `並び順: ${characterSort.value === "name" ? "降順" : "数値が高い順"}`,
+      label: `並び順: ${characterSort.value === "name" ? "降順" : "数値が低い順"}`,
     });
   }
 
