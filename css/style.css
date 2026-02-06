@@ -179,7 +179,7 @@ img {
   padding: 12px 14px;
   border-radius: 12px;
   background: rgba(6, 20, 34, 0.85);
-  color: var(--muted);
+  color: var(--text);
   font-size: 0.9rem;
 }
 
