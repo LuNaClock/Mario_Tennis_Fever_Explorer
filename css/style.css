@@ -314,7 +314,7 @@ img {
 .stat-fill {
   --stat-width: 0%;
   display: block;
-  width: 0;
+  width: var(--stat-width);
   height: 100%;
   border-radius: inherit;
   background: #43d37f;
@@ -322,11 +322,11 @@ img {
 }
 
 .stat-fill[data-stat-tier="1"] {
-  background: #43d37f;
+  background: #ff6b6b;
 }
 
 .stat-fill[data-stat-tier="2"] {
-  background: #86d657;
+  background: #f59f4c;
 }
 
 .stat-fill[data-stat-tier="3"] {
@@ -334,11 +334,11 @@ img {
 }
 
 .stat-fill[data-stat-tier="4"] {
-  background: #f59f4c;
+  background: #86d657;
 }
 
 .stat-fill[data-stat-tier="5"] {
-  background: #ff6b6b;
+  background: #43d37f;
 }
 
 @keyframes stat-bar-grow {

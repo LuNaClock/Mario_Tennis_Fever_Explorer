@@ -15,7 +15,7 @@ const characterSortLabels = {
 const maxStatValue = 5;
 
 function getStatTier(value) {
-  return Math.min(maxStatValue, Math.max(1, Math.ceil(value)));
+  return Math.min(maxStatValue, Math.max(1, Math.floor(value)));
 }
 
 const characterList = document.getElementById("character-list");
