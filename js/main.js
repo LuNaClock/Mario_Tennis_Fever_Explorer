@@ -20,7 +20,6 @@ const characterOrder = document.getElementById("character-order");
 
 const racketTypeFilter = document.getElementById("racket-type-filter");
 const racketTimingFilter = document.getElementById("racket-timing-filter");
-const racketSort = document.getElementById("racket-sort");
 const racketOrder = document.getElementById("racket-order");
 
 function createStatRow(label, value) {
@@ -120,7 +119,7 @@ function createRacketCard(racket) {
 
   const title = document.createElement("div");
   title.innerHTML = `
-    <h3>${racket.name}</h3>
+    <h3 class="racket-title">${racket.name}</h3>
     <div class="badge-group">
       <span class="badge">${racket.category}</span>
       <span class="badge badge--soft">${racket.timing}</span>
@@ -139,15 +138,9 @@ function createRacketCard(racket) {
   effect.className = "effect";
   effect.textContent = racket.effect;
 
-  const stats = document.createElement("div");
-  stats.className = "stats";
-  Object.entries(racket.stats).forEach(([key, value]) => {
-    stats.append(createStatRow(statLabels[key], value));
-  });
-
   const text = createAccordion("ゲーム内テキスト", racket.text);
 
-  card.append(header, effect, stats, text);
+  card.append(header, effect, text);
   return card;
 }
 
@@ -191,7 +184,6 @@ function renderCharacters() {
 function renderRackets() {
   const typeValue = racketTypeFilter.value;
   const timingValue = racketTimingFilter.value;
-  const sortKey = racketSort.value;
   const orderValue = racketOrder.value;
 
   let filtered = rackets;
@@ -202,7 +194,7 @@ function renderRackets() {
     filtered = filtered.filter((racket) => racket.timing === timingValue);
   }
 
-  const sorted = sortItems(filtered, sortKey, orderValue);
+  const sorted = sortItems(filtered, "name", orderValue);
 
   racketList.innerHTML = "";
   sorted.forEach((racket) => racketList.append(createRacketCard(racket)));
@@ -214,7 +206,7 @@ function renderRackets() {
   element.addEventListener("change", renderCharacters);
 });
 
-[racketTypeFilter, racketTimingFilter, racketSort, racketOrder].forEach((element) => {
+[racketTypeFilter, racketTimingFilter, racketOrder].forEach((element) => {
   element.addEventListener("change", renderRackets);
 });
 

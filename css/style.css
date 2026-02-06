@@ -131,6 +131,13 @@ img {
   margin: 0 0 6px;
 }
 
+.racket-title {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 200px;
+}
+
 .badge {
   display: inline-flex;
   align-items: center;
