@@ -80,14 +80,6 @@ export const characters = [
     image: "assets/character_icons/kinopico.svg",
   },
   {
-    name: "ワリオ",
-    type: "トリッキー",
-    stats: { speed: 3.0, power: 3.5, control: 2.5, spin: 3.5 },
-    special: "トリックバウンド: 変化球で相手の位置を崩す。",
-    text: "変則的なショットと駆け引きで相手を翻弄するトリッキータイプ。",
-    image: "assets/character_icons/wario.svg",
-  },
-  {
     name: "チコ",
     type: "テクニック",
     stats: { speed: 2, power: 1.5, control: 4.5, spin: 2 },
@@ -110,14 +102,6 @@ export const characters = [
     special: "ストローク時のトップ強化",
     text: "最強のパワーをほこる。全力で打ったトップスピンには誰もがふきとぶ。A→Aで打つストロークが特に強い",
     image: "assets/character_icons/koopa.svg",
-  },
-  {
-    name: "ワリオ",
-    type: "トリッキー",
-    stats: { speed: 3.0, power: 3.5, control: 2.5, spin: 3.5 },
-    special: "トリックバウンド: 変化球で相手の位置を崩す。",
-    text: "変則的なショットと駆け引きで相手を翻弄するトリッキータイプ。",
-    image: "assets/character_icons/wario.svg",
   },
   {
     name: "クッパJr.",
