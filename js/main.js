@@ -159,6 +159,10 @@ function createRacketCard(racket) {
 }
 
 function sortItems(items, key, order) {
+  if (order === "game") {
+    return [...items];
+  }
+
   const sorted = [...items];
   sorted.sort((a, b) => {
     if (key === "name") {
@@ -220,8 +224,11 @@ function updateCharacterActiveFilterChips() {
   if (characterSort.value !== "name") {
     chips.push({ key: "sort", label: `ソート: ${characterSortLabels[characterSort.value] ?? characterSort.value}` });
   }
-  if (characterOrder.value !== "desc") {
+  if (characterOrder.value === "asc") {
     chips.push({ key: "order", label: "並び順: 昇順" });
+  }
+  if (characterOrder.value === "desc") {
+    chips.push({ key: "order", label: "並び順: 降順" });
   }
 
   chips.forEach((chip) => {
@@ -294,7 +301,7 @@ function setupCharacterFilterChips() {
         characterSort.value = "name";
         break;
       case "order":
-        characterOrder.value = "desc";
+        characterOrder.value = "game";
         break;
       default:
         break;
