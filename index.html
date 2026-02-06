@@ -27,8 +27,13 @@
           <h2>キャラクター一覧</h2>
           <p class="section-description">タイプ別の特徴やパラメータを比較できます。</p>
         </div>
-        <div class="section-meta" id="character-count"></div>
+        <div class="section-header-actions">
+          <div class="section-meta" id="character-count"></div>
+          <button type="button" class="section-collapse-toggle" data-collapse-target="character-content" aria-expanded="true">折りたたむ</button>
+        </div>
       </div>
+
+      <div id="character-content" class="section-content">
 
       <div class="mobile-filter-trigger-wrap">
         <button type="button" class="mobile-filter-trigger" data-modal-target="character-filter-modal">検索・絞り込み</button>
@@ -84,6 +89,7 @@
       </div>
 
       <div id="character-list" class="card-grid"></div>
+      </div>
     </section>
 
     <section class="section" id="rackets" data-nav-label="ラケット">
@@ -93,8 +99,13 @@
           <h2>ラケット一覧</h2>
           <p class="section-description">効果やタイミングを比較できます。</p>
         </div>
-        <div class="section-meta" id="racket-count"></div>
+        <div class="section-header-actions">
+          <div class="section-meta" id="racket-count"></div>
+          <button type="button" class="section-collapse-toggle" data-collapse-target="racket-content" aria-expanded="true">折りたたむ</button>
+        </div>
       </div>
+
+      <div id="racket-content" class="section-content">
 
       <div class="mobile-filter-trigger-wrap">
         <button type="button" class="mobile-filter-trigger" data-modal-target="racket-filter-modal">絞り込み</button>
@@ -139,6 +150,7 @@
       </div>
 
       <div id="racket-list" class="card-grid"></div>
+      </div>
     </section>
 
     <section class="section" id="techniques" data-nav-label="テクニック">
