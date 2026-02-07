@@ -34,7 +34,7 @@ export const characters = [
   {
     name: "ロゼッタ",
     type: "トリッキー",
-    stats: { speed: 4.5, power: 4.5, control: 4.5, spin: 4.5 },
+    stats: { speed: 3.5, power: 3.5, control: 3.5, spin: 3.5 },
     special: "ロブ強化",
     text: "力強いショットとスピンで圧倒する。ネット際の相手の上をぬくロブは曲がる軌道で流れ星のように落ちる",
     image: "assets/character_icons/rosetta.webp",
@@ -130,7 +130,7 @@ export const characters = [
   {
     name: "ヘイホー",
     type: "テクニック",
-    stats: { speed: 3.0, power: 3.5, control: 2.5, spin: 3.5 },
+    stats: { speed: 2, power: 2.5, control: 4.5, spin: 1.5 },
     special: "ストローク時、強打トップコントロール強化",
     text: "コートの端をねらうのが得意なテクニックタイプ。A→Aで打つストロークでもコート端をねらえる",
     image: "assets/character_icons/heyho.webp",
@@ -243,7 +243,7 @@ export const characters = [
     name: "ベビィマリオ",
     type: "オールラウンド",
     stats: { speed: 3.5, power: 2.5, control: 3, spin: 2.5 },
-    special: "ドロップが曲がる",
+    special: "なし",
     text: "ベビィのころのマリオ。すべての能力が安定して高い。足りないパワーはスピンでおぎなう",
     image: "assets/character_icons/baby-mario.webp",
   },
