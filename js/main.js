@@ -602,6 +602,15 @@ function setupFilterModal(modalId, inlineFilterId, modalFilterId, applyButtonId,
   modalFilters.innerHTML = "";
   modalFilters.append(...Array.from(inlineFilters.children).map((node) => node.cloneNode(true)));
 
+  if (modalId === "character-filter-modal" && characterModalSearchResults) {
+    const searchInput = modalFilters.querySelector('input[type="search"]');
+    const searchFilter = searchInput?.closest(".filter");
+    if (searchFilter) {
+      searchFilter.insertAdjacentElement("afterend", characterModalSearchResults);
+      characterModalSearchResults.classList.add("search-shortcuts--near-search");
+    }
+  }
+
   const sourceControls = Array.from(inlineFilters.querySelectorAll("select,input"));
   const modalControls = Array.from(modalFilters.querySelectorAll("select,input"));
   const modalControlById = new Map(modalControls.map((control) => [control.id, control]));
