@@ -355,3 +355,13 @@ export const rackets = [
     image: "assets/racket_icons/shadow_racket.webp",
   },
 ];
+
+/** @type {{ date: string; items: string[] }[]} */
+export const changelog = [
+  {
+    date: "2025-02-07",
+    items: ["・ロゼッタ/ベビィマリオ/ヘイホーのパラメータやテキストを修正\n",
+        "・スマホとタブレットで、検索画面が崩れる不具合を修正\n",
+        "・スマホの検索画面で特定数以上候補がある場合、スクロールする必要があった仕様を撤廃。\nスクロール無しで全件確認出来るよう変更"],
+  },
+];

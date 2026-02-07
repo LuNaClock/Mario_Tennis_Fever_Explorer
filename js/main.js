@@ -1,4 +1,4 @@
-import { characters, rackets } from "../data.js";
+import { characters, rackets, changelog } from "../data.js";
 
 const statLabels = {
   speed: "スピード",
@@ -666,6 +666,61 @@ function setupFilterModal(modalId, inlineFilterId, modalFilterId, applyButtonId,
   });
 }
 
+function setupChangelogModal() {
+  const modalId = "changelog-modal";
+  const modal = document.getElementById(modalId);
+  const content = document.getElementById("changelog-content");
+
+  if (!modal || !content) {
+    return;
+  }
+
+  content.innerHTML = "";
+  changelog.forEach((entry) => {
+    const div = document.createElement("div");
+    div.className = "changelog-entry";
+
+    const dateEl = document.createElement("p");
+    dateEl.className = "changelog-entry__date";
+    dateEl.textContent = entry.date;
+
+    const ul = document.createElement("ul");
+    ul.className = "changelog-entry__items";
+    entry.items.forEach((item) => {
+      const li = document.createElement("li");
+      li.textContent = item;
+      ul.append(li);
+    });
+
+    div.append(dateEl, ul);
+    content.append(div);
+  });
+
+  const openButtons = Array.from(document.querySelectorAll(`[data-modal-target="${modalId}"]`));
+  const closeButtons = Array.from(document.querySelectorAll(`[data-modal-close="${modalId}"]`));
+
+  const openModal = () => {
+    modal.classList.add("is-open");
+    modal.setAttribute("aria-hidden", "false");
+    document.body.classList.add("modal-open");
+  };
+
+  const closeModal = () => {
+    modal.classList.remove("is-open");
+    modal.setAttribute("aria-hidden", "true");
+    document.body.classList.remove("modal-open");
+  };
+
+  openButtons.forEach((button) => button.addEventListener("click", openModal));
+  closeButtons.forEach((button) => button.addEventListener("click", closeModal));
+
+  modal.addEventListener("click", (event) => {
+    if (event.target === modal) {
+      closeModal();
+    }
+  });
+}
+
 function activateMobileNav(sectionId) {
   mobileNavItems.forEach((item) => {
     const isActive = item.dataset.target === sectionId;
@@ -773,6 +828,7 @@ setupCharacterFilterChips();
 setupCharacterSearchShortcutActions();
 setupFilterModal("character-filter-modal", "character-inline-filters", "character-modal-filters", "character-filter-apply", renderCharacters);
 setupFilterModal("racket-filter-modal", "racket-inline-filters", "racket-modal-filters", "racket-filter-apply", renderRackets);
+setupChangelogModal();
 
 renderCharacters();
 renderRackets();
