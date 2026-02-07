@@ -29,6 +29,8 @@ const characterSort = document.getElementById("character-sort");
 const characterOrder = document.getElementById("character-order");
 const characterSearch = document.getElementById("character-search");
 const characterActiveFilters = document.getElementById("character-active-filters");
+const characterSearchResults = document.getElementById("character-search-results");
+const characterModalSearchResults = document.getElementById("character-modal-search-results");
 
 const racketTypeFilter = document.getElementById("racket-type-filter");
 const racketTimingFilter = document.getElementById("racket-timing-filter");
@@ -101,6 +103,68 @@ function createAccordion(title, content) {
   return wrapper;
 }
 
+/**
+ * グリッドコンテナの現在の列数を取得する
+ * @param {Element} gridEl - .card-grid の要素
+ * @returns {number}
+ */
+function getGridColumnCount(gridEl) {
+  const style = getComputedStyle(gridEl);
+  const cols = style.gridTemplateColumns;
+  if (!cols) {
+    return 1;
+  }
+  const count = cols.trim().split(/\s+/).length;
+  return count >= 1 ? count : 1;
+}
+
+/**
+ * 同一行にあるカードの、同じインデックスのアコーディオンをクリックしたカードの展開状態に同期する
+ * @param {HTMLButtonElement} clickedToggle - クリックされた .accordion-toggle
+ */
+function syncSameRowAccordions(clickedToggle) {
+  const card = clickedToggle.closest(".card");
+  const grid = card?.parentElement;
+  if (!card || !grid || !grid.classList.contains("card-grid")) {
+    return;
+  }
+
+  const cards = Array.from(grid.children);
+  const cardIndex = cards.indexOf(card);
+  if (cardIndex === -1) {
+    return;
+  }
+
+  const columns = getGridColumnCount(grid);
+  const rowIndex = Math.floor(cardIndex / columns);
+
+  const clickedAccordion = clickedToggle.closest(".accordion");
+  const accordionsInCard = card.querySelectorAll(".accordion");
+  const accordionIndex = Array.from(accordionsInCard).indexOf(clickedAccordion);
+  if (accordionIndex === -1) {
+    return;
+  }
+
+  const newExpanded = clickedToggle.getAttribute("aria-expanded") === "true";
+
+  cards.forEach((otherCard, i) => {
+    if (Math.floor(i / columns) !== rowIndex) {
+      return;
+    }
+    const otherAccordions = otherCard.querySelectorAll(".accordion");
+    const otherAccordion = otherAccordions[accordionIndex];
+    if (!otherAccordion) {
+      return;
+    }
+    const otherButton = otherAccordion.querySelector(".accordion-toggle");
+    const otherPanel = otherAccordion.querySelector(".accordion-panel");
+    if (otherButton && otherPanel) {
+      otherButton.setAttribute("aria-expanded", String(newExpanded));
+      otherPanel.hidden = !newExpanded;
+    }
+  });
+}
+
 function isMobileView() {
   return window.matchMedia("(max-width: 768px)").matches;
 }
@@ -108,6 +172,10 @@ function isMobileView() {
 function createCharacterCard(character) {
   const card = document.createElement("article");
   card.className = "card";
+  const characterIndex = characters.indexOf(character);
+  if (characterIndex >= 0) {
+    card.id = `character-card-${characterIndex + 1}`;
+  }
 
   const mobileView = isMobileView();
   if (mobileView) {
@@ -346,12 +414,110 @@ function updateCharacterActiveFilterChips() {
   });
 }
 
+function closeCharacterFilterModal() {
+  const modal = document.getElementById("character-filter-modal");
+  if (!modal || !modal.classList.contains("is-open")) {
+    return;
+  }
+
+  modal.classList.remove("is-open");
+  modal.setAttribute("aria-hidden", "true");
+  document.body.classList.remove("modal-open");
+}
+
+function createCharacterSearchShortcut(character) {
+  const button = document.createElement("button");
+  button.type = "button";
+  button.className = "search-shortcut";
+
+  const characterIndex = characters.indexOf(character);
+  if (characterIndex >= 0) {
+    button.dataset.targetCardId = `character-card-${characterIndex + 1}`;
+  }
+
+  const icon = document.createElement("img");
+  icon.className = "search-shortcut__icon";
+  icon.src = character.image;
+  icon.alt = "";
+  icon.loading = "lazy";
+
+  const name = document.createElement("span");
+  name.className = "search-shortcut__name";
+  name.textContent = character.name;
+
+  button.append(icon, name);
+  return button;
+}
+
+function renderCharacterSearchShortcuts(filteredCharacters) {
+  const searchValue = characterSearch.value.trim();
+  const containers = [characterSearchResults, characterModalSearchResults].filter(Boolean);
+
+  containers.forEach((container) => {
+    container.innerHTML = "";
+
+    if (!searchValue) {
+      container.hidden = true;
+      return;
+    }
+
+    const label = document.createElement("p");
+    label.className = "search-shortcuts__title";
+    label.textContent = `検索ヒット: ${filteredCharacters.length}件`;
+
+    const list = document.createElement("div");
+    list.className = "search-shortcuts__list";
+
+    filteredCharacters.forEach((character) => {
+      list.append(createCharacterSearchShortcut(character));
+    });
+
+    if (!filteredCharacters.length) {
+      const empty = document.createElement("p");
+      empty.className = "search-shortcuts__empty";
+      empty.textContent = "一致するキャラクターが見つかりません。";
+      container.append(label, empty);
+    } else {
+      container.append(label, list);
+    }
+
+    container.hidden = false;
+  });
+}
+
+function setupCharacterSearchShortcutActions() {
+  const onClick = (event) => {
+    const shortcut = event.target.closest(".search-shortcut");
+    if (!shortcut) {
+      return;
+    }
+
+    const cardId = shortcut.dataset.targetCardId;
+    if (!cardId) {
+      return;
+    }
+
+    closeCharacterFilterModal();
+
+    const targetCard = document.getElementById(cardId);
+    if (!targetCard) {
+      return;
+    }
+
+    targetCard.scrollIntoView({ behavior: "smooth", block: "center" });
+  };
+
+  characterSearchResults?.addEventListener("click", onClick);
+  characterModalSearchResults?.addEventListener("click", onClick);
+}
+
 function renderCharacters() {
   syncCharacterOrderAvailability();
 
   const sortKey = characterSort.value;
   const orderValue = characterOrder.value;
-  const sorted = sortItems(getFilteredCharacters(), sortKey, orderValue);
+  const filteredCharacters = getFilteredCharacters();
+  const sorted = sortItems(filteredCharacters, sortKey, orderValue);
 
   characterList.innerHTML = "";
   sorted.forEach((character) => characterList.append(createCharacterCard(character)));
@@ -360,6 +526,7 @@ function renderCharacters() {
   updateApplyButtonCount("character-filter-apply", sorted.length);
 
   updateCharacterActiveFilterChips();
+  renderCharacterSearchShortcuts(sorted);
 }
 
 function getFilteredRackets() {
@@ -541,6 +708,22 @@ function setupMobileSectionNav() {
 }
 
 
+/**
+ * カードグリッド内のアコーディオンを、同一行のカードで展開状態が同期するように委譲リスナーを設定する
+ */
+function setupAccordionRowSync() {
+  const handleAccordionClick = (event) => {
+    const toggle = event.target.closest(".accordion-toggle");
+    if (!toggle) {
+      return;
+    }
+    syncSameRowAccordions(toggle);
+  };
+
+  characterList.addEventListener("click", handleAccordionClick);
+  racketList.addEventListener("click", handleAccordionClick);
+}
+
 function setupSectionCollapse() {
   const toggles = Array.from(document.querySelectorAll(".section-title-toggle"));
 
@@ -578,10 +761,12 @@ racketSearch.addEventListener("input", renderRackets);
 
 
 setupCharacterFilterChips();
+setupCharacterSearchShortcutActions();
 setupFilterModal("character-filter-modal", "character-inline-filters", "character-modal-filters", "character-filter-apply", renderCharacters);
 setupFilterModal("racket-filter-modal", "racket-inline-filters", "racket-modal-filters", "racket-filter-apply", renderRackets);
 
 renderCharacters();
 renderRackets();
 setupSectionCollapse();
+setupAccordionRowSync();
 setupMobileSectionNav();
