@@ -35,6 +35,11 @@
 
       <div id="character-content" class="section-content">
 
+      <div class="view-toggle" id="character-view-toggle" role="group" aria-label="キャラクター表示切替">
+        <button type="button" class="view-toggle__button is-active" data-character-view="list">コンパクト</button>
+        <button type="button" class="view-toggle__button" data-character-view="card">カード</button>
+      </div>
+
       <div class="mobile-filter-trigger-wrap">
         <button type="button" class="mobile-filter-trigger" data-modal-target="character-filter-modal">検索・絞り込み</button>
       </div>
@@ -94,6 +99,28 @@
           </div>
           <div class="filters filters--modal" id="character-modal-filters"></div>
           <button type="button" class="filter-modal__apply" id="character-filter-apply">0件を表示</button>
+        </div>
+      </div>
+
+      <div class="detail-sheet" id="character-detail-sheet" aria-hidden="true">
+        <div class="detail-sheet__panel" role="dialog" aria-modal="true" aria-labelledby="character-detail-name">
+          <button type="button" class="detail-sheet__close" id="character-detail-close" aria-label="詳細を閉じる">✕</button>
+          <div class="detail-sheet__header">
+            <img src="" alt="" id="character-detail-image" class="detail-sheet__image" />
+            <div>
+              <h3 id="character-detail-name"></h3>
+              <p class="badge" id="character-detail-type"></p>
+            </div>
+          </div>
+          <div class="detail-sheet__stats" id="character-detail-stats"></div>
+          <section class="detail-sheet__section">
+            <h4>特殊能力</h4>
+            <p id="character-detail-special"></p>
+          </section>
+          <section class="detail-sheet__section">
+            <h4>ゲーム内テキスト</h4>
+            <p id="character-detail-text"></p>
+          </section>
         </div>
       </div>
 

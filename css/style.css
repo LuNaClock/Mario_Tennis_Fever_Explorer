@@ -167,6 +167,32 @@ img {
   cursor: pointer;
 }
 
+.view-toggle {
+  display: inline-flex;
+  gap: 6px;
+  margin-top: 14px;
+  padding: 4px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: rgba(8, 26, 42, 0.9);
+}
+
+.view-toggle__button {
+  border: none;
+  background: transparent;
+  color: var(--muted);
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-weight: 700;
+  font-size: 0.82rem;
+  cursor: pointer;
+}
+
+.view-toggle__button.is-active {
+  background: var(--accent-soft);
+  color: var(--accent);
+}
+
 .filters {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
@@ -199,6 +225,150 @@ img {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 20px;
+}
+
+.character-list {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+}
+
+.character-list-item {
+  width: 100%;
+  border: 1px solid var(--border);
+  background: var(--card-bg);
+  color: var(--text);
+  border-radius: 14px;
+  padding: 10px 12px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto auto;
+  gap: 10px;
+  align-items: center;
+  text-align: left;
+}
+
+.character-list-item__identity {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.character-list-item__image {
+  width: 48px;
+  height: 48px;
+  object-fit: cover;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: rgba(8, 23, 36, 0.9);
+}
+
+.character-list-item__name,
+.character-list-item__meta {
+  margin: 0;
+}
+
+.character-list-item__name {
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.character-list-item__meta {
+  color: var(--muted);
+  font-size: 0.78rem;
+}
+
+.character-list-item__stats {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 6px;
+}
+
+.character-list-item__stat {
+  display: inline-flex;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  padding: 4px 8px;
+  font-size: 0.72rem;
+  color: var(--muted);
+}
+
+.character-list-item__chevron {
+  color: var(--muted);
+  font-size: 1.5rem;
+  line-height: 1;
+}
+
+.detail-sheet {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  display: none;
+  background: rgba(2, 8, 14, 0.72);
+}
+
+.detail-sheet.is-open {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+}
+
+.detail-sheet__panel {
+  width: min(100%, 620px);
+  max-height: min(85vh, 720px);
+  overflow: auto;
+  background: rgba(9, 27, 43, 0.98);
+  border: 1px solid var(--border);
+  border-radius: 18px 18px 0 0;
+  padding: 16px;
+  display: grid;
+  gap: 12px;
+}
+
+.detail-sheet__close {
+  justify-self: end;
+  border: 1px solid var(--border);
+  background: rgba(6, 20, 33, 0.9);
+  color: var(--text);
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+}
+
+.detail-sheet__header {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 12px;
+  align-items: center;
+}
+
+.detail-sheet__header h3 {
+  margin: 0 0 6px;
+}
+
+.detail-sheet__image {
+  width: 64px;
+  height: 64px;
+  object-fit: cover;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+}
+
+.detail-sheet__stats {
+  display: grid;
+  gap: 8px;
+}
+
+.detail-sheet__section h4 {
+  margin: 0 0 6px;
+  font-size: 0.9rem;
+}
+
+.detail-sheet__section p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.88rem;
 }
 
 .card {
@@ -457,6 +627,10 @@ img {
     overflow: hidden;
   }
 
+  body.sheet-open {
+    overflow: hidden;
+  }
+
   .filters {
     display: none;
   }
@@ -464,6 +638,16 @@ img {
   .mobile-filter-trigger-wrap {
     display: block;
     margin: 12px 0;
+  }
+
+  .view-toggle {
+    width: 100%;
+    margin-top: 12px;
+    margin-bottom: 10px;
+  }
+
+  .view-toggle__button {
+    flex: 1;
   }
 
   .section-header-actions {
@@ -638,6 +822,28 @@ img {
   .mobile-bottom-nav__item.is-active {
     background: var(--accent-soft);
     color: var(--accent);
+  }
+
+  .character-list-item {
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-areas:
+      "identity chevron"
+      "stats stats";
+  }
+
+  .character-list-item__identity {
+    grid-area: identity;
+  }
+
+  .character-list-item__stats {
+    grid-area: stats;
+    justify-content: flex-start;
+    padding-left: 58px;
+  }
+
+  .character-list-item__chevron {
+    grid-area: chevron;
+    align-self: center;
   }
 }
 

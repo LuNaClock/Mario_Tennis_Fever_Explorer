@@ -29,6 +29,16 @@ const characterSort = document.getElementById("character-sort");
 const characterOrder = document.getElementById("character-order");
 const characterSearch = document.getElementById("character-search");
 const characterActiveFilters = document.getElementById("character-active-filters");
+const characterViewToggle = document.getElementById("character-view-toggle");
+
+const characterDetailSheet = document.getElementById("character-detail-sheet");
+const characterDetailClose = document.getElementById("character-detail-close");
+const characterDetailImage = document.getElementById("character-detail-image");
+const characterDetailName = document.getElementById("character-detail-name");
+const characterDetailType = document.getElementById("character-detail-type");
+const characterDetailStats = document.getElementById("character-detail-stats");
+const characterDetailSpecial = document.getElementById("character-detail-special");
+const characterDetailText = document.getElementById("character-detail-text");
 
 const racketTypeFilter = document.getElementById("racket-type-filter");
 const racketTimingFilter = document.getElementById("racket-timing-filter");
@@ -39,6 +49,8 @@ const mobileNavItems = Array.from(document.querySelectorAll(".mobile-bottom-nav_
 const mobileSections = mobileNavItems
   .map((item) => document.getElementById(item.dataset.target))
   .filter(Boolean);
+
+let characterViewMode = isMobileView() ? "list" : "card";
 
 
 function createStatRow(label, value) {
@@ -166,6 +178,102 @@ function createCharacterCard(character) {
   const text = createAccordion("ゲーム内テキスト", character.text);
   card.append(header, stats, special, text);
   return card;
+}
+
+function createCharacterListItem(character) {
+  const button = document.createElement("button");
+  button.type = "button";
+  button.className = "character-list-item";
+  button.setAttribute("aria-label", `${character.name}の詳細を表示`);
+
+  const identity = document.createElement("div");
+  identity.className = "character-list-item__identity";
+
+  const image = document.createElement("img");
+  image.src = character.image;
+  image.alt = "";
+  image.loading = "lazy";
+  image.className = "character-list-item__image";
+
+  const textWrap = document.createElement("div");
+
+  const name = document.createElement("p");
+  name.className = "character-list-item__name";
+  name.textContent = character.name;
+
+  const meta = document.createElement("p");
+  meta.className = "character-list-item__meta";
+  meta.textContent = `${character.type} / 特殊能力 ${character.special === "なし" ? "なし" : "あり"}`;
+
+  textWrap.append(name, meta);
+  identity.append(image, textWrap);
+
+  const stats = document.createElement("div");
+  stats.className = "character-list-item__stats";
+
+  Object.entries(character.stats)
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 2)
+    .forEach(([key, value]) => {
+      const tag = document.createElement("span");
+      tag.className = "character-list-item__stat";
+      tag.textContent = `${statLabels[key]} ${value.toFixed(1)}`;
+      stats.append(tag);
+    });
+
+  const chevron = document.createElement("span");
+  chevron.className = "character-list-item__chevron";
+  chevron.textContent = "›";
+  chevron.setAttribute("aria-hidden", "true");
+
+  button.append(identity, stats, chevron);
+  button.addEventListener("click", () => openCharacterDetailSheet(character));
+  return button;
+}
+
+function openCharacterDetailSheet(character) {
+  if (!characterDetailSheet) {
+    return;
+  }
+
+  characterDetailImage.src = character.image;
+  characterDetailImage.alt = `${character.name}のアイコン`;
+  characterDetailName.textContent = character.name;
+  characterDetailType.textContent = character.type;
+  characterDetailSpecial.textContent = character.special;
+  characterDetailText.textContent = character.text;
+
+  characterDetailStats.innerHTML = "";
+  Object.entries(character.stats).forEach(([key, value]) => {
+    characterDetailStats.append(createStatRow(statLabels[key], value));
+  });
+
+  characterDetailSheet.classList.add("is-open");
+  characterDetailSheet.setAttribute("aria-hidden", "false");
+  document.body.classList.add("sheet-open");
+}
+
+function closeCharacterDetailSheet() {
+  if (!characterDetailSheet) {
+    return;
+  }
+
+  characterDetailSheet.classList.remove("is-open");
+  characterDetailSheet.setAttribute("aria-hidden", "true");
+  document.body.classList.remove("sheet-open");
+}
+
+function syncCharacterViewToggle() {
+  if (!characterViewToggle) {
+    return;
+  }
+
+  const buttons = Array.from(characterViewToggle.querySelectorAll("[data-character-view]"));
+  buttons.forEach((button) => {
+    const isActive = button.dataset.characterView === characterViewMode;
+    button.classList.toggle("is-active", isActive);
+    button.setAttribute("aria-pressed", String(isActive));
+  });
 }
 
 function createRacketCard(racket) {
@@ -354,12 +462,48 @@ function renderCharacters() {
   const sorted = sortItems(getFilteredCharacters(), sortKey, orderValue);
 
   characterList.innerHTML = "";
-  sorted.forEach((character) => characterList.append(createCharacterCard(character)));
+  characterList.classList.toggle("character-list", characterViewMode === "list");
+
+  sorted.forEach((character) => {
+    characterList.append(characterViewMode === "list" ? createCharacterListItem(character) : createCharacterCard(character));
+  });
 
   characterCount.textContent = `${sorted.length}件表示`;
   updateApplyButtonCount("character-filter-apply", sorted.length);
 
   updateCharacterActiveFilterChips();
+}
+
+function setupCharacterViewToggle() {
+  if (!characterViewToggle) {
+    return;
+  }
+
+  characterViewToggle.addEventListener("click", (event) => {
+    const button = event.target.closest("[data-character-view]");
+    if (!button) {
+      return;
+    }
+
+    characterViewMode = button.dataset.characterView;
+    syncCharacterViewToggle();
+    renderCharacters();
+  });
+
+  syncCharacterViewToggle();
+}
+
+function setupCharacterDetailSheet() {
+  if (!characterDetailSheet || !characterDetailClose) {
+    return;
+  }
+
+  characterDetailClose.addEventListener("click", closeCharacterDetailSheet);
+  characterDetailSheet.addEventListener("click", (event) => {
+    if (event.target === characterDetailSheet) {
+      closeCharacterDetailSheet();
+    }
+  });
 }
 
 function getFilteredRackets() {
@@ -578,6 +722,8 @@ racketSearch.addEventListener("input", renderRackets);
 
 
 setupCharacterFilterChips();
+setupCharacterViewToggle();
+setupCharacterDetailSheet();
 setupFilterModal("character-filter-modal", "character-inline-filters", "character-modal-filters", "character-filter-apply", renderCharacters);
 setupFilterModal("racket-filter-modal", "racket-inline-filters", "racket-modal-filters", "racket-filter-apply", renderRackets);
 
