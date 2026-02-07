@@ -101,6 +101,68 @@ function createAccordion(title, content) {
   return wrapper;
 }
 
+/**
+ * グリッドコンテナの現在の列数を取得する
+ * @param {Element} gridEl - .card-grid の要素
+ * @returns {number}
+ */
+function getGridColumnCount(gridEl) {
+  const style = getComputedStyle(gridEl);
+  const cols = style.gridTemplateColumns;
+  if (!cols) {
+    return 1;
+  }
+  const count = cols.trim().split(/\s+/).length;
+  return count >= 1 ? count : 1;
+}
+
+/**
+ * 同一行にあるカードの、同じインデックスのアコーディオンをクリックしたカードの展開状態に同期する
+ * @param {HTMLButtonElement} clickedToggle - クリックされた .accordion-toggle
+ */
+function syncSameRowAccordions(clickedToggle) {
+  const card = clickedToggle.closest(".card");
+  const grid = card?.parentElement;
+  if (!card || !grid || !grid.classList.contains("card-grid")) {
+    return;
+  }
+
+  const cards = Array.from(grid.children);
+  const cardIndex = cards.indexOf(card);
+  if (cardIndex === -1) {
+    return;
+  }
+
+  const columns = getGridColumnCount(grid);
+  const rowIndex = Math.floor(cardIndex / columns);
+
+  const clickedAccordion = clickedToggle.closest(".accordion");
+  const accordionsInCard = card.querySelectorAll(".accordion");
+  const accordionIndex = Array.from(accordionsInCard).indexOf(clickedAccordion);
+  if (accordionIndex === -1) {
+    return;
+  }
+
+  const newExpanded = clickedToggle.getAttribute("aria-expanded") === "true";
+
+  cards.forEach((otherCard, i) => {
+    if (Math.floor(i / columns) !== rowIndex) {
+      return;
+    }
+    const otherAccordions = otherCard.querySelectorAll(".accordion");
+    const otherAccordion = otherAccordions[accordionIndex];
+    if (!otherAccordion) {
+      return;
+    }
+    const otherButton = otherAccordion.querySelector(".accordion-toggle");
+    const otherPanel = otherAccordion.querySelector(".accordion-panel");
+    if (otherButton && otherPanel) {
+      otherButton.setAttribute("aria-expanded", String(newExpanded));
+      otherPanel.hidden = !newExpanded;
+    }
+  });
+}
+
 function isMobileView() {
   return window.matchMedia("(max-width: 768px)").matches;
 }
@@ -541,6 +603,22 @@ function setupMobileSectionNav() {
 }
 
 
+/**
+ * カードグリッド内のアコーディオンを、同一行のカードで展開状態が同期するように委譲リスナーを設定する
+ */
+function setupAccordionRowSync() {
+  const handleAccordionClick = (event) => {
+    const toggle = event.target.closest(".accordion-toggle");
+    if (!toggle) {
+      return;
+    }
+    syncSameRowAccordions(toggle);
+  };
+
+  characterList.addEventListener("click", handleAccordionClick);
+  racketList.addEventListener("click", handleAccordionClick);
+}
+
 function setupSectionCollapse() {
   const toggles = Array.from(document.querySelectorAll(".section-title-toggle"));
 
@@ -584,4 +662,5 @@ setupFilterModal("racket-filter-modal", "racket-inline-filters", "racket-modal-f
 renderCharacters();
 renderRackets();
 setupSectionCollapse();
+setupAccordionRowSync();
 setupMobileSectionNav();
