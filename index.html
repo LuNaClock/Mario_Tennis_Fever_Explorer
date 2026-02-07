@@ -41,6 +41,15 @@
 
       <div class="active-filter-chips" id="character-active-filters" aria-live="polite"></div>
 
+      <div class="character-jump-search" aria-label="キャラクターカードへのクイック移動">
+        <label class="filter character-jump-search__field" for="character-jump-search">
+          <span>キャラカードへジャンプ</span>
+          <input type="search" id="character-jump-search" placeholder="名前で候補を表示" autocomplete="off" />
+        </label>
+        <p class="character-jump-search__note" id="character-jump-note">候補をタップすると対象カード位置へ移動します。</p>
+        <div class="character-jump-results" id="character-jump-results" aria-live="polite"></div>
+      </div>
+
       <div class="filters" id="character-inline-filters">
         <label class="filter">
           <span>検索</span>

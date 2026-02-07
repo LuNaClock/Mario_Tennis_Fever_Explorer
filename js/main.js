@@ -29,6 +29,9 @@ const characterSort = document.getElementById("character-sort");
 const characterOrder = document.getElementById("character-order");
 const characterSearch = document.getElementById("character-search");
 const characterActiveFilters = document.getElementById("character-active-filters");
+const characterJumpSearch = document.getElementById("character-jump-search");
+const characterJumpResults = document.getElementById("character-jump-results");
+const characterJumpNote = document.getElementById("character-jump-note");
 
 const racketTypeFilter = document.getElementById("racket-type-filter");
 const racketTimingFilter = document.getElementById("racket-timing-filter");
@@ -170,6 +173,8 @@ function isMobileView() {
 function createCharacterCard(character) {
   const card = document.createElement("article");
   card.className = "card";
+  card.id = `character-card-${encodeURIComponent(character.name)}`;
+  card.dataset.characterName = character.name;
 
   const mobileView = isMobileView();
   if (mobileView) {
@@ -422,6 +427,91 @@ function renderCharacters() {
   updateApplyButtonCount("character-filter-apply", sorted.length);
 
   updateCharacterActiveFilterChips();
+  renderCharacterJumpResults();
+}
+
+function createCharacterJumpButton(character) {
+  const button = document.createElement("button");
+  button.type = "button";
+  button.className = "character-jump-item";
+  button.dataset.characterName = character.name;
+
+  const image = document.createElement("img");
+  image.src = character.image;
+  image.alt = "";
+  image.className = "character-jump-item__image";
+  image.loading = "lazy";
+
+  const name = document.createElement("span");
+  name.className = "character-jump-item__name";
+  name.textContent = character.name;
+
+  button.append(image, name);
+  return button;
+}
+
+function renderCharacterJumpResults() {
+  if (!characterJumpSearch || !characterJumpResults || !characterJumpNote) {
+    return;
+  }
+
+  const searchValue = normalizeKana(characterJumpSearch.value.trim());
+  characterJumpResults.innerHTML = "";
+
+  if (!searchValue) {
+    characterJumpNote.textContent = "候補をタップすると対象カード位置へ移動します。";
+    return;
+  }
+
+  const matched = characters
+    .filter((character) => normalizeKana(character.name).includes(searchValue))
+    .slice(0, 12);
+
+  if (!matched.length) {
+    characterJumpNote.textContent = "一致するキャラが見つかりません。";
+    return;
+  }
+
+  characterJumpNote.textContent = `${matched.length}件の候補があります。`;
+  matched.forEach((character) => characterJumpResults.append(createCharacterJumpButton(character)));
+}
+
+function jumpToCharacterCard(name) {
+  const targetCard = characterList.querySelector(`[data-character-name="${CSS.escape(name)}"]`);
+  if (!targetCard) {
+    if (characterJumpNote) {
+      characterJumpNote.textContent = "このキャラは現在の絞り込み条件では表示されていません。";
+    }
+    return;
+  }
+
+  targetCard.scrollIntoView({ behavior: "smooth", block: "center" });
+  targetCard.classList.add("card--jump-highlight");
+  window.setTimeout(() => {
+    targetCard.classList.remove("card--jump-highlight");
+  }, 1300);
+}
+
+function setupCharacterJumpSearch() {
+  if (!characterJumpSearch || !characterJumpResults) {
+    return;
+  }
+
+  characterJumpSearch.addEventListener("input", renderCharacterJumpResults);
+
+  characterJumpResults.addEventListener("click", (event) => {
+    const button = event.target.closest(".character-jump-item");
+    if (!button) {
+      return;
+    }
+
+    const { characterName } = button.dataset;
+    if (!characterName) {
+      return;
+    }
+
+    jumpToCharacterCard(characterName);
+  });
 }
 
 function getFilteredRackets() {
@@ -656,6 +746,7 @@ racketSearch.addEventListener("input", renderRackets);
 
 
 setupCharacterFilterChips();
+setupCharacterJumpSearch();
 setupFilterModal("character-filter-modal", "character-inline-filters", "character-modal-filters", "character-filter-apply", renderCharacters);
 setupFilterModal("racket-filter-modal", "racket-inline-filters", "racket-modal-filters", "racket-filter-apply", renderRackets);
 
