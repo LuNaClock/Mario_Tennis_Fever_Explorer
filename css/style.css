@@ -195,6 +195,58 @@ img {
   display: none;
 }
 
+.search-shortcuts {
+  margin: -8px 0 16px;
+}
+
+.search-shortcuts[hidden] {
+  display: none;
+}
+
+.search-shortcuts__title {
+  margin: 0 0 8px;
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+.search-shortcuts__list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.search-shortcut {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: rgba(8, 26, 42, 0.9);
+  color: var(--text);
+  padding: 4px 10px 4px 4px;
+  cursor: pointer;
+}
+
+.search-shortcut__icon {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid var(--border);
+  background: rgba(8, 23, 36, 0.9);
+}
+
+.search-shortcut__name {
+  font-size: 0.85rem;
+  line-height: 1;
+}
+
+.search-shortcuts__empty {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
 .card-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -520,6 +572,10 @@ img {
 
   .filters.filters--modal {
     display: grid;
+    margin: 0;
+  }
+
+  .search-shortcuts--modal {
     margin: 0;
   }
 
