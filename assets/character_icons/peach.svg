@@ -1,6 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="240" height="240" viewBox="0 0 240 240">
-  <rect width="240" height="240" rx="24" fill="#ffe4f2" />
-  <rect x="18" y="18" width="204" height="204" rx="20" fill="white" opacity="0.15" />
-  <text x="120" y="128" text-anchor="middle" font-family="'Noto Sans JP', sans-serif" font-size="28" fill="#1f2933">ピーチ</text>
-  <text x="120" y="168" text-anchor="middle" font-family="'Noto Sans JP', sans-serif" font-size="14" fill="#52616b">仮画像</text>
-</svg>
