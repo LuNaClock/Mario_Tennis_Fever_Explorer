@@ -13,6 +13,7 @@ const characterSortLabels = {
 };
 
 const maxStatValue = 5;
+const mobileDetailsStatOrder = ["speed", "power", "control", "spin"];
 
 function getStatTier(value) {
   return Math.min(maxStatValue, Math.max(1, Math.floor(value)));
@@ -89,6 +90,12 @@ function renderStatRows(container, sortedEntries, count) {
   sortedEntries.slice(0, count).forEach(([key, value]) => {
     container.append(createStatRow(statLabels[key], value));
   });
+}
+
+function getMobileDetailsStatEntries(stats) {
+  return mobileDetailsStatOrder
+    .filter((key) => key in stats)
+    .map((key) => [key, stats[key]]);
 }
 
 function createAccordion(title, content) {
@@ -178,6 +185,11 @@ function syncSameRowAccordions(clickedToggle) {
     if (otherButton && otherPanel) {
       otherButton.setAttribute("aria-expanded", String(newExpanded));
       otherPanel.hidden = !newExpanded;
+      otherButton.dispatchEvent(
+        new CustomEvent("accordion-sync-state", {
+          detail: { expanded: newExpanded },
+        })
+      );
     }
   });
 }
@@ -226,6 +238,7 @@ function createCharacterCard(character) {
     const compactStats = document.createElement("div");
     compactStats.className = "stats stats--compact";
     const sortedStats = getSortedStatEntries(character.stats);
+    const detailsStats = getMobileDetailsStatEntries(character.stats);
     renderStatRows(compactStats, sortedStats, 2);
 
     const special = createAccordion("特殊能力", character.special);
@@ -237,10 +250,20 @@ function createCharacterCard(character) {
     const details = createAccordion("全項目を見る", detailsBody);
     details.classList.add("accordion--details");
     const detailsButton = details.querySelector(".accordion-toggle");
+
+    const renderCompactStatsByExpandedState = (isExpanded) => {
+      renderStatRows(compactStats, isExpanded ? detailsStats : sortedStats, isExpanded ? 4 : 2);
+    };
+
     if (detailsButton) {
       detailsButton.addEventListener("click", () => {
         const isExpanded = detailsButton.getAttribute("aria-expanded") === "true";
-        renderStatRows(compactStats, sortedStats, isExpanded ? 4 : 2);
+        renderCompactStatsByExpandedState(isExpanded);
+      });
+
+      detailsButton.addEventListener("accordion-sync-state", (event) => {
+        const isExpanded = event.detail?.expanded === true;
+        renderCompactStatsByExpandedState(isExpanded);
       });
     }
 
