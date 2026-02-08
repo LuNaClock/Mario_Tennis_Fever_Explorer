@@ -383,7 +383,7 @@ export const rackets = [
     category: "強化",
     timing: "即時",
     effect: "打ったボールをキラーに変化させ、弾速強化。速くなるタイミングはドロップなど球種によっては変化する。",
-    text: "サンボが発生し、プレイヤーのオジャマに。",
+    text: "ボールがキラーに変化！高速でまっすぐ飛んでいく。",
     image: "assets/racket_icons/killer_racket.svg",
   },
   {
@@ -451,7 +451,7 @@ export const rackets = [
     image: "assets/racket_icons/obake_racket.svg",
   },
   {
-    name: "ファイバーラケット",
+    name: "ファイアバーラケット",
     category: "妨害",
     timing: "不明",
     effect: "※発売後確認予定",
@@ -559,7 +559,9 @@ export const changelog = [
   {
     date: "2025-02-08",
     items: ["ラケット一覧を更新(体験版時点で分かる範囲のみ)",
-        "検索画面の処理高速化"
+        "検索画面の処理高速化",
+        "ラケット一覧の誤記を修正",
+        "各パラメータを確認しやすいように、スマホ版の「全項目を見る」の挙動変更。"
     ],
   },
 ];
