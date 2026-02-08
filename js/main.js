@@ -216,16 +216,15 @@ function createCharacterCard(character) {
     compactStats.className = "stats stats--compact";
 
     const allStatsEntries = Object.entries(character.stats);
+    const sortedStatsEntries = [...allStatsEntries].sort((a, b) => b[1] - a[1]);
 
-    allStatsEntries
-      .sort((a, b) => b[1] - a[1])
-      .slice(0, 2)
-      .forEach(([key, value]) => {
-        compactStats.append(createStatRow(statLabels[key], value));
-      });
+    sortedStatsEntries.slice(0, 2).forEach(([key, value]) => {
+      compactStats.append(createStatRow(statLabels[key], value));
+    });
 
     const detailsStats = document.createElement("div");
     detailsStats.className = "stats";
+    detailsStats.hidden = true;
     allStatsEntries.slice(0, 4).forEach(([key, value]) => {
       detailsStats.append(createStatRow(statLabels[key], value));
     });
@@ -234,7 +233,7 @@ function createCharacterCard(character) {
 
     const detailsBody = document.createElement("div");
     detailsBody.className = "card-details";
-    detailsBody.append(detailsStats, createAccordion("ゲーム内テキスト", character.text));
+    detailsBody.append(createAccordion("ゲーム内テキスト", character.text));
 
     const details = createAccordion("全項目を見る", detailsBody);
     details.classList.add("accordion--details");
@@ -243,10 +242,11 @@ function createCharacterCard(character) {
       detailsToggle.addEventListener("click", () => {
         const isExpanded = detailsToggle.getAttribute("aria-expanded") === "true";
         compactStats.hidden = isExpanded;
+        detailsStats.hidden = !isExpanded;
       });
     }
 
-    card.append(header, compactStats, special, details);
+    card.append(header, compactStats, detailsStats, special, details);
     return card;
   }
 
