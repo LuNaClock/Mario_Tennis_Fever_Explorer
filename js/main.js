@@ -7,6 +7,8 @@ const statLabels = {
   spin: "スピン",
 };
 
+const statDisplayOrder = ["speed", "power", "control", "spin"];
+
 const characterSortLabels = {
   name: "名前",
   ...statLabels,
@@ -207,7 +209,11 @@ function createCharacterCard(character) {
 
   const stats = document.createElement("div");
   stats.className = "stats";
-  Object.entries(character.stats).forEach(([key, value]) => {
+  statDisplayOrder.forEach((key) => {
+    const value = character.stats[key];
+    if (typeof value !== "number") {
+      return;
+    }
     stats.append(createStatRow(statLabels[key], value));
   });
 
@@ -222,15 +228,32 @@ function createCharacterCard(character) {
         compactStats.append(createStatRow(statLabels[key], value));
       });
 
+    const fullStats = document.createElement("div");
+    fullStats.className = "stats";
+    fullStats.hidden = true;
+    statDisplayOrder.forEach((key) => {
+      const value = character.stats[key];
+      if (typeof value !== "number") {
+        return;
+      }
+      fullStats.append(createStatRow(statLabels[key], value));
+    });
+
+    const detailsToggle = document.createElement("button");
+    detailsToggle.type = "button";
+    detailsToggle.className = "accordion-toggle details-toggle";
+    detailsToggle.setAttribute("aria-expanded", "false");
+    detailsToggle.textContent = "全項目を見る";
+    detailsToggle.addEventListener("click", () => {
+      const isExpanded = detailsToggle.getAttribute("aria-expanded") === "true";
+      detailsToggle.setAttribute("aria-expanded", String(!isExpanded));
+      compactStats.hidden = !isExpanded;
+      fullStats.hidden = isExpanded;
+    });
+
     const special = createAccordion("特殊能力", character.special);
-
-    const detailsBody = document.createElement("div");
-    detailsBody.className = "card-details";
-    detailsBody.append(stats, createAccordion("ゲーム内テキスト", character.text));
-
-    const details = createAccordion("全項目を見る", detailsBody);
-    details.classList.add("accordion--details");
-    card.append(header, compactStats, special, details);
+    const text = createAccordion("ゲーム内テキスト", character.text);
+    card.append(header, compactStats, fullStats, detailsToggle, special, text);
     return card;
   }
 
