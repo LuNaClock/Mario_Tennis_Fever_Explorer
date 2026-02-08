@@ -36,6 +36,7 @@ const racketTypeFilter = document.getElementById("racket-type-filter");
 const racketTimingFilter = document.getElementById("racket-timing-filter");
 const racketOrder = document.getElementById("racket-order");
 const racketSearch = document.getElementById("racket-search");
+const racketActiveFilters = document.getElementById("racket-active-filters");
 const racketSearchResults = document.getElementById("racket-search-results");
 const racketModalSearchResults = document.getElementById("racket-modal-search-results");
 
@@ -439,6 +440,36 @@ function closeCharacterFilterModal() {
   document.body.classList.remove("modal-open");
 }
 
+function updateRacketActiveFilterChips() {
+  racketActiveFilters.innerHTML = "";
+  const chips = [];
+
+  if (racketTypeFilter.value !== "all") {
+    chips.push({ key: "type", label: `種類: ${racketTypeFilter.value}` });
+  }
+  if (racketSearch.value.trim()) {
+    chips.push({ key: "search", label: `検索: ${racketSearch.value.trim()}` });
+  }
+  if (racketTimingFilter.value !== "all") {
+    chips.push({ key: "timing", label: `効果タイミング: ${racketTimingFilter.value}` });
+  }
+  if (racketOrder.value === "asc") {
+    chips.push({ key: "order", label: "並び順: 昇順" });
+  }
+  if (racketOrder.value === "desc") {
+    chips.push({ key: "order", label: "並び順: 降順" });
+  }
+
+  chips.forEach((chip) => {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "active-filter-chip";
+    button.dataset.filterKey = chip.key;
+    button.textContent = `${chip.label} ×`;
+    racketActiveFilters.append(button);
+  });
+}
+
 function createRacketSearchShortcut(racket) {
   const button = document.createElement("button");
   button.type = "button";
@@ -671,7 +702,36 @@ function renderRackets() {
 
   racketCount.textContent = `${sorted.length}件表示`;
   updateApplyButtonCount("racket-filter-apply", sorted.length);
+  updateRacketActiveFilterChips();
   renderRacketSearchShortcuts(sorted);
+}
+
+function setupRacketFilterChips() {
+  racketActiveFilters.addEventListener("click", (event) => {
+    const button = event.target.closest(".active-filter-chip");
+    if (!button) {
+      return;
+    }
+
+    switch (button.dataset.filterKey) {
+      case "type":
+        racketTypeFilter.value = "all";
+        break;
+      case "search":
+        racketSearch.value = "";
+        break;
+      case "timing":
+        racketTimingFilter.value = "all";
+        break;
+      case "order":
+        racketOrder.value = "game";
+        break;
+      default:
+        break;
+    }
+
+    renderRackets();
+  });
 }
 
 function setupCharacterFilterChips() {
@@ -957,6 +1017,7 @@ racketSearch.addEventListener("input", debounce(renderRackets));
 
 
 setupCharacterFilterChips();
+setupRacketFilterChips();
 setupCharacterSearchShortcutActions();
 setupRacketSearchShortcutActions();
 setupFilterModal("character-filter-modal", "character-inline-filters", "character-modal-filters", "character-filter-apply", renderCharacters);
