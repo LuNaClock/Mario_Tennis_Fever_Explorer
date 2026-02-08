@@ -119,8 +119,10 @@
       <div id="racket-content" class="section-content">
 
       <div class="mobile-filter-trigger-wrap">
-        <button type="button" class="mobile-filter-trigger" data-modal-target="racket-filter-modal">絞り込み</button>
+        <button type="button" class="mobile-filter-trigger" data-modal-target="racket-filter-modal">検索・絞り込み</button>
       </div>
+
+      <div class="active-filter-chips" id="racket-active-filters" aria-live="polite"></div>
 
       <div class="filters" id="racket-inline-filters">
         <label class="filter">
@@ -154,13 +156,16 @@
         </label>
       </div>
 
+      <div id="racket-search-results" class="search-shortcuts" aria-live="polite"></div>
+
       <div class="filter-modal" id="racket-filter-modal" aria-hidden="true">
         <div class="filter-modal__panel">
           <div class="filter-modal__header">
-            <h3>ラケットの絞り込み</h3>
+            <h3>ラケットの検索・絞り込み</h3>
             <button type="button" class="filter-modal__close" data-modal-close="racket-filter-modal" aria-label="閉じる">✕</button>
           </div>
           <div class="filters filters--modal" id="racket-modal-filters"></div>
+          <div id="racket-modal-search-results" class="search-shortcuts search-shortcuts--modal" aria-live="polite"></div>
           <button type="button" class="filter-modal__apply" id="racket-filter-apply">0件を表示</button>
         </div>
       </div>
