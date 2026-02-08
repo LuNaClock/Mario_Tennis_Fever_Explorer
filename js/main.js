@@ -215,21 +215,37 @@ function createCharacterCard(character) {
     const compactStats = document.createElement("div");
     compactStats.className = "stats stats--compact";
 
-    Object.entries(character.stats)
+    const allStatsEntries = Object.entries(character.stats);
+
+    allStatsEntries
       .sort((a, b) => b[1] - a[1])
       .slice(0, 2)
       .forEach(([key, value]) => {
         compactStats.append(createStatRow(statLabels[key], value));
       });
 
+    const detailsStats = document.createElement("div");
+    detailsStats.className = "stats";
+    allStatsEntries.slice(0, 4).forEach(([key, value]) => {
+      detailsStats.append(createStatRow(statLabels[key], value));
+    });
+
     const special = createAccordion("特殊能力", character.special);
 
     const detailsBody = document.createElement("div");
     detailsBody.className = "card-details";
-    detailsBody.append(stats, createAccordion("ゲーム内テキスト", character.text));
+    detailsBody.append(detailsStats, createAccordion("ゲーム内テキスト", character.text));
 
     const details = createAccordion("全項目を見る", detailsBody);
     details.classList.add("accordion--details");
+    const detailsToggle = details.querySelector(".accordion-toggle");
+    if (detailsToggle) {
+      detailsToggle.addEventListener("click", () => {
+        const isExpanded = detailsToggle.getAttribute("aria-expanded") === "true";
+        compactStats.hidden = isExpanded;
+      });
+    }
+
     card.append(header, compactStats, special, details);
     return card;
   }
