@@ -91,6 +91,24 @@ function renderStatRows(container, sortedEntries, count) {
   });
 }
 
+function syncCharacterCompactStats(card) {
+  if (!card?.classList.contains("card")) {
+    return;
+  }
+
+  const compactStats = card.querySelector(".stats--compact");
+  const detailsButton = card.querySelector(".accordion--details .accordion-toggle");
+  const sortedStatsJson = card.dataset.sortedStats;
+
+  if (!compactStats || !detailsButton || !sortedStatsJson) {
+    return;
+  }
+
+  const sortedStats = JSON.parse(sortedStatsJson);
+  const isExpanded = detailsButton.getAttribute("aria-expanded") === "true";
+  renderStatRows(compactStats, sortedStats, isExpanded ? 4 : 2);
+}
+
 function createAccordion(title, content) {
   const wrapper = document.createElement("div");
   wrapper.className = "accordion";
@@ -178,6 +196,10 @@ function syncSameRowAccordions(clickedToggle) {
     if (otherButton && otherPanel) {
       otherButton.setAttribute("aria-expanded", String(newExpanded));
       otherPanel.hidden = !newExpanded;
+
+      if (otherAccordion.classList.contains("accordion--details")) {
+        syncCharacterCompactStats(otherCard);
+      }
     }
   });
 }
@@ -226,6 +248,7 @@ function createCharacterCard(character) {
     const compactStats = document.createElement("div");
     compactStats.className = "stats stats--compact";
     const sortedStats = getSortedStatEntries(character.stats);
+    card.dataset.sortedStats = JSON.stringify(sortedStats);
     renderStatRows(compactStats, sortedStats, 2);
 
     const special = createAccordion("特殊能力", character.special);
@@ -239,8 +262,7 @@ function createCharacterCard(character) {
     const detailsButton = details.querySelector(".accordion-toggle");
     if (detailsButton) {
       detailsButton.addEventListener("click", () => {
-        const isExpanded = detailsButton.getAttribute("aria-expanded") === "true";
-        renderStatRows(compactStats, sortedStats, isExpanded ? 4 : 2);
+        syncCharacterCompactStats(card);
       });
     }
 
