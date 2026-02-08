@@ -80,6 +80,17 @@ function createStatRow(label, value) {
   return row;
 }
 
+function getSortedStatEntries(stats) {
+  return Object.entries(stats).sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0], "ja"));
+}
+
+function renderStatRows(container, sortedEntries, count) {
+  container.replaceChildren();
+  sortedEntries.slice(0, count).forEach(([key, value]) => {
+    container.append(createStatRow(statLabels[key], value));
+  });
+}
+
 function createAccordion(title, content) {
   const wrapper = document.createElement("div");
   wrapper.className = "accordion";
@@ -214,22 +225,25 @@ function createCharacterCard(character) {
   if (mobileView) {
     const compactStats = document.createElement("div");
     compactStats.className = "stats stats--compact";
-
-    Object.entries(character.stats)
-      .sort((a, b) => b[1] - a[1])
-      .slice(0, 2)
-      .forEach(([key, value]) => {
-        compactStats.append(createStatRow(statLabels[key], value));
-      });
+    const sortedStats = getSortedStatEntries(character.stats);
+    renderStatRows(compactStats, sortedStats, 2);
 
     const special = createAccordion("特殊能力", character.special);
 
     const detailsBody = document.createElement("div");
     detailsBody.className = "card-details";
-    detailsBody.append(stats, createAccordion("ゲーム内テキスト", character.text));
+    detailsBody.append(createAccordion("ゲーム内テキスト", character.text));
 
     const details = createAccordion("全項目を見る", detailsBody);
     details.classList.add("accordion--details");
+    const detailsButton = details.querySelector(".accordion-toggle");
+    if (detailsButton) {
+      detailsButton.addEventListener("click", () => {
+        const isExpanded = detailsButton.getAttribute("aria-expanded") === "true";
+        renderStatRows(compactStats, sortedStats, isExpanded ? 4 : 2);
+      });
+    }
+
     card.append(header, compactStats, special, details);
     return card;
   }
