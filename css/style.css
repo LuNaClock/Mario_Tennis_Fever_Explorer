@@ -490,6 +490,27 @@ img {
   color: var(--muted);
 }
 
+.details-toggle {
+  border: none;
+  border-top: 1px dashed var(--border);
+  background: none;
+  text-align: left;
+  font-weight: 700;
+  color: var(--text);
+  padding: 12px 0 0;
+  cursor: pointer;
+}
+
+.details-toggle::after {
+  content: "▾";
+  float: right;
+  color: var(--muted);
+}
+
+.details-toggle[aria-expanded="true"]::after {
+  transform: rotate(180deg);
+}
+
 .info-panel {
   padding: 16px 18px;
   border: 1px solid var(--border);
@@ -824,6 +845,12 @@ img {
   }
 
   .card--compact .accordion-toggle {
+    font-size: 0.85rem;
+    line-height: 1.35;
+  }
+
+  .card--compact .details-toggle {
+    padding-top: 8px;
     font-size: 0.85rem;
     line-height: 1.35;
   }
