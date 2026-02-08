@@ -42,13 +42,116 @@ const racketSearchResults = document.getElementById("racket-search-results");
 const racketModalSearchResults = document.getElementById("racket-modal-search-results");
 
 const mobileNavItems = Array.from(document.querySelectorAll(".mobile-bottom-nav__item"));
+const desktopNavItems = Array.from(document.querySelectorAll(".desktop-quick-nav__item"));
+const navSections = Array.from(document.querySelectorAll("main .section[id]"));
 const mobileSections = mobileNavItems
   .map((item) => document.getElementById(item.dataset.target))
   .filter(Boolean);
 
+const desktopScrollProgress = document.getElementById("desktop-scroll-progress");
+const desktopScrollProgressFill = document.getElementById("desktop-scroll-progress-fill");
+const desktopScrollProgressLabel = document.getElementById("desktop-scroll-progress-label");
+const desktopCurrentSection = document.getElementById("desktop-current-section");
+const characterFilterSummary = document.getElementById("character-filter-summary");
+const racketFilterSummary = document.getElementById("racket-filter-summary");
+
 const characterIndexMap = new Map(characters.map((character, index) => [character, index]));
 const racketIndexMap = new Map(rackets.map((racket, index) => [racket, index]));
 
+
+
+function getSectionLabel(sectionId) {
+  const section = document.getElementById(sectionId);
+  return section?.dataset.navLabel ?? sectionId;
+}
+
+function activateDesktopNav(sectionId) {
+  desktopNavItems.forEach((item) => {
+    const isActive = item.dataset.target === sectionId;
+    item.classList.toggle("is-active", isActive);
+    item.setAttribute("aria-current", isActive ? "true" : "false");
+  });
+
+  if (desktopCurrentSection) {
+    desktopCurrentSection.textContent = getSectionLabel(sectionId);
+  }
+}
+
+function getDocumentScrollProgress() {
+  const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+  if (maxScroll <= 0) {
+    return 0;
+  }
+
+  return Math.min(100, Math.max(0, (window.scrollY / maxScroll) * 100));
+}
+
+function updateDesktopScrollProgress() {
+  const progress = Math.round(getDocumentScrollProgress());
+  if (desktopScrollProgressFill) {
+    desktopScrollProgressFill.style.setProperty("--scroll-progress", `${progress}%`);
+  }
+
+  if (desktopScrollProgress) {
+    desktopScrollProgress.setAttribute("aria-valuenow", String(progress));
+  }
+
+  if (desktopScrollProgressLabel) {
+    desktopScrollProgressLabel.textContent = `${progress}%`;
+  }
+}
+
+function getCharacterSummaryText() {
+  const summaries = [];
+  if (characterTypeFilter.value !== "all") {
+    summaries.push(`タイプ:${characterTypeFilter.value}`);
+  }
+  if (characterSpecialFilter.value === "yes") {
+    summaries.push("特殊能力あり");
+  }
+  if (characterSpecialFilter.value === "no") {
+    summaries.push("特殊能力なし");
+  }
+  if (characterSearch.value.trim()) {
+    summaries.push(`検索:${characterSearch.value.trim()}`);
+  }
+  if (characterSort.value !== "name") {
+    summaries.push(`ソート:${characterSortLabels[characterSort.value] ?? characterSort.value}`);
+  }
+  if (characterOrder.value !== "game") {
+    summaries.push(characterOrder.value === "asc" ? "並び:昇順" : "並び:降順");
+  }
+
+  return summaries.length ? summaries.join(" / ") : "絞り込みなし";
+}
+
+function getRacketSummaryText() {
+  const summaries = [];
+  if (racketTypeFilter.value !== "all") {
+    summaries.push(`種類:${racketTypeFilter.value}`);
+  }
+  if (racketTimingFilter.value !== "all") {
+    summaries.push(`効果:${racketTimingFilter.value}`);
+  }
+  if (racketSearch.value.trim()) {
+    summaries.push(`検索:${racketSearch.value.trim()}`);
+  }
+  if (racketOrder.value !== "game") {
+    summaries.push(racketOrder.value === "asc" ? "並び:昇順" : "並び:降順");
+  }
+
+  return summaries.length ? summaries.join(" / ") : "絞り込みなし";
+}
+
+function updateDesktopFilterSummary() {
+  if (characterFilterSummary) {
+    characterFilterSummary.textContent = getCharacterSummaryText();
+  }
+
+  if (racketFilterSummary) {
+    racketFilterSummary.textContent = getRacketSummaryText();
+  }
+}
 
 function createStatRow(label, value) {
   const row = document.createElement("div");
@@ -708,6 +811,7 @@ function renderCharacters() {
 
   updateCharacterActiveFilterChips();
   renderCharacterSearchShortcuts(sorted);
+  updateDesktopFilterSummary();
 }
 
 function getFilteredRackets() {
@@ -741,6 +845,7 @@ function renderRackets() {
   updateApplyButtonCount("racket-filter-apply", sorted.length);
   updateRacketActiveFilterChips();
   renderRacketSearchShortcuts(sorted);
+  updateDesktopFilterSummary();
 }
 
 function setupRacketFilterChips() {
@@ -955,6 +1060,53 @@ function activateMobileNav(sectionId) {
   });
 }
 
+function activateSectionNav(sectionId) {
+  activateMobileNav(sectionId);
+  activateDesktopNav(sectionId);
+}
+
+function setupDesktopSectionNav() {
+  if (!desktopNavItems.length || !navSections.length) {
+    return;
+  }
+
+  desktopNavItems.forEach((item) => {
+    item.addEventListener("click", (event) => {
+      event.preventDefault();
+      const targetId = item.dataset.target;
+      const target = document.getElementById(targetId);
+      if (!target) {
+        return;
+      }
+
+      target.scrollIntoView({ behavior: "smooth", block: "start" });
+      history.replaceState(null, "", `#${targetId}`);
+      activateSectionNav(targetId);
+    });
+  });
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      const visibleSections = entries
+        .filter((entry) => entry.isIntersecting)
+        .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
+
+      if (visibleSections.length) {
+        activateSectionNav(visibleSections[0].target.id);
+      }
+    },
+    {
+      rootMargin: "-30% 0px -50% 0px",
+      threshold: [0.2, 0.4, 0.6],
+    }
+  );
+
+  navSections.forEach((section) => observer.observe(section));
+
+  const initialId = window.location.hash?.replace("#", "");
+  activateSectionNav(initialId || navSections[0].id);
+}
+
 function setupMobileSectionNav() {
   if (!mobileNavItems.length || !mobileSections.length) {
     return;
@@ -971,7 +1123,7 @@ function setupMobileSectionNav() {
 
       target.scrollIntoView({ behavior: "smooth", block: "start" });
       history.replaceState(null, "", `#${targetId}`);
-      activateMobileNav(targetId);
+      activateSectionNav(targetId);
     });
   });
 
@@ -982,7 +1134,7 @@ function setupMobileSectionNav() {
         .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
 
       if (visibleSections.length) {
-        activateMobileNav(visibleSections[0].target.id);
+        activateSectionNav(visibleSections[0].target.id);
       }
     },
     {
@@ -994,7 +1146,7 @@ function setupMobileSectionNav() {
   mobileSections.forEach((section) => observer.observe(section));
 
   const initialId = window.location.hash?.replace("#", "");
-  activateMobileNav(initialId || mobileSections[0].id);
+  activateSectionNav(initialId || mobileSections[0].id);
 }
 
 
@@ -1039,6 +1191,17 @@ function setupSectionCollapse() {
   });
 }
 
+function setupDesktopScrollProgress() {
+  if (!desktopScrollProgress || !desktopScrollProgressFill || !desktopScrollProgressLabel) {
+    return;
+  }
+
+  const onScroll = () => updateDesktopScrollProgress();
+  updateDesktopScrollProgress();
+  window.addEventListener("scroll", onScroll, { passive: true });
+  window.addEventListener("resize", onScroll);
+}
+
 function bindChangeListeners(elements, handler) {
   elements.forEach((element) => element.addEventListener("change", handler));
 }
@@ -1072,3 +1235,6 @@ renderRackets();
 setupSectionCollapse();
 setupAccordionRowSync();
 setupMobileSectionNav();
+setupDesktopSectionNav();
+setupDesktopScrollProgress();
+updateDesktopFilterSummary();

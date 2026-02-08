@@ -19,6 +19,34 @@
   </header>
 
   <main class="container">
+    <div class="desktop-layout">
+      <aside class="desktop-side desktop-side--left" aria-label="PC補助情報">
+        <div class="desktop-side-card">
+          <h2 class="desktop-side-title">クイック操作</h2>
+          <div class="desktop-shortcuts">
+            <a href="#characters" class="desktop-shortcuts__item">キャラへ</a>
+            <a href="#rackets" class="desktop-shortcuts__item">ラケットへ</a>
+            <a href="#favorites" class="desktop-shortcuts__item">お気に入りへ</a>
+            <a href="#top" class="desktop-shortcuts__item">ページ先頭へ</a>
+          </div>
+        </div>
+
+        <div class="desktop-side-card" aria-live="polite">
+          <h2 class="desktop-side-title">現在の絞り込み</h2>
+          <dl class="desktop-filter-summary-list">
+            <div>
+              <dt>キャラ</dt>
+              <dd id="character-filter-summary">絞り込みなし</dd>
+            </div>
+            <div>
+              <dt>ラケット</dt>
+              <dd id="racket-filter-summary">絞り込みなし</dd>
+            </div>
+          </dl>
+        </div>
+      </aside>
+
+      <div class="content-column" id="top">
     <section class="section" id="characters" data-nav-label="キャラ">
       <div class="section-header">
         <div>
@@ -197,6 +225,31 @@
         <p>お気に入り登録機能は準備中です。アップデートで保存・呼び出しに対応予定です。</p>
       </div>
     </section>
+      </div>
+
+      <aside class="desktop-side desktop-side--right" aria-label="PCセクションナビ">
+        <div class="desktop-side-card desktop-side-card--nav">
+          <p class="desktop-side-title">セクション</p>
+          <nav class="desktop-quick-nav" aria-label="PCセクションナビ">
+            <a class="desktop-quick-nav__item" href="#characters" data-target="characters">キャラ</a>
+            <a class="desktop-quick-nav__item" href="#rackets" data-target="rackets">ラケット</a>
+            <a class="desktop-quick-nav__item" href="#techniques" data-target="techniques">Tips</a>
+            <a class="desktop-quick-nav__item" href="#favorites" data-target="favorites">お気に入り</a>
+          </nav>
+
+          <div class="desktop-progress" aria-live="polite">
+            <p class="desktop-progress__label">閲覧進捗</p>
+            <div class="desktop-progress__track" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="ページ進捗" id="desktop-scroll-progress">
+              <span class="desktop-progress__fill" id="desktop-scroll-progress-fill"></span>
+            </div>
+            <p class="desktop-progress__meta">
+              <span id="desktop-current-section">キャラ</span>
+              <span id="desktop-scroll-progress-label">0%</span>
+            </p>
+          </div>
+        </div>
+      </aside>
+    </div>
   </main>
 
   <nav class="mobile-bottom-nav" aria-label="モバイルセクションナビ">
