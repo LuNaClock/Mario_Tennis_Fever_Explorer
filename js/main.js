@@ -209,8 +209,7 @@ function createCharacterCard(character) {
 
   const stats = document.createElement("div");
   stats.className = "stats";
-  statDisplayOrder.forEach((key) => {
-    const value = character.stats[key];
+  Object.entries(character.stats).forEach(([key, value]) => {
     stats.append(createStatRow(statLabels[key], value));
   });
 
@@ -225,31 +224,15 @@ function createCharacterCard(character) {
         compactStats.append(createStatRow(statLabels[key], value));
       });
 
-    const fullStats = document.createElement("div");
-    fullStats.className = "stats stats--full";
-    fullStats.hidden = true;
-    statDisplayOrder.forEach((key) => {
-      const value = character.stats[key];
-      fullStats.append(createStatRow(statLabels[key], value));
-    });
-
-    const detailsToggle = document.createElement("button");
-    detailsToggle.type = "button";
-    detailsToggle.className = "details-toggle";
-    detailsToggle.setAttribute("aria-expanded", "false");
-    detailsToggle.textContent = "全項目を見る";
-
-    detailsToggle.addEventListener("click", () => {
-      const isExpanded = detailsToggle.getAttribute("aria-expanded") === "true";
-      const nextExpanded = !isExpanded;
-      detailsToggle.setAttribute("aria-expanded", String(nextExpanded));
-      compactStats.hidden = nextExpanded;
-      fullStats.hidden = !nextExpanded;
-    });
-
     const special = createAccordion("特殊能力", character.special);
-    const text = createAccordion("ゲーム内テキスト", character.text);
-    card.append(header, compactStats, fullStats, detailsToggle, special, text);
+
+    const detailsBody = document.createElement("div");
+    detailsBody.className = "card-details";
+    detailsBody.append(stats, createAccordion("ゲーム内テキスト", character.text));
+
+    const details = createAccordion("全項目を見る", detailsBody);
+    details.classList.add("accordion--details");
+    card.append(header, compactStats, special, details);
     return card;
   }
 
