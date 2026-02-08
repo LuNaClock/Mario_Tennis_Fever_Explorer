@@ -261,7 +261,14 @@ function createRacketCard(racket) {
   image.src = racket.image;
   image.alt = `${racket.name}のアイコン`;
   image.loading = "lazy";
+  image.decoding = "async";
   image.className = "card-image card-image--racket";
+  image.onerror = () => {
+    image.src = "data:image/svg+xml," + encodeURIComponent(
+      '<svg xmlns="http://www.w3.org/2000/svg" width="240" height="240" viewBox="0 0 240 240"><rect width="240" height="240" rx="24" fill="#2a3544"/><text x="120" y="130" text-anchor="middle" font-family="sans-serif" font-size="14" fill="#8899aa">No Image</text></svg>'
+    );
+    image.onerror = null;
+  };
 
   header.append(title, image);
 
