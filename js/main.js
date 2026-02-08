@@ -42,6 +42,8 @@ const mobileSections = mobileNavItems
   .map((item) => document.getElementById(item.dataset.target))
   .filter(Boolean);
 
+const characterIndexMap = new Map(characters.map((character, index) => [character, index]));
+
 
 function createStatRow(label, value) {
   const row = document.createElement("div");
@@ -172,7 +174,7 @@ function isMobileView() {
 function createCharacterCard(character) {
   const card = document.createElement("article");
   card.className = "card";
-  const characterIndex = characters.indexOf(character);
+  const characterIndex = characterIndexMap.get(character);
   if (characterIndex >= 0) {
     card.id = `character-card-${characterIndex + 1}`;
   }
@@ -430,7 +432,7 @@ function createCharacterSearchShortcut(character) {
   button.type = "button";
   button.className = "search-shortcut";
 
-  const characterIndex = characters.indexOf(character);
+  const characterIndex = characterIndexMap.get(character);
   if (characterIndex >= 0) {
     button.dataset.targetCardId = `character-card-${characterIndex + 1}`;
   }
@@ -519,8 +521,9 @@ function renderCharacters() {
   const filteredCharacters = getFilteredCharacters();
   const sorted = sortItems(filteredCharacters, sortKey, orderValue);
 
-  characterList.innerHTML = "";
-  sorted.forEach((character) => characterList.append(createCharacterCard(character)));
+  const fragment = document.createDocumentFragment();
+  sorted.forEach((character) => fragment.append(createCharacterCard(character)));
+  characterList.replaceChildren(fragment);
 
   characterCount.textContent = `${sorted.length}件表示`;
   updateApplyButtonCount("character-filter-apply", sorted.length);
@@ -551,8 +554,9 @@ function getFilteredRackets() {
 function renderRackets() {
   const sorted = sortItems(getFilteredRackets(), "name", racketOrder.value);
 
-  racketList.innerHTML = "";
-  sorted.forEach((racket) => racketList.append(createRacketCard(racket)));
+  const fragment = document.createDocumentFragment();
+  sorted.forEach((racket) => fragment.append(createRacketCard(racket)));
+  racketList.replaceChildren(fragment);
 
   racketCount.textContent = `${sorted.length}件表示`;
   updateApplyButtonCount("racket-filter-apply", sorted.length);
@@ -817,11 +821,20 @@ function bindChangeListeners(elements, handler) {
   elements.forEach((element) => element.addEventListener("change", handler));
 }
 
+function debounce(callback, delay = 150) {
+  let timeoutId;
+
+  return (...args) => {
+    clearTimeout(timeoutId);
+    timeoutId = window.setTimeout(() => callback(...args), delay);
+  };
+}
+
 bindChangeListeners([characterTypeFilter, characterSpecialFilter, characterOrder], renderCharacters);
 bindChangeListeners([racketTypeFilter, racketTimingFilter, racketOrder], renderRackets);
 characterSort.addEventListener("change", handleCharacterSortChange);
-characterSearch.addEventListener("input", renderCharacters);
-racketSearch.addEventListener("input", renderRackets);
+characterSearch.addEventListener("input", debounce(renderCharacters));
+racketSearch.addEventListener("input", debounce(renderRackets));
 
 
 setupCharacterFilterChips();
