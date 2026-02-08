@@ -215,22 +215,27 @@ function createCharacterCard(character) {
     const compactStats = document.createElement("div");
     compactStats.className = "stats stats--compact";
 
-    Object.entries(character.stats)
-      .sort((a, b) => b[1] - a[1])
-      .slice(0, 2)
-      .forEach(([key, value]) => {
-        compactStats.append(createStatRow(statLabels[key], value));
-      });
+    const sortedStats = Object.entries(character.stats).sort((a, b) => b[1] - a[1]);
+    const previewStats = sortedStats.slice(0, 2);
+    const remainingStats = sortedStats.slice(2);
+
+    previewStats.forEach(([key, value]) => {
+      compactStats.append(createStatRow(statLabels[key], value));
+    });
+
+    const remainingStatsBody = document.createElement("div");
+    remainingStatsBody.className = "stats";
+    remainingStats.forEach(([key, value]) => {
+      remainingStatsBody.append(createStatRow(statLabels[key], value));
+    });
+
+    const details = createAccordion("全項目を見る", remainingStatsBody);
+    details.classList.add("accordion--details");
 
     const special = createAccordion("特殊能力", character.special);
+    const text = createAccordion("ゲーム内テキスト", character.text);
 
-    const detailsBody = document.createElement("div");
-    detailsBody.className = "card-details";
-    detailsBody.append(stats, createAccordion("ゲーム内テキスト", character.text));
-
-    const details = createAccordion("全項目を見る", detailsBody);
-    details.classList.add("accordion--details");
-    card.append(header, compactStats, special, details);
+    card.append(header, compactStats, details, special, text);
     return card;
   }
 
