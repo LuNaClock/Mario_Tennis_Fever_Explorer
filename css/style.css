@@ -239,6 +239,11 @@ img {
   border: 1px solid var(--border);
   background: rgba(8, 23, 36, 0.9);
 }
+.search-shortcut__icon--racket {
+  object-fit: contain;
+  padding: 3px;
+}
+
 
 .search-shortcut__name {
   font-size: 0.85rem;

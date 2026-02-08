@@ -36,6 +36,8 @@ const racketTypeFilter = document.getElementById("racket-type-filter");
 const racketTimingFilter = document.getElementById("racket-timing-filter");
 const racketOrder = document.getElementById("racket-order");
 const racketSearch = document.getElementById("racket-search");
+const racketSearchResults = document.getElementById("racket-search-results");
+const racketModalSearchResults = document.getElementById("racket-modal-search-results");
 
 const mobileNavItems = Array.from(document.querySelectorAll(".mobile-bottom-nav__item"));
 const mobileSections = mobileNavItems
@@ -43,6 +45,7 @@ const mobileSections = mobileNavItems
   .filter(Boolean);
 
 const characterIndexMap = new Map(characters.map((character, index) => [character, index]));
+const racketIndexMap = new Map(rackets.map((racket, index) => [racket, index]));
 
 
 function createStatRow(label, value) {
@@ -218,17 +221,15 @@ function createCharacterCard(character) {
         compactStats.append(createStatRow(statLabels[key], value));
       });
 
+    const special = createAccordion("特殊能力", character.special);
+
     const detailsBody = document.createElement("div");
     detailsBody.className = "card-details";
-    detailsBody.append(
-      stats,
-      createAccordion("特殊能力", character.special),
-      createAccordion("ゲーム内テキスト", character.text)
-    );
+    detailsBody.append(stats, createAccordion("ゲーム内テキスト", character.text));
 
     const details = createAccordion("全項目を見る", detailsBody);
     details.classList.add("accordion--details");
-    card.append(header, compactStats, details);
+    card.append(header, compactStats, special, details);
     return card;
   }
 
@@ -241,6 +242,10 @@ function createCharacterCard(character) {
 function createRacketCard(racket) {
   const card = document.createElement("article");
   card.className = "card";
+  const racketIndex = racketIndexMap.get(racket);
+  if (racketIndex >= 0) {
+    card.id = `racket-card-${racketIndex + 1}`;
+  }
 
   const mobileView = isMobileView();
   if (mobileView) {
@@ -434,6 +439,73 @@ function closeCharacterFilterModal() {
   document.body.classList.remove("modal-open");
 }
 
+function createRacketSearchShortcut(racket) {
+  const button = document.createElement("button");
+  button.type = "button";
+  button.className = "search-shortcut";
+
+  const racketIndex = racketIndexMap.get(racket);
+  if (racketIndex >= 0) {
+    button.dataset.targetCardId = `racket-card-${racketIndex + 1}`;
+  }
+
+  const icon = document.createElement("img");
+  icon.className = "search-shortcut__icon search-shortcut__icon--racket";
+  icon.src = racket.image;
+  icon.alt = "";
+  icon.loading = "lazy";
+  icon.decoding = "async";
+  icon.onerror = () => {
+    icon.src = "data:image/svg+xml," + encodeURIComponent(
+      '<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64"><rect width="64" height="64" rx="10" fill="#2a3544"/><text x="32" y="36" text-anchor="middle" font-family="sans-serif" font-size="8" fill="#8899aa">No Img</text></svg>'
+    );
+    icon.onerror = null;
+  };
+
+  const name = document.createElement("span");
+  name.className = "search-shortcut__name";
+  name.textContent = racket.name;
+
+  button.append(icon, name);
+  return button;
+}
+
+function renderRacketSearchShortcuts(filteredRackets) {
+  const searchValue = racketSearch.value.trim();
+  const containers = [racketSearchResults, racketModalSearchResults].filter(Boolean);
+
+  containers.forEach((container) => {
+    container.innerHTML = "";
+
+    if (!searchValue) {
+      container.hidden = true;
+      return;
+    }
+
+    const label = document.createElement("p");
+    label.className = "search-shortcuts__title";
+    label.textContent = `検索ヒット: ${filteredRackets.length}件`;
+
+    const list = document.createElement("div");
+    list.className = "search-shortcuts__list";
+
+    filteredRackets.forEach((racket) => {
+      list.append(createRacketSearchShortcut(racket));
+    });
+
+    if (!filteredRackets.length) {
+      const empty = document.createElement("p");
+      empty.className = "search-shortcuts__empty";
+      empty.textContent = "一致するラケットが見つかりません。";
+      container.append(label, empty);
+    } else {
+      container.append(label, list);
+    }
+
+    container.hidden = false;
+  });
+}
+
 function createCharacterSearchShortcut(character) {
   const button = document.createElement("button");
   button.type = "button";
@@ -492,6 +564,37 @@ function renderCharacterSearchShortcuts(filteredCharacters) {
 
     container.hidden = false;
   });
+}
+
+function setupRacketSearchShortcutActions() {
+  const onClick = (event) => {
+    const shortcut = event.target.closest(".search-shortcut");
+    if (!shortcut) {
+      return;
+    }
+
+    const cardId = shortcut.dataset.targetCardId;
+    if (!cardId) {
+      return;
+    }
+
+    const modal = document.getElementById("racket-filter-modal");
+    if (modal?.classList.contains("is-open")) {
+      modal.classList.remove("is-open");
+      modal.setAttribute("aria-hidden", "true");
+      document.body.classList.remove("modal-open");
+    }
+
+    const targetCard = document.getElementById(cardId);
+    if (!targetCard) {
+      return;
+    }
+
+    targetCard.scrollIntoView({ behavior: "smooth", block: "center" });
+  };
+
+  racketSearchResults?.addEventListener("click", onClick);
+  racketModalSearchResults?.addEventListener("click", onClick);
 }
 
 function setupCharacterSearchShortcutActions() {
@@ -559,7 +662,8 @@ function getFilteredRackets() {
 }
 
 function renderRackets() {
-  const sorted = sortItems(getFilteredRackets(), "name", racketOrder.value);
+  const filteredRackets = getFilteredRackets();
+  const sorted = sortItems(filteredRackets, "name", racketOrder.value);
 
   const fragment = document.createDocumentFragment();
   sorted.forEach((racket) => fragment.append(createRacketCard(racket)));
@@ -567,6 +671,7 @@ function renderRackets() {
 
   racketCount.textContent = `${sorted.length}件表示`;
   updateApplyButtonCount("racket-filter-apply", sorted.length);
+  renderRacketSearchShortcuts(sorted);
 }
 
 function setupCharacterFilterChips() {
@@ -613,12 +718,19 @@ function setupFilterModal(modalId, inlineFilterId, modalFilterId, applyButtonId,
   modalFilters.innerHTML = "";
   modalFilters.append(...Array.from(inlineFilters.children).map((node) => node.cloneNode(true)));
 
-  if (modalId === "character-filter-modal" && characterModalSearchResults) {
+  const modalSearchResults =
+    modalId === "character-filter-modal"
+      ? characterModalSearchResults
+      : modalId === "racket-filter-modal"
+        ? racketModalSearchResults
+        : null;
+
+  if (modalSearchResults) {
     const searchInput = modalFilters.querySelector('input[type="search"]');
     const searchFilter = searchInput?.closest(".filter");
     if (searchFilter) {
-      searchFilter.insertAdjacentElement("afterend", characterModalSearchResults);
-      characterModalSearchResults.classList.add("search-shortcuts--near-search");
+      searchFilter.insertAdjacentElement("afterend", modalSearchResults);
+      modalSearchResults.classList.add("search-shortcuts--near-search");
     }
   }
 
@@ -846,6 +958,7 @@ racketSearch.addEventListener("input", debounce(renderRackets));
 
 setupCharacterFilterChips();
 setupCharacterSearchShortcutActions();
+setupRacketSearchShortcutActions();
 setupFilterModal("character-filter-modal", "character-inline-filters", "character-modal-filters", "character-filter-apply", renderCharacters);
 setupFilterModal("racket-filter-modal", "racket-inline-filters", "racket-modal-filters", "racket-filter-apply", renderRackets);
 setupChangelogModal();
