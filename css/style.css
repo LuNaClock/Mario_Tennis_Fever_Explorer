@@ -651,10 +651,6 @@ img {
 }
 
 
-.racket-game-text > p {
-  margin: 0;
-}
-
 .racket-video {
   display: grid;
   gap: 8px;
