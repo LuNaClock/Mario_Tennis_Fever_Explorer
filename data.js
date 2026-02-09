@@ -307,7 +307,7 @@ export const characters = [
 
 export const rackets = [
   {
-    name: { ja: "ファイアラケット", en: "Fire Racket" },
+    name: { ja: "ファイアラケット", en: "Flame Racket" },
     category: "妨害",
     timing: "バウンド時",
     effect: { ja: "十字方向に5つの炎を設置。触れると短時間ショット不可 + 強制移動 + ダメージ。", en: "Places five flames in a cross pattern. Touching them briefly prevents shots, forces movement, and deals damage." },
@@ -323,7 +323,7 @@ export const rackets = [
     image: "assets/racket_icons/ice_racket.svg",
   },
   {
-    name: { ja: "サンダーラケット", en: "Thunder Racket" },
+    name: { ja: "サンダーラケット", en: "Lightning Racket" },
     category: "妨害",
     timing: "バウンド時",
     effect: { ja: "円状の雷の使を設置。触れると中時間操作不能+ダメージ", en: "Places a ring of lightning. Touch it and you’re unable to control your character for a medium duration and take damage." },
@@ -331,7 +331,7 @@ export const rackets = [
     image: "assets/racket_icons/sunder_racket.svg",
   },
   {
-    name: { ja: "ヒューゴーラケット", en: "Hurricane Racket" },
+    name: { ja: "ヒューゴーラケット", en: "Ty-Foo Racket" },
     category: "妨害",
     timing: "バウンド時",
     effect: { ja: "動く竜巻を設置。触れると小時間操作不能+ダメージ。ボールが当たると軌道変化。", en: "Places a moving tornado. Touching it briefly disables controls and deals damage. If the ball hits it, the ball’s trajectory changes." },
@@ -355,7 +355,7 @@ export const rackets = [
     image: "assets/racket_icons/shadow_racket.svg",
   },
   {
-    name: { ja: "ドロドロラケット", en: "Sludge Racket" },
+    name: { ja: "ドロドロラケット", en: "Mud Racket" },
     category: "妨害",
     timing: "バウンド時",
     effect: { ja: "ドロの床を設置。踏んでいる間移動速度低下+ダメージ。", en: "Creates a muddy floor. While standing on it, movement speed drops and you take damage." },
@@ -387,7 +387,7 @@ export const rackets = [
     image: "assets/racket_icons/killer_racket.svg",
   },
   {
-    name: { ja: "ブルラケット", en: "Bull Racket" },
+    name: { ja: "ブルラケット", en: "Chargin' Chuck Racket" },
     category: "妨害",
     timing: "不明",
     effect: { ja: "バウンド時の軌道が不規則になる", en: "The bounce trajectory becomes unpredictable." },
@@ -411,7 +411,7 @@ export const rackets = [
     image: "assets/racket_icons/dossun_racket.svg",
   },
   {
-    name: { ja: "トゲゾーラケット", en: "Spiny Shell Racket" },
+    name: { ja: "トゲゾーラケット", en: "Spiny Racket" },
     category: "妨害",
     timing: "バウンド時",
     effect: { ja: "トゲゾーを設置。※発売後確認予定", en: "Places a Spiny Shell. (To be confirmed after release.)" },
@@ -419,7 +419,7 @@ export const rackets = [
     image: "assets/racket_icons/togezo_racket.svg",
   },
   {
-    name: { ja: "フリーズラケット", en: "Freeze Racket" },
+    name: { ja: "フリーズラケット", en: "Freezing Racket" },
     category: "妨害",
     timing: "バウンド時",
     effect: { ja: "※発売後確認予定", en: "To be confirmed after release." },
@@ -427,7 +427,7 @@ export const rackets = [
     image: "assets/racket_icons/frieze_racket.svg",
   },
   {
-    name: { ja: "インクラケット", en: "Ink Racket" },
+    name: { ja: "インクラケット", en: "Inky Racket" },
     category: "妨害",
     timing: "不明",
     effect: { ja: "※発売後確認予定", en: "To be confirmed after release." },
@@ -435,7 +435,7 @@ export const rackets = [
     image: "assets/racket_icons/ink_racket.svg",
   },
   {
-    name: { ja: "ダッシュラケット", en: "Dash Racket" },
+    name: { ja: "ダッシュラケット", en: "Golden Dash Racket" },
     category: "強化",
     timing: "即時",
     effect: { ja: "※発売後確認予定", en: "To be confirmed after release." },
@@ -483,7 +483,7 @@ export const rackets = [
     image: "assets/racket_icons/magic_racket.svg",
   },
   {
-    name: { ja: "カーブラケット", en: "Curve Racket" },
+    name: { ja: "カーブラケット", en: "Swerve Racket" },
     category: "強化",
     timing: "不明",
     effect: { ja: "※発売後確認予定", en: "To be confirmed after release." },
