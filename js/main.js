@@ -37,7 +37,7 @@ const translations = {
     accordion: { special: "Special", gameText: "In-game text", details: "Show all" },
     chip: { type: "Type", search: "Search", special: "Special", sort: "Sort", order: "Order", category: "Category", timing: "Timing", yes: "Yes", no: "No" },
     aria: { sectionNav: "Section navigation", mobileNav: "Mobile section navigation", close: "Close", showChangelog: "Show changelog", collapseNav: "Collapse section nav", expandNav: "Expand section nav" },
-    type: { "オールラウンド": "All-Round", "テクニック": "Technique", "パワー": "Power", "ディフェンス": "Defense", "トリッキー": "Tricky", "スピード": "Speed" },
+    type: { "オールラウンド": "All-Around", "テクニック": "Technical	", "パワー": "Powerful", "ディフェンス": "Defensive", "トリッキー": "Tricky", "スピード": "Speedy" },
     category: { "妨害": "Interference", "強化": "Boost", "その他": "Other", "不明": "Unknown" },
     timing: { "即時": "Instant", "バウンド時": "On Bounce", "不明": "Unknown" },
     meta: { iconSuffix: " icon" },
