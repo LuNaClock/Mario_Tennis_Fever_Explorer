@@ -84,6 +84,13 @@ function getSortedStatEntries(stats) {
   return Object.entries(stats).sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0], "ja"));
 }
 
+function getFullStatEntries(stats) {
+  const fullStatOrder = ["speed", "power", "control", "spin"];
+  return fullStatOrder
+    .filter((key) => Object.prototype.hasOwnProperty.call(stats, key))
+    .map((key) => [key, stats[key]]);
+}
+
 function renderStatRows(container, sortedEntries, count) {
   container.replaceChildren();
   sortedEntries.slice(0, count).forEach(([key, value]) => {
@@ -178,6 +185,7 @@ function syncSameRowAccordions(clickedToggle) {
     if (otherButton && otherPanel) {
       otherButton.setAttribute("aria-expanded", String(newExpanded));
       otherPanel.hidden = !newExpanded;
+      otherAccordion.dispatchEvent(new CustomEvent("accordion-row-sync"));
     }
   });
 }
@@ -226,6 +234,7 @@ function createCharacterCard(character) {
     const compactStats = document.createElement("div");
     compactStats.className = "stats stats--compact";
     const sortedStats = getSortedStatEntries(character.stats);
+    const fullStats = getFullStatEntries(character.stats);
     renderStatRows(compactStats, sortedStats, 2);
 
     const special = createAccordion("特殊能力", character.special);
@@ -240,9 +249,19 @@ function createCharacterCard(character) {
     if (detailsButton) {
       detailsButton.addEventListener("click", () => {
         const isExpanded = detailsButton.getAttribute("aria-expanded") === "true";
-        renderStatRows(compactStats, sortedStats, isExpanded ? 4 : 2);
+        const nextEntries = isExpanded ? fullStats : sortedStats;
+        renderStatRows(compactStats, nextEntries, isExpanded ? 4 : 2);
       });
     }
+
+    details.addEventListener("accordion-row-sync", () => {
+      if (!detailsButton) {
+        return;
+      }
+      const isExpanded = detailsButton.getAttribute("aria-expanded") === "true";
+      const nextEntries = isExpanded ? fullStats : sortedStats;
+      renderStatRows(compactStats, nextEntries, isExpanded ? 4 : 2);
+    });
 
     card.append(header, compactStats, special, details);
     return card;
