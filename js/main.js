@@ -45,7 +45,7 @@ const mobileNavItems = Array.from(document.querySelectorAll(".mobile-bottom-nav_
 const mobileSections = mobileNavItems
   .map((item) => document.getElementById(item.dataset.target))
   .filter(Boolean);
-const desktopQuickNav = document.getElementById("desktop-quick-nav");
+const desktopProgressSidebar = document.getElementById("desktop-progress-sidebar");
 const desktopProgressBar = document.getElementById("desktop-progress-bar");
 
 const sectionNavItems = Array.from(document.querySelectorAll("main .section[data-nav-label]"))
@@ -967,18 +967,8 @@ function activateMobileNav(sectionId) {
   });
 }
 
-function activateDesktopQuickNav(sectionId) {
-  const navButtons = Array.from(document.querySelectorAll(".desktop-quick-nav__item"));
-  navButtons.forEach((button) => {
-    const isActive = button.dataset.target === sectionId;
-    button.classList.toggle("is-active", isActive);
-    button.setAttribute("aria-current", isActive ? "true" : "false");
-  });
-
-}
-
 function updateDesktopSectionProgress() {
-  if (!desktopQuickNav || !desktopProgressBar || !sectionNavItems.length) {
+  if (!desktopProgressBar || !sectionNavItems.length) {
     return;
   }
 
@@ -991,68 +981,38 @@ function updateDesktopSectionProgress() {
     const raw = ((viewportHeight * 0.4) - rect.top) / sectionHeight;
     const ratio = Math.max(0, Math.min(1, raw));
     totalProgress += ratio;
-
-    const button = desktopQuickNav.querySelector(`[data-target="${item.id}"]`);
-    const fill = button?.querySelector(".desktop-quick-nav__bar-fill");
-    const percent = Math.round(ratio * 100);
-    if (fill) {
-      fill.style.width = `${percent}%`;
-    }
-
-    const percentLabel = button?.querySelector(".desktop-quick-nav__percent");
-    if (percentLabel) {
-      percentLabel.textContent = `${percent}%`;
-    }
   });
 
   const totalPercent = Math.round((totalProgress / sectionNavItems.length) * 100);
-  desktopProgressBar.style.width = `${totalPercent}%`;
+  desktopProgressBar.style.height = `${totalPercent}%`;
 }
 
-function setupDesktopQuickNav() {
-  if (!desktopQuickNav || !sectionNavItems.length) {
+function alignDesktopSidebarWithFirstCard() {
+  if (!desktopProgressSidebar || !desktopProgressBar) {
     return;
   }
 
-  const fragment = document.createDocumentFragment();
-  sectionNavItems.forEach((item) => {
-    const button = document.createElement("button");
-    button.type = "button";
-    button.className = "desktop-quick-nav__item";
-    button.dataset.target = item.id;
-    button.innerHTML = `
-      <span class="desktop-quick-nav__label-row">
-        <span>${item.label}</span>
-        <span class="desktop-quick-nav__percent">0%</span>
-      </span>
-      <span class="desktop-quick-nav__bar">
-        <span class="desktop-quick-nav__bar-fill"></span>
-      </span>
-    `;
+  const firstCard = document.querySelector("#character-list .card");
+  const firstFilter = document.getElementById("character-inline-filters");
+  const targetElement = firstCard || firstFilter;
+  if (!targetElement) {
+    return;
+  }
 
-    button.addEventListener("click", () => {
-      item.element.scrollIntoView({ behavior: "smooth", block: "start" });
-      history.replaceState(null, "", `#${item.id}`);
-      activateDesktopQuickNav(item.id);
-      activateMobileNav(item.id);
-    });
+  const rect = targetElement.getBoundingClientRect();
+  const top = Math.max(80, Math.round(rect.top));
+  desktopProgressSidebar.style.top = `${top}px`;
+}
 
-    fragment.append(button);
-  });
-
-  desktopQuickNav.replaceChildren(fragment);
+function setupDesktopQuickNav() {
+  if (!desktopProgressSidebar || !desktopProgressBar || !sectionNavItems.length) {
+    return;
+  }
 
   const observer = new IntersectionObserver(
-    (entries) => {
-      const visibleSections = entries
-        .filter((entry) => entry.isIntersecting)
-        .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
-
-      if (visibleSections.length) {
-        const currentId = visibleSections[0].target.id;
-        activateDesktopQuickNav(currentId);
-      }
+    () => {
       updateDesktopSectionProgress();
+      alignDesktopSidebarWithFirstCard();
     },
     {
       rootMargin: "-25% 0px -45% 0px",
@@ -1062,14 +1022,17 @@ function setupDesktopQuickNav() {
 
   sectionNavItems.forEach((section) => observer.observe(section.element));
 
-  window.addEventListener("scroll", updateDesktopSectionProgress, { passive: true });
-  window.addEventListener("resize", updateDesktopSectionProgress);
+  window.addEventListener("scroll", () => {
+    updateDesktopSectionProgress();
+  }, { passive: true });
 
-  const initialId = window.location.hash?.replace("#", "");
-  const initialSection = sectionNavItems.find((item) => item.id === initialId) ?? sectionNavItems[0];
-  activateDesktopQuickNav(initialSection.id);
+  window.addEventListener("resize", () => {
+    updateDesktopSectionProgress();
+    alignDesktopSidebarWithFirstCard();
+  });
+
+  alignDesktopSidebarWithFirstCard();
   updateDesktopSectionProgress();
-
 }
 
 function setupMobileSectionNav() {
