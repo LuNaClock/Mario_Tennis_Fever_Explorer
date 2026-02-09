@@ -61,6 +61,30 @@ img {
   font-size: clamp(1.8rem, 4vw, 2.6rem);
 }
 
+.site-header__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.locale-switcher {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.locale-switcher select {
+  border: 1px solid rgba(79, 195, 255, 0.45);
+  border-radius: 8px;
+  background: rgba(7, 27, 43, 0.9);
+  color: var(--text);
+  padding: 6px 10px;
+}
+
 .site-lead {
   margin: 0;
   color: var(--muted);

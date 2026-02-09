@@ -1,14 +1,92 @@
 import { characters, rackets, changelog } from "../data.js";
 
+const translations = {
+  ja: {
+    site: { pageTitle: "マリオテニスフィーバー データ参照サイト", pageDescription: "マリオテニスフィーバーのキャラクターやラケット、システム関連データを一覧で確認できる参照サイト。", title: "マリオテニスフィーバー Explorer", language: "言語", lead: "キャラクターやラケットの特徴などを確認できるデータまとめサイトです。フィルタ・ソートで目的の情報を整理しながら参照できます。" },
+    nav: { characters: "キャラ", rackets: "ラケット", favorites: "お気に入り" },
+    section: { characters: { title: "キャラクター一覧", description: "タイプ別の特徴やパラメータを比較できます。" }, rackets: { title: "ラケット一覧", description: "効果やタイミングを比較できます。" }, tips: { description: "試合で役立つ操作のポイントを素早く確認できます。" }, favorites: { title: "お気に入り候補", description: "よく使う構成のチェック用セクションです。", note: "お気に入り登録機能は準備中です。アップデートで保存・呼び出しに対応予定です。" } },
+    filter: { searchAndFilter: "検索・絞り込み", search: "検索", type: "タイプ", special: "特殊能力", sortBy: "ソート項目", order: "並び順", category: "種類", timing: "効果タイミング" },
+    modal: { characterFilter: "キャラクターの検索・絞り込み", racketFilter: "ラケットの検索・絞り込み" },
+    placeholder: { characterSearch: "キャラクター名で検索", racketSearch: "ラケット名で検索" },
+    footer: { note: "データは仮入力を含みます。後日更新予定です。", changelog: "更新履歴" },
+    stat: { speed: "スピード", power: "パワー", control: "コントロール", spin: "スピン" },
+    sort: { name: "名前" },
+    order: { game: "ゲーム内順", asc: "昇順", desc: "降順", high: "数値が高い順", low: "数値が低い順" },
+    common: { any: "指定なし", yes: "あり", no: "なし", wip: "仮実装", count: "{{count}}件表示", showCount: "{{count}}件を表示", searchHit: "検索ヒット: {{count}}件", noCharacter: "一致するキャラクターが見つかりません。", noRacket: "一致するラケットが見つかりません。", language: "言語" },
+    accordion: { special: "特殊能力", gameText: "ゲーム内テキスト", details: "全項目を見る" },
+    chip: { type: "タイプ", search: "検索", special: "特殊能力", sort: "ソート", order: "並び順", category: "種類", timing: "効果タイミング", yes: "あり", no: "なし" },
+    aria: { sectionNav: "セクションナビゲーション", mobileNav: "モバイルセクションナビ", close: "閉じる", showChangelog: "更新履歴を表示", collapseNav: "セクションナビをたたむ", expandNav: "セクションナビを表示" },
+    type: { "オールラウンド": "オールラウンド", "テクニック": "テクニック", "パワー": "パワー", "ディフェンス": "ディフェンス", "トリッキー": "トリッキー", "スピード": "スピード" },
+    category: { "妨害": "妨害", "強化": "強化", "その他": "その他", "不明": "不明" },
+    timing: { "即時": "即時", "バウンド時": "バウンド時", "不明": "不明" },
+    meta: { iconSuffix: "のアイコン" },
+    changelog: { title: "更新履歴" },
+  },
+  en: {
+    site: { pageTitle: "Mario Tennis Fever Data Explorer", pageDescription: "Reference site for Mario Tennis Fever character, racket, and system data.", title: "Mario Tennis Fever Explorer", language: "Language", lead: "A reference site to compare character and racket traits with filters and sorting." },
+    nav: { characters: "Characters", rackets: "Rackets", favorites: "Favorites" },
+    section: { characters: { title: "Character List", description: "Compare traits and parameters by type." }, rackets: { title: "Racket List", description: "Compare effects and trigger timing." }, tips: { description: "Quickly review useful operation tips for matches." }, favorites: { title: "Favorite Candidates", description: "A section to check often-used setups.", note: "Favorite registration is under development. Save/load support is planned." } },
+    filter: { searchAndFilter: "Search / Filter", search: "Search", type: "Type", special: "Special", sortBy: "Sort by", order: "Order", category: "Category", timing: "Effect timing" },
+    modal: { characterFilter: "Character Search / Filter", racketFilter: "Racket Search / Filter" },
+    placeholder: { characterSearch: "Search by character name", racketSearch: "Search by racket name" },
+    footer: { note: "Some data is provisional and will be updated later.", changelog: "Changelog" },
+    stat: { speed: "Speed", power: "Power", control: "Control", spin: "Spin" },
+    sort: { name: "Name" },
+    order: { game: "Game order", asc: "A → Z", desc: "Z → A", high: "High → Low", low: "Low → High" },
+    common: { any: "Any", yes: "Yes", no: "None", wip: "Work in progress", count: "{{count}} shown", showCount: "Show {{count}}", searchHit: "Search hits: {{count}}", noCharacter: "No matching characters found.", noRacket: "No matching rackets found.", language: "Language" },
+    accordion: { special: "Special", gameText: "In-game text", details: "Show all" },
+    chip: { type: "Type", search: "Search", special: "Special", sort: "Sort", order: "Order", category: "Category", timing: "Timing", yes: "Yes", no: "No" },
+    aria: { sectionNav: "Section navigation", mobileNav: "Mobile section navigation", close: "Close", showChangelog: "Show changelog", collapseNav: "Collapse section nav", expandNav: "Expand section nav" },
+    type: { "オールラウンド": "All-Round", "テクニック": "Technique", "パワー": "Power", "ディフェンス": "Defense", "トリッキー": "Tricky", "スピード": "Speed" },
+    category: { "妨害": "Interference", "強化": "Boost", "その他": "Other", "不明": "Unknown" },
+    timing: { "即時": "Instant", "バウンド時": "On Bounce", "不明": "Unknown" },
+    meta: { iconSuffix: " icon" },
+    changelog: { title: "Changelog" },
+  },
+};
+
+const localeSelect = document.getElementById("locale-select");
+const browserLocale = (navigator.language || "ja").startsWith("en") ? "en" : "ja";
+let currentLocale = localStorage.getItem("locale") || browserLocale;
+if (!translations[currentLocale]) {
+  currentLocale = "ja";
+}
+
+function t(key, vars = {}) {
+  const keys = key.split(".");
+  let value = keys.reduce((acc, part) => (acc ? acc[part] : undefined), translations[currentLocale]);
+  if (value == null) {
+    value = keys.reduce((acc, part) => (acc ? acc[part] : undefined), translations.ja) ?? key;
+  }
+  if (typeof value !== "string") {
+    return String(value);
+  }
+  return value.replace(/\{\{(\w+)\}\}/g, (_, name) => String(vars[name] ?? ""));
+}
+
+function localizeValue(value) {
+  if (value && typeof value === "object") {
+    return value[currentLocale] ?? value.ja ?? value.en ?? "";
+  }
+  return value;
+}
+
+function rawValue(value) {
+  if (value && typeof value === "object") {
+    return value.ja ?? value.en ?? "";
+  }
+  return value;
+}
+
 const statLabels = {
-  speed: "スピード",
-  power: "パワー",
-  control: "コントロール",
-  spin: "スピン",
+  speed: () => t("stat.speed"),
+  power: () => t("stat.power"),
+  control: () => t("stat.control"),
+  spin: () => t("stat.spin"),
 };
 
 const characterSortLabels = {
-  name: "名前",
+  name: () => t("sort.name"),
   ...statLabels,
 };
 
@@ -61,7 +139,7 @@ function createStatRow(label, value) {
 
   const name = document.createElement("span");
   name.className = "stat-label";
-  name.textContent = label;
+  name.textContent = typeof label === "function" ? label() : label;
 
   const valueWrap = document.createElement("div");
   valueWrap.className = "stat-value";
@@ -87,7 +165,7 @@ function createStatRow(label, value) {
 }
 
 function getSortedStatEntries(stats) {
-  return Object.entries(stats).sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0], "ja"));
+  return Object.entries(stats).sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0], currentLocale));
 }
 
 function renderStatRows(container, sortedEntries, count) {
@@ -221,13 +299,13 @@ function createCharacterCard(character) {
 
   const title = document.createElement("div");
   title.innerHTML = `
-    <h3>${character.name}</h3>
-    <p class="badge">${character.type}</p>
+    <h3>${localizeValue(character.name)}</h3>
+    <p class="badge">${t(`type.${rawValue(character.type)}`)}</p>
   `;
 
   const image = document.createElement("img");
   image.src = character.image;
-  image.alt = `${character.name}のアイコン`;
+  image.alt = `${localizeValue(character.name)}${t("meta.iconSuffix")}`;
   image.loading = "lazy";
   image.className = "card-image";
 
@@ -246,13 +324,13 @@ function createCharacterCard(character) {
     const detailsStats = getMobileDetailsStatEntries(character.stats);
     renderStatRows(compactStats, sortedStats, 2);
 
-    const special = createAccordion("特殊能力", character.special);
+    const special = createAccordion(t("accordion.special"), localizeValue(character.special));
 
     const detailsBody = document.createElement("div");
     detailsBody.className = "card-details";
-    detailsBody.append(createAccordion("ゲーム内テキスト", character.text));
+    detailsBody.append(createAccordion(t("accordion.gameText"), localizeValue(character.text)));
 
-    const details = createAccordion("全項目を見る", detailsBody);
+    const details = createAccordion(t("accordion.details"), detailsBody);
     details.classList.add("accordion--details");
     const detailsButton = details.querySelector(".accordion-toggle");
 
@@ -276,8 +354,8 @@ function createCharacterCard(character) {
     return card;
   }
 
-  const special = createAccordion("特殊能力", character.special);
-  const text = createAccordion("ゲーム内テキスト", character.text);
+  const special = createAccordion(t("accordion.special"), localizeValue(character.special));
+  const text = createAccordion(t("accordion.gameText"), localizeValue(character.text));
   card.append(header, stats, special, text);
   return card;
 }
@@ -300,16 +378,16 @@ function createRacketCard(racket) {
 
   const title = document.createElement("div");
   title.innerHTML = `
-    <h3 class="racket-title">${racket.name}</h3>
+    <h3 class="racket-title">${localizeValue(racket.name)}</h3>
     <div class="badge-group badge-group--racket">
-      <span class="badge">${racket.category}</span>
-      <span class="badge badge--soft">${racket.timing}</span>
+      <span class="badge">${t(`category.${rawValue(racket.category)}`)}</span>
+      <span class="badge badge--soft">${t(`timing.${rawValue(racket.timing)}`)}</span>
     </div>
   `;
 
   const image = document.createElement("img");
   image.src = racket.image;
-  image.alt = `${racket.name}のアイコン`;
+  image.alt = `${localizeValue(racket.name)}${t("meta.iconSuffix")}`;
   image.loading = "lazy";
   image.decoding = "async";
   image.className = "card-image card-image--racket";
@@ -324,20 +402,20 @@ function createRacketCard(racket) {
 
   const effect = document.createElement("p");
   effect.className = "effect";
-  effect.textContent = racket.effect;
+  effect.textContent = localizeValue(racket.effect);
 
   if (mobileView) {
     const detailsBody = document.createElement("div");
     detailsBody.className = "card-details";
-    detailsBody.append(effect, createAccordion("ゲーム内テキスト", racket.text));
+    detailsBody.append(effect, createAccordion(t("accordion.gameText"), localizeValue(racket.text)));
 
-    const details = createAccordion("全項目を見る", detailsBody);
+    const details = createAccordion(t("accordion.details"), detailsBody);
     details.classList.add("accordion--details");
     card.append(header, details);
     return card;
   }
 
-  const text = createAccordion("ゲーム内テキスト", racket.text);
+  const text = createAccordion(t("accordion.gameText"), localizeValue(racket.text));
 
   card.append(header, effect, text);
   return card;
@@ -352,8 +430,8 @@ function sortItems(items, key, order) {
   sorted.sort((a, b) => {
     if (key === "name") {
       return order === "asc"
-        ? a.name.localeCompare(b.name, "ja")
-        : b.name.localeCompare(a.name, "ja");
+        ? localizeValue(a.name).localeCompare(localizeValue(b.name), currentLocale)
+        : localizeValue(b.name).localeCompare(localizeValue(a.name), currentLocale);
     }
 
     return order === "asc" ? b.stats[key] - a.stats[key] : a.stats[key] - b.stats[key];
@@ -373,11 +451,11 @@ function syncCharacterOrderAvailability() {
   });
 
   ascOptions.forEach((option) => {
-    option.textContent = isNameSort ? "昇順" : "数値が高い順";
+    option.textContent = isNameSort ? t("order.asc") : t("order.high");
   });
 
   descOptions.forEach((option) => {
-    option.textContent = isNameSort ? "降順" : "数値が低い順";
+    option.textContent = isNameSort ? t("order.desc") : t("order.low");
   });
 
   if (!isNameSort && characterOrder.value === "game") {
@@ -397,7 +475,7 @@ function handleCharacterSortChange() {
 function updateApplyButtonCount(buttonId, count) {
   const applyButton = document.getElementById(buttonId);
   if (applyButton) {
-    applyButton.textContent = `${count}件を表示`;
+    applyButton.textContent = t("common.showCount", { count });
   }
 }
 
@@ -414,16 +492,16 @@ function getFilteredCharacters() {
 
   let filtered = characters;
   if (typeValue !== "all") {
-    filtered = filtered.filter((character) => character.type === typeValue);
+    filtered = filtered.filter((character) => rawValue(character.type) === typeValue);
   }
   if (searchValue) {
-    filtered = filtered.filter((character) => normalizeKana(character.name).includes(searchValue));
+    filtered = filtered.filter((character) => normalizeKana(localizeValue(character.name)).includes(searchValue));
   }
   if (specialValue === "yes") {
-    filtered = filtered.filter((character) => character.special !== "なし");
+    filtered = filtered.filter((character) => rawValue(character.special) !== "なし");
   }
   if (specialValue === "no") {
-    filtered = filtered.filter((character) => character.special === "なし");
+    filtered = filtered.filter((character) => rawValue(character.special) === "なし");
   }
 
   return filtered;
@@ -434,30 +512,30 @@ function updateCharacterActiveFilterChips() {
   const chips = [];
 
   if (characterTypeFilter.value !== "all") {
-    chips.push({ key: "type", label: `タイプ: ${characterTypeFilter.value}` });
+    chips.push({ key: "type", label: `${t("chip.type")}: ${t(`type.${characterTypeFilter.value}`)}` });
   }
   if (characterSearch.value.trim()) {
-    chips.push({ key: "search", label: `検索: ${characterSearch.value.trim()}` });
+    chips.push({ key: "search", label: `${t("chip.search")}: ${characterSearch.value.trim()}` });
   }
   if (characterSpecialFilter.value === "yes") {
-    chips.push({ key: "special", label: "特殊能力: あり" });
+    chips.push({ key: "special", label: `${t("chip.special")}: ${t("chip.yes")}` });
   }
   if (characterSpecialFilter.value === "no") {
-    chips.push({ key: "special", label: "特殊能力: なし" });
+    chips.push({ key: "special", label: `${t("chip.special")}: ${t("chip.no")}` });
   }
   if (characterSort.value !== "name") {
-    chips.push({ key: "sort", label: `ソート: ${characterSortLabels[characterSort.value] ?? characterSort.value}` });
+    chips.push({ key: "sort", label: `${t("chip.sort")}: ${(characterSortLabels[characterSort.value]?.() ?? characterSort.value)}` });
   }
   if (characterOrder.value === "asc") {
     chips.push({
       key: "order",
-      label: `並び順: ${characterSort.value === "name" ? "昇順" : "数値が高い順"}`,
+      label: `${t("chip.order")}: ${characterSort.value === "name" ? t("order.asc") : t("order.high")}`,
     });
   }
   if (characterOrder.value === "desc") {
     chips.push({
       key: "order",
-      label: `並び順: ${characterSort.value === "name" ? "降順" : "数値が低い順"}`,
+      label: `${t("chip.order")}: ${characterSort.value === "name" ? t("order.desc") : t("order.low")}`,
     });
   }
 
@@ -487,19 +565,19 @@ function updateRacketActiveFilterChips() {
   const chips = [];
 
   if (racketTypeFilter.value !== "all") {
-    chips.push({ key: "type", label: `種類: ${racketTypeFilter.value}` });
+    chips.push({ key: "type", label: `${t("chip.category")}: ${t(`category.${racketTypeFilter.value}`)}` });
   }
   if (racketSearch.value.trim()) {
-    chips.push({ key: "search", label: `検索: ${racketSearch.value.trim()}` });
+    chips.push({ key: "search", label: `${t("chip.search")}: ${racketSearch.value.trim()}` });
   }
   if (racketTimingFilter.value !== "all") {
-    chips.push({ key: "timing", label: `効果タイミング: ${racketTimingFilter.value}` });
+    chips.push({ key: "timing", label: `${t("chip.timing")}: ${t(`timing.${racketTimingFilter.value}`)}` });
   }
   if (racketOrder.value === "asc") {
-    chips.push({ key: "order", label: "並び順: 昇順" });
+    chips.push({ key: "order", label: `${t("chip.order")}: ${t("order.asc")}` });
   }
   if (racketOrder.value === "desc") {
-    chips.push({ key: "order", label: "並び順: 降順" });
+    chips.push({ key: "order", label: `${t("chip.order")}: ${t("order.desc")}` });
   }
 
   chips.forEach((chip) => {
@@ -537,7 +615,7 @@ function createRacketSearchShortcut(racket) {
 
   const name = document.createElement("span");
   name.className = "search-shortcut__name";
-  name.textContent = racket.name;
+  name.textContent = localizeValue(racket.name);
 
   button.append(icon, name);
   return button;
@@ -557,7 +635,7 @@ function renderRacketSearchShortcuts(filteredRackets) {
 
     const label = document.createElement("p");
     label.className = "search-shortcuts__title";
-    label.textContent = `検索ヒット: ${filteredRackets.length}件`;
+    label.textContent = t("common.searchHit", { count: filteredRackets.length });
 
     const list = document.createElement("div");
     list.className = "search-shortcuts__list";
@@ -569,7 +647,7 @@ function renderRacketSearchShortcuts(filteredRackets) {
     if (!filteredRackets.length) {
       const empty = document.createElement("p");
       empty.className = "search-shortcuts__empty";
-      empty.textContent = "一致するラケットが見つかりません。";
+      empty.textContent = t("common.noRacket");
       container.append(label, empty);
     } else {
       container.append(label, list);
@@ -597,7 +675,7 @@ function createCharacterSearchShortcut(character) {
 
   const name = document.createElement("span");
   name.className = "search-shortcut__name";
-  name.textContent = character.name;
+  name.textContent = localizeValue(character.name);
 
   button.append(icon, name);
   return button;
@@ -617,7 +695,7 @@ function renderCharacterSearchShortcuts(filteredCharacters) {
 
     const label = document.createElement("p");
     label.className = "search-shortcuts__title";
-    label.textContent = `検索ヒット: ${filteredCharacters.length}件`;
+    label.textContent = t("common.searchHit", { count: filteredCharacters.length });
 
     const list = document.createElement("div");
     list.className = "search-shortcuts__list";
@@ -629,7 +707,7 @@ function renderCharacterSearchShortcuts(filteredCharacters) {
     if (!filteredCharacters.length) {
       const empty = document.createElement("p");
       empty.className = "search-shortcuts__empty";
-      empty.textContent = "一致するキャラクターが見つかりません。";
+      empty.textContent = t("common.noCharacter");
       container.append(label, empty);
     } else {
       container.append(label, list);
@@ -708,7 +786,7 @@ function renderCharacters() {
   sorted.forEach((character) => fragment.append(createCharacterCard(character)));
   characterList.replaceChildren(fragment);
 
-  characterCount.textContent = `${sorted.length}件表示`;
+  characterCount.textContent = t("common.count", { count: sorted.length });
   updateApplyButtonCount("character-filter-apply", sorted.length);
 
   updateCharacterActiveFilterChips();
@@ -722,13 +800,13 @@ function getFilteredRackets() {
 
   let filtered = rackets;
   if (typeValue !== "all") {
-    filtered = filtered.filter((racket) => racket.category === typeValue);
+    filtered = filtered.filter((racket) => rawValue(racket.category) === typeValue);
   }
   if (timingValue !== "all") {
-    filtered = filtered.filter((racket) => racket.timing === timingValue);
+    filtered = filtered.filter((racket) => rawValue(racket.timing) === timingValue);
   }
   if (searchValue) {
-    filtered = filtered.filter((racket) => normalizeKana(racket.name).includes(searchValue));
+    filtered = filtered.filter((racket) => normalizeKana(localizeValue(racket.name)).includes(searchValue));
   }
 
   return filtered;
@@ -742,7 +820,7 @@ function renderRackets() {
   sorted.forEach((racket) => fragment.append(createRacketCard(racket)));
   racketList.replaceChildren(fragment);
 
-  racketCount.textContent = `${sorted.length}件表示`;
+  racketCount.textContent = t("common.count", { count: sorted.length });
   updateApplyButtonCount("racket-filter-apply", sorted.length);
   updateRacketActiveFilterChips();
   renderRacketSearchShortcuts(sorted);
@@ -907,13 +985,13 @@ function setupChangelogModal() {
 
     const dateEl = document.createElement("p");
     dateEl.className = "changelog-entry__date";
-    dateEl.textContent = entry.date;
+    dateEl.textContent = localizeValue(entry.date);
 
     const ul = document.createElement("ul");
     ul.className = "changelog-entry__items";
     entry.items.forEach((item) => {
       const li = document.createElement("li");
-      li.textContent = item;
+      li.textContent = localizeValue(item);
       ul.append(li);
     });
 
@@ -989,7 +1067,7 @@ function setupSectionNavToggle() {
 
   const updateCollapsedState = (isExpanded) => {
     toggle.setAttribute("aria-expanded", String(isExpanded));
-    toggle.setAttribute("aria-label", isExpanded ? "セクションナビをたたむ" : "セクションナビを表示");
+    toggle.setAttribute("aria-label", isExpanded ? t("aria.collapseNav") : t("aria.expandNav"));
     links.classList.toggle("is-collapsed", !isExpanded);
   };
 
@@ -1098,6 +1176,44 @@ function setupSectionCollapse() {
   });
 }
 
+
+function applyStaticTranslations() {
+  document.documentElement.lang = currentLocale;
+  document.title = t("site.pageTitle");
+  const description = document.querySelector('meta[name="description"]');
+  if (description) {
+    description.setAttribute("content", t("site.pageDescription"));
+  }
+
+  document.querySelectorAll("[data-i18n]").forEach((element) => {
+    const key = element.dataset.i18n;
+    if (!key) return;
+    element.textContent = t(key);
+  });
+
+  document.querySelectorAll("[data-i18n-attr]").forEach((element) => {
+    const mappings = element.dataset.i18nAttr?.split(",") ?? [];
+    mappings.forEach((mapping) => {
+      const [attr, key] = mapping.split(":").map((part) => part?.trim());
+      if (attr && key) {
+        element.setAttribute(attr, t(key));
+      }
+    });
+  });
+}
+
+function syncLocaleSelect() {
+  if (localeSelect) {
+    localeSelect.value = currentLocale;
+  }
+}
+
+function applyLocale() {
+  applyStaticTranslations();
+  syncCharacterOrderAvailability();
+  renderCharacters();
+  renderRackets();
+}
 function bindChangeListeners(elements, handler) {
   elements.forEach((element) => element.addEventListener("change", handler));
 }
@@ -1126,8 +1242,16 @@ setupFilterModal("character-filter-modal", "character-inline-filters", "characte
 setupFilterModal("racket-filter-modal", "racket-inline-filters", "racket-modal-filters", "racket-filter-apply", renderRackets);
 setupChangelogModal();
 
-renderCharacters();
-renderRackets();
+if (localeSelect) {
+  localeSelect.addEventListener("change", (event) => {
+    currentLocale = event.target.value === "en" ? "en" : "ja";
+    localStorage.setItem("locale", currentLocale);
+    applyLocale();
+  });
+}
+
+syncLocaleSelect();
+applyLocale();
 setupSectionCollapse();
 setupAccordionRowSync();
 setupSectionNavVisibility();

@@ -10,8 +10,17 @@
 <body>
   <header class="site-header">
     <div class="container">
-      <h1>マリオテニスフィーバー Explorer</h1>
-      <p class="site-lead">
+      <div class="site-header__top">
+        <h1 data-i18n="site.title">マリオテニスフィーバー Explorer</h1>
+        <label class="locale-switcher">
+          <span data-i18n="site.language">言語</span>
+          <select id="locale-select" aria-label="Language selector">
+            <option value="ja">日本語</option>
+            <option value="en">English</option>
+          </select>
+        </label>
+      </div>
+      <p class="site-lead" data-i18n="site.lead">
         キャラクターやラケットの特徴などを確認できるデータまとめサイトです。
         フィルタ・ソートで目的の情報を整理しながら参照できます。
       </p>
@@ -19,14 +28,14 @@
   </header>
 
   <main class="container">
-    <nav class="section-nav" aria-label="セクションナビゲーション">
+    <nav class="section-nav" aria-label="セクションナビゲーション" data-i18n-attr="aria-label:aria.sectionNav">
       <div class="section-nav__links js-section-nav" id="desktop-section-nav-links">
-        <a class="section-nav__item" href="#characters" data-target="characters">キャラ</a>
-        <a class="section-nav__item" href="#rackets" data-target="rackets">ラケット</a>
+        <a class="section-nav__item" href="#characters" data-target="characters" data-i18n="nav.characters">キャラ</a>
+        <a class="section-nav__item" href="#rackets" data-target="rackets" data-i18n="nav.rackets">ラケット</a>
         <a class="section-nav__item" href="#techniques" data-target="techniques">Tips</a>
-        <a class="section-nav__item" href="#favorites" data-target="favorites">お気に入り</a>
+        <a class="section-nav__item" href="#favorites" data-target="favorites" data-i18n="nav.favorites">お気に入り</a>
       </div>
-      <button type="button" class="section-nav__toggle" data-section-nav-toggle aria-expanded="true" aria-controls="desktop-section-nav-links" aria-label="セクションナビをたたむ"></button>
+      <button type="button" class="section-nav__toggle" data-section-nav-toggle aria-expanded="true" aria-controls="desktop-section-nav-links" aria-label="セクションナビをたたむ" data-i18n-attr="aria-label:aria.collapseNav"></button>
     </nav>
 
     <section class="section" id="characters" data-nav-label="キャラ">
@@ -34,63 +43,63 @@
         <div>
           <h2>
             <button type="button" class="section-title-toggle" data-collapse-target="character-content" aria-expanded="true">
-              <span>キャラクター一覧</span>
+              <span data-i18n="section.characters.title">キャラクター一覧</span>
               <span class="section-meta" id="character-count"></span>
             </button>
           </h2>
-          <p class="section-description">タイプ別の特徴やパラメータを比較できます。</p>
+          <p class="section-description" data-i18n="section.characters.description">タイプ別の特徴やパラメータを比較できます。</p>
         </div>
       </div>
 
       <div id="character-content" class="section-content">
 
       <div class="mobile-filter-trigger-wrap">
-        <button type="button" class="mobile-filter-trigger" data-modal-target="character-filter-modal">検索・絞り込み</button>
+        <button type="button" class="mobile-filter-trigger" data-modal-target="character-filter-modal" data-i18n="filter.searchAndFilter">検索・絞り込み</button>
       </div>
 
       <div class="active-filter-chips" id="character-active-filters" aria-live="polite"></div>
 
       <div class="filters" id="character-inline-filters">
         <label class="filter">
-          <span>検索</span>
-          <input type="search" id="character-search" placeholder="キャラクター名で検索" />
+          <span data-i18n="filter.search">検索</span>
+          <input type="search" id="character-search" placeholder="キャラクター名で検索" data-i18n-attr="placeholder:placeholder.characterSearch" />
         </label>
         <label class="filter">
-          <span>タイプ</span>
+          <span data-i18n="filter.type">タイプ</span>
           <select id="character-type-filter">
-            <option value="all">指定なし</option>
-            <option value="オールラウンド">オールラウンド</option>
-            <option value="テクニック">テクニック</option>
-            <option value="パワー">パワー</option>
-            <option value="ディフェンス">ディフェンス</option>
-            <option value="トリッキー">トリッキー</option>
-            <option value="スピード">スピード</option>
+            <option value="all" data-i18n="common.any">指定なし</option>
+            <option value="オールラウンド" data-i18n="type.オールラウンド">オールラウンド</option>
+            <option value="テクニック" data-i18n="type.テクニック">テクニック</option>
+            <option value="パワー" data-i18n="type.パワー">パワー</option>
+            <option value="ディフェンス" data-i18n="type.ディフェンス">ディフェンス</option>
+            <option value="トリッキー" data-i18n="type.トリッキー">トリッキー</option>
+            <option value="スピード" data-i18n="type.スピード">スピード</option>
           </select>
         </label>
         <label class="filter">
-          <span>特殊能力</span>
+          <span data-i18n="filter.special">特殊能力</span>
           <select id="character-special-filter">
-            <option value="all">指定なし</option>
-            <option value="yes">あり</option>
-            <option value="no">なし</option>
+            <option value="all" data-i18n="common.any">指定なし</option>
+            <option value="yes" data-i18n="common.yes">あり</option>
+            <option value="no" data-i18n="common.no">なし</option>
           </select>
         </label>
         <label class="filter">
-          <span>ソート項目</span>
+          <span data-i18n="filter.sortBy">ソート項目</span>
           <select id="character-sort">
-            <option value="name">名前</option>
-            <option value="speed">スピード</option>
-            <option value="power">パワー</option>
-            <option value="control">コントロール</option>
-            <option value="spin">スピン</option>
+            <option value="name" data-i18n="sort.name">名前</option>
+            <option value="speed" data-i18n="stat.speed">スピード</option>
+            <option value="power" data-i18n="stat.power">パワー</option>
+            <option value="control" data-i18n="stat.control">コントロール</option>
+            <option value="spin" data-i18n="stat.spin">スピン</option>
           </select>
         </label>
         <label class="filter">
-          <span>並び順</span>
+          <span data-i18n="filter.order">並び順</span>
           <select id="character-order">
-            <option value="game">ゲーム内順</option>
-            <option value="asc">昇順</option>
-            <option value="desc">降順</option>
+            <option value="game" data-i18n="order.game">ゲーム内順</option>
+            <option value="asc" data-i18n="order.asc">昇順</option>
+            <option value="desc" data-i18n="order.desc">降順</option>
           </select>
         </label>
       </div>
@@ -100,8 +109,8 @@
       <div class="filter-modal" id="character-filter-modal" aria-hidden="true">
         <div class="filter-modal__panel">
           <div class="filter-modal__header">
-            <h3>キャラクターの検索・絞り込み</h3>
-            <button type="button" class="filter-modal__close" data-modal-close="character-filter-modal" aria-label="閉じる">✕</button>
+            <h3 data-i18n="modal.characterFilter">キャラクターの検索・絞り込み</h3>
+            <button type="button" class="filter-modal__close" data-modal-close="character-filter-modal" aria-label="閉じる" data-i18n-attr="aria-label:aria.close">✕</button>
           </div>
           <div class="filters filters--modal" id="character-modal-filters"></div>
           <div id="character-modal-search-results" class="search-shortcuts search-shortcuts--modal" aria-live="polite"></div>
@@ -118,50 +127,50 @@
         <div>
           <h2>
             <button type="button" class="section-title-toggle" data-collapse-target="racket-content" aria-expanded="true">
-              <span>ラケット一覧</span>
+              <span data-i18n="section.rackets.title">ラケット一覧</span>
               <span class="section-meta" id="racket-count"></span>
             </button>
           </h2>
-          <p class="section-description">効果やタイミングを比較できます。</p>
+          <p class="section-description" data-i18n="section.rackets.description">効果やタイミングを比較できます。</p>
         </div>
       </div>
 
       <div id="racket-content" class="section-content">
 
       <div class="mobile-filter-trigger-wrap">
-        <button type="button" class="mobile-filter-trigger" data-modal-target="racket-filter-modal">検索・絞り込み</button>
+        <button type="button" class="mobile-filter-trigger" data-modal-target="racket-filter-modal" data-i18n="filter.searchAndFilter">検索・絞り込み</button>
       </div>
 
       <div class="active-filter-chips" id="racket-active-filters" aria-live="polite"></div>
 
       <div class="filters" id="racket-inline-filters">
         <label class="filter">
-          <span>検索</span>
-          <input type="search" id="racket-search" placeholder="ラケット名で検索" />
+          <span data-i18n="filter.search">検索</span>
+          <input type="search" id="racket-search" placeholder="ラケット名で検索" data-i18n-attr="placeholder:placeholder.racketSearch" />
         </label>
         <label class="filter">
-          <span>種類</span>
+          <span data-i18n="filter.category">種類</span>
           <select id="racket-type-filter">
-            <option value="all">指定なし</option>
-            <option value="妨害">妨害</option>
-            <option value="強化">強化</option>
-            <option value="その他">その他</option>
+            <option value="all" data-i18n="common.any">指定なし</option>
+            <option value="妨害" data-i18n="category.妨害">妨害</option>
+            <option value="強化" data-i18n="category.強化">強化</option>
+            <option value="その他" data-i18n="category.その他">その他</option>
           </select>
         </label>
         <label class="filter">
-          <span>効果タイミング</span>
+          <span data-i18n="filter.timing">効果タイミング</span>
           <select id="racket-timing-filter">
-            <option value="all">指定なし</option>
-            <option value="即時">即時</option>
-            <option value="バウンド時">バウンド時</option>
+            <option value="all" data-i18n="common.any">指定なし</option>
+            <option value="即時" data-i18n="timing.即時">即時</option>
+            <option value="バウンド時" data-i18n="timing.バウンド時">バウンド時</option>
           </select>
         </label>
         <label class="filter">
-          <span>並び順</span>
+          <span data-i18n="filter.order">並び順</span>
           <select id="racket-order">
-            <option value="game">ゲーム内順</option>
-            <option value="asc">昇順</option>
-            <option value="desc">降順</option>
+            <option value="game" data-i18n="order.game">ゲーム内順</option>
+            <option value="asc" data-i18n="order.asc">昇順</option>
+            <option value="desc" data-i18n="order.desc">降順</option>
           </select>
         </label>
       </div>
@@ -171,8 +180,8 @@
       <div class="filter-modal" id="racket-filter-modal" aria-hidden="true">
         <div class="filter-modal__panel">
           <div class="filter-modal__header">
-            <h3>ラケットの検索・絞り込み</h3>
-            <button type="button" class="filter-modal__close" data-modal-close="racket-filter-modal" aria-label="閉じる">✕</button>
+            <h3 data-i18n="modal.racketFilter">ラケットの検索・絞り込み</h3>
+            <button type="button" class="filter-modal__close" data-modal-close="racket-filter-modal" aria-label="閉じる" data-i18n-attr="aria-label:aria.close">✕</button>
           </div>
           <div class="filters filters--modal" id="racket-modal-filters"></div>
           <div id="racket-modal-search-results" class="search-shortcuts search-shortcuts--modal" aria-live="polite"></div>
@@ -184,43 +193,43 @@
       </div>
     </section>
 
-    <section class="section" id="techniques" data-nav-label="テクニック">
+    <section class="section" id="techniques" data-nav-label="Tips">
       <div class="section-header">
         <div>
           <h2>Tips</h2>
-          <p class="section-description">試合で役立つ操作のポイントを素早く確認できます。</p>
+          <p class="section-description" data-i18n="section.tips.description">試合で役立つ操作のポイントを素早く確認できます。</p>
         </div>
       </div>
       <div class="info-panel">
-        <p>仮実装</p>
+        <p data-i18n="common.wip">仮実装</p>
       </div>
     </section>
 
     <section class="section" id="favorites" data-nav-label="お気に入り">
       <div class="section-header">
         <div>
-          <h2>お気に入り候補</h2>
-          <p class="section-description">よく使う構成のチェック用セクションです。</p>
+          <h2 data-i18n="section.favorites.title">お気に入り候補</h2>
+          <p class="section-description" data-i18n="section.favorites.description">よく使う構成のチェック用セクションです。</p>
         </div>
       </div>
       <div class="info-panel">
-        <p>お気に入り登録機能は準備中です。アップデートで保存・呼び出しに対応予定です。</p>
+        <p data-i18n="section.favorites.note">お気に入り登録機能は準備中です。アップデートで保存・呼び出しに対応予定です。</p>
       </div>
     </section>
   </main>
 
-  <nav class="mobile-bottom-nav js-section-nav" aria-label="モバイルセクションナビ">
-    <a class="mobile-bottom-nav__item" href="#characters" data-target="characters">キャラ</a>
-    <a class="mobile-bottom-nav__item" href="#rackets" data-target="rackets">ラケット</a>
+  <nav class="mobile-bottom-nav js-section-nav" aria-label="モバイルセクションナビ" data-i18n-attr="aria-label:aria.mobileNav">
+    <a class="mobile-bottom-nav__item" href="#characters" data-target="characters" data-i18n="nav.characters">キャラ</a>
+    <a class="mobile-bottom-nav__item" href="#rackets" data-target="rackets" data-i18n="nav.rackets">ラケット</a>
     <a class="mobile-bottom-nav__item" href="#techniques" data-target="techniques">Tips</a>
-    <a class="mobile-bottom-nav__item" href="#favorites" data-target="favorites">お気に入り</a>
+    <a class="mobile-bottom-nav__item" href="#favorites" data-target="favorites" data-i18n="nav.favorites">お気に入り</a>
   </nav>
 
   <footer class="site-footer">
     <div class="container">
-      <p>データは仮入力を含みます。後日更新予定です。</p>
+      <p data-i18n="footer.note">データは仮入力を含みます。後日更新予定です。</p>
       <p class="changelog-link-wrap">
-        <button type="button" class="changelog-trigger" data-modal-target="changelog-modal" aria-label="更新履歴を表示">
+        <button type="button" class="changelog-trigger" data-modal-target="changelog-modal" aria-label="更新履歴を表示" data-i18n="footer.changelog" data-i18n-attr="aria-label:aria.showChangelog">
           更新履歴
         </button>
       </p>
@@ -231,8 +240,8 @@
   <div class="changelog-modal" id="changelog-modal" role="dialog" aria-modal="true" aria-hidden="true">
     <div class="changelog-modal__panel">
       <div class="changelog-modal__header">
-        <h2 class="changelog-modal__title">更新履歴</h2>
-        <button type="button" class="changelog-modal__close" data-modal-close="changelog-modal" aria-label="閉じる">✕</button>
+        <h2 class="changelog-modal__title" data-i18n="footer.changelog">更新履歴</h2>
+        <button type="button" class="changelog-modal__close" data-modal-close="changelog-modal" aria-label="閉じる" data-i18n-attr="aria-label:aria.close">✕</button>
       </div>
       <div class="changelog-modal__body" id="changelog-content"></div>
     </div>
