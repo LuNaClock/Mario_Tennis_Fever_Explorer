@@ -1133,26 +1133,7 @@ function setupChangelogModal() {
     return;
   }
 
-  content.innerHTML = "";
-  changelog.forEach((entry) => {
-    const div = document.createElement("div");
-    div.className = "changelog-entry";
-
-    const dateEl = document.createElement("p");
-    dateEl.className = "changelog-entry__date";
-    dateEl.textContent = localizeValue(entry.date);
-
-    const ul = document.createElement("ul");
-    ul.className = "changelog-entry__items";
-    entry.items.forEach((item) => {
-      const li = document.createElement("li");
-      li.textContent = localizeValue(item);
-      ul.append(li);
-    });
-
-    div.append(dateEl, ul);
-    content.append(div);
-  });
+  renderChangelogContent(content);
 
   const openButtons = Array.from(document.querySelectorAll(`[data-modal-target="${modalId}"]`));
   const closeButtons = Array.from(document.querySelectorAll(`[data-modal-close="${modalId}"]`));
@@ -1182,6 +1163,29 @@ function setupChangelogModal() {
     if (event.key === "Escape" && modal.classList.contains("is-open")) {
       closeModal();
     }
+  });
+}
+
+function renderChangelogContent(content) {
+  content.innerHTML = "";
+  changelog.forEach((entry) => {
+    const div = document.createElement("div");
+    div.className = "changelog-entry";
+
+    const dateEl = document.createElement("p");
+    dateEl.className = "changelog-entry__date";
+    dateEl.textContent = localizeValue(entry.date);
+
+    const ul = document.createElement("ul");
+    ul.className = "changelog-entry__items";
+    entry.items.forEach((item) => {
+      const li = document.createElement("li");
+      li.textContent = localizeValue(item);
+      ul.append(li);
+    });
+
+    div.append(dateEl, ul);
+    content.append(div);
   });
 }
 
@@ -1365,6 +1369,10 @@ function syncLocaleSelect() {
 
 function applyLocale() {
   applyStaticTranslations();
+  const changelogContent = document.getElementById("changelog-content");
+  if (changelogContent) {
+    renderChangelogContent(changelogContent);
+  }
   syncCharacterOrderAvailability();
   renderCharacters();
   renderRackets();
