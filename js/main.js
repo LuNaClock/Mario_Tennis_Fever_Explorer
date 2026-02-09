@@ -47,6 +47,7 @@ const mobileSections = mobileNavItems
   .filter(Boolean);
 const desktopProgressSidebar = document.getElementById("desktop-progress-sidebar");
 const desktopProgressBar = document.getElementById("desktop-progress-bar");
+const desktopProgressNavItems = Array.from(document.querySelectorAll(".desktop-progress-nav__item"));
 
 const sectionNavItems = Array.from(document.querySelectorAll("main .section[data-nav-label]"))
   .map((section) => ({
@@ -1004,13 +1005,43 @@ function alignDesktopSidebarWithFirstCard() {
   desktopProgressSidebar.style.top = `${top}px`;
 }
 
+function activateDesktopProgressNav(sectionId) {
+  desktopProgressNavItems.forEach((item) => {
+    const isActive = item.dataset.target === sectionId;
+    item.classList.toggle("is-active", isActive);
+    item.setAttribute("aria-current", isActive ? "true" : "false");
+  });
+}
+
 function setupDesktopQuickNav() {
   if (!desktopProgressSidebar || !desktopProgressBar || !sectionNavItems.length) {
     return;
   }
 
+  desktopProgressNavItems.forEach((item) => {
+    item.addEventListener("click", () => {
+      const targetId = item.dataset.target;
+      const target = document.getElementById(targetId);
+      if (!target) {
+        return;
+      }
+
+      target.scrollIntoView({ behavior: "smooth", block: "start" });
+      history.replaceState(null, "", `#${targetId}`);
+      activateDesktopProgressNav(targetId);
+      activateMobileNav(targetId);
+    });
+  });
+
   const observer = new IntersectionObserver(
-    () => {
+    (entries) => {
+      const visibleSections = entries
+        .filter((entry) => entry.isIntersecting)
+        .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
+
+      if (visibleSections.length) {
+        activateDesktopProgressNav(visibleSections[0].target.id);
+      }
       updateDesktopSectionProgress();
       alignDesktopSidebarWithFirstCard();
     },
@@ -1031,6 +1062,9 @@ function setupDesktopQuickNav() {
     alignDesktopSidebarWithFirstCard();
   });
 
+  const initialId = window.location.hash?.replace("#", "");
+  const initialSection = sectionNavItems.find((item) => item.id === initialId) ?? sectionNavItems[0];
+  activateDesktopProgressNav(initialSection.id);
   alignDesktopSidebarWithFirstCard();
   updateDesktopSectionProgress();
 }

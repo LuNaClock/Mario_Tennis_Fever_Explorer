@@ -44,13 +44,37 @@ img {
   position: fixed;
   top: 0;
   right: max(10px, calc((100vw - 1120px) / 2 - 28px));
-  width: 16px;
+  width: 78px;
   z-index: 15;
+  display: grid;
+  gap: 8px;
+}
+
+.desktop-progress-nav {
+  display: grid;
+  gap: 6px;
+}
+
+.desktop-progress-nav__item {
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: rgba(8, 26, 42, 0.88);
+  color: var(--muted);
+  font-size: 0.72rem;
+  line-height: 1.2;
+  padding: 6px 4px;
+  cursor: pointer;
+}
+
+.desktop-progress-nav__item.is-active {
+  color: var(--text);
+  border-color: var(--accent);
+  background: var(--accent-soft);
 }
 
 .desktop-quick-progress {
   width: 100%;
-  height: 280px;
+  height: 220px;
   border-radius: 999px;
   background: rgba(247, 251, 255, 0.12);
   overflow: hidden;
