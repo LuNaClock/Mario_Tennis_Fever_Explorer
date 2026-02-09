@@ -430,8 +430,38 @@ function createRacketCard(racket) {
 }
 
 function createRacketVideoAccordion(racket) {
-  const content = createRacketVideoContent(racket.video);
+  const content = createRacketVideoContent(getRacketVideoData(racket));
   return createAccordion(t("accordion.video"), content);
+}
+
+function getRacketVideoData(racket) {
+  if (racket.video?.src) {
+    return racket.video;
+  }
+
+  const fallbackSrc = buildRacketMoviePath(racket.image);
+  if (!fallbackSrc) {
+    return null;
+  }
+
+  return {
+    src: fallbackSrc,
+    mime: "video/mp4",
+  };
+}
+
+function buildRacketMoviePath(imagePath) {
+  if (!imagePath) {
+    return "";
+  }
+
+  const fileName = imagePath.split("/").pop() || "";
+  const movieBaseName = fileName.replace(/_racket\.[a-zA-Z0-9]+$/, "");
+  if (!movieBaseName) {
+    return "";
+  }
+
+  return `assets/racket_movies/${movieBaseName}.mp4`;
 }
 
 function createRacketVideoContent(videoData) {
