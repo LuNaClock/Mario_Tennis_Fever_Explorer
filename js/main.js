@@ -45,6 +45,16 @@ const mobileNavItems = Array.from(document.querySelectorAll(".mobile-bottom-nav_
 const mobileSections = mobileNavItems
   .map((item) => document.getElementById(item.dataset.target))
   .filter(Boolean);
+const desktopQuickNav = document.getElementById("desktop-quick-nav");
+const desktopProgressBar = document.getElementById("desktop-progress-bar");
+
+const sectionNavItems = Array.from(document.querySelectorAll("main .section[data-nav-label]"))
+  .map((section) => ({
+    id: section.id,
+    label: section.dataset.navLabel || section.id,
+    element: section,
+  }))
+  .filter((item) => item.id && item.element);
 
 const characterIndexMap = new Map(characters.map((character, index) => [character, index]));
 const racketIndexMap = new Map(rackets.map((racket, index) => [racket, index]));
@@ -464,6 +474,7 @@ function updateCharacterActiveFilterChips() {
     button.textContent = `${chip.label} ×`;
     characterActiveFilters.append(button);
   });
+
 }
 
 function closeCharacterFilterModal() {
@@ -505,6 +516,7 @@ function updateRacketActiveFilterChips() {
     button.textContent = `${chip.label} ×`;
     racketActiveFilters.append(button);
   });
+
 }
 
 function createRacketSearchShortcut(racket) {
@@ -955,6 +967,111 @@ function activateMobileNav(sectionId) {
   });
 }
 
+function activateDesktopQuickNav(sectionId) {
+  const navButtons = Array.from(document.querySelectorAll(".desktop-quick-nav__item"));
+  navButtons.forEach((button) => {
+    const isActive = button.dataset.target === sectionId;
+    button.classList.toggle("is-active", isActive);
+    button.setAttribute("aria-current", isActive ? "true" : "false");
+  });
+
+}
+
+function updateDesktopSectionProgress() {
+  if (!desktopQuickNav || !desktopProgressBar || !sectionNavItems.length) {
+    return;
+  }
+
+  const viewportHeight = window.innerHeight || 1;
+  let totalProgress = 0;
+
+  sectionNavItems.forEach((item) => {
+    const rect = item.element.getBoundingClientRect();
+    const sectionHeight = Math.max(rect.height, 1);
+    const raw = ((viewportHeight * 0.4) - rect.top) / sectionHeight;
+    const ratio = Math.max(0, Math.min(1, raw));
+    totalProgress += ratio;
+
+    const button = desktopQuickNav.querySelector(`[data-target="${item.id}"]`);
+    const fill = button?.querySelector(".desktop-quick-nav__bar-fill");
+    const percent = Math.round(ratio * 100);
+    if (fill) {
+      fill.style.width = `${percent}%`;
+    }
+
+    const percentLabel = button?.querySelector(".desktop-quick-nav__percent");
+    if (percentLabel) {
+      percentLabel.textContent = `${percent}%`;
+    }
+  });
+
+  const totalPercent = Math.round((totalProgress / sectionNavItems.length) * 100);
+  desktopProgressBar.style.width = `${totalPercent}%`;
+}
+
+function setupDesktopQuickNav() {
+  if (!desktopQuickNav || !sectionNavItems.length) {
+    return;
+  }
+
+  const fragment = document.createDocumentFragment();
+  sectionNavItems.forEach((item) => {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "desktop-quick-nav__item";
+    button.dataset.target = item.id;
+    button.innerHTML = `
+      <span class="desktop-quick-nav__label-row">
+        <span>${item.label}</span>
+        <span class="desktop-quick-nav__percent">0%</span>
+      </span>
+      <span class="desktop-quick-nav__bar">
+        <span class="desktop-quick-nav__bar-fill"></span>
+      </span>
+    `;
+
+    button.addEventListener("click", () => {
+      item.element.scrollIntoView({ behavior: "smooth", block: "start" });
+      history.replaceState(null, "", `#${item.id}`);
+      activateDesktopQuickNav(item.id);
+      activateMobileNav(item.id);
+    });
+
+    fragment.append(button);
+  });
+
+  desktopQuickNav.replaceChildren(fragment);
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      const visibleSections = entries
+        .filter((entry) => entry.isIntersecting)
+        .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
+
+      if (visibleSections.length) {
+        const currentId = visibleSections[0].target.id;
+        activateDesktopQuickNav(currentId);
+      }
+      updateDesktopSectionProgress();
+    },
+    {
+      rootMargin: "-25% 0px -45% 0px",
+      threshold: [0.2, 0.4, 0.6],
+    }
+  );
+
+  sectionNavItems.forEach((section) => observer.observe(section.element));
+
+  window.addEventListener("scroll", updateDesktopSectionProgress, { passive: true });
+  window.addEventListener("resize", updateDesktopSectionProgress);
+
+  const initialId = window.location.hash?.replace("#", "");
+  const initialSection = sectionNavItems.find((item) => item.id === initialId) ?? sectionNavItems[0];
+  activateDesktopQuickNav(initialSection.id);
+  updateDesktopSectionProgress();
+
+}
+
 function setupMobileSectionNav() {
   if (!mobileNavItems.length || !mobileSections.length) {
     return;
@@ -1066,6 +1183,7 @@ setupRacketSearchShortcutActions();
 setupFilterModal("character-filter-modal", "character-inline-filters", "character-modal-filters", "character-filter-apply", renderCharacters);
 setupFilterModal("racket-filter-modal", "racket-inline-filters", "racket-modal-filters", "racket-filter-apply", renderRackets);
 setupChangelogModal();
+setupDesktopQuickNav();
 
 renderCharacters();
 renderRackets();
