@@ -19,11 +19,19 @@
   </header>
 
   <main class="container">
-    <nav class="section-nav js-section-nav" aria-label="セクションナビゲーション">
-      <a class="section-nav__item" href="#characters" data-target="characters">キャラ</a>
-      <a class="section-nav__item" href="#rackets" data-target="rackets">ラケット</a>
-      <a class="section-nav__item" href="#techniques" data-target="techniques">Tips</a>
-      <a class="section-nav__item" href="#favorites" data-target="favorites">お気に入り</a>
+    <nav class="section-nav" aria-label="セクションナビゲーション">
+      <div class="section-nav__header">
+        <p class="section-nav__title">セクション移動</p>
+        <button type="button" class="section-nav__toggle" data-section-nav-toggle aria-expanded="true" aria-controls="desktop-section-nav-links">
+          ナビをたたむ
+        </button>
+      </div>
+      <div class="section-nav__links js-section-nav" id="desktop-section-nav-links">
+        <a class="section-nav__item" href="#characters" data-target="characters">キャラ</a>
+        <a class="section-nav__item" href="#rackets" data-target="rackets">ラケット</a>
+        <a class="section-nav__item" href="#techniques" data-target="techniques">Tips</a>
+        <a class="section-nav__item" href="#favorites" data-target="favorites">お気に入り</a>
+      </div>
     </nav>
 
     <section class="section" id="characters" data-nav-label="キャラ">

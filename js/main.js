@@ -952,6 +952,29 @@ function setupChangelogModal() {
   });
 }
 
+
+function setupSectionNavToggle() {
+  const toggle = document.querySelector("[data-section-nav-toggle]");
+  const links = document.getElementById("desktop-section-nav-links");
+
+  if (!toggle || !links) {
+    return;
+  }
+
+  const updateCollapsedState = (isExpanded) => {
+    toggle.setAttribute("aria-expanded", String(isExpanded));
+    toggle.textContent = isExpanded ? "ナビをたたむ" : "ナビを表示";
+    links.classList.toggle("is-collapsed", !isExpanded);
+  };
+
+  updateCollapsedState(toggle.getAttribute("aria-expanded") !== "false");
+
+  toggle.addEventListener("click", () => {
+    const isExpanded = toggle.getAttribute("aria-expanded") === "true";
+    updateCollapsedState(!isExpanded);
+  });
+}
+
 function activateSectionNav(sectionId) {
   sectionNavItems.forEach((item) => {
     const isActive = item.dataset.target === sectionId;
@@ -1081,4 +1104,5 @@ renderCharacters();
 renderRackets();
 setupSectionCollapse();
 setupAccordionRowSync();
+setupSectionNavToggle();
 setupSectionNav();
