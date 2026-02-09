@@ -436,12 +436,13 @@ function createRacketVideoAccordion(racket) {
 
   if (videoData?.src && videoData.type !== "youtube") {
     const toggle = accordion.querySelector(".accordion-toggle");
+    const panel = accordion.querySelector(".accordion-panel");
     toggle?.addEventListener("click", () => {
-      const willExpand = toggle.getAttribute("aria-expanded") === "false";
+      const willExpand = Boolean(panel?.hidden);
       if (willExpand) {
         initializeRacketVideoContent(content, videoData);
       }
-    });
+    }, { capture: true });
   }
 
   return accordion;
