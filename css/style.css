@@ -650,6 +650,35 @@ img {
   color: var(--muted);
 }
 
+
+.racket-game-text > p {
+  margin: 0;
+}
+
+.racket-video {
+  display: grid;
+  gap: 8px;
+}
+
+.racket-video__player {
+  width: 100%;
+  max-width: 100%;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: rgba(4, 12, 20, 0.9);
+}
+
+.racket-video__link {
+  color: var(--accent);
+  font-weight: 700;
+  text-decoration: underline;
+}
+
+.racket-video__unavailable {
+  margin: 0;
+}
+
+
 .info-panel {
   padding: 16px 18px;
   border: 1px solid var(--border);
