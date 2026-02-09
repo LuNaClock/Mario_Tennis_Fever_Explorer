@@ -569,6 +569,9 @@ export const changelog = [
   },
   {
     date: { ja: "2025-02-09", en: "2025-02-09" },
-    items: [{ ja: "PC版に各項目へジャンプ出来るヘッダーを実装", en: "Implemented a PC header that allows jumping to each section." }],
+    items: [
+        { ja: "PC版に各項目へジャンプ出来るヘッダーを実装", en: "Implemented a PC header that allows jumping to each section." },
+        { ja: "言語切り替え機能を実装", en: "Implemented language switch to English." }
+    ],
   },
 ];
