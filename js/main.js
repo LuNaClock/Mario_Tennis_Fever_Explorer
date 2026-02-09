@@ -430,8 +430,21 @@ function createRacketCard(racket) {
 }
 
 function createRacketVideoAccordion(racket) {
-  const content = createRacketVideoContent(getRacketVideoData(racket));
-  return createAccordion(t("accordion.video"), content);
+  const videoData = getRacketVideoData(racket);
+  const content = createRacketVideoContent(videoData);
+  const accordion = createAccordion(t("accordion.video"), content);
+
+  if (videoData?.src && videoData.type !== "youtube") {
+    const toggle = accordion.querySelector(".accordion-toggle");
+    toggle?.addEventListener("click", () => {
+      const willExpand = toggle.getAttribute("aria-expanded") === "false";
+      if (willExpand) {
+        initializeRacketVideoContent(content, videoData);
+      }
+    });
+  }
+
+  return accordion;
 }
 
 const checkedVideoSourceCache = new Map();
@@ -495,6 +508,7 @@ function createRacketVideoContent(videoData) {
   wrapper.className = "racket-video";
 
   if (!videoData?.src) {
+    wrapper.dataset.videoState = "unavailable";
     wrapper.append(createUnavailableVideoMessage());
     return wrapper;
   }
@@ -506,18 +520,32 @@ function createRacketVideoContent(videoData) {
     link.target = "_blank";
     link.rel = "noopener noreferrer";
     link.textContent = t("video.openYoutube");
+    wrapper.dataset.videoState = "ready";
     wrapper.append(link);
     return wrapper;
   }
 
+  wrapper.dataset.videoState = "idle";
+  return wrapper;
+}
+
+function initializeRacketVideoContent(wrapper, videoData) {
+  const state = wrapper.dataset.videoState;
+  if (state === "loading" || state === "ready" || state === "unavailable") {
+    return;
+  }
+
+  wrapper.dataset.videoState = "loading";
+
   const checking = document.createElement("p");
   checking.className = "racket-video__unavailable";
   checking.textContent = t("video.checking");
-  wrapper.append(checking);
+  wrapper.replaceChildren(checking);
 
   void doesVideoSourceExist(videoData.src).then((exists) => {
     wrapper.replaceChildren();
     if (!exists) {
+      wrapper.dataset.videoState = "unavailable";
       wrapper.append(createUnavailableVideoMessage());
       return;
     }
@@ -536,14 +564,9 @@ function createRacketVideoContent(videoData) {
     source.type = videoData.mime || "video/mp4";
     video.append(source);
 
-    video.addEventListener("error", () => {
-      wrapper.replaceChildren(createUnavailableVideoMessage());
-    }, { once: true });
-
+    wrapper.dataset.videoState = "ready";
     wrapper.append(video);
   });
-
-  return wrapper;
 }
 
 function sortItems(items, key, order) {
