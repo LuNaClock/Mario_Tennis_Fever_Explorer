@@ -438,30 +438,7 @@ function getRacketVideoData(racket) {
   if (racket.video?.src) {
     return racket.video;
   }
-
-  const fallbackSrc = buildRacketMoviePath(racket.image);
-  if (!fallbackSrc) {
-    return null;
-  }
-
-  return {
-    src: fallbackSrc,
-    mime: "video/mp4",
-  };
-}
-
-function buildRacketMoviePath(imagePath) {
-  if (!imagePath) {
-    return "";
-  }
-
-  const fileName = imagePath.split("/").pop() || "";
-  const movieBaseName = fileName.replace(/_racket\.[a-zA-Z0-9]+$/, "");
-  if (!movieBaseName) {
-    return "";
-  }
-
-  return `assets/racket_movies/${movieBaseName}.mp4`;
+  return null;
 }
 
 function createRacketVideoContent(videoData) {
@@ -490,6 +467,7 @@ function createRacketVideoContent(videoData) {
   const video = document.createElement("video");
   video.className = "racket-video__player";
   video.controls = true;
+  video.muted = true;
   video.preload = "none";
   if (videoData.poster) {
     video.poster = videoData.poster;
