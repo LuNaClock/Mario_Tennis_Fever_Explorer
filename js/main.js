@@ -963,7 +963,7 @@ function setupSectionNavToggle() {
 
   const updateCollapsedState = (isExpanded) => {
     toggle.setAttribute("aria-expanded", String(isExpanded));
-    toggle.textContent = isExpanded ? "ナビをたたむ" : "ナビを表示";
+    toggle.setAttribute("aria-label", isExpanded ? "セクションナビをたたむ" : "セクションナビを表示");
     links.classList.toggle("is-collapsed", !isExpanded);
   };
 
