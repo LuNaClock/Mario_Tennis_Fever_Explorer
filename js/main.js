@@ -13,7 +13,8 @@ const translations = {
     sort: { name: "名前" },
     order: { game: "ゲーム内順", asc: "昇順", desc: "降順", high: "数値が高い順", low: "数値が低い順" },
     common: { any: "指定なし", yes: "あり", no: "なし", wip: "仮実装", count: "{{count}}件表示", showCount: "{{count}}件を表示", searchHit: "検索ヒット: {{count}}件", noCharacter: "一致するキャラクターが見つかりません。", noRacket: "一致するラケットが見つかりません。", language: "言語" },
-    accordion: { special: "特殊能力", gameText: "ゲーム内テキスト", details: "全項目を見る" },
+    accordion: { special: "特殊能力", gameText: "ゲーム内テキスト", details: "全項目を見る", video: "動画で効果を確認する" },
+    video: { unavailable: "動画は準備中です。", openYoutube: "YouTubeで開く" },
     chip: { type: "タイプ", search: "検索", special: "特殊能力", sort: "ソート", order: "並び順", category: "種類", timing: "効果タイミング", yes: "あり", no: "なし" },
     aria: { sectionNav: "セクションナビゲーション", mobileNav: "モバイルセクションナビ", close: "閉じる", showChangelog: "更新履歴を表示", collapseNav: "セクションナビをたたむ", expandNav: "セクションナビを表示" },
     type: { "オールラウンド": "オールラウンド", "テクニック": "テクニック", "パワー": "パワー", "ディフェンス": "ディフェンス", "トリッキー": "トリッキー", "スピード": "スピード" },
@@ -34,7 +35,8 @@ const translations = {
     sort: { name: "Name" },
     order: { game: "Game order", asc: "A → Z", desc: "Z → A", high: "High → Low", low: "Low → High" },
     common: { any: "Any", yes: "Yes", no: "None", wip: "Work in progress", count: "{{count}} shown", showCount: "Show {{count}}", searchHit: "Search hits: {{count}}", noCharacter: "No matching characters found.", noRacket: "No matching rackets found.", language: "Language" },
-    accordion: { special: "Special", gameText: "In-game text", details: "Show all" },
+    accordion: { special: "Special", gameText: "In-game text", details: "Show all", video: "Watch effect video" },
+    video: { unavailable: "Video is coming soon.", openYoutube: "Open on YouTube" },
     chip: { type: "Type", search: "Search", special: "Special", sort: "Sort", order: "Order", category: "Category", timing: "Timing", yes: "Yes", no: "No" },
     aria: { sectionNav: "Section navigation", mobileNav: "Mobile section navigation", close: "Close", showChangelog: "Show changelog", collapseNav: "Collapse section nav", expandNav: "Expand section nav" },
     type: { "オールラウンド": "All-Round", "テクニック": "Technique", "パワー": "Power", "ディフェンス": "Defense", "トリッキー": "Tricky", "スピード": "Speed" },
@@ -409,10 +411,13 @@ function createRacketCard(racket) {
   effect.className = "effect";
   effect.textContent = localizeValue(racket.effect);
 
+  const text = createAccordion(t("accordion.gameText"), localizeValue(racket.text));
+  const video = createRacketVideoAccordion(racket);
+
   if (mobileView) {
     const detailsBody = document.createElement("div");
     detailsBody.className = "card-details";
-    detailsBody.append(effect, createAccordion(t("accordion.gameText"), localizeValue(racket.text)));
+    detailsBody.append(effect, text, video);
 
     const details = createAccordion(t("accordion.details"), detailsBody);
     details.classList.add("accordion--details");
@@ -420,10 +425,53 @@ function createRacketCard(racket) {
     return card;
   }
 
-  const text = createAccordion(t("accordion.gameText"), localizeValue(racket.text));
-
-  card.append(header, effect, text);
+  card.append(header, effect, text, video);
   return card;
+}
+
+function createRacketVideoAccordion(racket) {
+  const content = createRacketVideoContent(racket.video);
+  return createAccordion(t("accordion.video"), content);
+}
+
+function createRacketVideoContent(videoData) {
+  const wrapper = document.createElement("div");
+  wrapper.className = "racket-video";
+
+  if (!videoData?.src) {
+    const unavailable = document.createElement("p");
+    unavailable.className = "racket-video__unavailable";
+    unavailable.textContent = t("video.unavailable");
+    wrapper.append(unavailable);
+    return wrapper;
+  }
+
+  if (videoData.type === "youtube") {
+    const link = document.createElement("a");
+    link.className = "racket-video__link";
+    link.href = videoData.src;
+    link.target = "_blank";
+    link.rel = "noopener noreferrer";
+    link.textContent = t("video.openYoutube");
+    wrapper.append(link);
+    return wrapper;
+  }
+
+  const video = document.createElement("video");
+  video.className = "racket-video__player";
+  video.controls = true;
+  video.preload = "none";
+  if (videoData.poster) {
+    video.poster = videoData.poster;
+  }
+
+  const source = document.createElement("source");
+  source.src = videoData.src;
+  source.type = videoData.mime || "video/mp4";
+  video.append(source);
+
+  wrapper.append(video);
+  return wrapper;
 }
 
 function sortItems(items, key, order) {

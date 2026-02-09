@@ -313,6 +313,7 @@ export const characters = [
       effect: { ja: "十字方向に5つの炎を設置。触れると短時間ショット不可 + 強制移動 + ダメージ。", en: "Places five flames in a cross pattern. Touching them briefly prevents shots, forces movement, and deals damage." },
       text: { ja: "炎をコートにまきちらす。ふれるとアチチ！と走り回る。", en: "Scatters flames across the court. Touch them and you’ll run around shouting 'Hot!'" },
       image: "assets/racket_icons/fire_racket.svg",
+      video: { type: "mp4", src: "assets/racket_movies/fire_racket_demo.mp4", mime: "video/mp4" },
     },
     {
       name: { ja: "アイスラケット", en: "Ice Racket" },
