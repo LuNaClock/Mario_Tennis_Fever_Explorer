@@ -14,7 +14,7 @@ const translations = {
     order: { game: "ゲーム内順", asc: "昇順", desc: "降順", high: "数値が高い順", low: "数値が低い順" },
     common: { any: "指定なし", yes: "あり", no: "なし", wip: "仮実装", count: "{{count}}件表示", showCount: "{{count}}件を表示", searchHit: "検索ヒット: {{count}}件", noCharacter: "一致するキャラクターが見つかりません。", noRacket: "一致するラケットが見つかりません。", language: "言語" },
     accordion: { special: "特殊能力", gameText: "ゲーム内テキスト", details: "全項目を見る", video: "動画で効果を確認する" },
-    video: { unavailable: "動画は準備中です。", openYoutube: "YouTubeで開く" },
+    video: { unavailable: "動画は準備中です。", checking: "動画の有無を確認中です…", openYoutube: "YouTubeで開く" },
     chip: { type: "タイプ", search: "検索", special: "特殊能力", sort: "ソート", order: "並び順", category: "種類", timing: "効果タイミング", yes: "あり", no: "なし" },
     aria: { sectionNav: "セクションナビゲーション", mobileNav: "モバイルセクションナビ", close: "閉じる", showChangelog: "更新履歴を表示", collapseNav: "セクションナビをたたむ", expandNav: "セクションナビを表示" },
     type: { "オールラウンド": "オールラウンド", "テクニック": "テクニック", "パワー": "パワー", "ディフェンス": "ディフェンス", "トリッキー": "トリッキー", "スピード": "スピード" },
@@ -36,11 +36,11 @@ const translations = {
     order: { game: "Game order", asc: "A → Z", desc: "Z → A", high: "High → Low", low: "Low → High" },
     common: { any: "Any", yes: "Yes", no: "None", wip: "Work in progress", count: "{{count}} shown", showCount: "Show {{count}}", searchHit: "Search hits: {{count}}", noCharacter: "No matching characters found.", noRacket: "No matching rackets found.", language: "Language" },
     accordion: { special: "Special", gameText: "In-game text", details: "Show all", video: "Watch effect video" },
-    video: { unavailable: "Video is coming soon.", openYoutube: "Open on YouTube" },
+    video: { unavailable: "Video is coming soon.", checking: "Checking video availability…", openYoutube: "Open on YouTube" },
     chip: { type: "Type", search: "Search", special: "Special", sort: "Sort", order: "Order", category: "Category", timing: "Timing", yes: "Yes", no: "No" },
     aria: { sectionNav: "Section navigation", mobileNav: "Mobile section navigation", close: "Close", showChangelog: "Show changelog", collapseNav: "Collapse section nav", expandNav: "Expand section nav" },
     type: { "オールラウンド": "All-Around", "テクニック": "Technical	", "パワー": "Powerful", "ディフェンス": "Defensive", "トリッキー": "Tricky", "スピード": "Speedy" },
-    category: { "妨害": "Interference", "強化": "Boost", "その他": "Other", "不明": "Unknown" },
+    category: { "妨害": "Disruptive", "強化": "Boost", "その他": "Other", "不明": "Unknown" },
     timing: { "即時": "Instant", "バウンド時": "On Bounce", "不明": "Unknown" },
     meta: { iconSuffix: " icon" },
     changelog: { title: "Changelog" },
@@ -430,9 +430,31 @@ function createRacketCard(racket) {
 }
 
 function createRacketVideoAccordion(racket) {
-  const content = createRacketVideoContent(getRacketVideoData(racket));
-  return createAccordion(t("accordion.video"), content);
+  const videoData = getRacketVideoData(racket);
+  const content = createRacketVideoContent(videoData);
+  const accordion = createAccordion(t("accordion.video"), content);
+
+  if (videoData?.src && videoData.type !== "youtube") {
+    const toggle = accordion.querySelector(".accordion-toggle");
+    const panel = accordion.querySelector(".accordion-panel");
+    const initializeOnExpand = () => {
+      if (Boolean(panel?.hidden)) {
+        initializeRacketVideoContent(content, videoData);
+      }
+    };
+
+    toggle?.addEventListener("click", initializeOnExpand, { capture: true });
+    toggle?.addEventListener("accordion-sync-state", (event) => {
+      if (event?.detail?.expanded) {
+        initializeRacketVideoContent(content, videoData);
+      }
+    });
+  }
+
+  return accordion;
 }
+
+const checkedVideoSourceCache = new Map();
 
 function getRacketVideoData(racket) {
   if (racket.video?.src) {
@@ -464,15 +486,37 @@ function buildRacketMoviePath(imagePath) {
   return `assets/racket_movies/${movieBaseName}.mp4`;
 }
 
+async function doesVideoSourceExist(src) {
+  if (!src) {
+    return false;
+  }
+
+  if (checkedVideoSourceCache.has(src)) {
+    return checkedVideoSourceCache.get(src);
+  }
+
+  const existsPromise = fetch(src, { method: "HEAD" })
+    .then((response) => response.ok)
+    .catch(() => false);
+
+  checkedVideoSourceCache.set(src, existsPromise);
+  return existsPromise;
+}
+
+function createUnavailableVideoMessage() {
+  const unavailable = document.createElement("p");
+  unavailable.className = "racket-video__unavailable";
+  unavailable.textContent = t("video.unavailable");
+  return unavailable;
+}
+
 function createRacketVideoContent(videoData) {
   const wrapper = document.createElement("div");
   wrapper.className = "racket-video";
 
   if (!videoData?.src) {
-    const unavailable = document.createElement("p");
-    unavailable.className = "racket-video__unavailable";
-    unavailable.textContent = t("video.unavailable");
-    wrapper.append(unavailable);
+    wrapper.dataset.videoState = "unavailable";
+    wrapper.append(createUnavailableVideoMessage());
     return wrapper;
   }
 
@@ -483,25 +527,53 @@ function createRacketVideoContent(videoData) {
     link.target = "_blank";
     link.rel = "noopener noreferrer";
     link.textContent = t("video.openYoutube");
+    wrapper.dataset.videoState = "ready";
     wrapper.append(link);
     return wrapper;
   }
 
-  const video = document.createElement("video");
-  video.className = "racket-video__player";
-  video.controls = true;
-  video.preload = "none";
-  if (videoData.poster) {
-    video.poster = videoData.poster;
+  wrapper.dataset.videoState = "idle";
+  return wrapper;
+}
+
+function initializeRacketVideoContent(wrapper, videoData) {
+  const state = wrapper.dataset.videoState;
+  if (state === "loading" || state === "ready" || state === "unavailable") {
+    return;
   }
 
-  const source = document.createElement("source");
-  source.src = videoData.src;
-  source.type = videoData.mime || "video/mp4";
-  video.append(source);
+  wrapper.dataset.videoState = "loading";
 
-  wrapper.append(video);
-  return wrapper;
+  const checking = document.createElement("p");
+  checking.className = "racket-video__unavailable";
+  checking.textContent = t("video.checking");
+  wrapper.replaceChildren(checking);
+
+  void doesVideoSourceExist(videoData.src).then((exists) => {
+    wrapper.replaceChildren();
+    if (!exists) {
+      wrapper.dataset.videoState = "unavailable";
+      wrapper.append(createUnavailableVideoMessage());
+      return;
+    }
+
+    const video = document.createElement("video");
+    video.className = "racket-video__player";
+    video.controls = true;
+    video.muted = true;
+    video.preload = "none";
+    if (videoData.poster) {
+      video.poster = videoData.poster;
+    }
+
+    const source = document.createElement("source");
+    source.src = videoData.src;
+    source.type = videoData.mime || "video/mp4";
+    video.append(source);
+
+    wrapper.dataset.videoState = "ready";
+    wrapper.append(video);
+  });
 }
 
 function sortItems(items, key, order) {

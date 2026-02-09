@@ -574,5 +574,10 @@ export const characters = [
           { ja: "言語切り替え機能を実装", en: "Implemented language switch to English." }
       ],
     },
+    {
+        date: { ja: "2025-02-10", en: "2025-02-10" },
+        items: [
+            { ja: "ラケット一覧に動画再生機能を実装", en: "Implemented 'Watch effect video' function for rackets." }
+        ],
+      },
   ];
-  
