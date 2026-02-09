@@ -2,7 +2,7 @@ import { characters, rackets, changelog } from "../data.js";
 
 const translations = {
   ja: {
-    site: { pageTitle: "マリオテニスフィーバー データ参照サイト", pageDescription: "マリオテニスフィーバーのキャラクターやラケット、システム関連データを一覧で確認できる参照サイト。", title: "マリオテニスフィーバー Explorer", language: "言語", lead: "キャラクターやラケットの特徴などを確認できるデータまとめサイトです。フィルタ・ソートで目的の情報を整理しながら参照できます。" },
+    site: { pageTitle: "マリオテニスフィーバー データ参照サイト", pageDescription: "マリオテニスフィーバーのキャラクターやラケット、システム関連データを一覧で確認できる参照サイト。", title: "マリオテニスフィーバー Explorer", language: "Language", lead: "キャラクターやラケットの特徴などを確認できるデータまとめサイトです。フィルタ・ソートで目的の情報を整理しながら参照できます。" },
     nav: { characters: "キャラ", rackets: "ラケット", favorites: "お気に入り" },
     section: { characters: { title: "キャラクター一覧", description: "タイプ別の特徴やパラメータを比較できます。" }, rackets: { title: "ラケット一覧", description: "効果やタイミングを比較できます。" }, tips: { description: "試合で役立つ操作のポイントを素早く確認できます。" }, favorites: { title: "お気に入り候補", description: "よく使う構成のチェック用セクションです。", note: "お気に入り登録機能は準備中です。アップデートで保存・呼び出しに対応予定です。" } },
     filter: { searchAndFilter: "検索・絞り込み", search: "検索", type: "タイプ", special: "特殊能力", sortBy: "ソート項目", order: "並び順", category: "種類", timing: "効果タイミング" },
@@ -46,7 +46,12 @@ const translations = {
 };
 
 const localeSelect = document.getElementById("locale-select");
-const browserLocale = (navigator.language || "ja").startsWith("en") ? "en" : "ja";
+const browserLanguages = Array.isArray(navigator.languages) && navigator.languages.length
+  ? navigator.languages
+  : [navigator.language || "ja"];
+const browserLocale = browserLanguages.some((lang) => String(lang).toLowerCase().startsWith("ja"))
+  ? "ja"
+  : "en";
 let currentLocale = localStorage.getItem("locale") || browserLocale;
 if (!translations[currentLocale]) {
   currentLocale = "ja";
