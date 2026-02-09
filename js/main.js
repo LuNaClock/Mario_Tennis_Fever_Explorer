@@ -41,10 +41,15 @@ const racketActiveFilters = document.getElementById("racket-active-filters");
 const racketSearchResults = document.getElementById("racket-search-results");
 const racketModalSearchResults = document.getElementById("racket-modal-search-results");
 
-const mobileNavItems = Array.from(document.querySelectorAll(".mobile-bottom-nav__item"));
-const mobileSections = mobileNavItems
-  .map((item) => document.getElementById(item.dataset.target))
-  .filter(Boolean);
+const sectionNavItems = Array.from(document.querySelectorAll(".js-section-nav a[data-target]"));
+const sectionNavGroups = Array.from(document.querySelectorAll(".js-section-nav"));
+const sectionNavSections = Array.from(
+  new Set(
+    sectionNavItems
+      .map((item) => document.getElementById(item.dataset.target))
+      .filter(Boolean)
+  )
+);
 
 const characterIndexMap = new Map(characters.map((character, index) => [character, index]));
 const racketIndexMap = new Map(rackets.map((racket, index) => [racket, index]));
@@ -947,23 +952,28 @@ function setupChangelogModal() {
   });
 }
 
-function activateMobileNav(sectionId) {
-  mobileNavItems.forEach((item) => {
+function activateSectionNav(sectionId) {
+  sectionNavItems.forEach((item) => {
     const isActive = item.dataset.target === sectionId;
     item.classList.toggle("is-active", isActive);
     item.setAttribute("aria-current", isActive ? "true" : "false");
   });
 }
 
-function setupMobileSectionNav() {
-  if (!mobileNavItems.length || !mobileSections.length) {
+function setupSectionNav() {
+  if (!sectionNavItems.length || !sectionNavSections.length) {
     return;
   }
 
-  mobileNavItems.forEach((item) => {
-    item.addEventListener("click", (event) => {
+  sectionNavGroups.forEach((nav) => {
+    nav.addEventListener("click", (event) => {
+      const link = event.target.closest("a[data-target]");
+      if (!link || !nav.contains(link)) {
+        return;
+      }
+
       event.preventDefault();
-      const targetId = item.dataset.target;
+      const targetId = link.dataset.target;
       const target = document.getElementById(targetId);
       if (!target) {
         return;
@@ -971,7 +981,7 @@ function setupMobileSectionNav() {
 
       target.scrollIntoView({ behavior: "smooth", block: "start" });
       history.replaceState(null, "", `#${targetId}`);
-      activateMobileNav(targetId);
+      activateSectionNav(targetId);
     });
   });
 
@@ -982,19 +992,19 @@ function setupMobileSectionNav() {
         .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
 
       if (visibleSections.length) {
-        activateMobileNav(visibleSections[0].target.id);
+        activateSectionNav(visibleSections[0].target.id);
       }
     },
     {
-      rootMargin: "-30% 0px -50% 0px",
-      threshold: [0.2, 0.4, 0.6],
+      rootMargin: "-25% 0px -55% 0px",
+      threshold: [0.2, 0.35, 0.55],
     }
   );
 
-  mobileSections.forEach((section) => observer.observe(section));
+  sectionNavSections.forEach((section) => observer.observe(section));
 
   const initialId = window.location.hash?.replace("#", "");
-  activateMobileNav(initialId || mobileSections[0].id);
+  activateSectionNav(initialId || sectionNavSections[0].id);
 }
 
 
@@ -1071,4 +1081,4 @@ renderCharacters();
 renderRackets();
 setupSectionCollapse();
 setupAccordionRowSync();
-setupMobileSectionNav();
+setupSectionNav();
