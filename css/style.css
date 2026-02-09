@@ -77,6 +77,30 @@ img {
   background: rgba(5, 22, 36, 0.86);
   backdrop-filter: blur(8px);
   padding-bottom: 14px;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translateY(-8px);
+  max-height: 0;
+  margin-top: 0;
+  margin-bottom: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+  border-width: 0;
+  transition: opacity 0.2s ease, transform 0.2s ease, max-height 0.2s ease, margin 0.2s ease, padding 0.2s ease;
+}
+
+.section-nav.is-visible {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: translateY(0);
+  max-height: 120px;
+  margin-top: 22px;
+  margin-bottom: 10px;
+  padding-top: 10px;
+  padding-bottom: 14px;
+  border-width: 1px;
 }
 
 .section-nav__links {

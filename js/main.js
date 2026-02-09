@@ -953,6 +953,32 @@ function setupChangelogModal() {
 }
 
 
+function setupSectionNavVisibility() {
+  const nav = document.querySelector(".section-nav");
+  const charactersSection = document.getElementById("characters");
+
+  if (!nav || !charactersSection) {
+    return;
+  }
+
+  const desktopMedia = window.matchMedia("(min-width: 769px)");
+
+  const updateVisibility = () => {
+    if (!desktopMedia.matches) {
+      nav.classList.remove("is-visible");
+      return;
+    }
+
+    const triggerOffset = 120;
+    const shouldShow = charactersSection.getBoundingClientRect().top <= triggerOffset;
+    nav.classList.toggle("is-visible", shouldShow);
+  };
+
+  updateVisibility();
+  window.addEventListener("scroll", updateVisibility, { passive: true });
+  window.addEventListener("resize", updateVisibility);
+}
+
 function setupSectionNavToggle() {
   const toggle = document.querySelector("[data-section-nav-toggle]");
   const links = document.getElementById("desktop-section-nav-links");
@@ -1104,5 +1130,6 @@ renderCharacters();
 renderRackets();
 setupSectionCollapse();
 setupAccordionRowSync();
+setupSectionNavVisibility();
 setupSectionNavToggle();
 setupSectionNav();
