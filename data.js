@@ -600,7 +600,8 @@ export const tips = [
       {
         date: { ja: "2025-02-11", en: "2025-02-11" },
         items: [
-            { ja: "Tipsを実装", en: "Implemented Tips." }
+            { ja: "Tipsを実装", en: "Implemented Tips." },
+            { ja: "Tear表のアイコンを入れ替え出来るよう修正", en: "Updated so icons in the Tear table can be swapped." }
         ],
       },
   ];
