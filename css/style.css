@@ -345,6 +345,15 @@ img {
   color: var(--muted);
 }
 
+.filter--search {
+  max-width: 260px;
+}
+
+#character-inline-filters #character-search {
+  width: 175px;
+  max-width: 100%;
+}
+
 .filter select,
 .filter input {
   padding: 10px 12px;

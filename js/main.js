@@ -521,7 +521,9 @@ function createCharacterCard(character) {
       favoriteCharacterIds.delete(characterIndex);
     }
     saveFavoriteSet(FAVORITE_STORAGE_KEYS.characters, favoriteCharacterIds);
-    renderCharacters();
+    if (characterFavoriteFilter?.value === "favorites" && !active) {
+      renderCharacters();
+    }
   });
 
   media.append(image, favoriteButton);
@@ -624,7 +626,9 @@ function createRacketCard(racket) {
       favoriteRacketIds.delete(racketIndex);
     }
     saveFavoriteSet(FAVORITE_STORAGE_KEYS.rackets, favoriteRacketIds);
-    renderRackets();
+    if (racketFavoriteFilter?.value === "favorites" && !active) {
+      renderRackets();
+    }
   });
 
   media.append(image, favoriteButton);
