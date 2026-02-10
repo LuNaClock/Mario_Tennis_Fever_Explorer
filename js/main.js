@@ -47,6 +47,8 @@ const translations = {
     type: { "オールラウンド": "All-Around", "テクニック": "Technical	", "パワー": "Powerful", "ディフェンス": "Defensive", "トリッキー": "Tricky", "スピード": "Speedy" },
     category: { "妨害": "Disruptive", "強化": "Boost", "その他": "Other", "不明": "Unknown" },
     timing: { "即時": "Instant", "バウンド時": "On Bounce", "不明": "Unknown" },
+    tipsCategory: { "仕様": "Spec", "実践知識": "Practical" },
+    verification: { "検証中": "Verifying", "検証済": "Verified" },
     tierValue: { hard: "Hard", clay: "Clay", grass: "Grass", singles: "Singles", doubles: "Doubles", fever: "Fever" },
     meta: { iconSuffix: " icon" },
     changelog: { title: "Changelog" },
