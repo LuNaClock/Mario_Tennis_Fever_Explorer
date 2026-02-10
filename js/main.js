@@ -2055,6 +2055,15 @@ function swapTierItems(boardKey, sourceItemIndex, targetItemIndex) {
 
   if (sourceIndex === -1 || targetIndex === -1) return;
 
+  const isSameZone = sourceOrder === targetOrder;
+  if (isSameZone) {
+    sourceOrder[sourceIndex] = targetItemIndex;
+    sourceOrder[targetIndex] = sourceItemIndex;
+    saveTierBoards();
+    renderTierBoard(boardKey);
+    return;
+  }
+
   removeItemFromAllOrders(board, sourceItemIndex);
   removeItemFromAllOrders(board, targetItemIndex);
 
