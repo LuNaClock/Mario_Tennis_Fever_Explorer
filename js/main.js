@@ -2013,6 +2013,24 @@ function appendItemToZone(board, itemIndex, targetRowId) {
   board.placements[String(itemIndex)] = targetRowId;
 }
 
+function insertItemToZoneAt(board, itemIndex, targetRowId, targetIndex) {
+  if (targetRowId == null) {
+    const clampedIndex = Math.max(0, Math.min(targetIndex, board.poolOrder.length));
+    board.poolOrder.splice(clampedIndex, 0, itemIndex);
+    board.placements[String(itemIndex)] = null;
+    return;
+  }
+
+  if (!Array.isArray(board.rowOrders[targetRowId])) {
+    board.rowOrders[targetRowId] = [];
+  }
+
+  const order = board.rowOrders[targetRowId];
+  const clampedIndex = Math.max(0, Math.min(targetIndex, order.length));
+  order.splice(clampedIndex, 0, itemIndex);
+  board.placements[String(itemIndex)] = targetRowId;
+}
+
 function moveTierItem(boardKey, itemIndex, targetRowId) {
   const board = getActiveTierProfile(boardKey);
   ensureBoardRowOrders(board);
@@ -2030,10 +2048,18 @@ function swapTierItems(boardKey, sourceItemIndex, targetItemIndex) {
   const sourceZone = getItemZone(board, sourceItemIndex);
   const targetZone = getItemZone(board, targetItemIndex);
 
+  const sourceOrder = sourceZone.isPool ? board.poolOrder : (board.rowOrders[sourceZone.rowId] || []);
+  const targetOrder = targetZone.isPool ? board.poolOrder : (board.rowOrders[targetZone.rowId] || []);
+  const sourceIndex = sourceOrder.indexOf(sourceItemIndex);
+  const targetIndex = targetOrder.indexOf(targetItemIndex);
+
+  if (sourceIndex === -1 || targetIndex === -1) return;
+
   removeItemFromAllOrders(board, sourceItemIndex);
   removeItemFromAllOrders(board, targetItemIndex);
-  appendItemToZone(board, sourceItemIndex, targetZone.rowId);
-  appendItemToZone(board, targetItemIndex, sourceZone.rowId);
+
+  insertItemToZoneAt(board, sourceItemIndex, targetZone.rowId, targetIndex);
+  insertItemToZoneAt(board, targetItemIndex, sourceZone.rowId, sourceIndex);
 
   saveTierBoards();
   renderTierBoard(boardKey);
