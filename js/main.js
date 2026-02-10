@@ -454,6 +454,15 @@ function isMobileView() {
   return window.matchMedia("(max-width: 768px)").matches;
 }
 
+function renderWithScrollLock(renderFn) {
+  const scrollX = window.scrollX;
+  const scrollY = window.scrollY;
+  renderFn();
+  window.requestAnimationFrame(() => {
+    window.scrollTo(scrollX, scrollY);
+  });
+}
+
 function createFavoriteButton(itemType, isFavorite, onToggle) {
   const button = document.createElement("button");
   button.type = "button";
@@ -521,7 +530,7 @@ function createCharacterCard(character) {
       favoriteCharacterIds.delete(characterIndex);
     }
     saveFavoriteSet(FAVORITE_STORAGE_KEYS.characters, favoriteCharacterIds);
-    renderCharacters();
+    renderWithScrollLock(renderCharacters);
   });
 
   media.append(image, favoriteButton);
@@ -624,7 +633,7 @@ function createRacketCard(racket) {
       favoriteRacketIds.delete(racketIndex);
     }
     saveFavoriteSet(FAVORITE_STORAGE_KEYS.rackets, favoriteRacketIds);
-    renderRackets();
+    renderWithScrollLock(renderRackets);
   });
 
   media.append(image, favoriteButton);
