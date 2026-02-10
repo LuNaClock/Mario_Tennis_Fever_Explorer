@@ -20,10 +20,11 @@ const translations = {
     type: { "オールラウンド": "オールラウンド", "テクニック": "テクニック", "パワー": "パワー", "ディフェンス": "ディフェンス", "トリッキー": "トリッキー", "スピード": "スピード" },
     category: { "妨害": "妨害", "強化": "強化", "その他": "その他", "不明": "不明" },
     timing: { "即時": "即時", "バウンド時": "バウンド時", "不明": "不明" },
+    tierValue: { hard: "ハード", clay: "クレー", grass: "グラス", singles: "シングルス", doubles: "ダブルス", fever: "フィーバー" },
     meta: { iconSuffix: "のアイコン" },
     changelog: { title: "更新履歴" },
     favorite: { addCharacter: "お気に入りに追加", removeCharacter: "お気に入り解除", addRacket: "お気に入りに追加", removeRacket: "お気に入り解除" },
-    tier: { characterBoard: "キャラTier", racketBoard: "ラケットTier", poolTitle: "未配置アイコン", modalTitle: "Tier行を編集", labelName: "ラベル名", labelColor: "背景色", clearRow: "行の中身をクリア", addAbove: "上に行追加", addBelow: "下に行追加", deleteRow: "行を削除", addItem: "行を追加", unassigned: "未配置" },
+    tier: { characterBoard: "キャラTier", racketBoard: "ラケットTier", poolTitle: "未配置アイコン", modalTitle: "Tier行を編集", labelName: "ラベル名", labelColor: "背景色", clearRow: "行の中身をクリア", addAbove: "上に行追加", addBelow: "下に行追加", deleteRow: "行を削除", addItem: "行を追加", unassigned: "未配置", ruleTitle: "ルール条件", addGlobal: "全ルール共通Tierを追加", addConditional: "条件別Tierを追加", deleteProfile: "現在のTierを削除", courtType: "コート種別", gameMode: "ゲームモード", itemRule: "フィーバーラケット", globalLabel: "全ルール共通Tier", conditionalLabel: "条件別Tier", allConditions: "全条件", noProfiles: "該当するTierはありません", globalTab: "全ルール共通", conditionalTab: "条件別", profileDeleted: "Tierを削除しました", shareX: "Xへ画像投稿", saveImage: "画像で保存", shareXClipboard: "画像をコピーしました。X投稿画面で貼り付けてください", shareXClipboardAlert: "Tier画像をクリップボードにコピーしました。\nX投稿画面が開いたら、本文入力欄で貼り付け（Ctrl+V / 長押し→貼り付け）してください。", shareXFallback: "画像保存後にX投稿画面を開きました", shareXFallbackAlert: "クリップボードへのコピーに失敗したため、Tier画像を端末に保存しました。\nX投稿画面で画像を選択して添付してください。", shareXFailed: "X投稿画面を開けませんでした", imageSaved: "画像を保存しました", imageSaveFailed: "画像の保存に失敗しました" },
   },
   en: {
     site: { pageTitle: "Mario Tennis Fever Data Explorer", pageDescription: "Reference site for Mario Tennis Fever character, racket, and system data.", title: "Mario Tennis Fever Explorer", language: "Language", lead: "A reference site to compare character and racket traits with filters and sorting." },
@@ -44,10 +45,11 @@ const translations = {
     type: { "オールラウンド": "All-Around", "テクニック": "Technical	", "パワー": "Powerful", "ディフェンス": "Defensive", "トリッキー": "Tricky", "スピード": "Speedy" },
     category: { "妨害": "Disruptive", "強化": "Boost", "その他": "Other", "不明": "Unknown" },
     timing: { "即時": "Instant", "バウンド時": "On Bounce", "不明": "Unknown" },
+    tierValue: { hard: "Hard", clay: "Clay", grass: "Grass", singles: "Singles", doubles: "Doubles", fever: "Fever" },
     meta: { iconSuffix: " icon" },
     changelog: { title: "Changelog" },
     favorite: { addCharacter: "Add to favorites", removeCharacter: "Remove from favorites", addRacket: "Add to favorites", removeRacket: "Remove from favorites" },
-    tier: { characterBoard: "Character Tier", racketBoard: "Racket Tier", poolTitle: "Unassigned Icons", modalTitle: "Edit Tier Row", labelName: "Label", labelColor: "Background color", clearRow: "Clear row", addAbove: "Add row above", addBelow: "Add row below", deleteRow: "Delete row", addItem: "Add row", unassigned: "Unassigned" },
+    tier: { characterBoard: "Character Tier", racketBoard: "Racket Tier", poolTitle: "Unassigned Icons", modalTitle: "Edit Tier Row", labelName: "Label", labelColor: "Background color", clearRow: "Clear row", addAbove: "Add row above", addBelow: "Add row below", deleteRow: "Delete row", addItem: "Add row", unassigned: "Unassigned", ruleTitle: "Rule filters", addGlobal: "Add Global Tier", addConditional: "Add Conditional Tier", deleteProfile: "Delete Current Tier", courtType: "Court Type", gameMode: "Game Mode", itemRule: "Fever Racket", globalLabel: "Global Tier", conditionalLabel: "Conditional Tier", allConditions: "All Conditions", noProfiles: "No tier boards match this filter", globalTab: "Global", conditionalTab: "Conditional", profileDeleted: "Tier deleted", shareX: "Post Image to X", saveImage: "Save as Image", shareXClipboard: "Image copied. Paste it in the X composer.", shareXClipboardAlert: "Tier image copied to your clipboard.\nWhen the X composer opens, paste it into the post field.", shareXFallback: "Saved image and opened X post dialog", shareXFallbackAlert: "Clipboard copy failed, so the Tier image was downloaded.\nPlease attach the saved image in the X composer.", shareXFailed: "Failed to open X post dialog", imageSaved: "Image saved", imageSaveFailed: "Failed to save image" },
   },
 };
 
@@ -211,9 +213,24 @@ function getTierDefaultRows(locale = currentLocale) {
   ];
 }
 
-const TIER_STORAGE_KEY = "tierBoardsV1";
+const TIER_STORAGE_KEY = "tierBoardsV2";
 let currentTierTab = "characters";
 let rowModalState = null;
+
+const tierRuleLabels = {
+  characters: document.querySelector('[data-tier-rule-label="characters"]'),
+  rackets: document.querySelector('[data-tier-rule-label="rackets"]'),
+};
+const tierMetaSelects = {
+  characters: Array.from(document.querySelectorAll('[data-tier-meta][data-tier-type="characters"]')),
+  rackets: Array.from(document.querySelectorAll('[data-tier-meta][data-tier-type="rackets"]')),
+};
+
+const tierShareStatus = {
+  characters: document.querySelector('[data-tier-share-status="characters"]'),
+  rackets: document.querySelector('[data-tier-share-status="rackets"]'),
+};
+
 
 function makeTierRow(label, color) {
   return {
@@ -223,17 +240,37 @@ function makeTierRow(label, color) {
   };
 }
 
-function createInitialTierBoard(itemCount) {
-  const rows = getTierDefaultRows(currentLocale).map((row) => makeTierRow(row.label, row.color));
+function createTierMeta(kind = "global") {
   return {
-    rows,
-    placements: Object.fromEntries(Array.from({ length: itemCount }, (_, index) => [String(index), null])),
-    poolOrder: Array.from({ length: itemCount }, (_, index) => index),
+    kind,
+    courtType: "all",
+    gameMode: "singles",
+    items: "on",
   };
 }
 
-function normalizeTierBoard(raw, itemCount) {
-  const fallback = createInitialTierBoard(itemCount);
+function createInitialTierBoard(itemCount, kind = "global") {
+  const rows = getTierDefaultRows(currentLocale).map((row) => makeTierRow(row.label, row.color));
+  return {
+    id: `profile-${Math.random().toString(36).slice(2, 10)}`,
+    rows,
+    placements: Object.fromEntries(Array.from({ length: itemCount }, (_, index) => [String(index), null])),
+    poolOrder: Array.from({ length: itemCount }, (_, index) => index),
+    meta: createTierMeta(kind),
+  };
+}
+
+function normalizeTierMeta(raw, fallbackKind = "conditional") {
+  return {
+    kind: raw?.kind === "global" ? "global" : fallbackKind,
+    courtType: typeof raw?.courtType === "string" ? raw.courtType : "all",
+    gameMode: raw?.gameMode === "singles" || raw?.gameMode === "doubles" ? raw.gameMode : "singles",
+    items: raw?.items === "on" || raw?.items === "off" ? raw.items : "on",
+  };
+}
+
+function normalizeSingleTierBoard(raw, itemCount, fallbackKind = "conditional") {
+  const fallback = createInitialTierBoard(itemCount, fallbackKind);
   if (!raw || !Array.isArray(raw.rows) || typeof raw.placements !== "object") {
     return fallback;
   }
@@ -267,28 +304,233 @@ function normalizeTierBoard(raw, itemCount) {
     }
   }
 
-  return { rows, placements, poolOrder };
+  return {
+    ...fallback,
+    ...raw,
+    rows,
+    placements,
+    poolOrder,
+    id: typeof raw.id === "string" ? raw.id : fallback.id,
+    meta: normalizeTierMeta(raw.meta, fallbackKind),
+  };
+}
+
+function normalizeTierBoardCollection(raw, itemCount) {
+  if (!raw || typeof raw !== "object") {
+    return {
+      profiles: [createInitialTierBoard(itemCount, "global")],
+      activeProfileId: null,
+    };
+  }
+
+  if (Array.isArray(raw.profiles)) {
+    const profiles = raw.profiles.map((profile, index) => normalizeSingleTierBoard(profile, itemCount, index === 0 ? "global" : "conditional"));
+    if (!profiles.length) profiles.push(createInitialTierBoard(itemCount, "global"));
+    const activeProfileId = profiles.some((profile) => profile.id === raw.activeProfileId) ? raw.activeProfileId : profiles[0].id;
+    return { profiles, activeProfileId };
+  }
+
+  const legacy = normalizeSingleTierBoard(raw, itemCount, "global");
+  return { profiles: [legacy], activeProfileId: legacy.id };
 }
 
 function loadTierBoards() {
   try {
     const parsed = JSON.parse(localStorage.getItem(TIER_STORAGE_KEY) || "{}");
-    return {
-      characters: normalizeTierBoard(parsed.characters, characters.length),
-      rackets: normalizeTierBoard(parsed.rackets, rackets.length),
+    const boards = {
+      characters: normalizeTierBoardCollection(parsed.characters, characters.length),
+      rackets: normalizeTierBoardCollection(parsed.rackets, rackets.length),
     };
+
+    if (!boards.characters.activeProfileId) boards.characters.activeProfileId = boards.characters.profiles[0].id;
+    if (!boards.rackets.activeProfileId) boards.rackets.activeProfileId = boards.rackets.profiles[0].id;
+    return boards;
   } catch {
     return {
-      characters: createInitialTierBoard(characters.length),
-      rackets: createInitialTierBoard(rackets.length),
+      characters: { profiles: [createInitialTierBoard(characters.length, "global")], activeProfileId: null },
+      rackets: { profiles: [createInitialTierBoard(rackets.length, "global")], activeProfileId: null },
     };
   }
 }
 
 const tierBoards = loadTierBoards();
+if (!tierBoards.characters.activeProfileId) tierBoards.characters.activeProfileId = tierBoards.characters.profiles[0].id;
+if (!tierBoards.rackets.activeProfileId) tierBoards.rackets.activeProfileId = tierBoards.rackets.profiles[0].id;
+
+function showTierShareStatus(boardKey, messageKey) {
+  const el = tierShareStatus[boardKey];
+  if (!el) return;
+  el.textContent = t(messageKey);
+  window.clearTimeout(el._clearTimerId);
+  el._clearTimerId = window.setTimeout(() => {
+    el.textContent = "";
+  }, 2400);
+}
+
+function getTierShareText(boardKey) {
+  const title = boardKey === "characters" ? t("tier.characterBoard") : t("tier.racketBoard");
+  const profile = getActiveTierProfile(boardKey);
+  return `#マリオテニスフィーバー ${title} | ${getProfileMetaLabel(profile.meta)}`;
+}
+
+function loadImage(src) {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    img.onload = () => resolve(img);
+    img.onerror = reject;
+    img.src = src;
+  });
+}
+
+async function buildTierBoardCanvas(boardKey) {
+  const profile = getActiveTierProfile(boardKey);
+  if (!profile) throw new Error("profile not found");
+
+  const labelWidth = 90;
+  const iconSize = 42;
+  const gap = 6;
+  const rowMinHeight = 56;
+  const maxColumns = 8;
+  const boardWidth = 860;
+  const contentWidth = boardWidth - labelWidth - 24;
+
+  const rows = profile.rows.map((row) => {
+    const itemIndexes = Object.entries(profile.placements)
+      .filter(([, rowId]) => rowId === row.id)
+      .map(([index]) => Number(index))
+      .sort((a, b) => a - b);
+    return { row, itemIndexes };
+  });
+
+  const rowHeights = rows.map(({ itemIndexes }) => {
+    const lines = Math.max(1, Math.ceil(itemIndexes.length / maxColumns));
+    return Math.max(rowMinHeight, lines * iconSize + (lines - 1) * gap + 14);
+  });
+
+  const poolLines = Math.max(1, Math.ceil(profile.poolOrder.length / maxColumns));
+  const poolHeight = Math.max(rowMinHeight, poolLines * iconSize + (poolLines - 1) * gap + 14);
+  const headerHeight = 88;
+  const totalHeight = headerHeight + rowHeights.reduce((a, b) => a + b, 0) + poolHeight + 44;
+
+  const canvas = document.createElement("canvas");
+  canvas.width = boardWidth;
+  canvas.height = totalHeight;
+  const ctx = canvas.getContext("2d");
+  if (!ctx) throw new Error("canvas context unavailable");
+
+  ctx.fillStyle = "#061522";
+  ctx.fillRect(0, 0, boardWidth, totalHeight);
+
+  ctx.fillStyle = "#d8eaff";
+  ctx.font = "bold 24px sans-serif";
+  ctx.fillText(boardKey === "characters" ? t("tier.characterBoard") : t("tier.racketBoard"), 18, 34);
+  ctx.font = "14px sans-serif";
+  ctx.fillStyle = "#9fc3df";
+  ctx.fillText(getProfileMetaLabel(profile.meta), 18, 60);
+
+  let y = headerHeight;
+  for (let i = 0; i < rows.length; i += 1) {
+    const { row, itemIndexes } = rows[i];
+    const h = rowHeights[i];
+
+    ctx.fillStyle = row.color;
+    ctx.fillRect(12, y, labelWidth, h);
+    ctx.fillStyle = getContrastingColor(row.color);
+    ctx.font = "bold 20px sans-serif";
+    ctx.fillText(row.label, 22, y + 32);
+
+    ctx.fillStyle = "#0b1f31";
+    ctx.fillRect(12 + labelWidth, y, contentWidth, h);
+
+    for (let idx = 0; idx < itemIndexes.length; idx += 1) {
+      const itemIndex = itemIndexes[idx];
+      const col = idx % maxColumns;
+      const line = Math.floor(idx / maxColumns);
+      const x = 12 + labelWidth + 10 + col * (iconSize + gap);
+      const iy = y + 8 + line * (iconSize + gap);
+      const item = getBoardItem(boardKey, itemIndex);
+      try {
+        const img = await loadImage(item.image);
+        ctx.drawImage(img, x, iy, iconSize, iconSize);
+      } catch {
+        ctx.fillStyle = "#375c78";
+        ctx.fillRect(x, iy, iconSize, iconSize);
+      }
+    }
+
+    y += h;
+  }
+
+  ctx.fillStyle = "#9fc3df";
+  ctx.font = "bold 15px sans-serif";
+  ctx.fillText(t("tier.poolTitle"), 14, y + 20);
+  ctx.fillStyle = "#0b1f31";
+  ctx.fillRect(12, y + 26, boardWidth - 24, poolHeight);
+
+  for (let idx = 0; idx < profile.poolOrder.length; idx += 1) {
+    const itemIndex = profile.poolOrder[idx];
+    const col = idx % maxColumns;
+    const line = Math.floor(idx / maxColumns);
+    const x = 22 + col * (iconSize + gap);
+    const iy = y + 34 + line * (iconSize + gap);
+    const item = getBoardItem(boardKey, itemIndex);
+    try {
+      const img = await loadImage(item.image);
+      ctx.drawImage(img, x, iy, iconSize, iconSize);
+    } catch {
+      ctx.fillStyle = "#375c78";
+      ctx.fillRect(x, iy, iconSize, iconSize);
+    }
+  }
+
+  return canvas;
+}
+
+function downloadCanvasAsPng(canvas, filename) {
+  const link = document.createElement("a");
+  link.href = canvas.toDataURL("image/png");
+  link.download = filename;
+  link.click();
+}
+
+async function canvasToBlob(canvas) {
+  return new Promise((resolve, reject) => {
+    canvas.toBlob((blob) => {
+      if (!blob) {
+        reject(new Error("blob conversion failed"));
+        return;
+      }
+      resolve(blob);
+    }, "image/png");
+  });
+}
+
+async function exportTierBoardAsImage(boardKey) {
+  const canvas = await buildTierBoardCanvas(boardKey);
+  downloadCanvasAsPng(canvas, `tier-${boardKey}-${Date.now()}.png`);
+}
 
 function saveTierBoards() {
   localStorage.setItem(TIER_STORAGE_KEY, JSON.stringify(tierBoards));
+}
+
+function getActiveTierProfile(boardKey) {
+  const board = tierBoards[boardKey];
+  return board.profiles.find((profile) => profile.id === board.activeProfileId) || board.profiles[0];
+}
+
+function getProfileMetaLabel(meta) {
+  const courtLabel = meta.courtType === "all" ? t("common.any") : t(`tierValue.${meta.courtType}`);
+  const modeLabel = t(`tierValue.${meta.gameMode}`);
+  const itemLabels = { on: t("common.yes"), off: t("common.no") };
+  return `${t("tier.itemRule")}: ${itemLabels[meta.items] ?? meta.items} / ${t("tier.gameMode")}: ${modeLabel} / ${t("tier.courtType")}: ${courtLabel}`;
+}
+
+function updateTierRuleLabel(boardKey) {
+  const labelEl = tierRuleLabels[boardKey];
+  const active = getActiveTierProfile(boardKey);
+  if (!labelEl || !active) return;
+  labelEl.textContent = getProfileMetaLabel(active.meta);
 }
 
 function getBoardItem(datasetKey, index) {
@@ -1584,7 +1826,7 @@ function setupSectionCollapse() {
 
 
 function moveTierItem(boardKey, itemIndex, targetRowId) {
-  const board = tierBoards[boardKey];
+  const board = getActiveTierProfile(boardKey);
   board.placements[String(itemIndex)] = targetRowId;
   board.poolOrder = board.poolOrder.filter((value) => value !== itemIndex);
 
@@ -1619,7 +1861,7 @@ function createTierItem(boardKey, itemIndex) {
   });
 
   button.addEventListener("click", () => {
-    const board = tierBoards[boardKey];
+    const board = getActiveTierProfile(boardKey);
     const rowId = board.placements[String(itemIndex)];
     if (rowId) {
       moveTierItem(boardKey, itemIndex, null);
@@ -1674,7 +1916,7 @@ function getContrastingColor(hex) {
 }
 
 function openTierRowModal(boardKey, rowId) {
-  const board = tierBoards[boardKey];
+  const board = getActiveTierProfile(boardKey);
   const rowIndex = board.rows.findIndex((row) => row.id === rowId);
   if (rowIndex === -1 || !tierRowModal) return;
 
@@ -1693,11 +1935,23 @@ function closeTierRowModal() {
   rowModalState = null;
 }
 
+function syncTierMetaSelects(boardKey) {
+  const active = getActiveTierProfile(boardKey);
+  if (!active) return;
+  tierMetaSelects[boardKey].forEach((select) => {
+    const key = select.dataset.tierMeta;
+    if (!key) return;
+    select.value = active.meta[key] ?? "all";
+  });
+}
+
 function renderTierBoard(boardKey) {
-  const board = tierBoards[boardKey];
+  const board = getActiveTierProfile(boardKey);
   const boardEl = boardKey === "characters" ? characterTierBoard : racketTierBoard;
   const poolEl = boardKey === "characters" ? characterTierPool : racketTierPool;
-  if (!boardEl || !poolEl) return;
+  if (!boardEl || !poolEl || !board) return;
+  syncTierMetaSelects(boardKey);
+  updateTierRuleLabel(boardKey);
 
   const boardFrag = document.createDocumentFragment();
   board.rows.forEach((row, rowIndex) => {
@@ -1779,12 +2033,80 @@ function renderTierBoard(boardKey) {
   poolEl.replaceChildren(poolFrag);
 }
 
+function setupTierRuleManagers() {
+  Object.entries(tierMetaSelects).forEach(([boardKey, selects]) => {
+    selects.forEach((select) => {
+      select.addEventListener("change", () => {
+        const active = getActiveTierProfile(boardKey);
+        if (!active) return;
+        const key = select.dataset.tierMeta;
+        if (!key) return;
+        active.meta[key] = select.value;
+        saveTierBoards();
+        renderTierBoard(boardKey);
+      });
+    });
+  });
+}
+
 function setupTierTabs() {
   tierTabButtons.forEach((button) => {
     button.addEventListener("click", () => {
       currentTierTab = button.dataset.tierTab || "characters";
       tierTabButtons.forEach((tab) => tab.classList.toggle("is-active", tab === button));
       tierPanels.forEach((panel) => panel.classList.toggle("is-active", panel.dataset.tierPanel === currentTierTab));
+    });
+  });
+}
+
+function setupTierShareActions() {
+  document.querySelectorAll("[data-tier-share-x]").forEach((button) => {
+    button.addEventListener("click", async () => {
+      const boardKey = button.dataset.tierShareX;
+      if (boardKey !== "characters" && boardKey !== "rackets") return;
+
+      try {
+        const canvas = await buildTierBoardCanvas(boardKey);
+        const text = getTierShareText(boardKey);
+        const blob = await canvasToBlob(canvas);
+
+        if (navigator.clipboard?.write && window.ClipboardItem) {
+          try {
+            await navigator.clipboard.write([
+              new ClipboardItem({ "image/png": blob }),
+            ]);
+            window.alert(t("tier.shareXClipboardAlert"));
+            const intent = `https://x.com/intent/tweet?text=${encodeURIComponent(text)}`;
+            window.open(intent, "_blank", "noopener,noreferrer");
+            showTierShareStatus(boardKey, "tier.shareXClipboard");
+            return;
+          } catch {
+            // clipboard fallback
+          }
+        }
+
+        downloadCanvasAsPng(canvas, `tier-${boardKey}-${Date.now()}.png`);
+        window.alert(t("tier.shareXFallbackAlert"));
+        const intent = `https://x.com/intent/tweet?text=${encodeURIComponent(text)}`;
+        window.open(intent, "_blank", "noopener,noreferrer");
+        showTierShareStatus(boardKey, "tier.shareXFallback");
+      } catch {
+        showTierShareStatus(boardKey, "tier.shareXFailed");
+      }
+    });
+  });
+
+  document.querySelectorAll("[data-tier-save-image]").forEach((button) => {
+    button.addEventListener("click", async () => {
+      const boardKey = button.dataset.tierSaveImage;
+      if (boardKey !== "characters" && boardKey !== "rackets") return;
+
+      try {
+        await exportTierBoardAsImage(boardKey);
+        showTierShareStatus(boardKey, "tier.imageSaved");
+      } catch {
+        showTierShareStatus(boardKey, "tier.imageSaveFailed");
+      }
     });
   });
 }
@@ -1799,7 +2121,7 @@ function setupTierModalActions() {
 
   tierRowLabelInput?.addEventListener("input", () => {
     if (!rowModalState) return;
-    const board = tierBoards[rowModalState.boardKey];
+    const board = getActiveTierProfile(rowModalState.boardKey);
     const row = board.rows.find((target) => target.id === rowModalState.rowId);
     if (!row) return;
     row.label = tierRowLabelInput.value.slice(0, 24) || "?";
@@ -1809,7 +2131,7 @@ function setupTierModalActions() {
 
   tierRowColorInput?.addEventListener("input", () => {
     if (!rowModalState) return;
-    const board = tierBoards[rowModalState.boardKey];
+    const board = getActiveTierProfile(rowModalState.boardKey);
     const row = board.rows.find((target) => target.id === rowModalState.rowId);
     if (!row) return;
     row.color = tierRowColorInput.value;
@@ -1819,7 +2141,7 @@ function setupTierModalActions() {
 
   tierRowClearButton?.addEventListener("click", () => {
     if (!rowModalState) return;
-    const board = tierBoards[rowModalState.boardKey];
+    const board = getActiveTierProfile(rowModalState.boardKey);
     Object.entries(board.placements).forEach(([itemIndex, rowId]) => {
       if (rowId === rowModalState.rowId) {
         board.placements[itemIndex] = null;
@@ -1833,7 +2155,7 @@ function setupTierModalActions() {
 
   const insertRow = (offset) => {
     if (!rowModalState) return;
-    const board = tierBoards[rowModalState.boardKey];
+    const board = getActiveTierProfile(rowModalState.boardKey);
     const rowIndex = board.rows.findIndex((row) => row.id === rowModalState.rowId);
     if (rowIndex === -1) return;
     board.rows.splice(rowIndex + offset, 0, makeTierRow("New", "#90a4ae"));
@@ -1846,7 +2168,7 @@ function setupTierModalActions() {
 
   tierRowDeleteButton?.addEventListener("click", () => {
     if (!rowModalState) return;
-    const board = tierBoards[rowModalState.boardKey];
+    const board = getActiveTierProfile(rowModalState.boardKey);
     if (board.rows.length <= 1) return;
     board.rows = board.rows.filter((row) => row.id !== rowModalState.rowId);
     Object.entries(board.placements).forEach(([itemIndex, rowId]) => {
@@ -1939,6 +2261,8 @@ setupFilterModal("character-filter-modal", "character-inline-filters", "characte
 setupFilterModal("racket-filter-modal", "racket-inline-filters", "racket-modal-filters", "racket-filter-apply", renderRackets);
 setupChangelogModal();
 setupTierTabs();
+setupTierRuleManagers();
+setupTierShareActions();
 setupTierModalActions();
 
 if (localeSelect) {
