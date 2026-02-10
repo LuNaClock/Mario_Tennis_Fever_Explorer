@@ -260,13 +260,52 @@ function createTierMeta(kind = "global") {
 
 function createInitialTierBoard(itemCount, kind = "global") {
   const rows = getTierDefaultRows(currentLocale).map((row) => makeTierRow(row.label, row.color));
+  const rowOrders = Object.fromEntries(rows.map((row) => [row.id, []]));
   return {
     id: `profile-${Math.random().toString(36).slice(2, 10)}`,
     rows,
     placements: Object.fromEntries(Array.from({ length: itemCount }, (_, index) => [String(index), null])),
     poolOrder: Array.from({ length: itemCount }, (_, index) => index),
+    rowOrders,
     meta: createTierMeta(kind),
   };
+}
+
+function normalizeRowOrders(rawRowOrders, rows, placements, itemCount) {
+  const rowIdSet = new Set(rows.map((row) => row.id));
+  const rowOrders = Object.fromEntries(rows.map((row) => [row.id, []]));
+
+  if (rawRowOrders && typeof rawRowOrders === "object") {
+    rows.forEach((row) => {
+      const rawOrder = Array.isArray(rawRowOrders[row.id]) ? rawRowOrders[row.id] : [];
+      rowOrders[row.id] = rawOrder.filter((value, index, source) => {
+        if (!Number.isInteger(value) || value < 0 || value >= itemCount) return false;
+        if (source.indexOf(value) !== index) return false;
+        return placements[String(value)] === row.id;
+      });
+    });
+  }
+
+  for (let index = 0; index < itemCount; index += 1) {
+    const rowId = placements[String(index)];
+    if (!rowIdSet.has(rowId)) continue;
+    if (!rowOrders[rowId].includes(index)) {
+      rowOrders[rowId].push(index);
+    }
+  }
+
+  return rowOrders;
+}
+
+function getRowItems(board, rowId) {
+  if (!board || !rowId) return [];
+  if (!board.rowOrders || !Array.isArray(board.rowOrders[rowId])) {
+    return Object.entries(board.placements)
+      .filter(([, targetRowId]) => targetRowId === rowId)
+      .map(([index]) => Number(index))
+      .sort((a, b) => a - b);
+  }
+  return board.rowOrders[rowId].filter((index) => board.placements[String(index)] === rowId);
 }
 
 function normalizeTierMeta(raw, fallbackKind = "conditional") {
@@ -319,6 +358,7 @@ function normalizeSingleTierBoard(raw, itemCount, fallbackKind = "conditional") 
     rows,
     placements,
     poolOrder,
+    rowOrders: normalizeRowOrders(raw.rowOrders, rows, placements, itemCount),
     id: typeof raw.id === "string" ? raw.id : fallback.id,
     meta: normalizeTierMeta(raw.meta, fallbackKind),
   };
@@ -1935,20 +1975,71 @@ function setupSectionCollapse() {
 }
 
 
+function ensureBoardRowOrders(board) {
+  if (!board) return;
+  board.rowOrders = normalizeRowOrders(board.rowOrders, board.rows, board.placements, getBoardItemsLength(board));
+}
+
+function getBoardItemsLength(board) {
+  return Object.keys(board.placements).length;
+}
+
+function getItemZone(board, itemIndex) {
+  const rowId = board.placements[String(itemIndex)];
+  if (rowId != null) return { rowId, isPool: false };
+  return { rowId: null, isPool: true };
+}
+
+function removeItemFromAllOrders(board, itemIndex) {
+  board.poolOrder = board.poolOrder.filter((value) => value !== itemIndex);
+  Object.keys(board.rowOrders).forEach((rowId) => {
+    board.rowOrders[rowId] = board.rowOrders[rowId].filter((value) => value !== itemIndex);
+  });
+}
+
+function appendItemToZone(board, itemIndex, targetRowId) {
+  if (targetRowId == null) {
+    if (!board.poolOrder.includes(itemIndex)) board.poolOrder.push(itemIndex);
+    board.placements[String(itemIndex)] = null;
+    return;
+  }
+
+  if (!Array.isArray(board.rowOrders[targetRowId])) {
+    board.rowOrders[targetRowId] = [];
+  }
+  if (!board.rowOrders[targetRowId].includes(itemIndex)) {
+    board.rowOrders[targetRowId].push(itemIndex);
+  }
+  board.placements[String(itemIndex)] = targetRowId;
+}
+
 function moveTierItem(boardKey, itemIndex, targetRowId) {
   const board = getActiveTierProfile(boardKey);
-  board.placements[String(itemIndex)] = targetRowId;
-  board.poolOrder = board.poolOrder.filter((value) => value !== itemIndex);
+  ensureBoardRowOrders(board);
+  removeItemFromAllOrders(board, itemIndex);
+  appendItemToZone(board, itemIndex, targetRowId);
+  saveTierBoards();
+  renderTierBoard(boardKey);
+}
 
-  if (targetRowId == null && !board.poolOrder.includes(itemIndex)) {
-    board.poolOrder.push(itemIndex);
-  }
+function swapTierItems(boardKey, sourceItemIndex, targetItemIndex) {
+  if (sourceItemIndex === targetItemIndex) return;
+  const board = getActiveTierProfile(boardKey);
+  ensureBoardRowOrders(board);
+
+  const sourceZone = getItemZone(board, sourceItemIndex);
+  const targetZone = getItemZone(board, targetItemIndex);
+
+  removeItemFromAllOrders(board, sourceItemIndex);
+  removeItemFromAllOrders(board, targetItemIndex);
+  appendItemToZone(board, sourceItemIndex, targetZone.rowId);
+  appendItemToZone(board, targetItemIndex, sourceZone.rowId);
 
   saveTierBoards();
   renderTierBoard(boardKey);
 }
 
-function createTierItem(boardKey, itemIndex) {
+function createTierItem(boardKey, itemIndex, rowId = null) {
   const item = getBoardItem(boardKey, itemIndex);
   const button = document.createElement("button");
   button.type = "button";
@@ -1967,7 +2058,7 @@ function createTierItem(boardKey, itemIndex) {
   button.append(image);
 
   button.addEventListener("dragstart", (event) => {
-    event.dataTransfer?.setData("text/plain", JSON.stringify({ boardKey, itemIndex }));
+    event.dataTransfer?.setData("text/plain", JSON.stringify({ boardKey, itemIndex, sourceRowId: rowId }));
   });
 
   button.addEventListener("click", () => {
@@ -2008,6 +2099,15 @@ function setupDropZone(zone, boardKey, rowId) {
     try {
       const parsed = JSON.parse(data);
       if (parsed.boardKey !== boardKey || !Number.isInteger(parsed.itemIndex)) return;
+
+      const targetItemButton = event.target.closest(".tier-item");
+      const targetItemIndex = Number(targetItemButton?.dataset.itemIndex);
+
+      if (Number.isInteger(targetItemIndex)) {
+        swapTierItems(boardKey, parsed.itemIndex, targetItemIndex);
+        return;
+      }
+
       moveTierItem(boardKey, parsed.itemIndex, rowId);
     } catch {
       // noop
@@ -2060,6 +2160,7 @@ function renderTierBoard(boardKey) {
   const boardEl = boardKey === "characters" ? characterTierBoard : racketTierBoard;
   const poolEl = boardKey === "characters" ? characterTierPool : racketTierPool;
   if (!boardEl || !poolEl || !board) return;
+  ensureBoardRowOrders(board);
   syncTierMetaSelects(boardKey);
   updateTierRuleLabel(boardKey);
 
@@ -2078,11 +2179,8 @@ function renderTierBoard(boardKey) {
     items.className = "tier-row__items";
     setupDropZone(items, boardKey, row.id);
 
-    Object.entries(board.placements)
-      .filter(([, targetRowId]) => targetRowId === row.id)
-      .map(([itemIndex]) => Number(itemIndex))
-      .sort((a, b) => a - b)
-      .forEach((itemIndex) => items.append(createTierItem(boardKey, itemIndex)));
+    getRowItems(board, row.id)
+      .forEach((itemIndex) => items.append(createTierItem(boardKey, itemIndex, row.id)));
 
     const controls = document.createElement("div");
     controls.className = "tier-row__controls";
@@ -2127,7 +2225,9 @@ function renderTierBoard(boardKey) {
   addRow.className = "tier-add-row";
   addRow.textContent = `+ ${t("tier.addItem")}`;
   addRow.addEventListener("click", () => {
-    board.rows.push(makeTierRow(String.fromCharCode(65 + board.rows.length), "#7aa6ff"));
+    const row = makeTierRow(String.fromCharCode(65 + board.rows.length), "#7aa6ff");
+    board.rows.push(row);
+    board.rowOrders[row.id] = [];
     saveTierBoards();
     renderTierBoard(boardKey);
   });
@@ -2138,7 +2238,7 @@ function renderTierBoard(boardKey) {
   const poolFrag = document.createDocumentFragment();
   setupDropZone(poolEl, boardKey, null);
   board.poolOrder.forEach((itemIndex) => {
-    poolFrag.append(createTierItem(boardKey, itemIndex));
+    poolFrag.append(createTierItem(boardKey, itemIndex, null));
   });
   poolEl.replaceChildren(poolFrag);
 }
@@ -2268,7 +2368,9 @@ function setupTierModalActions() {
     const board = getActiveTierProfile(rowModalState.boardKey);
     const rowIndex = board.rows.findIndex((row) => row.id === rowModalState.rowId);
     if (rowIndex === -1) return;
-    board.rows.splice(rowIndex + offset, 0, makeTierRow("New", "#90a4ae"));
+    const row = makeTierRow("New", "#90a4ae");
+    board.rows.splice(rowIndex + offset, 0, row);
+    board.rowOrders[row.id] = [];
     saveTierBoards();
     renderTierBoard(rowModalState.boardKey);
   };
@@ -2281,6 +2383,7 @@ function setupTierModalActions() {
     const board = getActiveTierProfile(rowModalState.boardKey);
     if (board.rows.length <= 1) return;
     board.rows = board.rows.filter((row) => row.id !== rowModalState.rowId);
+    delete board.rowOrders[rowModalState.rowId];
     Object.entries(board.placements).forEach(([itemIndex, rowId]) => {
       if (rowId === rowModalState.rowId) {
         board.placements[itemIndex] = null;
