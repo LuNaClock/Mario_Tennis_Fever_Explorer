@@ -801,6 +801,30 @@ img {
   font-size: 0.82rem;
 }
 
+
+.tier-save-note {
+  border: 1px dashed rgba(159, 195, 223, 0.35);
+  border-radius: 10px;
+  background: rgba(7, 29, 46, 0.55);
+  padding: 10px 12px;
+}
+
+.tier-save-note__title {
+  margin: 0 0 6px;
+  font-size: 0.83rem;
+  font-weight: 700;
+  color: #d8eaff;
+}
+
+.tier-save-note__list {
+  margin: 0;
+  padding-left: 1.2em;
+  color: var(--muted);
+  font-size: 0.79rem;
+  display: grid;
+  gap: 4px;
+}
+
 .tier-tab {
   border: 1px solid var(--border);
   background: rgba(8, 26, 42, 0.9);
