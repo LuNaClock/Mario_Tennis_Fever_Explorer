@@ -4,7 +4,7 @@ const translations = {
   ja: {
     site: { pageTitle: "マリオテニスフィーバー データ参照サイト", pageDescription: "マリオテニスフィーバーのキャラクターやラケット、システム関連データを一覧で確認できる参照サイト。", title: "マリオテニスフィーバー Explorer", language: "Language", lead: "キャラクターやラケットの特徴などを確認できるデータまとめサイトです。フィルタ・ソートで目的の情報を整理しながら参照できます。" },
     nav: { characters: "キャラ", rackets: "ラケット", tier: "Tier" },
-    section: { characters: { title: "キャラクター一覧", description: "タイプ別の特徴やパラメータを比較できます。" }, rackets: { title: "ラケット一覧", description: "効果やタイミングを比較できます。" }, tips: { description: "試合で役立つ操作のポイントを素早く確認できます。" }, tier: { title: "Tier表", description: "キャラとラケットを自分基準でランク付けできます。お気に入り機能とは完全に分離されています。" } },
+    section: { characters: { title: "キャラクター一覧", description: "タイプ別の特徴やパラメータを比較できます。" }, rackets: { title: "ラケット一覧", description: "効果やタイミングを比較できます。" }, tips: { description: "試合で役立つ操作のポイントを素早く確認できます。" }, tier: { title: "Tier表", description: "キャラとラケットを自分基準でランク付けできます。" } },
     filter: { searchAndFilter: "検索・絞り込み", search: "検索", type: "タイプ", special: "特殊能力", favoritesOnly: "お気に入りのみ", sortBy: "ソート項目", order: "並び順", category: "種類", timing: "効果タイミング" },
     modal: { characterFilter: "キャラクターの検索・絞り込み", racketFilter: "ラケットの検索・絞り込み" },
     placeholder: { characterSearch: "キャラクター名で検索", racketSearch: "ラケット名で検索" },
@@ -28,7 +28,7 @@ const translations = {
   en: {
     site: { pageTitle: "Mario Tennis Fever Data Explorer", pageDescription: "Reference site for Mario Tennis Fever character, racket, and system data.", title: "Mario Tennis Fever Explorer", language: "Language", lead: "A reference site to compare character and racket traits with filters and sorting." },
     nav: { characters: "Characters", rackets: "Rackets", tier: "Tier" },
-    section: { characters: { title: "Character List", description: "Compare traits and parameters by type." }, rackets: { title: "Racket List", description: "Compare effects and trigger timing." }, tips: { description: "Quickly review useful operation tips for matches." }, tier: { title: "Tier Board", description: "Rank characters and rackets by your own criteria. Fully separated from favorites." } },
+    section: { characters: { title: "Character List", description: "Compare traits and parameters by type." }, rackets: { title: "Racket List", description: "Compare effects and trigger timing." }, tips: { description: "Quickly review useful operation tips for matches." }, tier: { title: "Tier Board", description: "Rank characters and rackets by your own criteria." } },
     filter: { searchAndFilter: "Search / Filter", search: "Search", type: "Type", special: "Special", favoritesOnly: "Favorites only", sortBy: "Sort by", order: "Order", category: "Category", timing: "Effect timing" },
     modal: { characterFilter: "Character Search / Filter", racketFilter: "Racket Search / Filter" },
     placeholder: { characterSearch: "Search by character name", racketSearch: "Search by racket name" },
@@ -191,13 +191,25 @@ const tierRowAddAboveButton = document.getElementById("tier-row-add-above");
 const tierRowAddBelowButton = document.getElementById("tier-row-add-below");
 const tierRowDeleteButton = document.getElementById("tier-row-delete");
 
-const tierDefaultRows = [
-  { label: "S", color: "#f07575" },
-  { label: "A", color: "#efb676" },
-  { label: "B", color: "#ecd37a" },
-  { label: "C", color: "#e2ea72" },
-  { label: "D", color: "#aee56f" },
-];
+function getTierDefaultRows(locale = currentLocale) {
+  if (locale === "en") {
+    return [
+      { label: "A", color: "#f07575" },
+      { label: "B", color: "#efb676" },
+      { label: "C", color: "#ecd37a" },
+      { label: "D", color: "#e2ea72" },
+      { label: "E", color: "#aee56f" },
+    ];
+  }
+
+  return [
+    { label: "S", color: "#f07575" },
+    { label: "A", color: "#efb676" },
+    { label: "B", color: "#ecd37a" },
+    { label: "C", color: "#e2ea72" },
+    { label: "D", color: "#aee56f" },
+  ];
+}
 
 const TIER_STORAGE_KEY = "tierBoardsV1";
 let currentTierTab = "characters";
@@ -212,7 +224,7 @@ function makeTierRow(label, color) {
 }
 
 function createInitialTierBoard(itemCount) {
-  const rows = tierDefaultRows.map((row) => makeTierRow(row.label, row.color));
+  const rows = getTierDefaultRows(currentLocale).map((row) => makeTierRow(row.label, row.color));
   return {
     rows,
     placements: Object.fromEntries(Array.from({ length: itemCount }, (_, index) => [String(index), null])),

@@ -333,7 +333,7 @@ img {
 
 .filters {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
   gap: 12px;
   margin: 24px 0;
 }
@@ -353,6 +353,19 @@ img {
   font-size: 0.95rem;
   background: rgba(10, 30, 48, 0.9);
   color: var(--text);
+}
+
+
+.filter--search {
+  min-width: min(280px, 100%);
+}
+
+.filter--favorite {
+  max-width: 180px;
+}
+
+.filter--favorite select {
+  font-size: 0.88rem;
 }
 
 .filter-modal {
