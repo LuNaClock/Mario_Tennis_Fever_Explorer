@@ -577,7 +577,10 @@ export const characters = [
     {
         date: { ja: "2025-02-10", en: "2025-02-10" },
         items: [
-            { ja: "ラケット一覧に動画再生機能を実装", en: "Implemented 'Watch effect video' function for rackets." }
+            { ja: "ラケット一覧に動画再生機能を実装", en: "Implemented 'Watch effect video' function for rackets." },
+            { ja: "お気に入り機能を実装し、フィルタにも対応", en: "Implemented favorite feature with filter support." },
+            { ja: "Tier表作成機能を実装", en: "Implemented tier list creation function." }
         ],
       },
   ];
+  
