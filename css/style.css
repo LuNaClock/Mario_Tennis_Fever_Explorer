@@ -1027,6 +1027,19 @@ img {
   font-weight: 600;
 }
 
+
+.tip-card__verification {
+  display: inline-block;
+  margin-bottom: 8px;
+  margin-left: 6px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: rgba(110, 235, 155, 0.14);
+  color: #7be2a1;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
 .tip-card__title {
   margin: 0 0 8px;
   font-size: 1rem;
