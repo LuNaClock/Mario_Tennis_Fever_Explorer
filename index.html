@@ -214,8 +214,30 @@
           <p class="section-description" data-i18n="section.tips.description">試合で役立つ操作のポイントを素早く確認できます。</p>
         </div>
       </div>
-      <div class="info-panel">
-        <p data-i18n="common.wip">仮実装</p>
+      <div class="filters tips-filters">
+        <label class="filter">
+          <span data-i18n="filter.tipsCategory">カテゴリ</span>
+          <select id="tips-category-filter">
+            <option value="all" data-i18n="common.any">指定なし</option>
+            <option value="仕様" data-i18n="tipsCategory.仕様">仕様</option>
+            <option value="実践知識" data-i18n="tipsCategory.実践知識">実践知識</option>
+          </select>
+        </label>
+        <label class="filter">
+          <span data-i18n="filter.verification">検証</span>
+          <select id="tips-verification-filter">
+            <option value="all" data-i18n="common.any">指定なし</option>
+            <option value="検証中" data-i18n="verification.検証中">検証中</option>
+            <option value="検証済" data-i18n="verification.検証済">検証済</option>
+          </select>
+        </label>
+      </div>
+
+      <p id="tips-count" class="result-count" aria-live="polite">0件表示</p>
+      <div id="tips-list" class="tips-grid"></div>
+
+      <div id="tips-empty" class="info-panel" hidden>
+        <p data-i18n="common.noTip">一致するTipsが見つかりません。</p>
       </div>
     </section>
 

@@ -547,7 +547,22 @@ export const characters = [
       image: "assets/racket_icons/boomerang_racket.svg",
     },
   ];
-  
+
+export const tips = [
+  {
+    title: { ja: "フィーバーゲージ2本分が溜まるまでの目安時間", en: "Approximate time to fill two Fever gauges" },
+    category: "仕様",
+    verification: "検証中",
+    content: { ja: "ラリーを継続している場合、フィーバーゲージ2本分が溜まるまでの目安は約○○秒。", en: "While rallying continuously, the rough time to fill two Fever gauges is about XX seconds (under verification)." },
+  },
+  {
+    title: { ja: "フィーバーショット同士の打ち合い時の判定", en: "Judgment when returning Fever Shot with Fever Shot" },
+    category: "実践知識",
+    verification: "検証中",
+    content: { ja: "フィーバーショットをフィーバーショットで返球すると、ワンバウンドした扱いになる。", en: "When you return a Fever Shot with another Fever Shot, it is treated as if it bounced once." },
+  },
+];
+
   /** @type {{ date: { ja: string; en: string }; items: { ja: string; en: string }[] }[]} */
   export const changelog = [
     {

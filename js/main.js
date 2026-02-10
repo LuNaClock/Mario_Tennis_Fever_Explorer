@@ -1,18 +1,18 @@
-import { characters, rackets, changelog } from "../data.js";
+import { characters, rackets, tips, changelog } from "../data.js";
 
 const translations = {
   ja: {
     site: { pageTitle: "マリオテニスフィーバー データ参照サイト", pageDescription: "マリオテニスフィーバーのキャラクターやラケット、システム関連データを一覧で確認できる参照サイト。", title: "マリオテニスフィーバー Explorer", language: "Language", lead: "キャラクターやラケットの特徴などを確認できるデータまとめサイトです。フィルタ・ソートで目的の情報を整理しながら参照できます。" },
     nav: { characters: "キャラ", rackets: "ラケット", tier: "Tier" },
     section: { characters: { title: "キャラクター一覧", description: "タイプ別の特徴やパラメータを比較できます。" }, rackets: { title: "ラケット一覧", description: "効果やタイミングを比較できます。" }, tips: { description: "試合で役立つ操作のポイントを素早く確認できます。" }, tier: { title: "Tier表", description: "キャラとラケットを自分基準でランク付けできます。" } },
-    filter: { searchAndFilter: "検索・絞り込み", search: "検索", type: "タイプ", special: "特殊能力", favoritesOnly: "お気に入りのみ", sortBy: "ソート項目", order: "並び順", category: "種類", timing: "効果タイミング" },
+    filter: { searchAndFilter: "検索・絞り込み", search: "検索", type: "タイプ", special: "特殊能力", favoritesOnly: "お気に入りのみ", sortBy: "ソート項目", order: "並び順", category: "種類", timing: "効果タイミング", tipsCategory: "カテゴリ", verification: "検証" },
     modal: { characterFilter: "キャラクターの検索・絞り込み", racketFilter: "ラケットの検索・絞り込み" },
     placeholder: { characterSearch: "キャラクター名で検索", racketSearch: "ラケット名で検索" },
     footer: { note: "データは仮入力を含みます。後日更新予定です。", changelog: "更新履歴" },
     stat: { speed: "スピード", power: "パワー", control: "コントロール", spin: "スピン" },
     sort: { name: "名前" },
     order: { game: "ゲーム内順", asc: "昇順", desc: "降順", high: "数値が高い順", low: "数値が低い順" },
-    common: { any: "指定なし", yes: "あり", no: "なし", wip: "仮実装", count: "{{count}}件表示", showCount: "{{count}}件を表示", searchHit: "検索ヒット: {{count}}件", noCharacter: "一致するキャラクターが見つかりません。", noRacket: "一致するラケットが見つかりません。", language: "言語" },
+    common: { any: "指定なし", yes: "あり", no: "なし", wip: "仮実装", count: "{{count}}件表示", showCount: "{{count}}件を表示", searchHit: "検索ヒット: {{count}}件", noCharacter: "一致するキャラクターが見つかりません。", noRacket: "一致するラケットが見つかりません。", noTip: "一致するTipsが見つかりません。", language: "言語" },
     accordion: { special: "特殊能力", gameText: "ゲーム内テキスト", details: "全項目を見る", video: "動画で効果を確認する" },
     video: { unavailable: "動画は準備中です。", checking: "動画の有無を確認中です…", openYoutube: "YouTubeで開く" },
     chip: { type: "タイプ", search: "検索", special: "特殊能力", favorites: "お気に入り", sort: "ソート", order: "並び順", category: "種類", timing: "効果タイミング", yes: "あり", no: "なし" },
@@ -20,6 +20,8 @@ const translations = {
     type: { "オールラウンド": "オールラウンド", "テクニック": "テクニック", "パワー": "パワー", "ディフェンス": "ディフェンス", "トリッキー": "トリッキー", "スピード": "スピード" },
     category: { "妨害": "妨害", "強化": "強化", "その他": "その他", "不明": "不明" },
     timing: { "即時": "即時", "バウンド時": "バウンド時", "不明": "不明" },
+    tipsCategory: { "仕様": "仕様", "実践知識": "実践知識" },
+    verification: { "検証中": "検証中", "検証済": "検証済" },
     tierValue: { hard: "ハード", clay: "クレー", grass: "グラス", singles: "シングルス", doubles: "ダブルス", fever: "フィーバー" },
     meta: { iconSuffix: "のアイコン" },
     changelog: { title: "更新履歴" },
@@ -30,14 +32,14 @@ const translations = {
     site: { pageTitle: "Mario Tennis Fever Data Explorer", pageDescription: "Reference site for Mario Tennis Fever character, racket, and system data.", title: "Mario Tennis Fever Explorer", language: "Language", lead: "A reference site to compare character and racket traits with filters and sorting." },
     nav: { characters: "Characters", rackets: "Rackets", tier: "Tier" },
     section: { characters: { title: "Character List", description: "Compare traits and parameters by type." }, rackets: { title: "Racket List", description: "Compare effects and trigger timing." }, tips: { description: "Quickly review useful operation tips for matches." }, tier: { title: "Tier Board", description: "Rank characters and rackets by your own criteria." } },
-    filter: { searchAndFilter: "Search / Filter", search: "Search", type: "Type", special: "Special", favoritesOnly: "Favorites only", sortBy: "Sort by", order: "Order", category: "Category", timing: "Effect timing" },
+    filter: { searchAndFilter: "Search / Filter", search: "Search", type: "Type", special: "Special", favoritesOnly: "Favorites only", sortBy: "Sort by", order: "Order", category: "Category", timing: "Effect timing", tipsCategory: "Category", verification: "Verification" },
     modal: { characterFilter: "Character Search / Filter", racketFilter: "Racket Search / Filter" },
     placeholder: { characterSearch: "Search by character name", racketSearch: "Search by racket name" },
     footer: { note: "Some data is provisional and will be updated later.", changelog: "Changelog" },
     stat: { speed: "Speed", power: "Power", control: "Control", spin: "Spin" },
     sort: { name: "Name" },
     order: { game: "Game order", asc: "A → Z", desc: "Z → A", high: "High → Low", low: "Low → High" },
-    common: { any: "Any", yes: "Yes", no: "None", wip: "Work in progress", count: "{{count}} shown", showCount: "Show {{count}}", searchHit: "Search hits: {{count}}", noCharacter: "No matching characters found.", noRacket: "No matching rackets found.", language: "Language" },
+    common: { any: "Any", yes: "Yes", no: "None", wip: "Work in progress", count: "{{count}} shown", showCount: "Show {{count}}", searchHit: "Search hits: {{count}}", noCharacter: "No matching characters found.", noRacket: "No matching rackets found.", noTip: "No matching tips found.", language: "Language" },
     accordion: { special: "Special", gameText: "In-game text", details: "Show all", video: "Watch effect video" },
     video: { unavailable: "Video is coming soon.", checking: "Checking video availability…", openYoutube: "Open on YouTube" },
     chip: { type: "Type", search: "Search", special: "Special", favorites: "Favorites", sort: "Sort", order: "Order", category: "Category", timing: "Effect timing", yes: "Yes", no: "No" },
@@ -114,6 +116,9 @@ const characterList = document.getElementById("character-list");
 const racketList = document.getElementById("racket-list");
 const characterCount = document.getElementById("character-count");
 const racketCount = document.getElementById("racket-count");
+const tipsList = document.getElementById("tips-list");
+const tipsCount = document.getElementById("tips-count");
+const tipsEmpty = document.getElementById("tips-empty");
 
 const characterTypeFilter = document.getElementById("character-type-filter");
 const characterSpecialFilter = document.getElementById("character-special-filter");
@@ -134,6 +139,8 @@ const racketModalSearchResults = document.getElementById("racket-modal-search-re
 
 const characterFavoriteFilter = document.getElementById("character-favorite-filter");
 const racketFavoriteFilter = document.getElementById("racket-favorite-filter");
+const tipsCategoryFilter = document.getElementById("tips-category-filter");
+const tipsVerificationFilter = document.getElementById("tips-verification-filter");
 
 const FAVORITE_STORAGE_KEYS = {
   characters: "favoriteCharacters",
@@ -1502,6 +1509,55 @@ function getFilteredRackets() {
   return filtered;
 }
 
+
+function getFilteredTips() {
+  const categoryValue = tipsCategoryFilter?.value || "all";
+  const verificationValue = tipsVerificationFilter?.value || "all";
+
+  return tips.filter((tip) => {
+    const categoryMatch = categoryValue === "all" || rawValue(tip.category) === categoryValue;
+    const verificationMatch = verificationValue === "all" || rawValue(tip.verification) === verificationValue;
+    return categoryMatch && verificationMatch;
+  });
+}
+
+function createTipCard(tip) {
+  const card = document.createElement("article");
+  card.className = "tip-card";
+
+  const category = document.createElement("span");
+  category.className = "tip-card__category";
+  category.textContent = t(`tipsCategory.${rawValue(tip.category)}`);
+
+  const verification = document.createElement("span");
+  verification.className = "tip-card__verification";
+  verification.textContent = t(`verification.${rawValue(tip.verification)}`);
+
+  const title = document.createElement("h3");
+  title.className = "tip-card__title";
+  title.textContent = localizeValue(tip.title);
+
+  const text = document.createElement("p");
+  text.className = "tip-card__text";
+  text.textContent = localizeValue(tip.content);
+
+  card.append(category, verification, title, text);
+  return card;
+}
+
+function renderTips() {
+  if (!tipsList || !tipsCount || !tipsEmpty) return;
+
+  const filteredTips = getFilteredTips();
+  const fragment = document.createDocumentFragment();
+
+  filteredTips.forEach((tip) => fragment.append(createTipCard(tip)));
+  tipsList.replaceChildren(fragment);
+
+  tipsCount.textContent = t("common.count", { count: filteredTips.length });
+  tipsEmpty.hidden = filteredTips.length !== 0;
+}
+
 function renderRackets() {
   const filteredRackets = getFilteredRackets();
   const sorted = sortItems(filteredRackets, "name", racketOrder.value);
@@ -2283,6 +2339,7 @@ function applyLocale() {
   syncCharacterOrderAvailability();
   renderCharacters();
   renderRackets();
+  renderTips();
   renderAllTierBoards();
 }
 function bindChangeListeners(elements, handler) {
@@ -2303,6 +2360,8 @@ bindChangeListeners([racketTypeFilter, racketTimingFilter, racketFavoriteFilter,
 characterSort.addEventListener("change", handleCharacterSortChange);
 characterSearch.addEventListener("input", debounce(renderCharacters));
 racketSearch.addEventListener("input", debounce(renderRackets));
+tipsCategoryFilter?.addEventListener("change", renderTips);
+tipsVerificationFilter?.addEventListener("change", renderTips);
 
 
 setupCharacterFilterChips();
