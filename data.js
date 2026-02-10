@@ -597,5 +597,11 @@ export const tips = [
             { ja: "Tier表作成機能を実装", en: "Implemented tier list creation function." }
         ],
       },
+      {
+        date: { ja: "2025-02-11", en: "2025-02-11" },
+        items: [
+            { ja: "Tipsを実装", en: "Implemented Tips." }
+        ],
+      },
   ];
   
