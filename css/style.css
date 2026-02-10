@@ -349,6 +349,12 @@ img {
   max-width: 260px;
 }
 
+#character-inline-filters #character-search,
+#racket-inline-filters #racket-search {
+  width: 210px;
+  max-width: 100%;
+}
+
 .filter select,
 .filter input {
   padding: 10px 12px;
