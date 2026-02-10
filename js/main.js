@@ -3,9 +3,9 @@ import { characters, rackets, changelog } from "../data.js";
 const translations = {
   ja: {
     site: { pageTitle: "マリオテニスフィーバー データ参照サイト", pageDescription: "マリオテニスフィーバーのキャラクターやラケット、システム関連データを一覧で確認できる参照サイト。", title: "マリオテニスフィーバー Explorer", language: "Language", lead: "キャラクターやラケットの特徴などを確認できるデータまとめサイトです。フィルタ・ソートで目的の情報を整理しながら参照できます。" },
-    nav: { characters: "キャラ", rackets: "ラケット", favorites: "お気に入り" },
-    section: { characters: { title: "キャラクター一覧", description: "タイプ別の特徴やパラメータを比較できます。" }, rackets: { title: "ラケット一覧", description: "効果やタイミングを比較できます。" }, tips: { description: "試合で役立つ操作のポイントを素早く確認できます。" }, favorites: { title: "お気に入り候補", description: "よく使う構成のチェック用セクションです。", note: "お気に入り登録機能は準備中です。アップデートで保存・呼び出しに対応予定です。" } },
-    filter: { searchAndFilter: "検索・絞り込み", search: "検索", type: "タイプ", special: "特殊能力", sortBy: "ソート項目", order: "並び順", category: "種類", timing: "効果タイミング" },
+    nav: { characters: "キャラ", rackets: "ラケット", tier: "Tier" },
+    section: { characters: { title: "キャラクター一覧", description: "タイプ別の特徴やパラメータを比較できます。" }, rackets: { title: "ラケット一覧", description: "効果やタイミングを比較できます。" }, tips: { description: "試合で役立つ操作のポイントを素早く確認できます。" }, tier: { title: "Tier表", description: "キャラとラケットを自分基準でランク付けできます。お気に入り機能とは完全に分離されています。" } },
+    filter: { searchAndFilter: "検索・絞り込み", search: "検索", type: "タイプ", special: "特殊能力", favoritesOnly: "お気に入りのみ", sortBy: "ソート項目", order: "並び順", category: "種類", timing: "効果タイミング" },
     modal: { characterFilter: "キャラクターの検索・絞り込み", racketFilter: "ラケットの検索・絞り込み" },
     placeholder: { characterSearch: "キャラクター名で検索", racketSearch: "ラケット名で検索" },
     footer: { note: "データは仮入力を含みます。後日更新予定です。", changelog: "更新履歴" },
@@ -15,19 +15,21 @@ const translations = {
     common: { any: "指定なし", yes: "あり", no: "なし", wip: "仮実装", count: "{{count}}件表示", showCount: "{{count}}件を表示", searchHit: "検索ヒット: {{count}}件", noCharacter: "一致するキャラクターが見つかりません。", noRacket: "一致するラケットが見つかりません。", language: "言語" },
     accordion: { special: "特殊能力", gameText: "ゲーム内テキスト", details: "全項目を見る", video: "動画で効果を確認する" },
     video: { unavailable: "動画は準備中です。", checking: "動画の有無を確認中です…", openYoutube: "YouTubeで開く" },
-    chip: { type: "タイプ", search: "検索", special: "特殊能力", sort: "ソート", order: "並び順", category: "種類", timing: "効果タイミング", yes: "あり", no: "なし" },
+    chip: { type: "タイプ", search: "検索", special: "特殊能力", favorites: "お気に入り", sort: "ソート", order: "並び順", category: "種類", timing: "効果タイミング", yes: "あり", no: "なし" },
     aria: { sectionNav: "セクションナビゲーション", mobileNav: "モバイルセクションナビ", close: "閉じる", showChangelog: "更新履歴を表示", collapseNav: "セクションナビをたたむ", expandNav: "セクションナビを表示" },
     type: { "オールラウンド": "オールラウンド", "テクニック": "テクニック", "パワー": "パワー", "ディフェンス": "ディフェンス", "トリッキー": "トリッキー", "スピード": "スピード" },
     category: { "妨害": "妨害", "強化": "強化", "その他": "その他", "不明": "不明" },
     timing: { "即時": "即時", "バウンド時": "バウンド時", "不明": "不明" },
     meta: { iconSuffix: "のアイコン" },
     changelog: { title: "更新履歴" },
+    favorite: { addCharacter: "お気に入りに追加", removeCharacter: "お気に入り解除", addRacket: "お気に入りに追加", removeRacket: "お気に入り解除" },
+    tier: { characterBoard: "キャラTier", racketBoard: "ラケットTier", poolTitle: "未配置アイコン", modalTitle: "Tier行を編集", labelName: "ラベル名", labelColor: "背景色", clearRow: "行の中身をクリア", addAbove: "上に行追加", addBelow: "下に行追加", deleteRow: "行を削除", addItem: "行を追加", unassigned: "未配置" },
   },
   en: {
     site: { pageTitle: "Mario Tennis Fever Data Explorer", pageDescription: "Reference site for Mario Tennis Fever character, racket, and system data.", title: "Mario Tennis Fever Explorer", language: "Language", lead: "A reference site to compare character and racket traits with filters and sorting." },
-    nav: { characters: "Characters", rackets: "Rackets", favorites: "Favorites" },
-    section: { characters: { title: "Character List", description: "Compare traits and parameters by type." }, rackets: { title: "Racket List", description: "Compare effects and trigger timing." }, tips: { description: "Quickly review useful operation tips for matches." }, favorites: { title: "Favorite Candidates", description: "A section to check often-used setups.", note: "Favorite registration is under development. Save/load support is planned." } },
-    filter: { searchAndFilter: "Search / Filter", search: "Search", type: "Type", special: "Special", sortBy: "Sort by", order: "Order", category: "Category", timing: "Effect timing" },
+    nav: { characters: "Characters", rackets: "Rackets", tier: "Tier" },
+    section: { characters: { title: "Character List", description: "Compare traits and parameters by type." }, rackets: { title: "Racket List", description: "Compare effects and trigger timing." }, tips: { description: "Quickly review useful operation tips for matches." }, tier: { title: "Tier Board", description: "Rank characters and rackets by your own criteria. Fully separated from favorites." } },
+    filter: { searchAndFilter: "Search / Filter", search: "Search", type: "Type", special: "Special", favoritesOnly: "Favorites only", sortBy: "Sort by", order: "Order", category: "Category", timing: "Effect timing" },
     modal: { characterFilter: "Character Search / Filter", racketFilter: "Racket Search / Filter" },
     placeholder: { characterSearch: "Search by character name", racketSearch: "Search by racket name" },
     footer: { note: "Some data is provisional and will be updated later.", changelog: "Changelog" },
@@ -37,13 +39,15 @@ const translations = {
     common: { any: "Any", yes: "Yes", no: "None", wip: "Work in progress", count: "{{count}} shown", showCount: "Show {{count}}", searchHit: "Search hits: {{count}}", noCharacter: "No matching characters found.", noRacket: "No matching rackets found.", language: "Language" },
     accordion: { special: "Special", gameText: "In-game text", details: "Show all", video: "Watch effect video" },
     video: { unavailable: "Video is coming soon.", checking: "Checking video availability…", openYoutube: "Open on YouTube" },
-    chip: { type: "Type", search: "Search", special: "Special", sort: "Sort", order: "Order", category: "Category", timing: "Timing", yes: "Yes", no: "No" },
+    chip: { type: "Type", search: "Search", special: "Special", favorites: "Favorites", sort: "Sort", order: "Order", category: "Category", timing: "Effect timing", yes: "Yes", no: "No" },
     aria: { sectionNav: "Section navigation", mobileNav: "Mobile section navigation", close: "Close", showChangelog: "Show changelog", collapseNav: "Collapse section nav", expandNav: "Expand section nav" },
     type: { "オールラウンド": "All-Around", "テクニック": "Technical	", "パワー": "Powerful", "ディフェンス": "Defensive", "トリッキー": "Tricky", "スピード": "Speedy" },
     category: { "妨害": "Disruptive", "強化": "Boost", "その他": "Other", "不明": "Unknown" },
     timing: { "即時": "Instant", "バウンド時": "On Bounce", "不明": "Unknown" },
     meta: { iconSuffix: " icon" },
     changelog: { title: "Changelog" },
+    favorite: { addCharacter: "Add to favorites", removeCharacter: "Remove from favorites", addRacket: "Add to favorites", removeRacket: "Remove from favorites" },
+    tier: { characterBoard: "Character Tier", racketBoard: "Racket Tier", poolTitle: "Unassigned Icons", modalTitle: "Edit Tier Row", labelName: "Label", labelColor: "Background color", clearRow: "Clear row", addAbove: "Add row above", addBelow: "Add row below", deleteRow: "Delete row", addItem: "Add row", unassigned: "Unassigned" },
   },
 };
 
@@ -126,6 +130,41 @@ const racketActiveFilters = document.getElementById("racket-active-filters");
 const racketSearchResults = document.getElementById("racket-search-results");
 const racketModalSearchResults = document.getElementById("racket-modal-search-results");
 
+const characterFavoriteFilter = document.getElementById("character-favorite-filter");
+const racketFavoriteFilter = document.getElementById("racket-favorite-filter");
+
+const FAVORITE_STORAGE_KEYS = {
+  characters: "favoriteCharacters",
+  rackets: "favoriteRackets",
+};
+
+function loadFavoriteSet(key) {
+  try {
+    const parsed = JSON.parse(localStorage.getItem(key) || "[]");
+    if (!Array.isArray(parsed)) return new Set();
+    return new Set(parsed.filter((v) => Number.isInteger(v) && v >= 0));
+  } catch {
+    return new Set();
+  }
+}
+
+let favoriteCharacterIds = loadFavoriteSet(FAVORITE_STORAGE_KEYS.characters);
+let favoriteRacketIds = loadFavoriteSet(FAVORITE_STORAGE_KEYS.rackets);
+
+function saveFavoriteSet(key, valueSet) {
+  localStorage.setItem(key, JSON.stringify([...valueSet]));
+}
+
+function isFavoriteCharacter(character) {
+  const index = characterIndexMap.get(character);
+  return Number.isInteger(index) && favoriteCharacterIds.has(index);
+}
+
+function isFavoriteRacket(racket) {
+  const index = racketIndexMap.get(racket);
+  return Number.isInteger(index) && favoriteRacketIds.has(index);
+}
+
 const sectionNavItems = Array.from(document.querySelectorAll(".js-section-nav a[data-target]"));
 const sectionNavGroups = Array.from(document.querySelectorAll(".js-section-nav"));
 const sectionNavSections = Array.from(
@@ -137,6 +176,121 @@ const sectionNavSections = Array.from(
 );
 
 const characterIndexMap = new Map(characters.map((character, index) => [character, index]));
+const tierTabButtons = Array.from(document.querySelectorAll(".tier-tab"));
+const tierPanels = Array.from(document.querySelectorAll(".tier-panel"));
+const characterTierBoard = document.getElementById("character-tier-board");
+const characterTierPool = document.getElementById("character-tier-pool");
+const racketTierBoard = document.getElementById("racket-tier-board");
+const racketTierPool = document.getElementById("racket-tier-pool");
+const tierRowModal = document.getElementById("tier-row-modal");
+const tierRowModalClose = document.getElementById("tier-row-modal-close");
+const tierRowLabelInput = document.getElementById("tier-row-label-input");
+const tierRowColorInput = document.getElementById("tier-row-color-input");
+const tierRowClearButton = document.getElementById("tier-row-clear");
+const tierRowAddAboveButton = document.getElementById("tier-row-add-above");
+const tierRowAddBelowButton = document.getElementById("tier-row-add-below");
+const tierRowDeleteButton = document.getElementById("tier-row-delete");
+
+const tierDefaultRows = [
+  { label: "S", color: "#f07575" },
+  { label: "A", color: "#efb676" },
+  { label: "B", color: "#ecd37a" },
+  { label: "C", color: "#e2ea72" },
+  { label: "D", color: "#aee56f" },
+];
+
+const TIER_STORAGE_KEY = "tierBoardsV1";
+let currentTierTab = "characters";
+let rowModalState = null;
+
+function makeTierRow(label, color) {
+  return {
+    id: `row-${Math.random().toString(36).slice(2, 10)}`,
+    label,
+    color,
+  };
+}
+
+function createInitialTierBoard(itemCount) {
+  const rows = tierDefaultRows.map((row) => makeTierRow(row.label, row.color));
+  return {
+    rows,
+    placements: Object.fromEntries(Array.from({ length: itemCount }, (_, index) => [String(index), null])),
+    poolOrder: Array.from({ length: itemCount }, (_, index) => index),
+  };
+}
+
+function normalizeTierBoard(raw, itemCount) {
+  const fallback = createInitialTierBoard(itemCount);
+  if (!raw || !Array.isArray(raw.rows) || typeof raw.placements !== "object") {
+    return fallback;
+  }
+
+  const rows = raw.rows
+    .filter((row) => row && typeof row.id === "string")
+    .map((row) => ({
+      id: row.id,
+      label: typeof row.label === "string" && row.label.trim() ? row.label.trim().slice(0, 24) : "?",
+      color: typeof row.color === "string" && row.color ? row.color : "#666666",
+    }));
+
+  if (!rows.length) {
+    return fallback;
+  }
+
+  const rowIdSet = new Set(rows.map((row) => row.id));
+  const placements = {};
+  for (let index = 0; index < itemCount; index += 1) {
+    const key = String(index);
+    const rowId = raw.placements[key];
+    placements[key] = rowIdSet.has(rowId) ? rowId : null;
+  }
+
+  const placed = new Set(Object.entries(placements).filter(([, rowId]) => rowId != null).map(([index]) => Number(index)));
+  const rawPool = Array.isArray(raw.poolOrder) ? raw.poolOrder : [];
+  const poolOrder = rawPool.filter((value) => Number.isInteger(value) && value >= 0 && value < itemCount && !placed.has(value));
+  for (let index = 0; index < itemCount; index += 1) {
+    if (placements[String(index)] == null && !poolOrder.includes(index)) {
+      poolOrder.push(index);
+    }
+  }
+
+  return { rows, placements, poolOrder };
+}
+
+function loadTierBoards() {
+  try {
+    const parsed = JSON.parse(localStorage.getItem(TIER_STORAGE_KEY) || "{}");
+    return {
+      characters: normalizeTierBoard(parsed.characters, characters.length),
+      rackets: normalizeTierBoard(parsed.rackets, rackets.length),
+    };
+  } catch {
+    return {
+      characters: createInitialTierBoard(characters.length),
+      rackets: createInitialTierBoard(rackets.length),
+    };
+  }
+}
+
+const tierBoards = loadTierBoards();
+
+function saveTierBoards() {
+  localStorage.setItem(TIER_STORAGE_KEY, JSON.stringify(tierBoards));
+}
+
+function getBoardItem(datasetKey, index) {
+  return datasetKey === "characters" ? characters[index] : rackets[index];
+}
+
+function getBoardImageClass(datasetKey) {
+  return datasetKey === "characters" ? "tier-item__image" : "tier-item__image tier-item__image--racket";
+}
+
+function getBoardName(datasetKey, item) {
+  return datasetKey === "characters" ? localizeValue(item.name) : localizeValue(item.name);
+}
+
 const racketIndexMap = new Map(rackets.map((racket, index) => [racket, index]));
 
 
@@ -288,6 +442,35 @@ function isMobileView() {
   return window.matchMedia("(max-width: 768px)").matches;
 }
 
+function createFavoriteButton(itemType, isFavorite, onToggle) {
+  const button = document.createElement("button");
+  button.type = "button";
+  button.className = "favorite-toggle";
+  button.setAttribute("aria-pressed", String(isFavorite));
+
+  const updateState = (active) => {
+    button.classList.toggle("is-active", active);
+    button.setAttribute("aria-pressed", String(active));
+    if (itemType === "character") {
+      button.setAttribute("aria-label", active ? t("favorite.removeCharacter") : t("favorite.addCharacter"));
+      button.title = active ? t("favorite.removeCharacter") : t("favorite.addCharacter");
+    } else {
+      button.setAttribute("aria-label", active ? t("favorite.removeRacket") : t("favorite.addRacket"));
+      button.title = active ? t("favorite.removeRacket") : t("favorite.addRacket");
+    }
+  };
+
+  updateState(isFavorite);
+
+  button.addEventListener("click", () => {
+    const next = !button.classList.contains("is-active");
+    updateState(next);
+    onToggle(next);
+  });
+
+  return button;
+}
+
 function createCharacterCard(character) {
   const card = document.createElement("article");
   card.className = "card";
@@ -316,7 +499,21 @@ function createCharacterCard(character) {
   image.loading = "lazy";
   image.className = "card-image";
 
-  header.append(title, image);
+  const media = document.createElement("div");
+  media.className = "card-media";
+  const favoriteButton = createFavoriteButton("character", isFavoriteCharacter(character), (active) => {
+    if (characterIndex == null) return;
+    if (active) {
+      favoriteCharacterIds.add(characterIndex);
+    } else {
+      favoriteCharacterIds.delete(characterIndex);
+    }
+    saveFavoriteSet(FAVORITE_STORAGE_KEYS.characters, favoriteCharacterIds);
+    renderCharacters();
+  });
+
+  media.append(image, favoriteButton);
+  header.append(title, media);
 
   const stats = document.createElement("div");
   stats.className = "stats";
@@ -405,7 +602,21 @@ function createRacketCard(racket) {
     image.onerror = null;
   };
 
-  header.append(title, image);
+  const media = document.createElement("div");
+  media.className = "card-media";
+  const favoriteButton = createFavoriteButton("racket", isFavoriteRacket(racket), (active) => {
+    if (racketIndex == null) return;
+    if (active) {
+      favoriteRacketIds.add(racketIndex);
+    } else {
+      favoriteRacketIds.delete(racketIndex);
+    }
+    saveFavoriteSet(FAVORITE_STORAGE_KEYS.rackets, favoriteRacketIds);
+    renderRackets();
+  });
+
+  media.append(image, favoriteButton);
+  header.append(title, media);
 
   const effect = document.createElement("p");
   effect.className = "effect";
@@ -644,6 +855,7 @@ function getFilteredCharacters() {
   const typeValue = characterTypeFilter.value;
   const searchValue = normalizeKana(characterSearch.value.trim());
   const specialValue = characterSpecialFilter.value;
+  const favoriteValue = characterFavoriteFilter?.value || "all";
 
   let filtered = characters;
   if (typeValue !== "all") {
@@ -657,6 +869,9 @@ function getFilteredCharacters() {
   }
   if (specialValue === "no") {
     filtered = filtered.filter((character) => rawValue(character.special) === "なし");
+  }
+  if (favoriteValue === "favorites") {
+    filtered = filtered.filter((character) => isFavoriteCharacter(character));
   }
 
   return filtered;
@@ -677,6 +892,9 @@ function updateCharacterActiveFilterChips() {
   }
   if (characterSpecialFilter.value === "no") {
     chips.push({ key: "special", label: `${t("chip.special")}: ${t("chip.no")}` });
+  }
+  if (characterFavoriteFilter?.value === "favorites") {
+    chips.push({ key: "favorite", label: `${t("chip.favorites")}: ${t("filter.favoritesOnly")}` });
   }
   if (characterSort.value !== "name") {
     chips.push({ key: "sort", label: `${t("chip.sort")}: ${(characterSortLabels[characterSort.value]?.() ?? characterSort.value)}` });
@@ -727,6 +945,9 @@ function updateRacketActiveFilterChips() {
   }
   if (racketTimingFilter.value !== "all") {
     chips.push({ key: "timing", label: `${t("chip.timing")}: ${t(`timing.${racketTimingFilter.value}`)}` });
+  }
+  if (racketFavoriteFilter?.value === "favorites") {
+    chips.push({ key: "favorite", label: `${t("chip.favorites")}: ${t("filter.favoritesOnly")}` });
   }
   if (racketOrder.value === "asc") {
     chips.push({ key: "order", label: `${t("chip.order")}: ${t("order.asc")}` });
@@ -952,6 +1173,7 @@ function getFilteredRackets() {
   const typeValue = racketTypeFilter.value;
   const timingValue = racketTimingFilter.value;
   const searchValue = normalizeKana(racketSearch.value.trim());
+  const favoriteValue = racketFavoriteFilter?.value || "all";
 
   let filtered = rackets;
   if (typeValue !== "all") {
@@ -962,6 +1184,9 @@ function getFilteredRackets() {
   }
   if (searchValue) {
     filtered = filtered.filter((racket) => normalizeKana(localizeValue(racket.name)).includes(searchValue));
+  }
+  if (favoriteValue === "favorites") {
+    filtered = filtered.filter((racket) => isFavoriteRacket(racket));
   }
 
   return filtered;
@@ -998,6 +1223,9 @@ function setupRacketFilterChips() {
       case "timing":
         racketTimingFilter.value = "all";
         break;
+      case "favorite":
+        if (racketFavoriteFilter) racketFavoriteFilter.value = "all";
+        break;
       case "order":
         racketOrder.value = "game";
         break;
@@ -1025,6 +1253,9 @@ function setupCharacterFilterChips() {
         break;
       case "special":
         characterSpecialFilter.value = "all";
+        break;
+      case "favorite":
+        if (characterFavoriteFilter) characterFavoriteFilter.value = "all";
         break;
       case "sort":
         characterSort.value = "name";
@@ -1336,6 +1567,290 @@ function setupSectionCollapse() {
 }
 
 
+function moveTierItem(boardKey, itemIndex, targetRowId) {
+  const board = tierBoards[boardKey];
+  board.placements[String(itemIndex)] = targetRowId;
+  board.poolOrder = board.poolOrder.filter((value) => value !== itemIndex);
+
+  if (targetRowId == null && !board.poolOrder.includes(itemIndex)) {
+    board.poolOrder.push(itemIndex);
+  }
+
+  saveTierBoards();
+  renderTierBoard(boardKey);
+}
+
+function createTierItem(boardKey, itemIndex) {
+  const item = getBoardItem(boardKey, itemIndex);
+  const button = document.createElement("button");
+  button.type = "button";
+  button.className = "tier-item";
+  button.draggable = true;
+  button.dataset.itemIndex = String(itemIndex);
+  button.dataset.boardKey = boardKey;
+  button.setAttribute("aria-label", getBoardName(boardKey, item));
+
+  const image = document.createElement("img");
+  image.className = getBoardImageClass(boardKey);
+  image.src = item.image;
+  image.alt = `${getBoardName(boardKey, item)}${t("meta.iconSuffix")}`;
+  image.loading = "lazy";
+
+  button.append(image);
+
+  button.addEventListener("dragstart", (event) => {
+    event.dataTransfer?.setData("text/plain", JSON.stringify({ boardKey, itemIndex }));
+  });
+
+  button.addEventListener("click", () => {
+    const board = tierBoards[boardKey];
+    const rowId = board.placements[String(itemIndex)];
+    const nextIndex = rowId
+      ? Math.min(board.rows.length - 1, board.rows.findIndex((row) => row.id === rowId) + 1)
+      : 0;
+    moveTierItem(boardKey, itemIndex, board.rows[nextIndex]?.id ?? null);
+  });
+
+  return button;
+}
+
+function setupDropZone(zone, boardKey, rowId) {
+  const zoneKey = `${boardKey}:${rowId ?? "pool"}`;
+  if (zone.dataset.dropZoneBound === zoneKey) {
+    return;
+  }
+  zone.dataset.dropZoneBound = zoneKey;
+
+  zone.addEventListener("dragover", (event) => {
+    event.preventDefault();
+    zone.classList.add("is-dragover");
+  });
+
+  zone.addEventListener("dragleave", () => {
+    zone.classList.remove("is-dragover");
+  });
+
+  zone.addEventListener("drop", (event) => {
+    event.preventDefault();
+    zone.classList.remove("is-dragover");
+    const data = event.dataTransfer?.getData("text/plain");
+    if (!data) return;
+    try {
+      const parsed = JSON.parse(data);
+      if (parsed.boardKey !== boardKey || !Number.isInteger(parsed.itemIndex)) return;
+      moveTierItem(boardKey, parsed.itemIndex, rowId);
+    } catch {
+      // noop
+    }
+  });
+}
+
+function getContrastingColor(hex) {
+  const value = hex.replace("#", "");
+  const full = value.length === 3 ? value.split("").map((c) => c + c).join("") : value;
+  const r = parseInt(full.slice(0, 2), 16);
+  const g = parseInt(full.slice(2, 4), 16);
+  const b = parseInt(full.slice(4, 6), 16);
+  const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+  return luminance > 0.6 ? "#102235" : "#f5fbff";
+}
+
+function openTierRowModal(boardKey, rowId) {
+  const board = tierBoards[boardKey];
+  const rowIndex = board.rows.findIndex((row) => row.id === rowId);
+  if (rowIndex === -1 || !tierRowModal) return;
+
+  rowModalState = { boardKey, rowId, rowIndex };
+  const row = board.rows[rowIndex];
+  tierRowLabelInput.value = row.label;
+  tierRowColorInput.value = row.color;
+  tierRowModal.classList.add("is-open");
+  tierRowModal.setAttribute("aria-hidden", "false");
+}
+
+function closeTierRowModal() {
+  if (!tierRowModal) return;
+  tierRowModal.classList.remove("is-open");
+  tierRowModal.setAttribute("aria-hidden", "true");
+  rowModalState = null;
+}
+
+function renderTierBoard(boardKey) {
+  const board = tierBoards[boardKey];
+  const boardEl = boardKey === "characters" ? characterTierBoard : racketTierBoard;
+  const poolEl = boardKey === "characters" ? characterTierPool : racketTierPool;
+  if (!boardEl || !poolEl) return;
+
+  const boardFrag = document.createDocumentFragment();
+  board.rows.forEach((row, rowIndex) => {
+    const rowEl = document.createElement("div");
+    rowEl.className = "tier-row";
+
+    const label = document.createElement("div");
+    label.className = "tier-row__label";
+    label.style.backgroundColor = row.color;
+    label.style.color = getContrastingColor(row.color);
+    label.textContent = row.label;
+
+    const items = document.createElement("div");
+    items.className = "tier-row__items";
+    setupDropZone(items, boardKey, row.id);
+
+    Object.entries(board.placements)
+      .filter(([, targetRowId]) => targetRowId === row.id)
+      .map(([itemIndex]) => Number(itemIndex))
+      .sort((a, b) => a - b)
+      .forEach((itemIndex) => items.append(createTierItem(boardKey, itemIndex)));
+
+    const controls = document.createElement("div");
+    controls.className = "tier-row__controls";
+
+    const settings = document.createElement("button");
+    settings.type = "button";
+    settings.className = "tier-row__btn";
+    settings.textContent = "⚙";
+    settings.addEventListener("click", () => openTierRowModal(boardKey, row.id));
+
+    const up = document.createElement("button");
+    up.type = "button";
+    up.className = "tier-row__btn";
+    up.textContent = "⌃";
+    up.disabled = rowIndex === 0;
+    up.addEventListener("click", () => {
+      if (rowIndex === 0) return;
+      [board.rows[rowIndex - 1], board.rows[rowIndex]] = [board.rows[rowIndex], board.rows[rowIndex - 1]];
+      saveTierBoards();
+      renderTierBoard(boardKey);
+    });
+
+    const down = document.createElement("button");
+    down.type = "button";
+    down.className = "tier-row__btn";
+    down.textContent = "⌄";
+    down.disabled = rowIndex === board.rows.length - 1;
+    down.addEventListener("click", () => {
+      if (rowIndex >= board.rows.length - 1) return;
+      [board.rows[rowIndex + 1], board.rows[rowIndex]] = [board.rows[rowIndex], board.rows[rowIndex + 1]];
+      saveTierBoards();
+      renderTierBoard(boardKey);
+    });
+
+    controls.append(settings, up, down);
+    rowEl.append(label, items, controls);
+    boardFrag.append(rowEl);
+  });
+
+  const addRow = document.createElement("button");
+  addRow.type = "button";
+  addRow.className = "tier-add-row";
+  addRow.textContent = `+ ${t("tier.addItem")}`;
+  addRow.addEventListener("click", () => {
+    board.rows.push(makeTierRow(String.fromCharCode(65 + board.rows.length), "#7aa6ff"));
+    saveTierBoards();
+    renderTierBoard(boardKey);
+  });
+  boardFrag.append(addRow);
+
+  boardEl.replaceChildren(boardFrag);
+
+  const poolFrag = document.createDocumentFragment();
+  setupDropZone(poolEl, boardKey, null);
+  board.poolOrder.forEach((itemIndex) => {
+    poolFrag.append(createTierItem(boardKey, itemIndex));
+  });
+  poolEl.replaceChildren(poolFrag);
+}
+
+function setupTierTabs() {
+  tierTabButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      currentTierTab = button.dataset.tierTab || "characters";
+      tierTabButtons.forEach((tab) => tab.classList.toggle("is-active", tab === button));
+      tierPanels.forEach((panel) => panel.classList.toggle("is-active", panel.dataset.tierPanel === currentTierTab));
+    });
+  });
+}
+
+function setupTierModalActions() {
+  if (!tierRowModal) return;
+
+  tierRowModalClose?.addEventListener("click", closeTierRowModal);
+  tierRowModal.addEventListener("click", (event) => {
+    if (event.target === tierRowModal) closeTierRowModal();
+  });
+
+  tierRowLabelInput?.addEventListener("input", () => {
+    if (!rowModalState) return;
+    const board = tierBoards[rowModalState.boardKey];
+    const row = board.rows.find((target) => target.id === rowModalState.rowId);
+    if (!row) return;
+    row.label = tierRowLabelInput.value.slice(0, 24) || "?";
+    saveTierBoards();
+    renderTierBoard(rowModalState.boardKey);
+  });
+
+  tierRowColorInput?.addEventListener("input", () => {
+    if (!rowModalState) return;
+    const board = tierBoards[rowModalState.boardKey];
+    const row = board.rows.find((target) => target.id === rowModalState.rowId);
+    if (!row) return;
+    row.color = tierRowColorInput.value;
+    saveTierBoards();
+    renderTierBoard(rowModalState.boardKey);
+  });
+
+  tierRowClearButton?.addEventListener("click", () => {
+    if (!rowModalState) return;
+    const board = tierBoards[rowModalState.boardKey];
+    Object.entries(board.placements).forEach(([itemIndex, rowId]) => {
+      if (rowId === rowModalState.rowId) {
+        board.placements[itemIndex] = null;
+        const index = Number(itemIndex);
+        if (!board.poolOrder.includes(index)) board.poolOrder.push(index);
+      }
+    });
+    saveTierBoards();
+    renderTierBoard(rowModalState.boardKey);
+  });
+
+  const insertRow = (offset) => {
+    if (!rowModalState) return;
+    const board = tierBoards[rowModalState.boardKey];
+    const rowIndex = board.rows.findIndex((row) => row.id === rowModalState.rowId);
+    if (rowIndex === -1) return;
+    board.rows.splice(rowIndex + offset, 0, makeTierRow("New", "#90a4ae"));
+    saveTierBoards();
+    renderTierBoard(rowModalState.boardKey);
+  };
+
+  tierRowAddAboveButton?.addEventListener("click", () => insertRow(0));
+  tierRowAddBelowButton?.addEventListener("click", () => insertRow(1));
+
+  tierRowDeleteButton?.addEventListener("click", () => {
+    if (!rowModalState) return;
+    const board = tierBoards[rowModalState.boardKey];
+    if (board.rows.length <= 1) return;
+    board.rows = board.rows.filter((row) => row.id !== rowModalState.rowId);
+    Object.entries(board.placements).forEach(([itemIndex, rowId]) => {
+      if (rowId === rowModalState.rowId) {
+        board.placements[itemIndex] = null;
+        const index = Number(itemIndex);
+        if (!board.poolOrder.includes(index)) board.poolOrder.push(index);
+      }
+    });
+    saveTierBoards();
+    renderTierBoard(rowModalState.boardKey);
+    closeTierRowModal();
+  });
+}
+
+function renderAllTierBoards() {
+  renderTierBoard("characters");
+  renderTierBoard("rackets");
+}
+
+
+
 function applyStaticTranslations() {
   document.documentElement.lang = currentLocale;
   document.title = t("site.pageTitle");
@@ -1376,6 +1891,7 @@ function applyLocale() {
   syncCharacterOrderAvailability();
   renderCharacters();
   renderRackets();
+  renderAllTierBoards();
 }
 function bindChangeListeners(elements, handler) {
   elements.forEach((element) => element.addEventListener("change", handler));
@@ -1390,8 +1906,8 @@ function debounce(callback, delay = 150) {
   };
 }
 
-bindChangeListeners([characterTypeFilter, characterSpecialFilter, characterOrder], renderCharacters);
-bindChangeListeners([racketTypeFilter, racketTimingFilter, racketOrder], renderRackets);
+bindChangeListeners([characterTypeFilter, characterSpecialFilter, characterFavoriteFilter, characterOrder].filter(Boolean), renderCharacters);
+bindChangeListeners([racketTypeFilter, racketTimingFilter, racketFavoriteFilter, racketOrder].filter(Boolean), renderRackets);
 characterSort.addEventListener("change", handleCharacterSortChange);
 characterSearch.addEventListener("input", debounce(renderCharacters));
 racketSearch.addEventListener("input", debounce(renderRackets));
@@ -1404,6 +1920,8 @@ setupRacketSearchShortcutActions();
 setupFilterModal("character-filter-modal", "character-inline-filters", "character-modal-filters", "character-filter-apply", renderCharacters);
 setupFilterModal("racket-filter-modal", "racket-inline-filters", "racket-modal-filters", "racket-filter-apply", renderRackets);
 setupChangelogModal();
+setupTierTabs();
+setupTierModalActions();
 
 if (localeSelect) {
   localeSelect.addEventListener("change", (event) => {
@@ -1420,3 +1938,4 @@ setupAccordionRowSync();
 setupSectionNavVisibility();
 setupSectionNavToggle();
 setupSectionNav();
+renderAllTierBoards();

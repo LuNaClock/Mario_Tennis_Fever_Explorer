@@ -33,7 +33,7 @@
         <a class="section-nav__item" href="#characters" data-target="characters" data-i18n="nav.characters">キャラ</a>
         <a class="section-nav__item" href="#rackets" data-target="rackets" data-i18n="nav.rackets">ラケット</a>
         <a class="section-nav__item" href="#techniques" data-target="techniques">Tips</a>
-        <a class="section-nav__item" href="#favorites" data-target="favorites" data-i18n="nav.favorites">お気に入り</a>
+        <a class="section-nav__item" href="#tier" data-target="tier" data-i18n="nav.tier">Tier</a>
       </div>
       <button type="button" class="section-nav__toggle" data-section-nav-toggle aria-expanded="true" aria-controls="desktop-section-nav-links" aria-label="セクションナビをたたむ" data-i18n-attr="aria-label:aria.collapseNav"></button>
     </nav>
@@ -82,6 +82,13 @@
             <option value="all" data-i18n="common.any">指定なし</option>
             <option value="yes" data-i18n="common.yes">あり</option>
             <option value="no" data-i18n="common.no">なし</option>
+          </select>
+        </label>
+        <label class="filter">
+          <span data-i18n="filter.favoritesOnly">お気に入り</span>
+          <select id="character-favorite-filter">
+            <option value="all" data-i18n="common.any">指定なし</option>
+            <option value="favorites" data-i18n="filter.favoritesOnly">お気に入りのみ</option>
           </select>
         </label>
         <label class="filter">
@@ -166,6 +173,13 @@
           </select>
         </label>
         <label class="filter">
+          <span data-i18n="filter.favoritesOnly">お気に入り</span>
+          <select id="racket-favorite-filter">
+            <option value="all" data-i18n="common.any">指定なし</option>
+            <option value="favorites" data-i18n="filter.favoritesOnly">お気に入りのみ</option>
+          </select>
+        </label>
+        <label class="filter">
           <span data-i18n="filter.order">並び順</span>
           <select id="racket-order">
             <option value="game" data-i18n="order.game">ゲーム内順</option>
@@ -205,15 +219,29 @@
       </div>
     </section>
 
-    <section class="section" id="favorites" data-nav-label="お気に入り">
+    <section class="section" id="tier" data-nav-label="Tier">
       <div class="section-header">
         <div>
-          <h2 data-i18n="section.favorites.title">お気に入り候補</h2>
-          <p class="section-description" data-i18n="section.favorites.description">よく使う構成のチェック用セクションです。</p>
+          <h2 data-i18n="section.tier.title">Tier表</h2>
+          <p class="section-description" data-i18n="section.tier.description">キャラとラケットを自分基準でランク付けできます。お気に入り機能とは完全に分離されています。</p>
         </div>
       </div>
-      <div class="info-panel">
-        <p data-i18n="section.favorites.note">お気に入り登録機能は準備中です。アップデートで保存・呼び出しに対応予定です。</p>
+
+      <div class="tier-controls">
+        <button type="button" class="tier-tab is-active" data-tier-tab="characters" data-i18n="tier.characterBoard">キャラTier</button>
+        <button type="button" class="tier-tab" data-tier-tab="rackets" data-i18n="tier.racketBoard">ラケットTier</button>
+      </div>
+
+      <div class="tier-panel is-active" data-tier-panel="characters">
+        <div class="tier-board" id="character-tier-board"></div>
+        <h3 class="tier-pool-title" data-i18n="tier.poolTitle">未配置アイコン</h3>
+        <div class="tier-pool" id="character-tier-pool"></div>
+      </div>
+
+      <div class="tier-panel" data-tier-panel="rackets">
+        <div class="tier-board" id="racket-tier-board"></div>
+        <h3 class="tier-pool-title" data-i18n="tier.poolTitle">未配置アイコン</h3>
+        <div class="tier-pool" id="racket-tier-pool"></div>
       </div>
     </section>
   </main>
@@ -222,7 +250,7 @@
     <a class="mobile-bottom-nav__item" href="#characters" data-target="characters" data-i18n="nav.characters">キャラ</a>
     <a class="mobile-bottom-nav__item" href="#rackets" data-target="rackets" data-i18n="nav.rackets">ラケット</a>
     <a class="mobile-bottom-nav__item" href="#techniques" data-target="techniques">Tips</a>
-    <a class="mobile-bottom-nav__item" href="#favorites" data-target="favorites" data-i18n="nav.favorites">お気に入り</a>
+    <a class="mobile-bottom-nav__item" href="#tier" data-target="tier" data-i18n="nav.tier">Tier</a>
   </nav>
 
   <footer class="site-footer">
@@ -244,6 +272,29 @@
         <button type="button" class="changelog-modal__close" data-modal-close="changelog-modal" aria-label="閉じる" data-i18n-attr="aria-label:aria.close">✕</button>
       </div>
       <div class="changelog-modal__body" id="changelog-content"></div>
+    </div>
+  </div>
+
+  <div class="tier-modal" id="tier-row-modal" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="tier-modal__panel">
+      <div class="tier-modal__header">
+        <h2 data-i18n="tier.modalTitle">Tier行を編集</h2>
+        <button type="button" class="tier-modal__close" id="tier-row-modal-close" data-i18n-attr="aria-label:aria.close" aria-label="閉じる">✕</button>
+      </div>
+      <label class="filter">
+        <span data-i18n="tier.labelName">ラベル名</span>
+        <input type="text" id="tier-row-label-input" maxlength="24" />
+      </label>
+      <label class="filter">
+        <span data-i18n="tier.labelColor">背景色</span>
+        <input type="color" id="tier-row-color-input" />
+      </label>
+      <div class="tier-modal__actions">
+        <button type="button" class="tier-modal__btn" id="tier-row-clear" data-i18n="tier.clearRow">行の中身をクリア</button>
+        <button type="button" class="tier-modal__btn" id="tier-row-add-above" data-i18n="tier.addAbove">上に行追加</button>
+        <button type="button" class="tier-modal__btn" id="tier-row-add-below" data-i18n="tier.addBelow">下に行追加</button>
+        <button type="button" class="tier-modal__btn tier-modal__btn--danger" id="tier-row-delete" data-i18n="tier.deleteRow">行を削除</button>
+      </div>
     </div>
   </div>
 
