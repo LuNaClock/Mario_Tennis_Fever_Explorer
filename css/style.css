@@ -345,6 +345,10 @@ img {
   color: var(--muted);
 }
 
+.filter--search {
+  max-width: 260px;
+}
+
 .filter select,
 .filter input {
   padding: 10px 12px;
