@@ -233,12 +233,98 @@
       </div>
 
       <div class="tier-panel is-active" data-tier-panel="characters">
+        <div class="tier-rule-manager" data-tier-type="characters">
+          <div class="tier-rule-manager__header">
+            <h3 data-i18n="tier.ruleTitle">ルール条件</h3>
+            <div class="tier-rule-manager__actions">
+              <button type="button" class="tier-action-btn" data-tier-create="global" data-tier-type="characters" data-i18n="tier.addGlobal">全ルール共通Tierを追加</button>
+              <button type="button" class="tier-action-btn" data-tier-create="conditional" data-tier-type="characters" data-i18n="tier.addConditional">条件別Tierを追加</button>
+              <button type="button" class="tier-action-btn tier-action-btn--danger" data-tier-delete-profile data-tier-type="characters" data-i18n="tier.deleteProfile">現在のTierを削除</button>
+            </div>
+          </div>
+
+          <div class="tier-rule-filters">
+            <label class="filter">
+              <span data-i18n="tier.courtType">コート種別</span>
+              <select data-tier-meta="courtType" data-tier-type="characters">
+                <option value="all" data-i18n="common.any">指定なし</option>
+                <option value="hard" data-i18n="tierValue.hard">ハード</option>
+                <option value="clay" data-i18n="tierValue.clay">クレー</option>
+                <option value="grass" data-i18n="tierValue.grass">グラス</option>
+              </select>
+            </label>
+            <label class="filter">
+              <span data-i18n="tier.gameMode">ゲームモード</span>
+              <select data-tier-meta="gameMode" data-tier-type="characters">
+                <option value="all" data-i18n="common.any">指定なし</option>
+                <option value="singles" data-i18n="tierValue.singles">シングルス</option>
+                <option value="doubles" data-i18n="tierValue.doubles">ダブルス</option>
+                <option value="fever" data-i18n="tierValue.fever">フィーバー</option>
+              </select>
+            </label>
+            <label class="filter">
+              <span data-i18n="tier.itemRule">アイテム有無</span>
+              <select data-tier-meta="items" data-tier-type="characters">
+                <option value="all" data-i18n="common.any">指定なし</option>
+                <option value="on" data-i18n="common.yes">あり</option>
+                <option value="off" data-i18n="common.no">なし</option>
+              </select>
+            </label>
+          </div>
+
+          <div class="tier-profile-filter-tabs" data-tier-profile-filters="characters" aria-live="polite"></div>
+          <div class="tier-profile-tabs" data-tier-profile-tabs="characters" aria-live="polite"></div>
+          <p class="tier-rule-label" data-tier-rule-label="characters"></p>
+        </div>
         <div class="tier-board" id="character-tier-board"></div>
         <h3 class="tier-pool-title" data-i18n="tier.poolTitle">未配置アイコン</h3>
         <div class="tier-pool" id="character-tier-pool"></div>
       </div>
 
       <div class="tier-panel" data-tier-panel="rackets">
+        <div class="tier-rule-manager" data-tier-type="rackets">
+          <div class="tier-rule-manager__header">
+            <h3 data-i18n="tier.ruleTitle">ルール条件</h3>
+            <div class="tier-rule-manager__actions">
+              <button type="button" class="tier-action-btn" data-tier-create="global" data-tier-type="rackets" data-i18n="tier.addGlobal">全ルール共通Tierを追加</button>
+              <button type="button" class="tier-action-btn" data-tier-create="conditional" data-tier-type="rackets" data-i18n="tier.addConditional">条件別Tierを追加</button>
+              <button type="button" class="tier-action-btn tier-action-btn--danger" data-tier-delete-profile data-tier-type="rackets" data-i18n="tier.deleteProfile">現在のTierを削除</button>
+            </div>
+          </div>
+
+          <div class="tier-rule-filters">
+            <label class="filter">
+              <span data-i18n="tier.courtType">コート種別</span>
+              <select data-tier-meta="courtType" data-tier-type="rackets">
+                <option value="all" data-i18n="common.any">指定なし</option>
+                <option value="hard" data-i18n="tierValue.hard">ハード</option>
+                <option value="clay" data-i18n="tierValue.clay">クレー</option>
+                <option value="grass" data-i18n="tierValue.grass">グラス</option>
+              </select>
+            </label>
+            <label class="filter">
+              <span data-i18n="tier.gameMode">ゲームモード</span>
+              <select data-tier-meta="gameMode" data-tier-type="rackets">
+                <option value="all" data-i18n="common.any">指定なし</option>
+                <option value="singles" data-i18n="tierValue.singles">シングルス</option>
+                <option value="doubles" data-i18n="tierValue.doubles">ダブルス</option>
+                <option value="fever" data-i18n="tierValue.fever">フィーバー</option>
+              </select>
+            </label>
+            <label class="filter">
+              <span data-i18n="tier.itemRule">アイテム有無</span>
+              <select data-tier-meta="items" data-tier-type="rackets">
+                <option value="all" data-i18n="common.any">指定なし</option>
+                <option value="on" data-i18n="common.yes">あり</option>
+                <option value="off" data-i18n="common.no">なし</option>
+              </select>
+            </label>
+          </div>
+
+          <div class="tier-profile-filter-tabs" data-tier-profile-filters="rackets" aria-live="polite"></div>
+          <div class="tier-profile-tabs" data-tier-profile-tabs="rackets" aria-live="polite"></div>
+          <p class="tier-rule-label" data-tier-rule-label="rackets"></p>
+        </div>
         <div class="tier-board" id="racket-tier-board"></div>
         <h3 class="tier-pool-title" data-i18n="tier.poolTitle">未配置アイコン</h3>
         <div class="tier-pool" id="racket-tier-pool"></div>
