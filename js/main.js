@@ -1617,10 +1617,12 @@ function createTierItem(boardKey, itemIndex) {
   button.addEventListener("click", () => {
     const board = tierBoards[boardKey];
     const rowId = board.placements[String(itemIndex)];
-    const nextIndex = rowId
-      ? Math.min(board.rows.length - 1, board.rows.findIndex((row) => row.id === rowId) + 1)
-      : 0;
-    moveTierItem(boardKey, itemIndex, board.rows[nextIndex]?.id ?? null);
+    if (rowId) {
+      moveTierItem(boardKey, itemIndex, null);
+      return;
+    }
+
+    moveTierItem(boardKey, itemIndex, board.rows[0]?.id ?? null);
   });
 
   return button;
