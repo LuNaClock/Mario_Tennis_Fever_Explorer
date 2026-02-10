@@ -407,10 +407,8 @@ async function buildTierBoardCanvas(boardKey) {
     return Math.max(rowMinHeight, lines * iconSize + (lines - 1) * gap + 14);
   });
 
-  const poolLines = Math.max(1, Math.ceil(profile.poolOrder.length / maxColumns));
-  const poolHeight = Math.max(rowMinHeight, poolLines * iconSize + (poolLines - 1) * gap + 14);
-  const headerHeight = 88;
-  const totalHeight = headerHeight + rowHeights.reduce((a, b) => a + b, 0) + poolHeight + 44;
+  const headerHeight = 118;
+  const totalHeight = headerHeight + rowHeights.reduce((a, b) => a + b, 0) + 16;
 
   const canvas = document.createElement("canvas");
   canvas.width = boardWidth;
@@ -422,11 +420,25 @@ async function buildTierBoardCanvas(boardKey) {
   ctx.fillRect(0, 0, boardWidth, totalHeight);
 
   ctx.fillStyle = "#d8eaff";
-  ctx.font = "bold 24px sans-serif";
-  ctx.fillText(boardKey === "characters" ? t("tier.characterBoard") : t("tier.racketBoard"), 18, 34);
-  ctx.font = "14px sans-serif";
-  ctx.fillStyle = "#9fc3df";
-  ctx.fillText(getProfileMetaLabel(profile.meta), 18, 60);
+  ctx.font = "bold 26px sans-serif";
+  ctx.fillText(boardKey === "characters" ? t("tier.characterBoard") : t("tier.racketBoard"), 18, 36);
+
+  ctx.fillStyle = "rgba(11, 31, 49, 0.9)";
+  ctx.fillRect(14, 52, boardWidth - 28, 52);
+  ctx.strokeStyle = "rgba(159, 195, 223, 0.45)";
+  ctx.lineWidth = 1;
+  ctx.strokeRect(14.5, 52.5, boardWidth - 29, 51);
+
+  const metaParts = getProfileMetaParts(profile.meta);
+  let metaFontSize = 20;
+  let metaWidth = Infinity;
+  do {
+    ctx.font = `bold ${metaFontSize}px sans-serif`;
+    metaWidth = measureTierMetaPartsWidth(ctx, metaParts);
+    if (metaWidth <= boardWidth - 48 || metaFontSize <= 14) break;
+    metaFontSize -= 1;
+  } while (metaFontSize > 14);
+  drawTierMetaParts(ctx, metaParts, 24, 86);
 
   let y = headerHeight;
   for (let i = 0; i < rows.length; i += 1) {
@@ -459,28 +471,6 @@ async function buildTierBoardCanvas(boardKey) {
     }
 
     y += h;
-  }
-
-  ctx.fillStyle = "#9fc3df";
-  ctx.font = "bold 15px sans-serif";
-  ctx.fillText(t("tier.poolTitle"), 14, y + 20);
-  ctx.fillStyle = "#0b1f31";
-  ctx.fillRect(12, y + 26, boardWidth - 24, poolHeight);
-
-  for (let idx = 0; idx < profile.poolOrder.length; idx += 1) {
-    const itemIndex = profile.poolOrder[idx];
-    const col = idx % maxColumns;
-    const line = Math.floor(idx / maxColumns);
-    const x = 22 + col * (iconSize + gap);
-    const iy = y + 34 + line * (iconSize + gap);
-    const item = getBoardItem(boardKey, itemIndex);
-    try {
-      const img = await loadImage(item.image);
-      ctx.drawImage(img, x, iy, iconSize, iconSize);
-    } catch {
-      ctx.fillStyle = "#375c78";
-      ctx.fillRect(x, iy, iconSize, iconSize);
-    }
   }
 
   return canvas;
@@ -524,6 +514,68 @@ function getProfileMetaLabel(meta) {
   const modeLabel = t(`tierValue.${meta.gameMode}`);
   const itemLabels = { on: t("common.yes"), off: t("common.no") };
   return `${t("tier.itemRule")}: ${itemLabels[meta.items] ?? meta.items} / ${t("tier.gameMode")}: ${modeLabel} / ${t("tier.courtType")}: ${courtLabel}`;
+}
+
+function getProfileMetaParts(meta) {
+  const courtLabel = meta.courtType === "all" ? t("common.any") : t(`tierValue.${meta.courtType}`);
+  const modeLabel = t(`tierValue.${meta.gameMode}`);
+  const itemLabels = { on: t("common.yes"), off: t("common.no") };
+  return [
+    { label: `${t("tier.itemRule")}: `, value: itemLabels[meta.items] ?? meta.items, color: "#f97316" },
+    { label: `${t("tier.gameMode")}: `, value: modeLabel, color: "#22c55e" },
+    { label: `${t("tier.courtType")}: `, value: courtLabel, color: "#38bdf8" },
+  ];
+}
+
+function measureTierMetaPartsWidth(ctx, parts) {
+  let width = 0;
+  for (let i = 0; i < parts.length; i += 1) {
+    const part = parts[i];
+    width += ctx.measureText(part.label).width;
+    width += ctx.measureText(part.value).width + 18;
+    if (i < parts.length - 1) width += ctx.measureText(" / ").width;
+  }
+  return width;
+}
+
+function drawRoundedRect(ctx, x, y, width, height, radius) {
+  const r = Math.min(radius, width / 2, height / 2);
+  ctx.beginPath();
+  ctx.moveTo(x + r, y);
+  ctx.arcTo(x + width, y, x + width, y + height, r);
+  ctx.arcTo(x + width, y + height, x, y + height, r);
+  ctx.arcTo(x, y + height, x, y, r);
+  ctx.arcTo(x, y, x + width, y, r);
+  ctx.closePath();
+}
+
+function drawTierMetaParts(ctx, parts, startX, baselineY) {
+  let x = startX;
+  for (let i = 0; i < parts.length; i += 1) {
+    const part = parts[i];
+    ctx.fillStyle = "#b9d5eb";
+    ctx.fillText(part.label, x, baselineY);
+    x += ctx.measureText(part.label).width;
+
+    const valueWidth = ctx.measureText(part.value).width;
+    const boxWidth = valueWidth + 18;
+    const boxHeight = 28;
+    const boxY = baselineY - 22;
+
+    ctx.fillStyle = part.color;
+    drawRoundedRect(ctx, x, boxY, boxWidth, boxHeight, 8);
+    ctx.fill();
+
+    ctx.fillStyle = "#061522";
+    ctx.fillText(part.value, x + 9, baselineY);
+    x += boxWidth;
+
+    if (i < parts.length - 1) {
+      ctx.fillStyle = "#8eb4d1";
+      ctx.fillText(" / ", x, baselineY);
+      x += ctx.measureText(" / ").width;
+    }
+  }
 }
 
 function updateTierRuleLabel(boardKey) {
