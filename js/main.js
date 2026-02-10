@@ -24,7 +24,7 @@ const translations = {
     meta: { iconSuffix: "のアイコン" },
     changelog: { title: "更新履歴" },
     favorite: { addCharacter: "お気に入りに追加", removeCharacter: "お気に入り解除", addRacket: "お気に入りに追加", removeRacket: "お気に入り解除" },
-    tier: { characterBoard: "キャラTier", racketBoard: "ラケットTier", poolTitle: "未配置アイコン", modalTitle: "Tier行を編集", labelName: "ラベル名", labelColor: "背景色", clearRow: "行の中身をクリア", addAbove: "上に行追加", addBelow: "下に行追加", deleteRow: "行を削除", addItem: "行を追加", unassigned: "未配置", ruleTitle: "ルール条件", addGlobal: "全ルール共通Tierを追加", addConditional: "条件別Tierを追加", deleteProfile: "現在のTierを削除", courtType: "コート種別", gameMode: "ゲームモード", itemRule: "フィーバーラケット", globalLabel: "全ルール共通Tier", conditionalLabel: "条件別Tier", allConditions: "全条件", noProfiles: "該当するTierはありません", globalTab: "全ルール共通", conditionalTab: "条件別", profileDeleted: "Tierを削除しました", shareUrl: "URLを共有", saveImage: "画像で保存", shareCopied: "共有URLをコピーしました", shareCopyFailed: "URLコピーに失敗しました", imageSaved: "画像を保存しました", imageSaveFailed: "画像の保存に失敗しました", shareLoaded: "共有URLのTierを読み込みました" },
+    tier: { characterBoard: "キャラTier", racketBoard: "ラケットTier", poolTitle: "未配置アイコン", modalTitle: "Tier行を編集", labelName: "ラベル名", labelColor: "背景色", clearRow: "行の中身をクリア", addAbove: "上に行追加", addBelow: "下に行追加", deleteRow: "行を削除", addItem: "行を追加", unassigned: "未配置", ruleTitle: "ルール条件", addGlobal: "全ルール共通Tierを追加", addConditional: "条件別Tierを追加", deleteProfile: "現在のTierを削除", courtType: "コート種別", gameMode: "ゲームモード", itemRule: "フィーバーラケット", globalLabel: "全ルール共通Tier", conditionalLabel: "条件別Tier", allConditions: "全条件", noProfiles: "該当するTierはありません", globalTab: "全ルール共通", conditionalTab: "条件別", profileDeleted: "Tierを削除しました", shareUrl: "URLを共有", shareX: "Xで共有", saveImage: "画像で保存", shareCopied: "共有URLをコピーしました", shareCopyFailed: "URLコピーに失敗しました", shareXOpened: "X共有画面を開きました", shareXFailed: "X共有画面を開けませんでした", imageSaved: "画像を保存しました", imageSaveFailed: "画像の保存に失敗しました", shareLoaded: "共有URLのTierを読み込みました" },
   },
   en: {
     site: { pageTitle: "Mario Tennis Fever Data Explorer", pageDescription: "Reference site for Mario Tennis Fever character, racket, and system data.", title: "Mario Tennis Fever Explorer", language: "Language", lead: "A reference site to compare character and racket traits with filters and sorting." },
@@ -49,7 +49,7 @@ const translations = {
     meta: { iconSuffix: " icon" },
     changelog: { title: "Changelog" },
     favorite: { addCharacter: "Add to favorites", removeCharacter: "Remove from favorites", addRacket: "Add to favorites", removeRacket: "Remove from favorites" },
-    tier: { characterBoard: "Character Tier", racketBoard: "Racket Tier", poolTitle: "Unassigned Icons", modalTitle: "Edit Tier Row", labelName: "Label", labelColor: "Background color", clearRow: "Clear row", addAbove: "Add row above", addBelow: "Add row below", deleteRow: "Delete row", addItem: "Add row", unassigned: "Unassigned", ruleTitle: "Rule filters", addGlobal: "Add Global Tier", addConditional: "Add Conditional Tier", deleteProfile: "Delete Current Tier", courtType: "Court Type", gameMode: "Game Mode", itemRule: "Fever Racket", globalLabel: "Global Tier", conditionalLabel: "Conditional Tier", allConditions: "All Conditions", noProfiles: "No tier boards match this filter", globalTab: "Global", conditionalTab: "Conditional", profileDeleted: "Tier deleted", shareUrl: "Share URL", saveImage: "Save as Image", shareCopied: "Share URL copied", shareCopyFailed: "Failed to copy URL", imageSaved: "Image saved", imageSaveFailed: "Failed to save image", shareLoaded: "Loaded tier from shared URL" },
+    tier: { characterBoard: "Character Tier", racketBoard: "Racket Tier", poolTitle: "Unassigned Icons", modalTitle: "Edit Tier Row", labelName: "Label", labelColor: "Background color", clearRow: "Clear row", addAbove: "Add row above", addBelow: "Add row below", deleteRow: "Delete row", addItem: "Add row", unassigned: "Unassigned", ruleTitle: "Rule filters", addGlobal: "Add Global Tier", addConditional: "Add Conditional Tier", deleteProfile: "Delete Current Tier", courtType: "Court Type", gameMode: "Game Mode", itemRule: "Fever Racket", globalLabel: "Global Tier", conditionalLabel: "Conditional Tier", allConditions: "All Conditions", noProfiles: "No tier boards match this filter", globalTab: "Global", conditionalTab: "Conditional", profileDeleted: "Tier deleted", shareUrl: "Share URL", shareX: "Share on X", saveImage: "Save as Image", shareCopied: "Share URL copied", shareCopyFailed: "Failed to copy URL", shareXOpened: "Opened X share dialog", shareXFailed: "Failed to open X share dialog", imageSaved: "Image saved", imageSaveFailed: "Failed to save image", shareLoaded: "Loaded tier from shared URL" },
   },
 };
 
@@ -401,6 +401,12 @@ function getTierShareUrl() {
   const url = new URL(window.location.href);
   url.searchParams.set(TIER_SHARE_QUERY_KEY, encodeTierSharePayload(buildTierSharePayload()));
   return url.toString();
+}
+
+function getTierShareText(boardKey) {
+  const title = boardKey === "characters" ? t("tier.characterBoard") : t("tier.racketBoard");
+  const profile = getActiveTierProfile(boardKey);
+  return `#マリオテニスフィーバー ${title} | ${getProfileMetaLabel(profile.meta)}`;
 }
 
 function applyTierSharePayload(payload) {
@@ -2123,6 +2129,23 @@ function setupTierShareActions() {
         } catch {
           showTierShareStatus(boardKey, "tier.shareCopyFailed");
         }
+      }
+    });
+  });
+
+  document.querySelectorAll("[data-tier-share-x]").forEach((button) => {
+    button.addEventListener("click", () => {
+      const boardKey = button.dataset.tierShareX;
+      if (boardKey !== "characters" && boardKey !== "rackets") return;
+
+      try {
+        const shareUrl = getTierShareUrl();
+        const text = getTierShareText(boardKey);
+        const intent = `https://x.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(shareUrl)}`;
+        window.open(intent, "_blank", "noopener,noreferrer");
+        showTierShareStatus(boardKey, "tier.shareXOpened");
+      } catch {
+        showTierShareStatus(boardKey, "tier.shareXFailed");
       }
     });
   });

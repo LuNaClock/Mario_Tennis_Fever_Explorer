@@ -754,14 +754,35 @@ img {
 }
 
 .tier-share-btn {
-  border: 1px solid var(--border);
-  background: rgba(8, 26, 42, 0.9);
-  color: var(--text);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  color: #ffffff;
   border-radius: 999px;
-  padding: 6px 12px;
-  font-size: 0.78rem;
-  font-weight: 700;
+  padding: 8px 14px;
+  font-size: 0.82rem;
+  font-weight: 800;
+  letter-spacing: 0.02em;
   cursor: pointer;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.28);
+  transition: transform 0.15s ease, box-shadow 0.15s ease, filter 0.15s ease;
+}
+
+.tier-share-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.34);
+  filter: brightness(1.04);
+}
+
+.tier-share-btn--url {
+  background: linear-gradient(135deg, #2563eb, #1d4ed8);
+}
+
+.tier-share-btn--x {
+  background: linear-gradient(135deg, #0f172a, #020617);
+  border-color: rgba(255, 255, 255, 0.35);
+}
+
+.tier-share-btn--image {
+  background: linear-gradient(135deg, #f97316, #ea580c);
 }
 
 .tier-share-status {
