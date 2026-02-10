@@ -429,15 +429,16 @@ async function buildTierBoardCanvas(boardKey) {
   ctx.lineWidth = 1;
   ctx.strokeRect(14.5, 52.5, boardWidth - 29, 51);
 
-  const metaLabel = getProfileMetaLabel(profile.meta);
-  let metaFontSize = 22;
+  const metaParts = getProfileMetaParts(profile.meta);
+  let metaFontSize = 20;
+  let metaWidth = Infinity;
   do {
     ctx.font = `bold ${metaFontSize}px sans-serif`;
-    if (ctx.measureText(metaLabel).width <= boardWidth - 48 || metaFontSize <= 15) break;
+    metaWidth = measureTierMetaPartsWidth(ctx, metaParts);
+    if (metaWidth <= boardWidth - 48 || metaFontSize <= 14) break;
     metaFontSize -= 1;
-  } while (metaFontSize > 15);
-  ctx.fillStyle = "#d8eaff";
-  ctx.fillText(metaLabel, 24, 86);
+  } while (metaFontSize > 14);
+  drawTierMetaParts(ctx, metaParts, 24, 86);
 
   let y = headerHeight;
   for (let i = 0; i < rows.length; i += 1) {
@@ -513,6 +514,68 @@ function getProfileMetaLabel(meta) {
   const modeLabel = t(`tierValue.${meta.gameMode}`);
   const itemLabels = { on: t("common.yes"), off: t("common.no") };
   return `${t("tier.itemRule")}: ${itemLabels[meta.items] ?? meta.items} / ${t("tier.gameMode")}: ${modeLabel} / ${t("tier.courtType")}: ${courtLabel}`;
+}
+
+function getProfileMetaParts(meta) {
+  const courtLabel = meta.courtType === "all" ? t("common.any") : t(`tierValue.${meta.courtType}`);
+  const modeLabel = t(`tierValue.${meta.gameMode}`);
+  const itemLabels = { on: t("common.yes"), off: t("common.no") };
+  return [
+    { label: `${t("tier.itemRule")}: `, value: itemLabels[meta.items] ?? meta.items, color: "#f97316" },
+    { label: `${t("tier.gameMode")}: `, value: modeLabel, color: "#22c55e" },
+    { label: `${t("tier.courtType")}: `, value: courtLabel, color: "#38bdf8" },
+  ];
+}
+
+function measureTierMetaPartsWidth(ctx, parts) {
+  let width = 0;
+  for (let i = 0; i < parts.length; i += 1) {
+    const part = parts[i];
+    width += ctx.measureText(part.label).width;
+    width += ctx.measureText(part.value).width + 18;
+    if (i < parts.length - 1) width += ctx.measureText(" / ").width;
+  }
+  return width;
+}
+
+function drawRoundedRect(ctx, x, y, width, height, radius) {
+  const r = Math.min(radius, width / 2, height / 2);
+  ctx.beginPath();
+  ctx.moveTo(x + r, y);
+  ctx.arcTo(x + width, y, x + width, y + height, r);
+  ctx.arcTo(x + width, y + height, x, y + height, r);
+  ctx.arcTo(x, y + height, x, y, r);
+  ctx.arcTo(x, y, x + width, y, r);
+  ctx.closePath();
+}
+
+function drawTierMetaParts(ctx, parts, startX, baselineY) {
+  let x = startX;
+  for (let i = 0; i < parts.length; i += 1) {
+    const part = parts[i];
+    ctx.fillStyle = "#b9d5eb";
+    ctx.fillText(part.label, x, baselineY);
+    x += ctx.measureText(part.label).width;
+
+    const valueWidth = ctx.measureText(part.value).width;
+    const boxWidth = valueWidth + 18;
+    const boxHeight = 28;
+    const boxY = baselineY - 22;
+
+    ctx.fillStyle = part.color;
+    drawRoundedRect(ctx, x, boxY, boxWidth, boxHeight, 8);
+    ctx.fill();
+
+    ctx.fillStyle = "#061522";
+    ctx.fillText(part.value, x + 9, baselineY);
+    x += boxWidth;
+
+    if (i < parts.length - 1) {
+      ctx.fillStyle = "#8eb4d1";
+      ctx.fillText(" / ", x, baselineY);
+      x += ctx.measureText(" / ").width;
+    }
+  }
 }
 
 function updateTierRuleLabel(boardKey) {
