@@ -454,15 +454,6 @@ function isMobileView() {
   return window.matchMedia("(max-width: 768px)").matches;
 }
 
-function renderWithScrollLock(renderFn) {
-  const scrollX = window.scrollX;
-  const scrollY = window.scrollY;
-  renderFn();
-  window.requestAnimationFrame(() => {
-    window.scrollTo(scrollX, scrollY);
-  });
-}
-
 function createFavoriteButton(itemType, isFavorite, onToggle) {
   const button = document.createElement("button");
   button.type = "button";
@@ -530,7 +521,9 @@ function createCharacterCard(character) {
       favoriteCharacterIds.delete(characterIndex);
     }
     saveFavoriteSet(FAVORITE_STORAGE_KEYS.characters, favoriteCharacterIds);
-    renderWithScrollLock(renderCharacters);
+    if (characterFavoriteFilter?.value === "favorites" && !active) {
+      renderCharacters();
+    }
   });
 
   media.append(image, favoriteButton);
@@ -633,7 +626,9 @@ function createRacketCard(racket) {
       favoriteRacketIds.delete(racketIndex);
     }
     saveFavoriteSet(FAVORITE_STORAGE_KEYS.rackets, favoriteRacketIds);
-    renderWithScrollLock(renderRackets);
+    if (racketFavoriteFilter?.value === "favorites" && !active) {
+      renderRackets();
+    }
   });
 
   media.append(image, favoriteButton);
