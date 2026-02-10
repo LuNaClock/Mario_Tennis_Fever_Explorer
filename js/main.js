@@ -370,7 +370,7 @@ function showTierShareStatus(boardKey, messageKey) {
 function getTierShareText(boardKey) {
   const title = boardKey === "characters" ? t("tier.characterBoard") : t("tier.racketBoard");
   const profile = getActiveTierProfile(boardKey);
-  return `#マリオテニスフィーバー ${title} | ${getProfileMetaLabel(profile.meta)}\n#MariTenniExplorer\nhttps://mariotennis-fever-explorer.ai-lifebook.com/#tier`;
+  return `#マリオテニスフィーバー ${title} | ${getProfileMetaLabel(profile.meta)}\nhttps://mariotennis-fever-explorer.ai-lifebook.com/\n#MariTenniExplorer`;
 }
 
 function loadImage(src) {
