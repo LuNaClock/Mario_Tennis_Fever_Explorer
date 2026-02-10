@@ -747,6 +747,31 @@ img {
 }
 
 
+.tier-share-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.tier-share-btn {
+  border: 1px solid var(--border);
+  background: rgba(8, 26, 42, 0.9);
+  color: var(--text);
+  border-radius: 999px;
+  padding: 6px 12px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.tier-share-status {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.78rem;
+  min-height: 1.2em;
+}
+
+
 .tier-rule-filters {
   display: grid;
   gap: 8px;

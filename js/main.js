@@ -24,7 +24,7 @@ const translations = {
     meta: { iconSuffix: "のアイコン" },
     changelog: { title: "更新履歴" },
     favorite: { addCharacter: "お気に入りに追加", removeCharacter: "お気に入り解除", addRacket: "お気に入りに追加", removeRacket: "お気に入り解除" },
-    tier: { characterBoard: "キャラTier", racketBoard: "ラケットTier", poolTitle: "未配置アイコン", modalTitle: "Tier行を編集", labelName: "ラベル名", labelColor: "背景色", clearRow: "行の中身をクリア", addAbove: "上に行追加", addBelow: "下に行追加", deleteRow: "行を削除", addItem: "行を追加", unassigned: "未配置", ruleTitle: "ルール条件", addGlobal: "全ルール共通Tierを追加", addConditional: "条件別Tierを追加", deleteProfile: "現在のTierを削除", courtType: "コート種別", gameMode: "ゲームモード", itemRule: "フィーバーラケット", globalLabel: "全ルール共通Tier", conditionalLabel: "条件別Tier", allConditions: "全条件", noProfiles: "該当するTierはありません", globalTab: "全ルール共通", conditionalTab: "条件別", profileDeleted: "Tierを削除しました" },
+    tier: { characterBoard: "キャラTier", racketBoard: "ラケットTier", poolTitle: "未配置アイコン", modalTitle: "Tier行を編集", labelName: "ラベル名", labelColor: "背景色", clearRow: "行の中身をクリア", addAbove: "上に行追加", addBelow: "下に行追加", deleteRow: "行を削除", addItem: "行を追加", unassigned: "未配置", ruleTitle: "ルール条件", addGlobal: "全ルール共通Tierを追加", addConditional: "条件別Tierを追加", deleteProfile: "現在のTierを削除", courtType: "コート種別", gameMode: "ゲームモード", itemRule: "フィーバーラケット", globalLabel: "全ルール共通Tier", conditionalLabel: "条件別Tier", allConditions: "全条件", noProfiles: "該当するTierはありません", globalTab: "全ルール共通", conditionalTab: "条件別", profileDeleted: "Tierを削除しました", shareUrl: "URLを共有", saveImage: "画像で保存", shareCopied: "共有URLをコピーしました", shareCopyFailed: "URLコピーに失敗しました", imageSaved: "画像を保存しました", imageSaveFailed: "画像の保存に失敗しました", shareLoaded: "共有URLのTierを読み込みました" },
   },
   en: {
     site: { pageTitle: "Mario Tennis Fever Data Explorer", pageDescription: "Reference site for Mario Tennis Fever character, racket, and system data.", title: "Mario Tennis Fever Explorer", language: "Language", lead: "A reference site to compare character and racket traits with filters and sorting." },
@@ -49,7 +49,7 @@ const translations = {
     meta: { iconSuffix: " icon" },
     changelog: { title: "Changelog" },
     favorite: { addCharacter: "Add to favorites", removeCharacter: "Remove from favorites", addRacket: "Add to favorites", removeRacket: "Remove from favorites" },
-    tier: { characterBoard: "Character Tier", racketBoard: "Racket Tier", poolTitle: "Unassigned Icons", modalTitle: "Edit Tier Row", labelName: "Label", labelColor: "Background color", clearRow: "Clear row", addAbove: "Add row above", addBelow: "Add row below", deleteRow: "Delete row", addItem: "Add row", unassigned: "Unassigned", ruleTitle: "Rule filters", addGlobal: "Add Global Tier", addConditional: "Add Conditional Tier", deleteProfile: "Delete Current Tier", courtType: "Court Type", gameMode: "Game Mode", itemRule: "Fever Racket", globalLabel: "Global Tier", conditionalLabel: "Conditional Tier", allConditions: "All Conditions", noProfiles: "No tier boards match this filter", globalTab: "Global", conditionalTab: "Conditional", profileDeleted: "Tier deleted" },
+    tier: { characterBoard: "Character Tier", racketBoard: "Racket Tier", poolTitle: "Unassigned Icons", modalTitle: "Edit Tier Row", labelName: "Label", labelColor: "Background color", clearRow: "Clear row", addAbove: "Add row above", addBelow: "Add row below", deleteRow: "Delete row", addItem: "Add row", unassigned: "Unassigned", ruleTitle: "Rule filters", addGlobal: "Add Global Tier", addConditional: "Add Conditional Tier", deleteProfile: "Delete Current Tier", courtType: "Court Type", gameMode: "Game Mode", itemRule: "Fever Racket", globalLabel: "Global Tier", conditionalLabel: "Conditional Tier", allConditions: "All Conditions", noProfiles: "No tier boards match this filter", globalTab: "Global", conditionalTab: "Conditional", profileDeleted: "Tier deleted", shareUrl: "Share URL", saveImage: "Save as Image", shareCopied: "Share URL copied", shareCopyFailed: "Failed to copy URL", imageSaved: "Image saved", imageSaveFailed: "Failed to save image", shareLoaded: "Loaded tier from shared URL" },
   },
 };
 
@@ -226,6 +226,13 @@ const tierMetaSelects = {
   rackets: Array.from(document.querySelectorAll('[data-tier-meta][data-tier-type="rackets"]')),
 };
 
+const tierShareStatus = {
+  characters: document.querySelector('[data-tier-share-status="characters"]'),
+  rackets: document.querySelector('[data-tier-share-status="rackets"]'),
+};
+
+const TIER_SHARE_QUERY_KEY = "tier";
+
 function makeTierRow(label, color) {
   return {
     id: `row-${Math.random().toString(36).slice(2, 10)}`,
@@ -350,6 +357,204 @@ function loadTierBoards() {
 const tierBoards = loadTierBoards();
 if (!tierBoards.characters.activeProfileId) tierBoards.characters.activeProfileId = tierBoards.characters.profiles[0].id;
 if (!tierBoards.rackets.activeProfileId) tierBoards.rackets.activeProfileId = tierBoards.rackets.profiles[0].id;
+
+function showTierShareStatus(boardKey, messageKey) {
+  const el = tierShareStatus[boardKey];
+  if (!el) return;
+  el.textContent = t(messageKey);
+  window.clearTimeout(el._clearTimerId);
+  el._clearTimerId = window.setTimeout(() => {
+    el.textContent = "";
+  }, 2400);
+}
+
+function cloneTierProfile(profile) {
+  return {
+    id: profile.id,
+    rows: profile.rows.map((row) => ({ ...row })),
+    placements: { ...profile.placements },
+    poolOrder: [...profile.poolOrder],
+    meta: { ...profile.meta },
+  };
+}
+
+function buildTierSharePayload() {
+  const characterProfile = getActiveTierProfile("characters");
+  const racketProfile = getActiveTierProfile("rackets");
+  return {
+    v: 1,
+    tab: currentTierTab,
+    characters: cloneTierProfile(characterProfile),
+    rackets: cloneTierProfile(racketProfile),
+  };
+}
+
+function encodeTierSharePayload(payload) {
+  return btoa(unescape(encodeURIComponent(JSON.stringify(payload))));
+}
+
+function decodeTierSharePayload(encoded) {
+  return JSON.parse(decodeURIComponent(escape(atob(encoded))));
+}
+
+function getTierShareUrl() {
+  const url = new URL(window.location.href);
+  url.searchParams.set(TIER_SHARE_QUERY_KEY, encodeTierSharePayload(buildTierSharePayload()));
+  return url.toString();
+}
+
+function applyTierSharePayload(payload) {
+  if (!payload || typeof payload !== "object") return false;
+
+  if (payload.characters) {
+    const normalized = normalizeSingleTierBoard(payload.characters, characters.length, "global");
+    tierBoards.characters.profiles = [normalized];
+    tierBoards.characters.activeProfileId = normalized.id;
+  }
+
+  if (payload.rackets) {
+    const normalized = normalizeSingleTierBoard(payload.rackets, rackets.length, "global");
+    tierBoards.rackets.profiles = [normalized];
+    tierBoards.rackets.activeProfileId = normalized.id;
+  }
+
+  if (payload.tab === "characters" || payload.tab === "rackets") {
+    currentTierTab = payload.tab;
+    tierTabButtons.forEach((tab) => tab.classList.toggle("is-active", tab.dataset.tierTab === currentTierTab));
+    tierPanels.forEach((panel) => panel.classList.toggle("is-active", panel.dataset.tierPanel === currentTierTab));
+  }
+
+  saveTierBoards();
+  return true;
+}
+
+function loadTierShareFromUrl() {
+  try {
+    const url = new URL(window.location.href);
+    const encoded = url.searchParams.get(TIER_SHARE_QUERY_KEY);
+    if (!encoded) return false;
+    const payload = decodeTierSharePayload(encoded);
+    return applyTierSharePayload(payload);
+  } catch {
+    return false;
+  }
+}
+
+function loadImage(src) {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    img.onload = () => resolve(img);
+    img.onerror = reject;
+    img.src = src;
+  });
+}
+
+async function exportTierBoardAsImage(boardKey) {
+  const profile = getActiveTierProfile(boardKey);
+  if (!profile) return;
+
+  const labelWidth = 90;
+  const iconSize = 42;
+  const gap = 6;
+  const rowMinHeight = 56;
+  const maxColumns = 8;
+  const boardWidth = 860;
+  const contentWidth = boardWidth - labelWidth - 24;
+
+  const rows = profile.rows.map((row) => {
+    const itemIndexes = Object.entries(profile.placements)
+      .filter(([, rowId]) => rowId === row.id)
+      .map(([index]) => Number(index))
+      .sort((a, b) => a - b);
+    return { row, itemIndexes };
+  });
+
+  const rowHeights = rows.map(({ itemIndexes }) => {
+    const lines = Math.max(1, Math.ceil(itemIndexes.length / maxColumns));
+    return Math.max(rowMinHeight, lines * iconSize + (lines - 1) * gap + 14);
+  });
+
+  const poolLines = Math.max(1, Math.ceil(profile.poolOrder.length / maxColumns));
+  const poolHeight = Math.max(rowMinHeight, poolLines * iconSize + (poolLines - 1) * gap + 14);
+  const headerHeight = 88;
+  const totalHeight = headerHeight + rowHeights.reduce((a, b) => a + b, 0) + poolHeight + 44;
+
+  const canvas = document.createElement("canvas");
+  canvas.width = boardWidth;
+  canvas.height = totalHeight;
+  const ctx = canvas.getContext("2d");
+  if (!ctx) throw new Error("canvas context unavailable");
+
+  ctx.fillStyle = "#061522";
+  ctx.fillRect(0, 0, boardWidth, totalHeight);
+
+  ctx.fillStyle = "#d8eaff";
+  ctx.font = "bold 24px sans-serif";
+  ctx.fillText(boardKey === "characters" ? t("tier.characterBoard") : t("tier.racketBoard"), 18, 34);
+  ctx.font = "14px sans-serif";
+  ctx.fillStyle = "#9fc3df";
+  ctx.fillText(getProfileMetaLabel(profile.meta), 18, 60);
+
+  let y = headerHeight;
+  for (let i = 0; i < rows.length; i += 1) {
+    const { row, itemIndexes } = rows[i];
+    const h = rowHeights[i];
+
+    ctx.fillStyle = row.color;
+    ctx.fillRect(12, y, labelWidth, h);
+    ctx.fillStyle = getContrastingColor(row.color);
+    ctx.font = "bold 20px sans-serif";
+    ctx.fillText(row.label, 22, y + 32);
+
+    ctx.fillStyle = "#0b1f31";
+    ctx.fillRect(12 + labelWidth, y, contentWidth, h);
+
+    for (let idx = 0; idx < itemIndexes.length; idx += 1) {
+      const itemIndex = itemIndexes[idx];
+      const col = idx % maxColumns;
+      const line = Math.floor(idx / maxColumns);
+      const x = 12 + labelWidth + 10 + col * (iconSize + gap);
+      const iy = y + 8 + line * (iconSize + gap);
+      const item = getBoardItem(boardKey, itemIndex);
+      try {
+        const img = await loadImage(item.image);
+        ctx.drawImage(img, x, iy, iconSize, iconSize);
+      } catch {
+        ctx.fillStyle = "#375c78";
+        ctx.fillRect(x, iy, iconSize, iconSize);
+      }
+    }
+
+    y += h;
+  }
+
+  ctx.fillStyle = "#9fc3df";
+  ctx.font = "bold 15px sans-serif";
+  ctx.fillText(t("tier.poolTitle"), 14, y + 20);
+  ctx.fillStyle = "#0b1f31";
+  ctx.fillRect(12, y + 26, boardWidth - 24, poolHeight);
+
+  for (let idx = 0; idx < profile.poolOrder.length; idx += 1) {
+    const itemIndex = profile.poolOrder[idx];
+    const col = idx % maxColumns;
+    const line = Math.floor(idx / maxColumns);
+    const x = 22 + col * (iconSize + gap);
+    const iy = y + 34 + line * (iconSize + gap);
+    const item = getBoardItem(boardKey, itemIndex);
+    try {
+      const img = await loadImage(item.image);
+      ctx.drawImage(img, x, iy, iconSize, iconSize);
+    } catch {
+      ctx.fillStyle = "#375c78";
+      ctx.fillRect(x, iy, iconSize, iconSize);
+    }
+  }
+
+  const link = document.createElement("a");
+  link.href = canvas.toDataURL("image/png");
+  link.download = `tier-${boardKey}-${Date.now()}.png`;
+  link.click();
+}
 
 function saveTierBoards() {
   localStorage.setItem(TIER_STORAGE_KEY, JSON.stringify(tierBoards));
@@ -1900,6 +2105,43 @@ function setupTierTabs() {
   });
 }
 
+function setupTierShareActions() {
+  document.querySelectorAll("[data-tier-share-url]").forEach((button) => {
+    button.addEventListener("click", async () => {
+      const boardKey = button.dataset.tierShareUrl;
+      if (boardKey !== "characters" && boardKey !== "rackets") return;
+
+      try {
+        const shareUrl = getTierShareUrl();
+        await navigator.clipboard.writeText(shareUrl);
+        showTierShareStatus(boardKey, "tier.shareCopied");
+      } catch {
+        try {
+          const shareUrl = getTierShareUrl();
+          window.prompt("Share URL", shareUrl);
+          showTierShareStatus(boardKey, "tier.shareCopied");
+        } catch {
+          showTierShareStatus(boardKey, "tier.shareCopyFailed");
+        }
+      }
+    });
+  });
+
+  document.querySelectorAll("[data-tier-save-image]").forEach((button) => {
+    button.addEventListener("click", async () => {
+      const boardKey = button.dataset.tierSaveImage;
+      if (boardKey !== "characters" && boardKey !== "rackets") return;
+
+      try {
+        await exportTierBoardAsImage(boardKey);
+        showTierShareStatus(boardKey, "tier.imageSaved");
+      } catch {
+        showTierShareStatus(boardKey, "tier.imageSaveFailed");
+      }
+    });
+  });
+}
+
 function setupTierModalActions() {
   if (!tierRowModal) return;
 
@@ -2051,6 +2293,7 @@ setupFilterModal("racket-filter-modal", "racket-inline-filters", "racket-modal-f
 setupChangelogModal();
 setupTierTabs();
 setupTierRuleManagers();
+setupTierShareActions();
 setupTierModalActions();
 
 if (localeSelect) {
@@ -2062,7 +2305,12 @@ if (localeSelect) {
 }
 
 syncLocaleSelect();
+const loadedFromShare = loadTierShareFromUrl();
 applyLocale();
+if (loadedFromShare) {
+  showTierShareStatus("characters", "tier.shareLoaded");
+  showTierShareStatus("rackets", "tier.shareLoaded");
+}
 setupSectionCollapse();
 setupAccordionRowSync();
 setupSectionNavVisibility();
