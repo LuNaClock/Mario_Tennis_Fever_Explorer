@@ -217,14 +217,6 @@ const TIER_STORAGE_KEY = "tierBoardsV2";
 let currentTierTab = "characters";
 let rowModalState = null;
 
-const tierProfileTabs = {
-  characters: document.querySelector('[data-tier-profile-tabs="characters"]'),
-  rackets: document.querySelector('[data-tier-profile-tabs="rackets"]'),
-};
-const tierProfileFilterTabs = {
-  characters: document.querySelector('[data-tier-profile-filters="characters"]'),
-  rackets: document.querySelector('[data-tier-profile-filters="rackets"]'),
-};
 const tierRuleLabels = {
   characters: document.querySelector('[data-tier-rule-label="characters"]'),
   rackets: document.querySelector('[data-tier-rule-label="rackets"]'),
@@ -232,11 +224,6 @@ const tierRuleLabels = {
 const tierMetaSelects = {
   characters: Array.from(document.querySelectorAll('[data-tier-meta][data-tier-type="characters"]')),
   rackets: Array.from(document.querySelectorAll('[data-tier-meta][data-tier-type="rackets"]')),
-};
-
-const tierProfileFilterState = {
-  characters: "all",
-  rackets: "all",
 };
 
 function makeTierRow(label, color) {
@@ -377,8 +364,7 @@ function getProfileMetaLabel(meta) {
   const courtLabel = meta.courtType === "all" ? t("common.any") : t(`tierValue.${meta.courtType}`);
   const modeLabel = meta.gameMode === "all" ? t("common.any") : t(`tierValue.${meta.gameMode}`);
   const itemLabels = { all: t("common.any"), on: t("common.yes"), off: t("common.no") };
-  const prefix = meta.kind === "global" ? t("tier.globalLabel") : t("tier.conditionalLabel");
-  return `${prefix} / ${t("tier.courtType")}: ${courtLabel} / ${t("tier.gameMode")}: ${modeLabel} / ${t("tier.itemRule")}: ${itemLabels[meta.items] ?? meta.items}`;
+  return `${t("tier.courtType")}: ${courtLabel} / ${t("tier.gameMode")}: ${modeLabel} / ${t("tier.itemRule")}: ${itemLabels[meta.items] ?? meta.items}`;
 }
 
 function updateTierRuleLabel(boardKey) {
@@ -1790,68 +1776,6 @@ function closeTierRowModal() {
   rowModalState = null;
 }
 
-function getFilteredTierProfiles(boardKey) {
-  const mode = tierProfileFilterState[boardKey];
-  const profiles = tierBoards[boardKey].profiles;
-  if (mode === "global") return profiles.filter((profile) => profile.meta.kind === "global");
-  if (mode === "conditional") return profiles.filter((profile) => profile.meta.kind !== "global");
-  return profiles;
-}
-
-function renderTierProfileTabs(boardKey) {
-  const tabWrap = tierProfileTabs[boardKey];
-  const filterWrap = tierProfileFilterTabs[boardKey];
-  if (!tabWrap || !filterWrap) return;
-
-  const filterFrag = document.createDocumentFragment();
-  [
-    { key: "all", label: t("tier.allConditions") },
-    { key: "global", label: t("tier.globalTab") },
-    { key: "conditional", label: t("tier.conditionalTab") },
-  ].forEach((filter) => {
-    const button = document.createElement("button");
-    button.type = "button";
-    button.className = `tier-profile-filter-tab${tierProfileFilterState[boardKey] === filter.key ? " is-active" : ""}`;
-    button.textContent = filter.label;
-    button.addEventListener("click", () => {
-      tierProfileFilterState[boardKey] = filter.key;
-      const visible = getFilteredTierProfiles(boardKey);
-      const activeId = tierBoards[boardKey].activeProfileId;
-      if (!visible.some((profile) => profile.id === activeId) && visible[0]) {
-        tierBoards[boardKey].activeProfileId = visible[0].id;
-      }
-      saveTierBoards();
-      renderTierBoard(boardKey);
-    });
-    filterFrag.append(button);
-  });
-  filterWrap.replaceChildren(filterFrag);
-
-  const profiles = getFilteredTierProfiles(boardKey);
-  const tabFrag = document.createDocumentFragment();
-  if (!profiles.length) {
-    const empty = document.createElement("p");
-    empty.className = "tier-profile-empty";
-    empty.textContent = t("tier.noProfiles");
-    tabFrag.append(empty);
-  } else {
-    profiles.forEach((profile, index) => {
-      const button = document.createElement("button");
-      button.type = "button";
-      button.className = `tier-profile-tab${tierBoards[boardKey].activeProfileId === profile.id ? " is-active" : ""}`;
-      const prefix = profile.meta.kind === "global" ? t("tier.globalLabel") : t("tier.conditionalLabel");
-      button.textContent = `${prefix} ${index + 1}`;
-      button.addEventListener("click", () => {
-        tierBoards[boardKey].activeProfileId = profile.id;
-        saveTierBoards();
-        renderTierBoard(boardKey);
-      });
-      tabFrag.append(button);
-    });
-  }
-  tabWrap.replaceChildren(tabFrag);
-}
-
 function syncTierMetaSelects(boardKey) {
   const active = getActiveTierProfile(boardKey);
   if (!active) return;
@@ -1859,12 +1783,10 @@ function syncTierMetaSelects(boardKey) {
     const key = select.dataset.tierMeta;
     if (!key) return;
     select.value = active.meta[key] ?? "all";
-    select.disabled = active.meta.kind === "global";
   });
 }
 
 function renderTierBoard(boardKey) {
-  renderTierProfileTabs(boardKey);
   const board = getActiveTierProfile(boardKey);
   const boardEl = boardKey === "characters" ? characterTierBoard : racketTierBoard;
   const poolEl = boardKey === "characters" ? characterTierPool : racketTierPool;
@@ -1953,39 +1875,11 @@ function renderTierBoard(boardKey) {
 }
 
 function setupTierRuleManagers() {
-  document.querySelectorAll("[data-tier-create]").forEach((button) => {
-    button.addEventListener("click", () => {
-      const boardKey = button.dataset.tierType;
-      const kind = button.dataset.tierCreate === "global" ? "global" : "conditional";
-      if (boardKey !== "characters" && boardKey !== "rackets") return;
-      const itemCount = boardKey === "characters" ? characters.length : rackets.length;
-      const profile = createInitialTierBoard(itemCount, kind);
-      tierBoards[boardKey].profiles.push(profile);
-      tierBoards[boardKey].activeProfileId = profile.id;
-      tierProfileFilterState[boardKey] = "all";
-      saveTierBoards();
-      renderTierBoard(boardKey);
-    });
-  });
-
-  document.querySelectorAll("[data-tier-delete-profile]").forEach((button) => {
-    button.addEventListener("click", () => {
-      const boardKey = button.dataset.tierType;
-      if (boardKey !== "characters" && boardKey !== "rackets") return;
-      const board = tierBoards[boardKey];
-      if (board.profiles.length <= 1) return;
-      board.profiles = board.profiles.filter((profile) => profile.id !== board.activeProfileId);
-      board.activeProfileId = board.profiles[0]?.id ?? null;
-      saveTierBoards();
-      renderTierBoard(boardKey);
-    });
-  });
-
   Object.entries(tierMetaSelects).forEach(([boardKey, selects]) => {
     selects.forEach((select) => {
       select.addEventListener("change", () => {
         const active = getActiveTierProfile(boardKey);
-        if (!active || active.meta.kind === "global") return;
+        if (!active) return;
         const key = select.dataset.tierMeta;
         if (!key) return;
         active.meta[key] = select.value;

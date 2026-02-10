@@ -746,50 +746,17 @@ img {
   font-size: 0.98rem;
 }
 
-.tier-rule-manager__actions,
-.tier-profile-tabs,
-.tier-profile-filter-tabs {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-
-.tier-action-btn,
-.tier-profile-tab,
-.tier-profile-filter-tab {
-  border: 1px solid var(--border);
-  background: rgba(8, 26, 42, 0.9);
-  color: var(--text);
-  border-radius: 999px;
-  padding: 6px 12px;
-  font-size: 0.82rem;
-  font-weight: 700;
-  cursor: pointer;
-}
-
-.tier-action-btn--danger {
-  border-color: rgba(255, 119, 119, 0.5);
-  color: #ffb5b5;
-}
-
-.tier-profile-tab.is-active,
-.tier-profile-filter-tab.is-active {
-  border-color: rgba(79, 195, 255, 0.5);
-  background: var(--accent-soft);
-  color: var(--accent);
-}
-
-.tier-profile-empty,
-.tier-rule-label {
-  margin: 0;
-  color: var(--muted);
-  font-size: 0.82rem;
-}
 
 .tier-rule-filters {
   display: grid;
   gap: 8px;
   grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.tier-rule-label {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.82rem;
 }
 
 .tier-tab {
