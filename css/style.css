@@ -772,17 +772,13 @@ img {
   filter: brightness(1.04);
 }
 
-.tier-share-btn--url {
-  background: linear-gradient(135deg, #2563eb, #1d4ed8);
-}
-
 .tier-share-btn--x {
-  background: linear-gradient(135deg, #0f172a, #020617);
-  border-color: rgba(255, 255, 255, 0.35);
+  background: linear-gradient(135deg, #111827, #000000);
+  border-color: rgba(255, 255, 255, 0.45);
 }
 
 .tier-share-btn--image {
-  background: linear-gradient(135deg, #f97316, #ea580c);
+  background: linear-gradient(135deg, #fb923c, #ea580c);
 }
 
 .tier-share-status {

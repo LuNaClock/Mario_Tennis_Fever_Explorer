@@ -24,7 +24,7 @@ const translations = {
     meta: { iconSuffix: "のアイコン" },
     changelog: { title: "更新履歴" },
     favorite: { addCharacter: "お気に入りに追加", removeCharacter: "お気に入り解除", addRacket: "お気に入りに追加", removeRacket: "お気に入り解除" },
-    tier: { characterBoard: "キャラTier", racketBoard: "ラケットTier", poolTitle: "未配置アイコン", modalTitle: "Tier行を編集", labelName: "ラベル名", labelColor: "背景色", clearRow: "行の中身をクリア", addAbove: "上に行追加", addBelow: "下に行追加", deleteRow: "行を削除", addItem: "行を追加", unassigned: "未配置", ruleTitle: "ルール条件", addGlobal: "全ルール共通Tierを追加", addConditional: "条件別Tierを追加", deleteProfile: "現在のTierを削除", courtType: "コート種別", gameMode: "ゲームモード", itemRule: "フィーバーラケット", globalLabel: "全ルール共通Tier", conditionalLabel: "条件別Tier", allConditions: "全条件", noProfiles: "該当するTierはありません", globalTab: "全ルール共通", conditionalTab: "条件別", profileDeleted: "Tierを削除しました", shareUrl: "URLを共有", shareX: "Xで共有", saveImage: "画像で保存", shareCopied: "共有URLをコピーしました", shareCopyFailed: "URLコピーに失敗しました", shareXOpened: "X共有画面を開きました", shareXFailed: "X共有画面を開けませんでした", imageSaved: "画像を保存しました", imageSaveFailed: "画像の保存に失敗しました", shareLoaded: "共有URLのTierを読み込みました" },
+    tier: { characterBoard: "キャラTier", racketBoard: "ラケットTier", poolTitle: "未配置アイコン", modalTitle: "Tier行を編集", labelName: "ラベル名", labelColor: "背景色", clearRow: "行の中身をクリア", addAbove: "上に行追加", addBelow: "下に行追加", deleteRow: "行を削除", addItem: "行を追加", unassigned: "未配置", ruleTitle: "ルール条件", addGlobal: "全ルール共通Tierを追加", addConditional: "条件別Tierを追加", deleteProfile: "現在のTierを削除", courtType: "コート種別", gameMode: "ゲームモード", itemRule: "フィーバーラケット", globalLabel: "全ルール共通Tier", conditionalLabel: "条件別Tier", allConditions: "全条件", noProfiles: "該当するTierはありません", globalTab: "全ルール共通", conditionalTab: "条件別", profileDeleted: "Tierを削除しました", shareX: "Xへ画像投稿", saveImage: "画像で保存", shareXOpened: "X投稿画面を開きました", shareXFallback: "画像保存後にX投稿画面を開きました", shareXFailed: "X投稿画面を開けませんでした", imageSaved: "画像を保存しました", imageSaveFailed: "画像の保存に失敗しました" },
   },
   en: {
     site: { pageTitle: "Mario Tennis Fever Data Explorer", pageDescription: "Reference site for Mario Tennis Fever character, racket, and system data.", title: "Mario Tennis Fever Explorer", language: "Language", lead: "A reference site to compare character and racket traits with filters and sorting." },
@@ -49,7 +49,7 @@ const translations = {
     meta: { iconSuffix: " icon" },
     changelog: { title: "Changelog" },
     favorite: { addCharacter: "Add to favorites", removeCharacter: "Remove from favorites", addRacket: "Add to favorites", removeRacket: "Remove from favorites" },
-    tier: { characterBoard: "Character Tier", racketBoard: "Racket Tier", poolTitle: "Unassigned Icons", modalTitle: "Edit Tier Row", labelName: "Label", labelColor: "Background color", clearRow: "Clear row", addAbove: "Add row above", addBelow: "Add row below", deleteRow: "Delete row", addItem: "Add row", unassigned: "Unassigned", ruleTitle: "Rule filters", addGlobal: "Add Global Tier", addConditional: "Add Conditional Tier", deleteProfile: "Delete Current Tier", courtType: "Court Type", gameMode: "Game Mode", itemRule: "Fever Racket", globalLabel: "Global Tier", conditionalLabel: "Conditional Tier", allConditions: "All Conditions", noProfiles: "No tier boards match this filter", globalTab: "Global", conditionalTab: "Conditional", profileDeleted: "Tier deleted", shareUrl: "Share URL", shareX: "Share on X", saveImage: "Save as Image", shareCopied: "Share URL copied", shareCopyFailed: "Failed to copy URL", shareXOpened: "Opened X share dialog", shareXFailed: "Failed to open X share dialog", imageSaved: "Image saved", imageSaveFailed: "Failed to save image", shareLoaded: "Loaded tier from shared URL" },
+    tier: { characterBoard: "Character Tier", racketBoard: "Racket Tier", poolTitle: "Unassigned Icons", modalTitle: "Edit Tier Row", labelName: "Label", labelColor: "Background color", clearRow: "Clear row", addAbove: "Add row above", addBelow: "Add row below", deleteRow: "Delete row", addItem: "Add row", unassigned: "Unassigned", ruleTitle: "Rule filters", addGlobal: "Add Global Tier", addConditional: "Add Conditional Tier", deleteProfile: "Delete Current Tier", courtType: "Court Type", gameMode: "Game Mode", itemRule: "Fever Racket", globalLabel: "Global Tier", conditionalLabel: "Conditional Tier", allConditions: "All Conditions", noProfiles: "No tier boards match this filter", globalTab: "Global", conditionalTab: "Conditional", profileDeleted: "Tier deleted", shareX: "Post Image to X", saveImage: "Save as Image", shareXOpened: "Opened X post dialog", shareXFallback: "Saved image and opened X post dialog", shareXFailed: "Failed to open X post dialog", imageSaved: "Image saved", imageSaveFailed: "Failed to save image" },
   },
 };
 
@@ -231,7 +231,6 @@ const tierShareStatus = {
   rackets: document.querySelector('[data-tier-share-status="rackets"]'),
 };
 
-const TIER_SHARE_QUERY_KEY = "tier";
 
 function makeTierRow(label, color) {
   return {
@@ -368,82 +367,10 @@ function showTierShareStatus(boardKey, messageKey) {
   }, 2400);
 }
 
-function cloneTierProfile(profile) {
-  return {
-    id: profile.id,
-    rows: profile.rows.map((row) => ({ ...row })),
-    placements: { ...profile.placements },
-    poolOrder: [...profile.poolOrder],
-    meta: { ...profile.meta },
-  };
-}
-
-function buildTierSharePayload() {
-  const characterProfile = getActiveTierProfile("characters");
-  const racketProfile = getActiveTierProfile("rackets");
-  return {
-    v: 1,
-    tab: currentTierTab,
-    characters: cloneTierProfile(characterProfile),
-    rackets: cloneTierProfile(racketProfile),
-  };
-}
-
-function encodeTierSharePayload(payload) {
-  return btoa(unescape(encodeURIComponent(JSON.stringify(payload))));
-}
-
-function decodeTierSharePayload(encoded) {
-  return JSON.parse(decodeURIComponent(escape(atob(encoded))));
-}
-
-function getTierShareUrl() {
-  const url = new URL(window.location.href);
-  url.searchParams.set(TIER_SHARE_QUERY_KEY, encodeTierSharePayload(buildTierSharePayload()));
-  return url.toString();
-}
-
 function getTierShareText(boardKey) {
   const title = boardKey === "characters" ? t("tier.characterBoard") : t("tier.racketBoard");
   const profile = getActiveTierProfile(boardKey);
   return `#マリオテニスフィーバー ${title} | ${getProfileMetaLabel(profile.meta)}`;
-}
-
-function applyTierSharePayload(payload) {
-  if (!payload || typeof payload !== "object") return false;
-
-  if (payload.characters) {
-    const normalized = normalizeSingleTierBoard(payload.characters, characters.length, "global");
-    tierBoards.characters.profiles = [normalized];
-    tierBoards.characters.activeProfileId = normalized.id;
-  }
-
-  if (payload.rackets) {
-    const normalized = normalizeSingleTierBoard(payload.rackets, rackets.length, "global");
-    tierBoards.rackets.profiles = [normalized];
-    tierBoards.rackets.activeProfileId = normalized.id;
-  }
-
-  if (payload.tab === "characters" || payload.tab === "rackets") {
-    currentTierTab = payload.tab;
-    tierTabButtons.forEach((tab) => tab.classList.toggle("is-active", tab.dataset.tierTab === currentTierTab));
-    tierPanels.forEach((panel) => panel.classList.toggle("is-active", panel.dataset.tierPanel === currentTierTab));
-  }
-
-  saveTierBoards();
-  return true;
-}
-
-function loadTierShareFromUrl() {
-  try {
-    const url = new URL(window.location.href);
-    const encoded = url.searchParams.get(TIER_SHARE_QUERY_KEY);
-    if (!encoded) return false;
-    const payload = decodeTierSharePayload(encoded);
-    return applyTierSharePayload(payload);
-  } catch {
-    return false;
-  }
 }
 
 function loadImage(src) {
@@ -455,9 +382,9 @@ function loadImage(src) {
   });
 }
 
-async function exportTierBoardAsImage(boardKey) {
+async function buildTierBoardCanvas(boardKey) {
   const profile = getActiveTierProfile(boardKey);
-  if (!profile) return;
+  if (!profile) throw new Error("profile not found");
 
   const labelWidth = 90;
   const iconSize = 42;
@@ -556,10 +483,19 @@ async function exportTierBoardAsImage(boardKey) {
     }
   }
 
+  return canvas;
+}
+
+function downloadCanvasAsPng(canvas, filename) {
   const link = document.createElement("a");
   link.href = canvas.toDataURL("image/png");
-  link.download = `tier-${boardKey}-${Date.now()}.png`;
+  link.download = filename;
   link.click();
+}
+
+async function exportTierBoardAsImage(boardKey) {
+  const canvas = await buildTierBoardCanvas(boardKey);
+  downloadCanvasAsPng(canvas, `tier-${boardKey}-${Date.now()}.png`);
 }
 
 function saveTierBoards() {
@@ -2112,38 +2048,34 @@ function setupTierTabs() {
 }
 
 function setupTierShareActions() {
-  document.querySelectorAll("[data-tier-share-url]").forEach((button) => {
-    button.addEventListener("click", async () => {
-      const boardKey = button.dataset.tierShareUrl;
-      if (boardKey !== "characters" && boardKey !== "rackets") return;
-
-      try {
-        const shareUrl = getTierShareUrl();
-        await navigator.clipboard.writeText(shareUrl);
-        showTierShareStatus(boardKey, "tier.shareCopied");
-      } catch {
-        try {
-          const shareUrl = getTierShareUrl();
-          window.prompt("Share URL", shareUrl);
-          showTierShareStatus(boardKey, "tier.shareCopied");
-        } catch {
-          showTierShareStatus(boardKey, "tier.shareCopyFailed");
-        }
-      }
-    });
-  });
-
   document.querySelectorAll("[data-tier-share-x]").forEach((button) => {
-    button.addEventListener("click", () => {
+    button.addEventListener("click", async () => {
       const boardKey = button.dataset.tierShareX;
       if (boardKey !== "characters" && boardKey !== "rackets") return;
 
       try {
-        const shareUrl = getTierShareUrl();
+        const canvas = await buildTierBoardCanvas(boardKey);
         const text = getTierShareText(boardKey);
-        const intent = `https://x.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(shareUrl)}`;
+
+        if (navigator.share && navigator.canShare) {
+          const blob = await new Promise((resolve) => canvas.toBlob(resolve, "image/png"));
+          if (!blob) throw new Error("blob conversion failed");
+          const file = new File([blob], `tier-${boardKey}.png`, { type: "image/png" });
+          if (navigator.canShare({ files: [file] })) {
+            await navigator.share({
+              files: [file],
+              text,
+              title: boardKey === "characters" ? t("tier.characterBoard") : t("tier.racketBoard"),
+            });
+            showTierShareStatus(boardKey, "tier.shareXOpened");
+            return;
+          }
+        }
+
+        downloadCanvasAsPng(canvas, `tier-${boardKey}-${Date.now()}.png`);
+        const intent = `https://x.com/intent/tweet?text=${encodeURIComponent(text)}`;
         window.open(intent, "_blank", "noopener,noreferrer");
-        showTierShareStatus(boardKey, "tier.shareXOpened");
+        showTierShareStatus(boardKey, "tier.shareXFallback");
       } catch {
         showTierShareStatus(boardKey, "tier.shareXFailed");
       }
@@ -2328,12 +2260,7 @@ if (localeSelect) {
 }
 
 syncLocaleSelect();
-const loadedFromShare = loadTierShareFromUrl();
 applyLocale();
-if (loadedFromShare) {
-  showTierShareStatus("characters", "tier.shareLoaded");
-  showTierShareStatus("rackets", "tier.shareLoaded");
-}
 setupSectionCollapse();
 setupAccordionRowSync();
 setupSectionNavVisibility();
