@@ -349,9 +349,8 @@ img {
   max-width: 260px;
 }
 
-#character-inline-filters #character-search,
-#racket-inline-filters #racket-search {
-  width: 210px;
+#character-inline-filters #character-search {
+  width: 175px;
   max-width: 100%;
 }
 
