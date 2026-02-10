@@ -553,19 +553,13 @@ export const tips = [
     title: { ja: "フィーバーゲージ2本分が溜まるまでの目安時間", en: "Approximate time to fill two Fever gauges" },
     category: "仕様",
     verification: "検証中",
-    content: { ja: "ラリーを継続している場合、フィーバーゲージ2本分が溜まるまでの目安は約○○秒（検証中）。", en: "While rallying continuously, the rough time to fill two Fever gauges is about XX seconds (under verification)." },
+    content: { ja: "ラリーを継続している場合、フィーバーゲージ2本分が溜まるまでの目安は約○○秒。", en: "While rallying continuously, the rough time to fill two Fever gauges is about XX seconds (under verification)." },
   },
   {
     title: { ja: "フィーバーショット同士の打ち合い時の判定", en: "Judgment when returning Fever Shot with Fever Shot" },
     category: "実践知識",
-    verification: "検証済",
-    content: { ja: "フィーバーショットをフィーバーショットで返球すると、ワンバウンドした扱いになる。", en: "When you return a Fever Shot with another Fever Shot, it is treated as if it bounced once." },
-  },
-  {
-    title: { ja: "チャージ開始タイミングで返球品質が変わる", en: "Return quality changes with charge timing" },
-    category: "実践知識",
     verification: "検証中",
-    content: { ja: "同じコースでも、チャージを早めに始めると返球が安定しやすい。追い込まれた場面ほど先行入力を意識すると有効。", en: "Even on the same course, starting charge earlier tends to stabilize returns. Early input becomes more effective when pressured." },
+    content: { ja: "フィーバーショットをフィーバーショットで返球すると、ワンバウンドした扱いになる。", en: "When you return a Fever Shot with another Fever Shot, it is treated as if it bounced once." },
   },
 ];
 
