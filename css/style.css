@@ -854,6 +854,29 @@ img {
   display: block;
 }
 
+.tier-matchup-summary {
+  margin: 8px 0 10px;
+  padding: 10px 12px;
+  border: 1px solid rgba(167, 139, 250, 0.45);
+  border-radius: 12px;
+  background: rgba(46, 16, 101, 0.24);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #e9defe;
+  font-weight: 700;
+}
+
+.tier-matchup-summary img {
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  border: 1px solid rgba(208, 186, 255, 0.6);
+  object-fit: cover;
+  background: rgba(11, 31, 49, 0.9);
+  flex-shrink: 0;
+}
+
 .tier-board {
   display: grid;
   gap: 10px;
