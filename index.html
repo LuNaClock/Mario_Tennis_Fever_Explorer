@@ -266,6 +266,15 @@
 
           <div class="tier-rule-filters">
             <label class="filter">
+              <span data-i18n="tier.matchupBase">基準キャラ</span>
+              <div class="tier-matchup-base-control">
+                <select data-tier-meta="matchupBase" data-tier-type="characters" id="tier-character-matchup-base">
+                  <option value="" data-i18n="tier.matchupBaseNone">指定なし</option>
+                </select>
+                <div class="tier-matchup-base-preview" id="tier-character-matchup-base-preview" hidden></div>
+              </div>
+            </label>
+            <label class="filter">
               <span data-i18n="tier.itemRule">フィーバーラケット</span>
               <select data-tier-meta="items" data-tier-type="characters">
                 <option value="on" data-i18n="common.yes">あり</option>
