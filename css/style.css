@@ -801,6 +801,34 @@ img {
   font-size: 0.82rem;
 }
 
+.tier-matchup-base-control {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.tier-matchup-base-control select {
+  flex: 1;
+}
+
+.tier-matchup-base-preview {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  border: 1px solid rgba(145, 182, 210, 0.5);
+  background: rgba(11, 31, 49, 0.95);
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.tier-matchup-base-preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
 
 .tier-tab {
   border: 1px solid var(--border);
@@ -824,6 +852,29 @@ img {
 
 .tier-panel.is-active {
   display: block;
+}
+
+.tier-matchup-summary {
+  margin: 8px 0 10px;
+  padding: 10px 12px;
+  border: 1px solid rgba(167, 139, 250, 0.45);
+  border-radius: 12px;
+  background: rgba(46, 16, 101, 0.24);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #e9defe;
+  font-weight: 700;
+}
+
+.tier-matchup-summary img {
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  border: 1px solid rgba(208, 186, 255, 0.6);
+  object-fit: cover;
+  background: rgba(11, 31, 49, 0.9);
+  flex-shrink: 0;
 }
 
 .tier-board {
