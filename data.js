@@ -328,7 +328,7 @@ export const characters = [
       timing: "即時",
       effect: { ja: "氷の床を設置。踏んでいる間滑って切り替えししづらくなる。強打をすると短時間行動不可", en: "Creates an icy floor. While on it, you slide and struggle to change direction. Using a power shot briefly prevents actions." },
       text: { ja: "バウンドした場所に氷の床を作る。氷で足が滑って強いショットを打ち返すと転ぶ", en: "It creates an icy floor at the bounce point. You slip on the ice, and trying to return a strong shot can make you fall." },
-      image: "assets/racket_icons/ice_racket.svg",
+      image: "assets/racket_icons/ice_racket.webp",
     },
     {
       name: { ja: "サンダーラケット", en: "Lightning Racket" },
@@ -504,7 +504,7 @@ export const characters = [
         timing: "バウンド時",
         effect: { ja: "まほうの杖を設置。設置地点からプレイヤーに直線軌道で弾を発射。触れると小時間行動不可 + ダメージ + ラケットがフライパンになり、一定時間フラット以外の球種が使用不可になる", en: "Places a magic wand. It fires projectiles in a straight line from its placement point toward players. Contact causes brief immobilization + damage, and your racket turns into a frying pan, disabling all shot types except flat for a while." },
         text: { ja: "バウンドした場所にまほうの杖を出現させる。まほうにふれるとラケットが変化", en: "A magic wand appears at the bounce point. Touching the magic changes your racket." },
-        image: "assets/racket_icons/magic_racket.svg",
+        image: "assets/racket_icons/magic_racket.webp",
       },
       {
         name: { ja: "キラーラケット", en: "Bullet Bill Racket" },
@@ -512,7 +512,7 @@ export const characters = [
         timing: "即時",
         effect: { ja: "打球時ボールをキラーに変化させ、一定時間後高弾速になる。変化後速くなるタイミングは球種によって変化し、スマッシュだと即時。強化時はコントロールに制限がかかり、コート端を狙ったショットは不可", en: "Transforms the ball into a Bullet Bill on hit, then boosts it to very high speed after a delay. The acceleration timing varies by shot type (immediate on smash). While boosted, control is restricted and edge-targeted shots are unavailable." },
         text: { ja: "使うとしばらくの間打つ時にボールをkillerに変える。キラーは高速でまっすぐ飛ぶ", en: "For a while after use, balls you hit turn into Bullet Bills. Bullet Bills fly fast in a straight line." },
-        image: "assets/racket_icons/killer_racket.svg",
+        image: "assets/racket_icons/killer_racket.webp",
       },
       {
         name: { ja: "ドッスンラケット", en: "Thwomp Racket" },
@@ -520,7 +520,7 @@ export const characters = [
         timing: "バウンド時",
         effect: { ja: "上空にドッスンを生成。落下地点付近にいると小時間行動不可+ダメージ。直撃するとK.O.。ボールがドッスンに当たると軌道が変化する。ダウン状態中さらに直撃すると長時間行動不可になるが、カウント状態は変化しない。", en: "Summons a Thwomp overhead. Being near its landing point causes brief immobilization + damage; a direct hit is a K.O. If the ball hits the Thwomp, its trajectory changes. A further direct hit while downed causes a longer immobilization, but the count state does not change." },
         text: { ja: "バウンドした場所にドッスンを出現させる。近づくとふみつぶされてしまう", en: "A Thwomp appears at the bounce point. Get close and you’ll be crushed." },
-        image: "assets/racket_icons/dossun_racket.svg",
+        image: "assets/racket_icons/dossun_racket.webp",
       },
       {
         name: { ja: "オシダシーラケット", en: "Shova Racket" },
@@ -528,7 +528,7 @@ export const characters = [
         timing: "即時",
         effect: { ja: "打球時、全ての球種で中距離をふきとばす強化状態になる。", en: "On hit, all shot types gain a strengthened knockback effect that blows opponents away a medium distance." },
         text: { ja: "使うとしばらくの間相手をコート奥に押し出す強化がつく。ショットの威力も少しあがる。", en: "For a while after use, your shots gain a pushback effect that forces opponents deeper into the court. Shot power also rises slightly." },
-        image: "assets/racket_icons/oshidasi_racket.svg",
+        image: "assets/racket_icons/oshidasi_racket.webp",
       },
     {
       name: { ja: "メタルラケット", en: "Metal Racket" },
@@ -536,7 +536,7 @@ export const characters = [
       timing: "即時",
       effect: { ja: "妨害を受けない無敵状態になり、ショット威力も上がる", en: "Become invincible and boost shot power." },
       text: { ja: "使うとしばらくの間コート上のジャマを受けないメタル状態に。ショット威力が少しあがる", en: "Using it puts you in a Metal state for a while, ignoring court hazards. Shot power increases slightly." },
-      image: "assets/racket_icons/metal_racket.svg",
+      image: "assets/racket_icons/metal_racket.webp",
     },
     {
         name: { ja: "ハテナケット", en: "Question Racket" },
@@ -544,7 +544,7 @@ export const characters = [
         timing: "その他",
         effect: { ja: "使用する度、全ラケットからランダムで効果が発生", en: "Each use triggers a random effect from the full racket pool." },
         text: { ja: "ショットするまでどの効果が出るか分からない。使うたびに効果がかわる", en: "You won’t know which effect appears until you shoot. The effect changes every time you use it." },
-        image: "assets/racket_icons/hatena_racket.svg",
+        image: "assets/racket_icons/hatena_racket.webp",
       },
     {
       name: { ja: "ブーメランラケット", en: "Boomerang Racket" },
@@ -552,7 +552,7 @@ export const characters = [
       timing: "即時",
       effect: { ja: "スイングモードのみ選択可能。プレイヤーの周りに円状に回るブーメランを設置し、短時間だけ自動返球できる。返球時は高速でよく曲がるスライスで打ち返す。", en: "Selectable in Swing Mode only. Places a boomerang that circles the player and enables automatic returns for a short time. Returns are high-speed, sharply curving slices." },
       text: { ja: "使うとしばらくの間自分のまわりをぐるぐるまわってボールを打ち返してくれる", en: "For a while after use, boomerangs spin around you and return balls on your behalf." },
-      image: "assets/racket_icons/boomerang_racket.svg",
+      image: "assets/racket_icons/boomerang_racket.webp",
     },
   ];
 
