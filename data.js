@@ -312,7 +312,7 @@ export const characters = [
      timing: "即時",
      effect: { ja: "高弾速の球を打つ。バウンドした場所付近に衝撃波が発生し、触れると小時間行動不可+ダメージ", en: "Hits a shot with boosted ball speed. (To be confirmed after release.)" },
      text: { ja: "特別な力はないが、手になじんで使いやすい。それぞれのお気に入りのラケット", en: "No special power, but it feels natural in your hand and is easy to use. Everyone has their own favorite racket." },
-     image: "assets/racket_icons/my_racket.svg",
+     image: "assets/racket_icons/my_racket.webp",
     },
     {
       name: { ja: "ファイアラケット", en: "Flame Racket" },
