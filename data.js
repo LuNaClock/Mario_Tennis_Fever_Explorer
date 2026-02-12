@@ -310,9 +310,9 @@ export const characters = [
      name: { ja: "マイラケット", en: "My Racket" },
      category: "その他",
      timing: "即時",
-     effect: { ja: "弾速を強化した球を打つ※発売後確認予定", en: "Hits a shot with boosted ball speed. (To be confirmed after release.)" },
-     text: { ja: "特別な力はないが、手になじんで使いやすい。それぞれのお気に入りのラケット", en: "It has no special power, but it feels natural in your hand and is easy to use—a favorite racket for everyone." },
-     image: "assets/racket_icons/my_racket.webp",
+     effect: { ja: "高弾速の球を打つ。バウンドした場所付近に衝撃波が発生し、触れると小時間行動不可+ダメージ", en: "Hits a shot with boosted ball speed. (To be confirmed after release.)" },
+     text: { ja: "特別な力はないが、手になじんで使いやすい。それぞれのお気に入りのラケット", en: "" },
+     image: "assets/racket_icons/my_racket.svg",
     },
     {
       name: { ja: "ファイアラケット", en: "Flame Racket" },
