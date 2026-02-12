@@ -550,7 +550,7 @@ export const characters = [
       name: { ja: "ブーメランラケット", en: "Boomerang Racket" },
       category: "強化",
       timing: "即時",
-      effect: { ja: "スイングモードのみ選択可能。プレイヤーの周りに円状に回るブーメランを設置し、短時間だけ自動返球できる。返球時は高速でよく曲がるスライスで打ち返す。", en: "Selectable only in Swing Mode. (To be confirmed after release.)" },
+      effect: { ja: "スイングモードのみ選択可能。プレイヤーの周りに円状に回るブーメランを設置し、短時間だけ自動返球できる。返球時は高速でよく曲がるスライスで打ち返す。", en: "" },
       text: { ja: "使うとしばらくの間自分のまわりをぐるぐるまわってボールを打ち返してくれる", en: "For a while after use, boomerangs spin around you and return balls on your behalf." },
       image: "assets/racket_icons/boomerang_racket.svg",
     },
