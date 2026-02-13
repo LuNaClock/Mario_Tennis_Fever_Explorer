@@ -35,7 +35,7 @@ export const characters = [
       name: { ja: "ロゼッタ", en: "Rosalina" },
       type: "トリッキー",
       stats: { speed: 3.5, power: 3.5, control: 3.5, spin: 3.5 },
-      special: { ja: "ロブ強化。浮遊:チャージ中の移動速度が速く、フィーバーラケットの床効果を無効にする", en: "Enhanced Lob. Floating: faster movement speed while charging and nullifies Fever Racket floor effects" },
+      special: { ja: "ロブ強化。浮遊:チャージ中の移動速度が速く、フィーバーラケットの床効果を受けない", en: "Enhanced Lob. Floating: faster movement speed while charging and nullifies Fever Racket floor effects" },
       text: { ja: "力強いショットとスピンで圧倒する。ネット際の相手の上をぬくロブは曲がる軌道で流れ星のように落ちる", en: "Overwhelms with powerful shots and heavy spin. Her lobs that sail over net players curve and drop like a shooting star.※To be confirmed after release." },
       image: "assets/character_icons/rosetta.webp",
     },
@@ -83,7 +83,7 @@ export const characters = [
       name: { ja: "チコ", en: "Luma" },
       type: "テクニック",
       stats: { speed: 2, power: 1.5, control: 4.5, spin: 2 },
-      special: { ja: "ライジング時、各ショット強化。浮遊:チャージ中の移動速度が速く、フィーバーラケットの床効果を無効にする", en: "When hitting on the rise, all shot types are enhanced. Floating: faster movement speed while charging and nullifies Fever Racket floor effects" },
+      special: { ja: "ライジング時、各ショット強化。浮遊:チャージ中の移動速度が速く、フィーバーラケットの床効果を受けない", en: "When hitting on the rise, all shot types are enhanced. Floating: faster movement speed while charging and nullifies Fever Racket floor effects" },
       text: { ja: "ふわふわと移動する銀河の星の子。ボールがバウンドした瞬間を打つライジングショットが特に強い", en: "Galaxy denizen who floats around the court. Returns are extra strong if hit right when the ball bounces." },
       image: "assets/character_icons/chico.webp",
     },
@@ -123,7 +123,7 @@ export const characters = [
       name: { ja: "テレサ", en: "Boo" },
       type: "トリッキー",
       stats: { speed: 3.5, power: 1, control: 2.5, spin: 5 },
-      special: { ja: "浮遊:チャージ中の移動速度が速く、フィーバーラケットの床効果を無効にする", en: "Floating: faster movement speed while charging and nullifies Fever Racket floor effects" },
+      special: { ja: "浮遊:チャージ中の移動速度が速く、フィーバーラケットの床効果を受けない", en: "Floating: faster movement speed while charging and nullifies Fever Racket floor effects" },
       text: { ja: "大きく曲がる下ボタンのスライスサーブでおどろかせるのが好き。よく曲がるスライスには根強いファンがいる", en: "Known for a surprisingly wide-curving B slice serve that keeps opponents on their toes." },
       image: "assets/character_icons/teresa.webp",
     },
@@ -147,7 +147,7 @@ export const characters = [
       name: { ja: "カメック", en: "Kamek" },
       type: "トリッキー",
       stats: { speed: 4, power: 1.5, control: 1.5, spin: 4.5 },
-      special: { ja: "浮遊:チャージ中の移動速度が速く、フィーバーラケットの床効果を無効にする", en: "Floating: faster movement speed while charging and nullifies Fever Racket floor effects" },
+      special: { ja: "浮遊:チャージ中の移動速度が速く、フィーバーラケットの床効果を受けない", en: "Floating: faster movement speed while charging and nullifies Fever Racket floor effects" },
       text: { ja: "クッパの手下のまほうつかい。クセのある曲がるショットが得意でトップスピンもスライスも曲がる", en: "Bowser’s minion magician. Excels at tricky bending shots—both topspin and slice can curve.※To be confirmed after release." },
       image: "assets/character_icons/kameck.webp",
     },
@@ -187,7 +187,7 @@ export const characters = [
       name: { ja: "パタパタ", en: "Koopa Paratroopa" },
       type: "テクニック",
       stats: { speed: 4, power: 2, control: 5, spin: 2.5 },
-      special: { ja: "ロブチャージ速度向上。浮遊:チャージ中の移動速度が速く、フィーバーラケットの床効果を無効にする", en: "Faster Lob Charge. Floating: faster movement speed while charging and nullifies Fever Racket floor effects" },
+      special: { ja: "ロブチャージ速度向上。浮遊:チャージ中の移動速度が速く、フィーバーラケットの床効果を受けない", en: "Faster Lob Charge. Floating: faster movement speed while charging and nullifies Fever Racket floor effects" },
       text: { ja: "コート端ぎりぎりをねらうのが得意。A→Bで打てるロブを早くチャージできる", en: "Skilled at landing shots at the court's edge. Lob shot A→B is quick to charge." },
       image: "assets/character_icons/patapata.webp",
     },
@@ -577,28 +577,28 @@ export const courts = [
 
 export const tips = [
   {
-    title: { ja: "フィーバーゲージについて", en: "" },
+    title: { ja: "フィーバーゲージについて", en: "About the Fever Gauge" },
     category: "仕様",
     verification: "検証済",
-    content: { ja: "サーブ開始直後から自動的に溜まっていく。最大値は2本分。1本目のフィーバーゲージは約26秒、1本目から2本目は約30秒で溜まる。", en: "" },
+    content: { ja: "サーブ開始直後から自動的に溜まっていく。最大値は2本分。1本目のフィーバーゲージは約26秒、1本目から2本目は約30秒で溜まる。", en: "It automatically starts filling right after the serve begins. The maximum is 2 bars. The first Fever bar fills in about 26 seconds, and the second fills in about 30 seconds after the first." },
   },
   {
     title: { ja: "浮遊キャラについて", en: "Floating character list" },
     category: "実践知識",
     verification: "検証済",
-    content: { ja: "ロゼッタ / パタパタ / テレサ / チコ / カメックの5キャラは、アイス/ドロドロ/インクラケットの床効果を無効にする。床上でのダメージは通常通り受ける。", en: "" },
+    content: { ja: "ロゼッタ / パタパタ / テレサ / チコ / カメックの5キャラは、アイス/ドロドロ/インクラケットの床効果を受けない。床上でのダメージは通常通り受け、ボールも床の影響を受ける。", en: "The five floating characters (Rosetta, Koopa Paratroopa, Boo, Luma, and Kamek) ignore floor effects from the Ice / Muddy / Ink rackets. They still take normal damage while standing on those floors." },
   },
     {
-    title: { ja: "フィーバーショットでの返球位置", en: "" },
+    title: { ja: "フィーバーショットでの返球位置", en: "Return position during a Fever Shot" },
     category: "実践知識",
     verification: "検証済",
-    content: { ja: "フィーバーショットでの返球位置は、最短距離ではなくボールに回り込むような挙動で行う。その為、ボールの角度が鋭い場合や弾速が速いと返球出来ない可能性が高くなる", en: "" },
+    content: { ja: "フィーバーショットでの返球位置は、最短距離ではなくボールに回り込むような挙動で行う。その為、ボールの角度が鋭い場合や弾速が速いと返球出来ない可能性が高くなる", en: "During a Fever Shot, the return movement tends to curve around the ball instead of taking the shortest path. Because of this, returns are more likely to fail when the shot angle is sharp or the ball speed is very high." },
   },
     {
-    title: { ja: "ラリーが続くと移動速度が低下", en: "" },
+    title: { ja: "ラリーが続くと移動速度が低下", en: "Movement speed drops during long rallies" },
     category: "実践知識",
     verification: "検証済",
-    content: { ja: "大体20ラリーくらいすると遅くなり、その後は10ラリー程度毎に加速度的に減速、恐らく90ラリーくらいで限界値になる", en: "" },
+    content: { ja: "大体20ラリーくらいすると遅くなり、その後は10ラリー程度毎に加速度的に減速、恐らく90ラリーくらいで限界値になる", en: "Movement starts slowing down at around 20 rallies, then decreases more rapidly about every 10 rallies after that. It likely reaches its lower limit around 90 rallies." },
   },
 ];
 
@@ -652,7 +652,9 @@ export const tips = [
       {
         date: { ja: "2025-02-13", en: "2025-02-13" },
         items: [
-            { ja: "コート一覧を実装", en: "Implemented the court list." }
+            { ja: "コート一覧を実装", en: "Implemented the court list." },
+            { ja: "特殊能力を更新", en: "Updated special abilities." },
+            { ja: "Tipsを更新", en: "Updated Tips." }
         ],
       },
   ];
