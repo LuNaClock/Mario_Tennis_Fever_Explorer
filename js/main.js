@@ -840,7 +840,7 @@ function createCourtMeterRow(label, value, symbol, meterClassName) {
 
   const numeric = document.createElement("span");
   numeric.className = "stat-number";
-  numeric.textContent = `${value.toFixed(0)}/5`;
+  numeric.textContent = `${value.toFixed(0)}`;
 
   valueWrap.append(meter, numeric);
   row.append(name, valueWrap);
