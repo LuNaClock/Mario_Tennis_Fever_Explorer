@@ -583,6 +583,12 @@ export const tips = [
     content: { ja: "サーブ開始直後から自動的に溜まっていく。最大値は2本分。1本目のフィーバーゲージは約26秒、1本目から2本目は約30秒で溜まる。", en: "It automatically starts filling right after the serve begins. The maximum is 2 bars. The first Fever bar fills in about 26 seconds, and the second fills in about 30 seconds after the first." },
   },
   {
+    title: { ja: "フィーバーゲージの溜まる速度", en: "Movement speed drops during long rallies" },
+    category: "実践知識",
+    verification: "検証済",
+    content: { ja: "2本目のゲージを溜めている最中の方が1本目に比べて僅かに溜まる速度が遅い為、先にフィーバーショットをした方がより効率的にゲージを溜められる", en: "" },
+  },
+  {
     title: { ja: "浮遊キャラについて", en: "Floating character list" },
     category: "実践知識",
     verification: "検証済",
