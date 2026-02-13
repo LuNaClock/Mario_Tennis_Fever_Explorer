@@ -509,6 +509,13 @@ img {
   padding: 8px;
 }
 
+.card-image--court {
+  width: 112px;
+  height: 72px;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
 .effect {
   margin: 0;
   padding: 12px 14px;

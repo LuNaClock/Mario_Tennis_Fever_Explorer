@@ -558,20 +558,20 @@ export const characters = [
 
 
 export const courts = [
-  { name: { ja: "スタジアム グラス", en: "Stadium Court (Grass)" }, ballSpeed: 4, bounce: 1 },
-  { name: { ja: "スタジアム ハード", en: "Stadium Court (Hard)" }, ballSpeed: 2, bounce: 2 },
-  { name: { ja: "スタジアム クレイ", en: "Stadium Court (Clay)" }, ballSpeed: 1, bounce: 3 },
-  { name: { ja: "アカデミー ウッド", en: "Academy Court (Wood)" }, ballSpeed: 3, bounce: 2 },
-  { name: { ja: "アカデミー ブロック", en: "Academy Court (Brick)" }, ballSpeed: 3, bounce: 4 },
-  { name: { ja: "アカデミー カーペット", en: "Academy Court (Carpet)" }, ballSpeed: 3, bounce: 2 },
-  { name: { ja: "アカデミー キノコ", en: "Academy Court (Mushroom)" }, ballSpeed: 2, bounce: 5 },
-  { name: { ja: "アカデミー サンド", en: "Academy Court (Sand)" }, ballSpeed: 1, bounce: 1 },
-  { name: { ja: "アカデミー アイス", en: "Academy Court (Ice)" }, ballSpeed: 3, bounce: 4 },
-  { name: { ja: "飛行船コート", en: "Airship Court" }, ballSpeed: 3, bounce: 2 },
-  { name: { ja: "フォレストコート", en: "Forest Court" }, ballSpeed: 1, bounce: 2 },
-  { name: { ja: "ワルイージピンボール", en: "Waluigi's Pinball Arcade" }, ballSpeed: 3, bounce: 2 },
-  { name: { ja: "ラケットファクトリー", en: "Racket Factory" }, ballSpeed: 3, bounce: 4 },
-  { name: { ja: "ワンダーコート", en: "Wonder Court" }, ballSpeed: 4, bounce: 2 },
+  { name: { ja: "スタジアム グラス", en: "Stadium Court (Grass)" }, ballSpeed: 4, bounce: 1, description: { ja: "（個人的な説明欄は後日更新予定）", en: "(Personal notes will be added later.)" }, text: { ja: "手入れのゆきとどいた芝はたまあしが速い。判断力が大事な本格的なスタジアムコート", en: "Well-manicured turf that increases ball speed. Keep your eyes sharp on this court." }, image: "assets/coat_icons/stadium_grass.webp" },
+  { name: { ja: "スタジアム ハード", en: "Stadium Court (Hard)" }, ballSpeed: 2, bounce: 2, description: { ja: "（個人的な説明欄は後日更新予定）", en: "(Personal notes will be added later.)" }, text: { ja: "ラバーにおおわれたバランスのよいはね具合。実力勝負にむいた本格的なスタジアムコート", en: "Rubber provides a balanced bounce. Good for real test of skill!" }, image: "assets/coat_icons/stadium_hard.webp" },
+  { name: { ja: "スタジアム クレイ", en: "Stadium Court (Clay)" }, ballSpeed: 1, bounce: 3, description: { ja: "（個人的な説明欄は後日更新予定）", en: "(Personal notes will be added later.)" }, text: { ja: "たまあしがおそくボールがよくはねる。駆け引きにむいた本格的なスタジアムコート", en: "Clay slows the ball down but increases bounce. Requires some strategic thinking." }, image: "assets/coat_icons/stadium_clay.webp" },
+  { name: { ja: "アカデミー ウッド", en: "Academy Court (Wood)" }, ballSpeed: 3, bounce: 2, description: { ja: "（個人的な説明欄は後日更新予定）", en: "(Personal notes will be added later.)" }, text: { ja: "自然なたまあしとバランスのよいバウンドで試合に集中できる木でつくられたコート", en: "Soft wood offers decent speed and balanced bounce. Demands focus." }, image: "assets/coat_icons/academy_wood.webp" },
+  { name: { ja: "アカデミー ブロック", en: "Academy Court (Brick)" }, ballSpeed: 3, bounce: 4, description: { ja: "（個人的な説明欄は後日更新予定）", en: "(Personal notes will be added later.)" }, text: { ja: "かたい石の床でボールが高くはねる。トップスピンでエースをねらおう", en: "Hard brick provides high bounce. Use topspin to try for an ace!" }, image: "assets/coat_icons/court_academy_bricks.webp" },
+  { name: { ja: "アカデミー カーペット", en: "Academy Court (Carpet)" }, ballSpeed: 3, bounce: 2, description: { ja: "（個人的な説明欄は後日更新予定）", en: "(Personal notes will be added later.)" }, text: { ja: "カーペットで作られた自然なたまあしとバランスのよいバウンドでプレイしやすいコート", en: "Soft carpeting provides solid speed and balanced bounce." }, image: "assets/coat_icons/academy_carpet.webp" },
+  { name: { ja: "アカデミー キノコ", en: "Academy Court (Mushroom)" }, ballSpeed: 2, bounce: 5, description: { ja: "（個人的な説明欄は後日更新予定）", en: "(Personal notes will be added later.)" }, text: { ja: "キノコの弾力でボールのはね具合は規格外!高く上がったボールはフラットで打ち込もう", en: "Springy mushroom gives the ball an erratic bounce. Counter the bounce with flat shots." }, image: "assets/coat_icons/academy_kinoko.webp" },
+  { name: { ja: "アカデミー サンド", en: "Academy Court (Sand)" }, ballSpeed: 1, bounce: 1, description: { ja: "（個人的な説明欄は後日更新予定）", en: "(Personal notes will be added later.)" }, text: { ja: "砂のコートでたまあしがおそく、バウンドもしない。積極的にドロップショットで決めにいこう", en: "Sandy terrain not good for speed or bounce. Concentrate on drop shots to score!" }, image: "assets/coat_icons/court_academy_sand.webp" },
+  { name: { ja: "アカデミー アイス", en: "Academy Court (Ice)" }, ballSpeed: 3, bounce: 4, description: { ja: "（個人的な説明欄は後日更新予定）", en: "(Personal notes will be added later.)" }, text: { ja: "かたい氷で作られたコート。足元が少しすべるので移動の時は注意しよう", en: "Hard and slick ice makes it difficult to move around. Try not to slip." }, image: "assets/coat_icons/academy_ice.webp" },
+  { name: { ja: "飛行船コート", en: "Airship Court" }, ballSpeed: 3, bounce: 2, description: { ja: "（個人的な説明欄は後日更新予定）", en: "(Personal notes will be added later.)" }, text: { ja: "キノコ王国の飛行船の甲板に作られたコート。空の旅を楽しみながらテニスもできる", en: "A court that takes place on an airship." }, image: "assets/coat_icons/airship_court.webp" },
+  { name: { ja: "フォレストコート", en: "Forest Court" }, ballSpeed: 1, bounce: 2, description: { ja: "（個人的な説明欄は後日更新予定）", en: "(Personal notes will be added later.)" }, text: { ja: "森の中に作られたコート。やわらかい地面がたまあしをおそくする", en: "Soft forest floor reduces the ball's speed." }, image: "assets/coat_icons/forest_court.webp" },
+  { name: { ja: "ワルイージピンボール", en: "Waluigi's Pinball Arcade" }, ballSpeed: 3, bounce: 2, description: { ja: "（個人的な説明欄は後日更新予定）", en: "(Personal notes will be added later.)" }, text: { ja: "ピンボールをイメージして作られたコート。ド派手なライトに気分も高まる?", en: "Inspired by pinball arcades, complete with neon lights and tile floors!" }, image: "assets/coat_icons/waluigi_pinball.webp" },
+  { name: { ja: "ラケットファクトリー", en: "Racket Factory" }, ballSpeed: 3, bounce: 4, description: { ja: "（個人的な説明欄は後日更新予定）", en: "(Personal notes will be added later.)" }, text: { ja: "ラケット工場内に作られたコート。これから使うラケットもここで作られたのかも", en: "Built inside a factory that might've made your racket!" }, image: "assets/coat_icons/racket_factory.webp" },
+  { name: { ja: "ワンダーコート", en: "Wonder Court" }, ballSpeed: 4, bounce: 2, description: { ja: "（個人的な説明欄は後日更新予定）", en: "(Personal notes will be added later.)" }, text: { ja: "『スーパーマリオブラザーズ ワンダー』より。フラワー王国に作られた不思議なコート", en: "Designed in the Flower Kingdom from Super Mario Bros. Wonder." }, image: "assets/coat_icons/wonder_court.webp" },
 ];
 
 
@@ -587,6 +587,12 @@ export const tips = [
     category: "実践知識",
     verification: "検証中",
     content: { ja: "フィーバーショットをフィーバーショットで返球すると、着弾位置によってはワンバウンドしてから打ち返す。", en: "When you return a Fever Shot with another Fever Shot, it is treated as if it bounced once." },
+  },
+  {
+    title: { ja: "浮遊キャラ一覧", en: "Floating character list" },
+    category: "実践知識",
+    verification: "検証中",
+    content: { ja: "ロゼッタ / パタパタ / テレサ / チコ / カメック", en: "Rosalina / Koopa Paratroopa / Boo / Luma / Kamek" },
   },
 ];
 
