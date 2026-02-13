@@ -223,6 +223,54 @@
       </div>
 
       <div id="court-content" class="section-content">
+      <div class="mobile-filter-trigger-wrap">
+        <button type="button" class="mobile-filter-trigger" data-modal-target="court-filter-modal" data-i18n="filter.searchAndFilter">検索・絞り込み</button>
+      </div>
+
+      <div class="active-filter-chips" id="court-active-filters" aria-live="polite"></div>
+
+      <div class="filters" id="court-inline-filters">
+        <label class="filter filter--search">
+          <span data-i18n="filter.search">検索</span>
+          <input id="court-search" type="search" placeholder="コート名で検索" data-i18n-attr="placeholder:placeholder.courtSearch" />
+        </label>
+        <label class="filter">
+          <span data-i18n="filter.favoritesOnly">お気に入り</span>
+          <select id="court-favorite-filter">
+            <option value="all" data-i18n="common.any">指定なし</option>
+            <option value="favorites" data-i18n="filter.favoritesOnly">お気に入りのみ</option>
+          </select>
+        </label>
+        <label class="filter">
+          <span data-i18n="filter.sortBy">ソート項目</span>
+          <select id="court-sort">
+            <option value="name" data-i18n="sort.name">名前</option>
+            <option value="ballSpeed" data-i18n="sort.ballSpeed">たまあし</option>
+            <option value="bounce" data-i18n="sort.bounce">バウンド</option>
+          </select>
+        </label>
+        <label class="filter">
+          <span data-i18n="filter.order">並び順</span>
+          <select id="court-order">
+            <option value="game" data-i18n="order.game">ゲーム内順</option>
+            <option value="asc" data-i18n="order.asc">昇順</option>
+            <option value="desc" data-i18n="order.desc">降順</option>
+          </select>
+        </label>
+      </div>
+
+      <div class="filter-modal" id="court-filter-modal" aria-hidden="true">
+        <div class="filter-modal__backdrop" data-modal-close="court-filter-modal"></div>
+        <div class="filter-modal__dialog" role="dialog" aria-modal="true" aria-labelledby="court-filter-modal-title">
+          <div class="filter-modal__header">
+            <h3 id="court-filter-modal-title" data-i18n="modal.courtFilter">コートの検索・絞り込み</h3>
+            <button type="button" class="filter-modal__close" data-modal-close="court-filter-modal" aria-label="閉じる" data-i18n-attr="aria-label:aria.close">✕</button>
+          </div>
+          <div class="filters filters--modal" id="court-modal-filters"></div>
+          <button type="button" class="filter-modal__apply" id="court-filter-apply">0件を表示</button>
+        </div>
+      </div>
+
         <div id="court-list" class="card-grid"></div>
       </div>
     </section>

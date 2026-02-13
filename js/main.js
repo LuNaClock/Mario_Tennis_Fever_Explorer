@@ -6,12 +6,12 @@ const translations = {
     nav: { characters: "キャラ", rackets: "ラケット", courts: "コート", tier: "Tier" },
     section: { characters: { title: "キャラクター一覧", description: "タイプ別の特徴やパラメータを比較できます。" }, rackets: { title: "ラケット一覧", description: "効果やタイミングを比較できます。" }, courts: { title: "コート一覧", description: "コートごとのたまあしとバウンドの特性を比較できます。" }, tips: { description: "試合で役立つ操作のポイントを素早く確認できます。" }, tier: { title: "Tier表", description: "キャラとラケットを自分基準でランク付けできます。" } },
     filter: { searchAndFilter: "検索・絞り込み", search: "検索", type: "タイプ", special: "特殊能力", favoritesOnly: "お気に入りのみ", sortBy: "ソート項目", order: "並び順", category: "種類", timing: "効果タイミング", tipsCategory: "カテゴリ", verification: "検証" },
-    modal: { characterFilter: "キャラクターの検索・絞り込み", racketFilter: "ラケットの検索・絞り込み" },
-    placeholder: { characterSearch: "キャラクター名で検索", racketSearch: "ラケット名で検索" },
+    modal: { characterFilter: "キャラクターの検索・絞り込み", racketFilter: "ラケットの検索・絞り込み", courtFilter: "コートの検索・絞り込み" },
+    placeholder: { characterSearch: "キャラクター名で検索", racketSearch: "ラケット名で検索", courtSearch: "コート名で検索" },
     footer: { note: "データは仮入力を含みます。後日更新予定です。", contactLabel: "作成者・問い合わせ先:", contactAccount: "@Lu_Na_Clock", changelog: "更新履歴" },
     stat: { speed: "スピード", power: "パワー", control: "コントロール", spin: "スピン" },
     court: { ballSpeed: "たまあし", bounce: "バウンド", note: "説明" },
-    sort: { name: "名前" },
+    sort: { name: "名前", ballSpeed: "たまあし", bounce: "バウンド" },
     order: { game: "ゲーム内順", asc: "昇順", desc: "降順", high: "数値が高い順", low: "数値が低い順" },
     common: { any: "指定なし", yes: "あり", no: "なし", wip: "仮実装", count: "{{count}}件表示", showCount: "{{count}}件を表示", searchHit: "検索ヒット: {{count}}件", noCharacter: "一致するキャラクターが見つかりません。", noRacket: "一致するラケットが見つかりません。", noTip: "一致するTipsが見つかりません。", language: "言語" },
     accordion: { special: "特殊能力", gameText: "ゲーム内テキスト", details: "全項目を見る", video: "動画で効果を確認する" },
@@ -26,7 +26,7 @@ const translations = {
     tierValue: { hard: "ハード", clay: "クレー", grass: "グラス", singles: "シングルス", doubles: "ダブルス", fever: "フィーバー" },
     meta: { iconSuffix: "のアイコン" },
     changelog: { title: "更新履歴" },
-    favorite: { addCharacter: "お気に入りに追加", removeCharacter: "お気に入り解除", addRacket: "お気に入りに追加", removeRacket: "お気に入り解除" },
+    favorite: { addCharacter: "お気に入りに追加", removeCharacter: "お気に入り解除", addRacket: "お気に入りに追加", removeRacket: "お気に入り解除", addCourt: "お気に入りに追加", removeCourt: "お気に入り解除" },
     tier: { characterBoard: "キャラTier", racketBoard: "ラケットTier", poolTitle: "未配置アイコン", modalTitle: "Tier行を編集", labelName: "ラベル名", labelColor: "背景色", clearRow: "行の中身をクリア", addAbove: "上に行追加", addBelow: "下に行追加", deleteRow: "行を削除", addItem: "行を追加", unassigned: "未配置", ruleTitle: "ルール条件", addGlobal: "全ルール共通Tierを追加", addConditional: "条件別Tierを追加", deleteProfile: "現在のTierを削除", courtType: "コート種別", gameMode: "ゲームモード", itemRule: "フィーバーラケット", matchupBase: "選択キャラ", matchupBaseNone: "指定なし", matchupBaseIconAlt: "選択キャラのアイコン", matchupSummary: "相性Tier:", matchupPerspectiveSuffix: "視点", globalLabel: "全ルール共通Tier", conditionalLabel: "条件別Tier", allConditions: "全条件", noProfiles: "該当するTierはありません", globalTab: "全ルール共通", conditionalTab: "条件別", profileDeleted: "Tierを削除しました", shareX: "Xへ画像投稿", saveImage: "画像で保存", shareXClipboard: "画像をコピーしました。X投稿画面で貼り付けてください", shareXClipboardAlert: "Tier画像をクリップボードにコピーしました。\nX投稿画面が開いたら、本文入力欄で貼り付け（Ctrl+V / 長押し→貼り付け）してください。", shareXFallback: "画像保存後にX投稿画面を開きました", shareXFallbackAlert: "クリップボードへのコピーに失敗したため、Tier画像を端末に保存しました。\nX投稿画面で画像を選択して添付してください。", shareXFailed: "X投稿画面を開けませんでした", imageSaved: "画像を保存しました", imageSaveFailed: "画像の保存に失敗しました" },
   },
   en: {
@@ -34,12 +34,12 @@ const translations = {
     nav: { characters: "Characters", rackets: "Rackets", courts: "Courts", tier: "Tier" },
     section: { characters: { title: "Character List", description: "Compare traits and parameters by type." }, rackets: { title: "Racket List", description: "Compare effects and trigger timing." }, courts: { title: "Court List", description: "Compare each court's ball speed and bounce characteristics." }, tips: { description: "Quickly review useful operation tips for matches." }, tier: { title: "Tier Board", description: "Rank characters and rackets by your own criteria." } },
     filter: { searchAndFilter: "Search / Filter", search: "Search", type: "Type", special: "Special", favoritesOnly: "Favorites only", sortBy: "Sort by", order: "Order", category: "Category", timing: "Effect timing", tipsCategory: "Category", verification: "Verification" },
-    modal: { characterFilter: "Character Search / Filter", racketFilter: "Racket Search / Filter" },
-    placeholder: { characterSearch: "Search by character name", racketSearch: "Search by racket name" },
+    modal: { characterFilter: "Character Search / Filter", racketFilter: "Racket Search / Filter", courtFilter: "Court Search / Filter" },
+    placeholder: { characterSearch: "Search by character name", racketSearch: "Search by racket name", courtSearch: "Search by court name" },
     footer: { note: "Some data is provisional and will be updated later.", contactLabel: "Creator & Contact:", contactAccount: "@Lu_Na_Clock", changelog: "Changelog" },
     stat: { speed: "Speed", power: "Power", control: "Control", spin: "Spin" },
     court: { ballSpeed: "Ball Speed", bounce: "Bounce", note: "Notes" },
-    sort: { name: "Name" },
+    sort: { name: "Name", ballSpeed: "Ball Speed", bounce: "Bounce" },
     order: { game: "Game order", asc: "A → Z", desc: "Z → A", high: "High → Low", low: "Low → High" },
     common: { any: "Any", yes: "Yes", no: "None", wip: "Work in progress", count: "{{count}} shown", showCount: "Show {{count}}", searchHit: "Search hits: {{count}}", noCharacter: "No matching characters found.", noRacket: "No matching rackets found.", noTip: "No matching tips found.", language: "Language" },
     accordion: { special: "Special", gameText: "In-game text", details: "Show all", video: "Watch effect video" },
@@ -54,7 +54,7 @@ const translations = {
     tierValue: { hard: "Hard", clay: "Clay", grass: "Grass", singles: "Singles", doubles: "Doubles", fever: "Fever" },
     meta: { iconSuffix: " icon" },
     changelog: { title: "Changelog" },
-    favorite: { addCharacter: "Add to favorites", removeCharacter: "Remove from favorites", addRacket: "Add to favorites", removeRacket: "Remove from favorites" },
+    favorite: { addCharacter: "Add to favorites", removeCharacter: "Remove from favorites", addRacket: "Add to favorites", removeRacket: "Remove from favorites", addCourt: "Add to favorites", removeCourt: "Remove from favorites" },
     tier: { characterBoard: "Character Tier", racketBoard: "Racket Tier", poolTitle: "Unassigned Icons", modalTitle: "Edit Tier Row", labelName: "Label", labelColor: "Background color", clearRow: "Clear row", addAbove: "Add row above", addBelow: "Add row below", deleteRow: "Delete row", addItem: "Add row", unassigned: "Unassigned", ruleTitle: "Rule filters", addGlobal: "Add Global Tier", addConditional: "Add Conditional Tier", deleteProfile: "Delete Current Tier", courtType: "Court Type", gameMode: "Game Mode", itemRule: "Fever Racket", matchupBase: "Selected Character", matchupBaseNone: "None", matchupBaseIconAlt: "Selected character icon", matchupSummary: "Matchup Tier:", matchupPerspectiveSuffix: " perspective", globalLabel: "Global Tier", conditionalLabel: "Conditional Tier", allConditions: "All Conditions", noProfiles: "No tier boards match this filter", globalTab: "Global", conditionalTab: "Conditional", profileDeleted: "Tier deleted", shareX: "Post Image to X", saveImage: "Save as Image", shareXClipboard: "Image copied. Paste it in the X composer.", shareXClipboardAlert: "Tier image copied to your clipboard.\nWhen the X composer opens, paste it into the post field.", shareXFallback: "Saved image and opened X post dialog", shareXFallbackAlert: "Clipboard copy failed, so the Tier image was downloaded.\nPlease attach the saved image in the X composer.", shareXFailed: "Failed to open X post dialog", imageSaved: "Image saved", imageSaveFailed: "Failed to save image" },
   },
 };
@@ -143,6 +143,12 @@ const racketActiveFilters = document.getElementById("racket-active-filters");
 const racketSearchResults = document.getElementById("racket-search-results");
 const racketModalSearchResults = document.getElementById("racket-modal-search-results");
 
+const courtSort = document.getElementById("court-sort");
+const courtOrder = document.getElementById("court-order");
+const courtSearch = document.getElementById("court-search");
+const courtFavoriteFilter = document.getElementById("court-favorite-filter");
+const courtActiveFilters = document.getElementById("court-active-filters");
+
 const characterFavoriteFilter = document.getElementById("character-favorite-filter");
 const racketFavoriteFilter = document.getElementById("racket-favorite-filter");
 const tipsCategoryFilter = document.getElementById("tips-category-filter");
@@ -151,6 +157,7 @@ const tipsVerificationFilter = document.getElementById("tips-verification-filter
 const FAVORITE_STORAGE_KEYS = {
   characters: "favoriteCharacters",
   rackets: "favoriteRackets",
+  courts: "favoriteCourts",
 };
 
 function loadFavoriteSet(key) {
@@ -165,6 +172,7 @@ function loadFavoriteSet(key) {
 
 let favoriteCharacterIds = loadFavoriteSet(FAVORITE_STORAGE_KEYS.characters);
 let favoriteRacketIds = loadFavoriteSet(FAVORITE_STORAGE_KEYS.rackets);
+let favoriteCourtIds = loadFavoriteSet(FAVORITE_STORAGE_KEYS.courts);
 
 function saveFavoriteSet(key, valueSet) {
   localStorage.setItem(key, JSON.stringify([...valueSet]));
@@ -178,6 +186,11 @@ function isFavoriteCharacter(character) {
 function isFavoriteRacket(racket) {
   const index = racketIndexMap.get(racket);
   return Number.isInteger(index) && favoriteRacketIds.has(index);
+}
+
+function isFavoriteCourt(court) {
+  const index = courtIndexMap.get(court);
+  return Number.isInteger(index) && favoriteCourtIds.has(index);
 }
 
 const sectionNavItems = Array.from(document.querySelectorAll(".js-section-nav a[data-target]"));
@@ -780,6 +793,7 @@ function getBoardName(datasetKey, item) {
 }
 
 const racketIndexMap = new Map(rackets.map((racket, index) => [racket, index]));
+const courtIndexMap = new Map(courts.map((court, index) => [court, index]));
 
 
 function createStatRow(label, value) {
@@ -863,7 +877,24 @@ function createCourtCard(court) {
   image.src = court.image;
   image.alt = `${localizeValue(court.name)} ${t("meta.iconSuffix")}`;
 
-  header.append(title, image);
+  const media = document.createElement("div");
+  media.className = "card-media";
+  const courtIndex = courtIndexMap.get(court);
+  const favoriteButton = createFavoriteButton("court", isFavoriteCourt(court), (active) => {
+    if (courtIndex == null) return;
+    if (active) {
+      favoriteCourtIds.add(courtIndex);
+    } else {
+      favoriteCourtIds.delete(courtIndex);
+    }
+    saveFavoriteSet(FAVORITE_STORAGE_KEYS.courts, favoriteCourtIds);
+    if (courtFavoriteFilter?.value === "favorites" && !active) {
+      renderCourts();
+    }
+  });
+
+  media.append(image, favoriteButton);
+  header.append(title, media);
 
   const stats = document.createElement("div");
   stats.className = "stats";
@@ -882,13 +913,84 @@ function createCourtCard(court) {
   return card;
 }
 
+function getFilteredCourts() {
+  const searchValue = normalizeKana(courtSearch?.value?.trim() || "");
+  const favoriteValue = courtFavoriteFilter?.value || "all";
+
+  let filtered = courts;
+  if (searchValue) {
+    filtered = filtered.filter((court) => normalizeKana(localizeValue(court.name)).includes(searchValue));
+  }
+  if (favoriteValue === "favorites") {
+    filtered = filtered.filter((court) => isFavoriteCourt(court));
+  }
+  return filtered;
+}
+
+function sortCourts(items, key, order) {
+  if (order === "game" && key === "name") {
+    return [...items];
+  }
+
+  const sorted = [...items];
+  sorted.sort((a, b) => {
+    if (key === "name") {
+      return order === "asc"
+        ? localizeValue(a.name).localeCompare(localizeValue(b.name), currentLocale)
+        : localizeValue(b.name).localeCompare(localizeValue(a.name), currentLocale);
+    }
+
+    const valueA = a[key] ?? 0;
+    const valueB = b[key] ?? 0;
+    return order === "asc" ? valueB - valueA : valueA - valueB;
+  });
+
+  return sorted;
+}
+
+function updateCourtActiveFilterChips() {
+  if (!courtActiveFilters) return;
+  courtActiveFilters.innerHTML = "";
+  const chips = [];
+
+  if (courtSearch?.value?.trim()) {
+    chips.push({ key: "search", label: `${t("chip.search")}: ${courtSearch.value.trim()}` });
+  }
+  if (courtFavoriteFilter?.value === "favorites") {
+    chips.push({ key: "favorite", label: `${t("chip.favorites")}: ${t("filter.favoritesOnly")}` });
+  }
+  if (courtSort?.value && courtSort.value !== "name") {
+    chips.push({ key: "sort", label: `${t("chip.sort")}: ${t(`sort.${courtSort.value}`)}` });
+  }
+  if (courtOrder?.value === "asc") {
+    chips.push({ key: "order", label: `${t("chip.order")}: ${courtSort?.value === "name" ? t("order.asc") : t("order.high")}` });
+  }
+  if (courtOrder?.value === "desc") {
+    chips.push({ key: "order", label: `${t("chip.order")}: ${courtSort?.value === "name" ? t("order.desc") : t("order.low")}` });
+  }
+
+  chips.forEach((chip) => {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "active-filter-chip";
+    button.dataset.filterKey = chip.key;
+    button.textContent = `${chip.label} ×`;
+    courtActiveFilters.append(button);
+  });
+}
+
 function renderCourts() {
   if (!courtList || !courtCount) return;
 
+  const filteredCourts = getFilteredCourts();
+  const sortedCourts = sortCourts(filteredCourts, courtSort?.value || "name", courtOrder?.value || "game");
+
   const fragment = document.createDocumentFragment();
-  courts.forEach((court) => fragment.append(createCourtCard(court)));
+  sortedCourts.forEach((court) => fragment.append(createCourtCard(court)));
   courtList.replaceChildren(fragment);
-  courtCount.textContent = t("common.count", { count: courts.length });
+  courtCount.textContent = t("common.count", { count: sortedCourts.length });
+  updateApplyButtonCount("court-filter-apply", sortedCourts.length);
+  updateCourtActiveFilterChips();
 }
 
 function getSortedStatEntries(stats) {
@@ -1020,9 +1122,12 @@ function createFavoriteButton(itemType, isFavorite, onToggle) {
     if (itemType === "character") {
       button.setAttribute("aria-label", active ? t("favorite.removeCharacter") : t("favorite.addCharacter"));
       button.title = active ? t("favorite.removeCharacter") : t("favorite.addCharacter");
-    } else {
+    } else if (itemType === "racket") {
       button.setAttribute("aria-label", active ? t("favorite.removeRacket") : t("favorite.addRacket"));
       button.title = active ? t("favorite.removeRacket") : t("favorite.addRacket");
+    } else {
+      button.setAttribute("aria-label", active ? t("favorite.removeCourt") : t("favorite.addCourt"));
+      button.title = active ? t("favorite.removeCourt") : t("favorite.addCourt");
     }
   };
 
@@ -1890,6 +1995,34 @@ function setupCharacterFilterChips() {
   });
 }
 
+function setupCourtFilterChips() {
+  courtActiveFilters?.addEventListener("click", (event) => {
+    const button = event.target.closest(".active-filter-chip");
+    if (!button) {
+      return;
+    }
+
+    switch (button.dataset.filterKey) {
+      case "search":
+        if (courtSearch) courtSearch.value = "";
+        break;
+      case "favorite":
+        if (courtFavoriteFilter) courtFavoriteFilter.value = "all";
+        break;
+      case "sort":
+        if (courtSort) courtSort.value = "name";
+        break;
+      case "order":
+        if (courtOrder) courtOrder.value = "game";
+        break;
+      default:
+        break;
+    }
+
+    renderCourts();
+  });
+}
+
 function setupFilterModal(modalId, inlineFilterId, modalFilterId, applyButtonId, onApply) {
   const modal = document.getElementById(modalId);
   const inlineFilters = document.getElementById(inlineFilterId);
@@ -2719,19 +2852,23 @@ function debounce(callback, delay = 150) {
 
 bindChangeListeners([characterTypeFilter, characterSpecialFilter, characterFavoriteFilter, characterOrder].filter(Boolean), renderCharacters);
 bindChangeListeners([racketTypeFilter, racketTimingFilter, racketFavoriteFilter, racketOrder].filter(Boolean), renderRackets);
+bindChangeListeners([courtFavoriteFilter, courtSort, courtOrder].filter(Boolean), renderCourts);
 characterSort.addEventListener("change", handleCharacterSortChange);
 characterSearch.addEventListener("input", debounce(renderCharacters));
 racketSearch.addEventListener("input", debounce(renderRackets));
+courtSearch?.addEventListener("input", debounce(renderCourts));
 tipsCategoryFilter?.addEventListener("change", renderTips);
 tipsVerificationFilter?.addEventListener("change", renderTips);
 
 
 setupCharacterFilterChips();
 setupRacketFilterChips();
+setupCourtFilterChips();
 setupCharacterSearchShortcutActions();
 setupRacketSearchShortcutActions();
 setupFilterModal("character-filter-modal", "character-inline-filters", "character-modal-filters", "character-filter-apply", renderCharacters);
 setupFilterModal("racket-filter-modal", "racket-inline-filters", "racket-modal-filters", "racket-filter-apply", renderRackets);
+setupFilterModal("court-filter-modal", "court-inline-filters", "court-modal-filters", "court-filter-apply", renderCourts);
 setupChangelogModal();
 setupTierTabs();
 setupTierRuleManagers();
