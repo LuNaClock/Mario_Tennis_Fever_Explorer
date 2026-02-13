@@ -641,6 +641,11 @@ export const tips = [
         date: { ja: "2025-02-12", en: "2025-02-12" },
         items: [
             { ja: "ラケット一覧の効果大幅更新", en: "Major overhaul of racket effect descriptions in the racket list." },
+        ],
+      },
+      {
+        date: { ja: "2025-02-13", en: "2025-02-13" },
+        items: [
             { ja: "コート一覧を実装", en: "Implemented the court list." }
         ],
       },
