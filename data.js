@@ -556,6 +556,25 @@ export const characters = [
     },
   ];
 
+
+export const courts = [
+  { name: { ja: "スタジアム グラス", en: "Stadium Court (Grass)" }, ballSpeed: 4, bounce: 1 },
+  { name: { ja: "スタジアム ハード", en: "Stadium Court (Hard)" }, ballSpeed: 2, bounce: 2 },
+  { name: { ja: "スタジアム クレイ", en: "Stadium Court (Clay)" }, ballSpeed: 1, bounce: 3 },
+  { name: { ja: "アカデミー ウッド", en: "Academy Court (Wood)" }, ballSpeed: 3, bounce: 2 },
+  { name: { ja: "アカデミー ブロック", en: "Academy Court (Brick)" }, ballSpeed: 3, bounce: 4 },
+  { name: { ja: "アカデミー カーペット", en: "Academy Court (Carpet)" }, ballSpeed: 3, bounce: 2 },
+  { name: { ja: "アカデミー キノコ", en: "Academy Court (Mushroom)" }, ballSpeed: 2, bounce: 5 },
+  { name: { ja: "アカデミー サンド", en: "Academy Court (Sand)" }, ballSpeed: 1, bounce: 1 },
+  { name: { ja: "アカデミー アイス", en: "Academy Court (Ice)" }, ballSpeed: 3, bounce: 4 },
+  { name: { ja: "飛行船コート", en: "Airship Court" }, ballSpeed: 3, bounce: 2 },
+  { name: { ja: "フォレストコート", en: "Forest Court" }, ballSpeed: 1, bounce: 2 },
+  { name: { ja: "ワルイージピンボール", en: "Waluigi's Pinball Arcade" }, ballSpeed: 3, bounce: 2 },
+  { name: { ja: "ラケットファクトリー", en: "Racket Factory" }, ballSpeed: 3, bounce: 4 },
+  { name: { ja: "ワンダーコート", en: "Wonder Court" }, ballSpeed: 4, bounce: 2 },
+];
+
+
 export const tips = [
   {
     title: { ja: "フィーバーゲージ2本分が溜まるまでの目安時間", en: "Approximate time to fill two Fever gauges" },
