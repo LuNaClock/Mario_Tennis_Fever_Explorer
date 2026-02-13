@@ -2158,6 +2158,7 @@ function setupAccordionRowSync() {
 
   characterList.addEventListener("click", handleAccordionClick);
   racketList.addEventListener("click", handleAccordionClick);
+  courtList.addEventListener("click", handleAccordionClick);
 }
 
 function setupSectionCollapse() {
