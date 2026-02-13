@@ -611,6 +611,33 @@ img {
   background: #43d37f;
 }
 
+
+
+.court-meter {
+  display: inline-flex;
+  gap: 4px;
+  align-items: center;
+  letter-spacing: 0.01em;
+}
+
+.court-meter__segment {
+  color: rgba(247, 251, 255, 0.26);
+  font-weight: 700;
+  line-height: 1;
+}
+
+.court-meter__segment[data-active="true"][data-level="1"] { color: #38bdf8; }
+.court-meter__segment[data-active="true"][data-level="2"] { color: #60d8f8; }
+.court-meter__segment[data-active="true"][data-level="3"] { color: #f4d35e; }
+.court-meter__segment[data-active="true"][data-level="4"] { color: #b8df5d; }
+.court-meter__segment[data-active="true"][data-level="5"] { color: #43d37f; }
+
+.court-meter--bounce .court-meter__segment[data-active="true"][data-level="1"] { color: #62c4ff; }
+.court-meter--bounce .court-meter__segment[data-active="true"][data-level="2"] { color: #8ad3ff; }
+.court-meter--bounce .court-meter__segment[data-active="true"][data-level="3"] { color: #b2e2ff; }
+.court-meter--bounce .court-meter__segment[data-active="true"][data-level="4"] { color: #d4eeff; }
+.court-meter--bounce .court-meter__segment[data-active="true"][data-level="5"] { color: #f0f8ff; }
+
 @keyframes stat-bar-grow {
   from {
     width: 0;

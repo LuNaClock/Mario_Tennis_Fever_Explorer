@@ -32,6 +32,7 @@
       <div class="section-nav__links js-section-nav" id="desktop-section-nav-links">
         <a class="section-nav__item" href="#characters" data-target="characters" data-i18n="nav.characters">キャラ</a>
         <a class="section-nav__item" href="#rackets" data-target="rackets" data-i18n="nav.rackets">ラケット</a>
+        <a class="section-nav__item" href="#courts" data-target="courts" data-i18n="nav.courts">コート</a>
         <a class="section-nav__item" href="#techniques" data-target="techniques">Tips</a>
         <a class="section-nav__item" href="#tier" data-target="tier" data-i18n="nav.tier">Tier</a>
       </div>
@@ -207,6 +208,25 @@
       </div>
     </section>
 
+
+    <section class="section" id="courts" data-nav-label="コート">
+      <div class="section-header">
+        <div>
+          <h2>
+            <button type="button" class="section-title-toggle" data-collapse-target="court-content" aria-expanded="true">
+              <span data-i18n="section.courts.title">コート一覧</span>
+              <span class="section-meta" id="court-count"></span>
+            </button>
+          </h2>
+          <p class="section-description" data-i18n="section.courts.description">コートごとのたまあしとバウンドの特性を比較できます。</p>
+        </div>
+      </div>
+
+      <div id="court-content" class="section-content">
+        <div id="court-list" class="card-grid"></div>
+      </div>
+    </section>
+
     <section class="section" id="techniques" data-nav-label="Tips">
       <div class="section-header">
         <div>
@@ -357,6 +377,7 @@
   <nav class="mobile-bottom-nav js-section-nav" aria-label="モバイルセクションナビ" data-i18n-attr="aria-label:aria.mobileNav">
     <a class="mobile-bottom-nav__item" href="#characters" data-target="characters" data-i18n="nav.characters">キャラ</a>
     <a class="mobile-bottom-nav__item" href="#rackets" data-target="rackets" data-i18n="nav.rackets">ラケット</a>
+    <a class="mobile-bottom-nav__item" href="#courts" data-target="courts" data-i18n="nav.courts">コート</a>
     <a class="mobile-bottom-nav__item" href="#techniques" data-target="techniques">Tips</a>
     <a class="mobile-bottom-nav__item" href="#tier" data-target="tier" data-i18n="nav.tier">Tier</a>
   </nav>

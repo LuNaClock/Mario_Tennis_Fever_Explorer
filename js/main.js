@@ -1,15 +1,16 @@
-import { characters, rackets, tips, changelog } from "../data.js";
+import { characters, rackets, courts, tips, changelog } from "../data.js";
 
 const translations = {
   ja: {
     site: { pageTitle: "マリオテニスフィーバー データ参照サイト", pageDescription: "マリオテニスフィーバーのキャラクターやラケット、システム関連データを一覧で確認できる参照サイト。", title: "マリオテニスフィーバー Explorer", language: "Language", lead: "キャラクターやラケットの特徴などを確認できるデータまとめサイトです。フィルタ・ソートで目的の情報を整理しながら参照できます。" },
-    nav: { characters: "キャラ", rackets: "ラケット", tier: "Tier" },
-    section: { characters: { title: "キャラクター一覧", description: "タイプ別の特徴やパラメータを比較できます。" }, rackets: { title: "ラケット一覧", description: "効果やタイミングを比較できます。" }, tips: { description: "試合で役立つ操作のポイントを素早く確認できます。" }, tier: { title: "Tier表", description: "キャラとラケットを自分基準でランク付けできます。" } },
+    nav: { characters: "キャラ", rackets: "ラケット", courts: "コート", tier: "Tier" },
+    section: { characters: { title: "キャラクター一覧", description: "タイプ別の特徴やパラメータを比較できます。" }, rackets: { title: "ラケット一覧", description: "効果やタイミングを比較できます。" }, courts: { title: "コート一覧", description: "コートごとのたまあしとバウンドの特性を比較できます。" }, tips: { description: "試合で役立つ操作のポイントを素早く確認できます。" }, tier: { title: "Tier表", description: "キャラとラケットを自分基準でランク付けできます。" } },
     filter: { searchAndFilter: "検索・絞り込み", search: "検索", type: "タイプ", special: "特殊能力", favoritesOnly: "お気に入りのみ", sortBy: "ソート項目", order: "並び順", category: "種類", timing: "効果タイミング", tipsCategory: "カテゴリ", verification: "検証" },
     modal: { characterFilter: "キャラクターの検索・絞り込み", racketFilter: "ラケットの検索・絞り込み" },
     placeholder: { characterSearch: "キャラクター名で検索", racketSearch: "ラケット名で検索" },
     footer: { note: "データは仮入力を含みます。後日更新予定です。", contactLabel: "作成者・問い合わせ先:", contactAccount: "@Lu_Na_Clock", changelog: "更新履歴" },
     stat: { speed: "スピード", power: "パワー", control: "コントロール", spin: "スピン" },
+    court: { ballSpeed: "たまあし", bounce: "バウンド" },
     sort: { name: "名前" },
     order: { game: "ゲーム内順", asc: "昇順", desc: "降順", high: "数値が高い順", low: "数値が低い順" },
     common: { any: "指定なし", yes: "あり", no: "なし", wip: "仮実装", count: "{{count}}件表示", showCount: "{{count}}件を表示", searchHit: "検索ヒット: {{count}}件", noCharacter: "一致するキャラクターが見つかりません。", noRacket: "一致するラケットが見つかりません。", noTip: "一致するTipsが見つかりません。", language: "言語" },
@@ -30,13 +31,14 @@ const translations = {
   },
   en: {
     site: { pageTitle: "Mario Tennis Fever Data Explorer", pageDescription: "Reference site for Mario Tennis Fever character, racket, and system data.", title: "Mario Tennis Fever Explorer", language: "Language", lead: "A reference site to compare character and racket traits with filters and sorting." },
-    nav: { characters: "Characters", rackets: "Rackets", tier: "Tier" },
-    section: { characters: { title: "Character List", description: "Compare traits and parameters by type." }, rackets: { title: "Racket List", description: "Compare effects and trigger timing." }, tips: { description: "Quickly review useful operation tips for matches." }, tier: { title: "Tier Board", description: "Rank characters and rackets by your own criteria." } },
+    nav: { characters: "Characters", rackets: "Rackets", courts: "Courts", tier: "Tier" },
+    section: { characters: { title: "Character List", description: "Compare traits and parameters by type." }, rackets: { title: "Racket List", description: "Compare effects and trigger timing." }, courts: { title: "Court List", description: "Compare each court's ball speed and bounce characteristics." }, tips: { description: "Quickly review useful operation tips for matches." }, tier: { title: "Tier Board", description: "Rank characters and rackets by your own criteria." } },
     filter: { searchAndFilter: "Search / Filter", search: "Search", type: "Type", special: "Special", favoritesOnly: "Favorites only", sortBy: "Sort by", order: "Order", category: "Category", timing: "Effect timing", tipsCategory: "Category", verification: "Verification" },
     modal: { characterFilter: "Character Search / Filter", racketFilter: "Racket Search / Filter" },
     placeholder: { characterSearch: "Search by character name", racketSearch: "Search by racket name" },
     footer: { note: "Some data is provisional and will be updated later.", contactLabel: "Creator & Contact:", contactAccount: "@Lu_Na_Clock", changelog: "Changelog" },
     stat: { speed: "Speed", power: "Power", control: "Control", spin: "Spin" },
+    court: { ballSpeed: "Ball Speed", bounce: "Bounce" },
     sort: { name: "Name" },
     order: { game: "Game order", asc: "A → Z", desc: "Z → A", high: "High → Low", low: "Low → High" },
     common: { any: "Any", yes: "Yes", no: "None", wip: "Work in progress", count: "{{count}} shown", showCount: "Show {{count}}", searchHit: "Search hits: {{count}}", noCharacter: "No matching characters found.", noRacket: "No matching rackets found.", noTip: "No matching tips found.", language: "Language" },
@@ -116,8 +118,10 @@ function getStatTier(value) {
 
 const characterList = document.getElementById("character-list");
 const racketList = document.getElementById("racket-list");
+const courtList = document.getElementById("court-list");
 const characterCount = document.getElementById("character-count");
 const racketCount = document.getElementById("racket-count");
+const courtCount = document.getElementById("court-count");
 const tipsList = document.getElementById("tips-list");
 const tipsCount = document.getElementById("tips-count");
 const tipsEmpty = document.getElementById("tips-empty");
@@ -807,6 +811,73 @@ function createStatRow(label, value) {
   row.append(name, valueWrap);
 
   return row;
+}
+
+function createCourtMeterRow(label, value, symbol, meterClassName) {
+  const row = document.createElement("div");
+  row.className = "stat-row";
+
+  const name = document.createElement("span");
+  name.className = "stat-label";
+  name.textContent = label;
+
+  const valueWrap = document.createElement("div");
+  valueWrap.className = "stat-value";
+
+  const meter = document.createElement("div");
+  meter.className = `court-meter ${meterClassName}`;
+
+  for (let i = 1; i <= 5; i += 1) {
+    const segment = document.createElement("span");
+    segment.className = "court-meter__segment";
+    segment.textContent = symbol;
+    if (i <= value) {
+      segment.dataset.active = "true";
+      segment.dataset.level = String(i);
+    }
+    meter.append(segment);
+  }
+
+  const numeric = document.createElement("span");
+  numeric.className = "stat-number";
+  numeric.textContent = `${value.toFixed(0)}`;
+
+  valueWrap.append(meter, numeric);
+  row.append(name, valueWrap);
+
+  return row;
+}
+
+function createCourtCard(court) {
+  const card = document.createElement("article");
+  card.className = "card";
+
+  const header = document.createElement("div");
+  header.className = "card-header";
+
+  const title = document.createElement("div");
+  title.innerHTML = `<h3>${localizeValue(court.name)}</h3>`;
+
+  header.append(title);
+
+  const stats = document.createElement("div");
+  stats.className = "stats";
+  stats.append(
+    createCourtMeterRow(t("court.ballSpeed"), court.ballSpeed, "→", "court-meter--speed"),
+    createCourtMeterRow(t("court.bounce"), court.bounce, "↗", "court-meter--bounce")
+  );
+
+  card.append(header, stats);
+  return card;
+}
+
+function renderCourts() {
+  if (!courtList || !courtCount) return;
+
+  const fragment = document.createDocumentFragment();
+  courts.forEach((court) => fragment.append(createCourtCard(court)));
+  courtList.replaceChildren(fragment);
+  courtCount.textContent = t("common.count", { count: courts.length });
 }
 
 function getSortedStatEntries(stats) {
@@ -2617,6 +2688,7 @@ function applyLocale() {
   syncCharacterOrderAvailability();
   renderCharacters();
   renderRackets();
+  renderCourts();
   renderTips();
   renderAllTierBoards();
 }
