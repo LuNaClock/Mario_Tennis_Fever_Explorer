@@ -903,13 +903,9 @@ function createCourtCard(court) {
     createCourtMeterRow(t("court.bounce"), court.bounce, "↗", "court-meter--bounce")
   );
 
-  const note = document.createElement("p");
-  note.className = "effect";
-  note.textContent = `${t("court.note")}: ${localizeValue(court.description ?? "")}`;
-
   const gameText = createAccordion(t("accordion.gameText"), localizeValue(court.text));
 
-  card.append(header, stats, note, gameText);
+  card.append(header, stats, gameText);
   return card;
 }
 
@@ -963,10 +959,10 @@ function updateCourtActiveFilterChips() {
     chips.push({ key: "sort", label: `${t("chip.sort")}: ${t(`sort.${courtSort.value}`)}` });
   }
   if (courtOrder?.value === "asc") {
-    chips.push({ key: "order", label: `${t("chip.order")}: ${courtSort?.value === "name" ? t("order.asc") : t("order.high")}` });
+    chips.push({ key: "order", label: `${t("chip.order")}: ${t("order.high")}` });
   }
   if (courtOrder?.value === "desc") {
-    chips.push({ key: "order", label: `${t("chip.order")}: ${courtSort?.value === "name" ? t("order.desc") : t("order.low")}` });
+    chips.push({ key: "order", label: `${t("chip.order")}: ${t("order.low")}` });
   }
 
   chips.forEach((chip) => {
@@ -982,6 +978,7 @@ function updateCourtActiveFilterChips() {
 function renderCourts() {
   if (!courtList || !courtCount) return;
 
+  syncCourtOrderAvailability();
   const filteredCourts = getFilteredCourts();
   const sortedCourts = sortCourts(filteredCourts, courtSort?.value || "name", courtOrder?.value || "game");
 
@@ -1512,6 +1509,28 @@ function handleCharacterSortChange() {
 
   renderCharacters();
 }
+
+function syncCourtOrderAvailability() {
+  if (!courtSort || !courtOrder) return;
+
+  const isNameSort = courtSort.value === "name";
+  const gameOrderOptions = Array.from(document.querySelectorAll('#court-order option[value="game"]'));
+
+  gameOrderOptions.forEach((option) => {
+    option.hidden = !isNameSort;
+    option.disabled = !isNameSort;
+  });
+
+  if (!isNameSort && courtOrder.value === "game") {
+    courtOrder.value = "asc";
+  }
+}
+
+function handleCourtSortChange() {
+  syncCourtOrderAvailability();
+  renderCourts();
+}
+
 
 function updateApplyButtonCount(buttonId, count) {
   const applyButton = document.getElementById(buttonId);
@@ -2852,8 +2871,9 @@ function debounce(callback, delay = 150) {
 
 bindChangeListeners([characterTypeFilter, characterSpecialFilter, characterFavoriteFilter, characterOrder].filter(Boolean), renderCharacters);
 bindChangeListeners([racketTypeFilter, racketTimingFilter, racketFavoriteFilter, racketOrder].filter(Boolean), renderRackets);
-bindChangeListeners([courtFavoriteFilter, courtSort, courtOrder].filter(Boolean), renderCourts);
+bindChangeListeners([courtFavoriteFilter, courtOrder].filter(Boolean), renderCourts);
 characterSort.addEventListener("change", handleCharacterSortChange);
+courtSort?.addEventListener("change", handleCourtSortChange);
 characterSearch.addEventListener("input", debounce(renderCharacters));
 racketSearch.addEventListener("input", debounce(renderRackets));
 courtSearch?.addEventListener("input", debounce(renderCourts));
