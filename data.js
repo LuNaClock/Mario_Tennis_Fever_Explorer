@@ -577,28 +577,28 @@ export const courts = [
 
 export const tips = [
   {
-    title: { ja: "フィーバーゲージについて", en: "" },
+    title: { ja: "フィーバーゲージについて", en: "About the Fever Gauge" },
     category: "仕様",
     verification: "検証済",
-    content: { ja: "サーブ開始直後から自動的に溜まっていく。最大値は2本分。1本目のフィーバーゲージは約26秒、1本目から2本目は約30秒で溜まる。", en: "" },
+    content: { ja: "サーブ開始直後から自動的に溜まっていく。最大値は2本分。1本目のフィーバーゲージは約26秒、1本目から2本目は約30秒で溜まる。", en: "It automatically starts filling right after the serve begins. The maximum is 2 bars. The first Fever bar fills in about 26 seconds, and the second fills in about 30 seconds after the first." },
   },
   {
     title: { ja: "浮遊キャラについて", en: "Floating character list" },
     category: "実践知識",
     verification: "検証済",
-    content: { ja: "ロゼッタ / パタパタ / テレサ / チコ / カメックの5キャラは、アイス/ドロドロ/インクラケットの床効果を無効にする。床上でのダメージは通常通り受ける。", en: "" },
+    content: { ja: "ロゼッタ / パタパタ / テレサ / チコ / カメックの5キャラは、アイス/ドロドロ/インクラケットの床効果を無効にする。床上でのダメージは通常通り受ける。", en: "The five floating characters (Rosetta, Koopa Paratroopa, Boo, Luma, and Kamek) ignore floor effects from the Ice / Muddy / Ink rackets. They still take normal damage while standing on those floors." },
   },
     {
-    title: { ja: "フィーバーショットでの返球位置", en: "" },
+    title: { ja: "フィーバーショットでの返球位置", en: "Return position during a Fever Shot" },
     category: "実践知識",
     verification: "検証済",
-    content: { ja: "フィーバーショットでの返球位置は、最短距離ではなくボールに回り込むような挙動で行う。その為、ボールの角度が鋭い場合や弾速が速いと返球出来ない可能性が高くなる", en: "" },
+    content: { ja: "フィーバーショットでの返球位置は、最短距離ではなくボールに回り込むような挙動で行う。その為、ボールの角度が鋭い場合や弾速が速いと返球出来ない可能性が高くなる", en: "During a Fever Shot, the return movement tends to curve around the ball instead of taking the shortest path. Because of this, returns are more likely to fail when the shot angle is sharp or the ball speed is very high." },
   },
     {
-    title: { ja: "ラリーが続くと移動速度が低下", en: "" },
+    title: { ja: "ラリーが続くと移動速度が低下", en: "Movement speed drops during long rallies" },
     category: "実践知識",
     verification: "検証済",
-    content: { ja: "大体20ラリーくらいすると遅くなり、その後は10ラリー程度毎に加速度的に減速、恐らく90ラリーくらいで限界値になる", en: "" },
+    content: { ja: "大体20ラリーくらいすると遅くなり、その後は10ラリー程度毎に加速度的に減速、恐らく90ラリーくらいで限界値になる", en: "Movement starts slowing down at around 20 rallies, then decreases more rapidly about every 10 rallies after that. It likely reaches its lower limit around 90 rallies." },
   },
 ];
 
@@ -652,7 +652,9 @@ export const tips = [
       {
         date: { ja: "2025-02-13", en: "2025-02-13" },
         items: [
-            { ja: "コート一覧を実装", en: "Implemented the court list." }
+            { ja: "コート一覧を実装", en: "Implemented the court list." },
+            { ja: "特殊能力を更新", en: "Updated special abilities." },
+            { ja: "Tipsを更新", en: "Updated Tips." }
         ],
       },
   ];
