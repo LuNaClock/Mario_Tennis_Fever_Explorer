@@ -577,22 +577,22 @@ export const courts = [
 
 export const tips = [
   {
-    title: { ja: "フィーバーゲージ2本分が溜まるまでの目安時間", en: "Approximate time to fill two Fever gauges" },
+    title: { ja: "フィーバーゲージについて", en: "" },
     category: "仕様",
-    verification: "検証中",
-    content: { ja: "ラリーを継続している場合、フィーバーゲージ2本分が溜まるまでの目安は約○○秒。", en: "While rallying continuously, the rough time to fill two Fever gauges is about XX seconds (under verification)." },
+    verification: "検証済",
+    content: { ja: "サーブ開始直後から自動的に溜まっていく。最大値は2本分。1本目のフィーバーゲージは約26秒、1本目から2本目は約30秒で溜まる。", en: "" },
   },
   {
-    title: { ja: "フィーバーショット同士の打ち合い時の判定", en: "Judgment when returning Fever Shot with Fever Shot" },
+    title: { ja: "浮遊キャラについて", en: "Floating character list" },
     category: "実践知識",
-    verification: "検証中",
-    content: { ja: "フィーバーショットをフィーバーショットで返球すると、着弾位置によってはワンバウンドしてから打ち返す。", en: "When you return a Fever Shot with another Fever Shot, it is treated as if it bounced once." },
+    verification: "検証済",
+    content: { ja: "ロゼッタ / パタパタ / テレサ / チコ / カメックの5キャラは、アイス/ドロドロ/インクラケットの床効果を無効にする。床上でのダメージは通常通り受ける。", en: "" },
   },
-  {
-    title: { ja: "浮遊キャラ一覧", en: "Floating character list" },
+    {
+    title: { ja: "フィーバーショットでの返球位置", en: "" },
     category: "実践知識",
-    verification: "検証中",
-    content: { ja: "ロゼッタ / パタパタ / テレサ / チコ / カメック", en: "Rosalina / Koopa Paratroopa / Boo / Luma / Kamek" },
+    verification: "検証済",
+    content: { ja: "フィーバーショットでの返球位置は、最短距離ではなくボールに回り込むような挙動で行う。その為、ボールの角度が鋭い場合や弾速が速いと返球出来ない可能性が高くなる", en: "" },
   },
 ];
 
