@@ -637,5 +637,12 @@ export const tips = [
             { ja: "Tier表のアイコンを入れ替え出来るよう修正", en: "Updated so icons in the Tier table can be swapped." }
         ],
       },
+      {
+        date: { ja: "2025-02-12", en: "2025-02-12" },
+        items: [
+            { ja: "ラケット一覧の効果大幅更新", en: "Major overhaul of racket effect descriptions in the racket list." },
+            { ja: "コート一覧を実装", en: "Implemented the court list." }
+        ],
+      },
   ];
   
