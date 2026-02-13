@@ -959,10 +959,10 @@ function updateCourtActiveFilterChips() {
     chips.push({ key: "sort", label: `${t("chip.sort")}: ${t(`sort.${courtSort.value}`)}` });
   }
   if (courtOrder?.value === "asc") {
-    chips.push({ key: "order", label: `${t("chip.order")}: ${t("order.high")}` });
+    chips.push({ key: "order", label: `${t("chip.order")}: ${courtSort?.value === "name" ? t("order.asc") : t("order.high")}` });
   }
   if (courtOrder?.value === "desc") {
-    chips.push({ key: "order", label: `${t("chip.order")}: ${t("order.low")}` });
+    chips.push({ key: "order", label: `${t("chip.order")}: ${courtSort?.value === "name" ? t("order.desc") : t("order.low")}` });
   }
 
   chips.forEach((chip) => {
@@ -1515,10 +1515,20 @@ function syncCourtOrderAvailability() {
 
   const isNameSort = courtSort.value === "name";
   const gameOrderOptions = Array.from(document.querySelectorAll('#court-order option[value="game"]'));
+  const ascOptions = Array.from(document.querySelectorAll('#court-order option[value="asc"]'));
+  const descOptions = Array.from(document.querySelectorAll('#court-order option[value="desc"]'));
 
   gameOrderOptions.forEach((option) => {
     option.hidden = !isNameSort;
     option.disabled = !isNameSort;
+  });
+
+  ascOptions.forEach((option) => {
+    option.textContent = isNameSort ? t("order.asc") : t("order.high");
+  });
+
+  descOptions.forEach((option) => {
+    option.textContent = isNameSort ? t("order.desc") : t("order.low");
   });
 
   if (!isNameSort && courtOrder.value === "game") {
