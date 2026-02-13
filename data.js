@@ -586,7 +586,7 @@ export const tips = [
     title: { ja: "浮遊キャラについて", en: "Floating character list" },
     category: "実践知識",
     verification: "検証済",
-    content: { ja: "ロゼッタ / パタパタ / テレサ / チコ / カメックの5キャラは、アイス/ドロドロ/インクラケットの床効果を無効にする。床上でのダメージは通常通り受ける。", en: "The five floating characters (Rosetta, Koopa Paratroopa, Boo, Luma, and Kamek) ignore floor effects from the Ice / Muddy / Ink rackets. They still take normal damage while standing on those floors." },
+    content: { ja: "ロゼッタ / パタパタ / テレサ / チコ / カメックの5キャラは、アイス/ドロドロ/インクラケットの床効果を受けない。床上でのダメージは通常通り受け、ボールも床の影響を受ける。", en: "The five floating characters (Rosetta, Koopa Paratroopa, Boo, Luma, and Kamek) ignore floor effects from the Ice / Muddy / Ink rackets. They still take normal damage while standing on those floors." },
   },
     {
     title: { ja: "フィーバーショットでの返球位置", en: "Return position during a Fever Shot" },
