@@ -558,20 +558,20 @@ export const characters = [
 
 
 export const courts = [
-  { name: { ja: "スタジアム グラス", en: "Stadium Court (Grass)" }, ballSpeed: 4, bounce: 1 },
-  { name: { ja: "スタジアム ハード", en: "Stadium Court (Hard)" }, ballSpeed: 2, bounce: 2 },
-  { name: { ja: "スタジアム クレイ", en: "Stadium Court (Clay)" }, ballSpeed: 1, bounce: 3 },
-  { name: { ja: "アカデミー ウッド", en: "Academy Court (Wood)" }, ballSpeed: 3, bounce: 2 },
-  { name: { ja: "アカデミー ブロック", en: "Academy Court (Brick)" }, ballSpeed: 3, bounce: 4 },
-  { name: { ja: "アカデミー カーペット", en: "Academy Court (Carpet)" }, ballSpeed: 3, bounce: 2 },
-  { name: { ja: "アカデミー キノコ", en: "Academy Court (Mushroom)" }, ballSpeed: 2, bounce: 5 },
-  { name: { ja: "アカデミー サンド", en: "Academy Court (Sand)" }, ballSpeed: 1, bounce: 1 },
-  { name: { ja: "アカデミー アイス", en: "Academy Court (Ice)" }, ballSpeed: 3, bounce: 4 },
-  { name: { ja: "飛行船コート", en: "Airship Court" }, ballSpeed: 3, bounce: 2 },
-  { name: { ja: "フォレストコート", en: "Forest Court" }, ballSpeed: 1, bounce: 2 },
-  { name: { ja: "ワルイージピンボール", en: "Waluigi's Pinball Arcade" }, ballSpeed: 3, bounce: 2 },
-  { name: { ja: "ラケットファクトリー", en: "Racket Factory" }, ballSpeed: 3, bounce: 4 },
-  { name: { ja: "ワンダーコート", en: "Wonder Court" }, ballSpeed: 4, bounce: 2 },
+  { name: { ja: "スタジアム グラス", en: "Stadium Court (Grass)" }, ballSpeed: 4, bounce: 1, description: { ja: "（個人的な説明欄は後日更新予定）", en: "(Personal notes will be added later.)" }, text: { ja: "（ゲーム内テキストは後日更新予定）", en: "(In-game text will be added later.)" }, image: "assets/coat_icons/stadium_grass.webp" },
+  { name: { ja: "スタジアム ハード", en: "Stadium Court (Hard)" }, ballSpeed: 2, bounce: 2, description: { ja: "（個人的な説明欄は後日更新予定）", en: "(Personal notes will be added later.)" }, text: { ja: "（ゲーム内テキストは後日更新予定）", en: "(In-game text will be added later.)" }, image: "assets/coat_icons/stadium_hard.webp" },
+  { name: { ja: "スタジアム クレイ", en: "Stadium Court (Clay)" }, ballSpeed: 1, bounce: 3, description: { ja: "（個人的な説明欄は後日更新予定）", en: "(Personal notes will be added later.)" }, text: { ja: "（ゲーム内テキストは後日更新予定）", en: "(In-game text will be added later.)" }, image: "assets/coat_icons/stadium_clay.webp" },
+  { name: { ja: "アカデミー ウッド", en: "Academy Court (Wood)" }, ballSpeed: 3, bounce: 2, description: { ja: "（個人的な説明欄は後日更新予定）", en: "(Personal notes will be added later.)" }, text: { ja: "（ゲーム内テキストは後日更新予定）", en: "(In-game text will be added later.)" }, image: "assets/coat_icons/academy_wood.webp" },
+  { name: { ja: "アカデミー ブロック", en: "Academy Court (Brick)" }, ballSpeed: 3, bounce: 4, description: { ja: "（個人的な説明欄は後日更新予定）", en: "(Personal notes will be added later.)" }, text: { ja: "（ゲーム内テキストは後日更新予定）", en: "(In-game text will be added later.)" }, image: "assets/coat_icons/court_academy_bricks.webp" },
+  { name: { ja: "アカデミー カーペット", en: "Academy Court (Carpet)" }, ballSpeed: 3, bounce: 2, description: { ja: "（個人的な説明欄は後日更新予定）", en: "(Personal notes will be added later.)" }, text: { ja: "（ゲーム内テキストは後日更新予定）", en: "(In-game text will be added later.)" }, image: "assets/coat_icons/academy_carpet.webp" },
+  { name: { ja: "アカデミー キノコ", en: "Academy Court (Mushroom)" }, ballSpeed: 2, bounce: 5, description: { ja: "（個人的な説明欄は後日更新予定）", en: "(Personal notes will be added later.)" }, text: { ja: "（ゲーム内テキストは後日更新予定）", en: "(In-game text will be added later.)" }, image: "assets/coat_icons/academy_kinoko.webp" },
+  { name: { ja: "アカデミー サンド", en: "Academy Court (Sand)" }, ballSpeed: 1, bounce: 1, description: { ja: "（個人的な説明欄は後日更新予定）", en: "(Personal notes will be added later.)" }, text: { ja: "（ゲーム内テキストは後日更新予定）", en: "(In-game text will be added later.)" }, image: "assets/coat_icons/court_academy_sand.webp" },
+  { name: { ja: "アカデミー アイス", en: "Academy Court (Ice)" }, ballSpeed: 3, bounce: 4, description: { ja: "（個人的な説明欄は後日更新予定）", en: "(Personal notes will be added later.)" }, text: { ja: "（ゲーム内テキストは後日更新予定）", en: "(In-game text will be added later.)" }, image: "assets/coat_icons/academy_ice.webp" },
+  { name: { ja: "飛行船コート", en: "Airship Court" }, ballSpeed: 3, bounce: 2, description: { ja: "（個人的な説明欄は後日更新予定）", en: "(Personal notes will be added later.)" }, text: { ja: "（ゲーム内テキストは後日更新予定）", en: "(In-game text will be added later.)" }, image: "assets/coat_icons/airship_court.webp" },
+  { name: { ja: "フォレストコート", en: "Forest Court" }, ballSpeed: 1, bounce: 2, description: { ja: "（個人的な説明欄は後日更新予定）", en: "(Personal notes will be added later.)" }, text: { ja: "（ゲーム内テキストは後日更新予定）", en: "(In-game text will be added later.)" }, image: "assets/coat_icons/forest_court.webp" },
+  { name: { ja: "ワルイージピンボール", en: "Waluigi's Pinball Arcade" }, ballSpeed: 3, bounce: 2, description: { ja: "（個人的な説明欄は後日更新予定）", en: "(Personal notes will be added later.)" }, text: { ja: "（ゲーム内テキストは後日更新予定）", en: "(In-game text will be added later.)" }, image: "assets/coat_icons/waluigi_pinball.webp" },
+  { name: { ja: "ラケットファクトリー", en: "Racket Factory" }, ballSpeed: 3, bounce: 4, description: { ja: "（個人的な説明欄は後日更新予定）", en: "(Personal notes will be added later.)" }, text: { ja: "（ゲーム内テキストは後日更新予定）", en: "(In-game text will be added later.)" }, image: "assets/coat_icons/racket_factory.webp" },
+  { name: { ja: "ワンダーコート", en: "Wonder Court" }, ballSpeed: 4, bounce: 2, description: { ja: "（個人的な説明欄は後日更新予定）", en: "(Personal notes will be added later.)" }, text: { ja: "（ゲーム内テキストは後日更新予定）", en: "(In-game text will be added later.)" }, image: "assets/coat_icons/wonder_court.webp" },
 ];
 
 

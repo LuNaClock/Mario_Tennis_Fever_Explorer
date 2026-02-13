@@ -10,7 +10,7 @@ const translations = {
     placeholder: { characterSearch: "キャラクター名で検索", racketSearch: "ラケット名で検索" },
     footer: { note: "データは仮入力を含みます。後日更新予定です。", contactLabel: "作成者・問い合わせ先:", contactAccount: "@Lu_Na_Clock", changelog: "更新履歴" },
     stat: { speed: "スピード", power: "パワー", control: "コントロール", spin: "スピン" },
-    court: { ballSpeed: "たまあし", bounce: "バウンド" },
+    court: { ballSpeed: "たまあし", bounce: "バウンド", note: "説明" },
     sort: { name: "名前" },
     order: { game: "ゲーム内順", asc: "昇順", desc: "降順", high: "数値が高い順", low: "数値が低い順" },
     common: { any: "指定なし", yes: "あり", no: "なし", wip: "仮実装", count: "{{count}}件表示", showCount: "{{count}}件を表示", searchHit: "検索ヒット: {{count}}件", noCharacter: "一致するキャラクターが見つかりません。", noRacket: "一致するラケットが見つかりません。", noTip: "一致するTipsが見つかりません。", language: "言語" },
@@ -38,7 +38,7 @@ const translations = {
     placeholder: { characterSearch: "Search by character name", racketSearch: "Search by racket name" },
     footer: { note: "Some data is provisional and will be updated later.", contactLabel: "Creator & Contact:", contactAccount: "@Lu_Na_Clock", changelog: "Changelog" },
     stat: { speed: "Speed", power: "Power", control: "Control", spin: "Spin" },
-    court: { ballSpeed: "Ball Speed", bounce: "Bounce" },
+    court: { ballSpeed: "Ball Speed", bounce: "Bounce", note: "Notes" },
     sort: { name: "Name" },
     order: { game: "Game order", asc: "A → Z", desc: "Z → A", high: "High → Low", low: "Low → High" },
     common: { any: "Any", yes: "Yes", no: "None", wip: "Work in progress", count: "{{count}} shown", showCount: "Show {{count}}", searchHit: "Search hits: {{count}}", noCharacter: "No matching characters found.", noRacket: "No matching rackets found.", noTip: "No matching tips found.", language: "Language" },
@@ -858,7 +858,12 @@ function createCourtCard(court) {
   const title = document.createElement("div");
   title.innerHTML = `<h3>${localizeValue(court.name)}</h3>`;
 
-  header.append(title);
+  const image = document.createElement("img");
+  image.className = "card-image card-image--court";
+  image.src = court.image;
+  image.alt = `${localizeValue(court.name)} ${t("meta.iconSuffix")}`;
+
+  header.append(title, image);
 
   const stats = document.createElement("div");
   stats.className = "stats";
@@ -867,7 +872,13 @@ function createCourtCard(court) {
     createCourtMeterRow(t("court.bounce"), court.bounce, "↗", "court-meter--bounce")
   );
 
-  card.append(header, stats);
+  const note = document.createElement("p");
+  note.className = "effect";
+  note.textContent = `${t("court.note")}: ${localizeValue(court.description ?? "")}`;
+
+  const gameText = createAccordion(t("accordion.gameText"), localizeValue(court.text));
+
+  card.append(header, stats, note, gameText);
   return card;
 }
 
