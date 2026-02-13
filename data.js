@@ -594,6 +594,12 @@ export const tips = [
     verification: "検証済",
     content: { ja: "フィーバーショットでの返球位置は、最短距離ではなくボールに回り込むような挙動で行う。その為、ボールの角度が鋭い場合や弾速が速いと返球出来ない可能性が高くなる", en: "" },
   },
+    {
+    title: { ja: "ラリーが続くと移動速度が低下", en: "" },
+    category: "実践知識",
+    verification: "検証済",
+    content: { ja: "大体20ラリーくらいすると遅くなり、その後は10ラリー程度毎に加速度的に減速、恐らく90ラリーくらいで限界値になる", en: "" },
+  },
 ];
 
   /** @type {{ date: { ja: string; en: string }; items: { ja: string; en: string }[] }[]} */
