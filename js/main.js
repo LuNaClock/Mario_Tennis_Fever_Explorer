@@ -27,7 +27,7 @@ const translations = {
     meta: { iconSuffix: "のアイコン" },
     changelog: { title: "更新履歴" },
     favorite: { addCharacter: "お気に入りに追加", removeCharacter: "お気に入り解除", addRacket: "お気に入りに追加", removeRacket: "お気に入り解除", addCourt: "お気に入りに追加", removeCourt: "お気に入り解除" },
-    tier: { characterBoard: "キャラTier", racketBoard: "ラケットTier", poolTitle: "未配置アイコン", modalTitle: "Tier行を編集", labelName: "ラベル名", labelColor: "背景色", clearRow: "行の中身をクリア", addAbove: "上に行追加", addBelow: "下に行追加", deleteRow: "行を削除", addItem: "行を追加", unassigned: "未配置", ruleTitle: "ルール条件", addGlobal: "全ルール共通Tierを追加", addConditional: "条件別Tierを追加", deleteProfile: "現在のTierを削除", courtType: "コート種別", gameMode: "ゲームモード", itemRule: "フィーバーラケット", matchupBase: "選択キャラ", matchupBaseNone: "指定なし", matchupBaseIconAlt: "選択キャラのアイコン", matchupSummary: "相性Tier:", matchupPerspectiveSuffix: "視点", globalLabel: "全ルール共通Tier", conditionalLabel: "条件別Tier", allConditions: "全条件", noProfiles: "該当するTierはありません", globalTab: "全ルール共通", conditionalTab: "条件別", profileDeleted: "Tierを削除しました", shareX: "Xへ画像投稿", saveImage: "画像で保存", shareXClipboard: "画像をコピーしました。X投稿画面で貼り付けてください", shareXClipboardAlert: "Tier画像をクリップボードにコピーしました。\nX投稿画面が開いたら、本文入力欄で貼り付け（Ctrl+V / 長押し→貼り付け）してください。", shareXFallback: "画像保存後にX投稿画面を開きました", shareXFallbackAlert: "クリップボードへのコピーに失敗したため、Tier画像を端末に保存しました。\nX投稿画面で画像を選択して添付してください。", shareXFailed: "X投稿画面を開けませんでした", imageSaved: "画像を保存しました", imageSaveFailed: "画像の保存に失敗しました", freeNote: "自由入力メモ", freeNotePlaceholder: "環境に多いキャラ" },
+    tier: { characterBoard: "キャラTier", racketBoard: "ラケットTier", poolTitle: "未配置アイコン", modalTitle: "Tier行を編集", labelName: "ラベル名", labelColor: "背景色", clearRow: "行の中身をクリア", addAbove: "上に行追加", addBelow: "下に行追加", deleteRow: "行を削除", addItem: "行を追加", unassigned: "未配置", ruleTitle: "ルール条件", addGlobal: "全ルール共通Tierを追加", addConditional: "条件別Tierを追加", deleteProfile: "現在のTierを削除", courtType: "コート種別", gameMode: "ゲームモード", itemRule: "フィーバーラケット", matchupBase: "選択キャラ", matchupBaseNone: "指定なし", matchupBaseIconAlt: "選択キャラのアイコン", matchupSummary: "相性Tier:", matchupPerspectiveSuffix: "視点", globalLabel: "全ルール共通Tier", conditionalLabel: "条件別Tier", allConditions: "全条件", noProfiles: "該当するTierはありません", globalTab: "全ルール共通", conditionalTab: "条件別", profileDeleted: "Tierを削除しました", shareX: "Xへ画像投稿", saveImage: "画像で保存", shareXClipboard: "画像をコピーしました。X投稿画面で貼り付けてください", shareXClipboardAlert: "Tier画像をクリップボードにコピーしました。\nX投稿画面が開いたら、本文入力欄で貼り付け（Ctrl+V / 長押し→貼り付け）してください。", shareXFallback: "画像保存後にX投稿画面を開きました", shareXFallbackAlert: "クリップボードへのコピーに失敗したため、Tier画像を端末に保存しました。\nX投稿画面で画像を選択して添付してください。", shareXFailed: "X投稿画面を開けませんでした", imageSaved: "画像を保存しました", imageSaveFailed: "画像の保存に失敗しました", freeNote: "メモ", freeNotePlaceholder: "環境に多いキャラ" },
   },
   en: {
     site: { pageTitle: "Mario Tennis Fever Data Explorer", pageDescription: "Reference site for Mario Tennis Fever character, racket, and system data.", title: "Mario Tennis Fever Explorer", language: "Language", lead: "A reference site to compare character and racket traits with filters and sorting." },
@@ -447,8 +447,7 @@ function getTierShareText(boardKey) {
   const baseMeta = getProfileMetaLabel(profile.meta, boardKey);
   const selectedCharacter = boardKey === "characters" ? getMatchupBaseCharacter(profile) : null;
   const selectedLabel = selectedCharacter ? ` / ${t("tier.matchupSummary")} ${localizeValue(selectedCharacter.name)}${t("tier.matchupPerspectiveSuffix")}` : "";
-  const freeNoteLabel = profile?.meta?.freeNote ? ` / ${profile.meta.freeNote}` : "";
-  return `#マリオテニスフィーバー ${title} | ${baseMeta}${selectedLabel}${freeNoteLabel}
+  return `#マリオテニスフィーバー ${title} | ${baseMeta}${selectedLabel}
 https://mariotennis-fever-explorer.ai-lifebook.com/
 #MariTenniExplorer`;
 }
@@ -487,7 +486,7 @@ async function buildTierBoardCanvas(boardKey) {
 
   const freeNoteText = profile.meta?.freeNote?.trim() || "";
   const freeNoteHeight = freeNoteText ? 46 : 0;
-  const headerHeight = 118 + freeNoteHeight;
+  const headerHeight = 56 + freeNoteHeight;
   const matchupSummaryHeight = boardKey === "characters" && getMatchupBaseCharacter(profile) ? 52 : 0;
   const totalHeight = headerHeight + matchupSummaryHeight + rowHeights.reduce((a, b) => a + b, 0) + 16;
 
@@ -504,27 +503,11 @@ async function buildTierBoardCanvas(boardKey) {
   ctx.font = "bold 26px sans-serif";
   ctx.fillText(boardKey === "characters" ? t("tier.characterBoard") : t("tier.racketBoard"), 18, 36);
 
-  ctx.fillStyle = "rgba(11, 31, 49, 0.9)";
-  ctx.fillRect(14, 52, boardWidth - 28, 52);
-  ctx.strokeStyle = "rgba(159, 195, 223, 0.45)";
-  ctx.lineWidth = 1;
-  ctx.strokeRect(14.5, 52.5, boardWidth - 29, 51);
-
   const matchupCharacter = boardKey === "characters" ? getMatchupBaseCharacter(profile) : null;
   const matchupIcon = matchupCharacter ? await loadImage(matchupCharacter.image).catch(() => null) : null;
-  const metaParts = getProfileMetaParts(profile.meta, boardKey);
-  let metaFontSize = 20;
-  let metaWidth = Infinity;
-  do {
-    ctx.font = `bold ${metaFontSize}px sans-serif`;
-    metaWidth = measureTierMetaPartsWidth(ctx, metaParts);
-    if (metaWidth <= boardWidth - 48 || metaFontSize <= 14) break;
-    metaFontSize -= 1;
-  } while (metaFontSize > 14);
-  drawTierMetaParts(ctx, metaParts, 24, 86);
 
   if (freeNoteText) {
-    const noteY = 104;
+    const noteY = 52;
     ctx.fillStyle = "rgba(18, 43, 64, 0.95)";
     ctx.fillRect(14, noteY, boardWidth - 28, 32);
     ctx.strokeStyle = "rgba(114, 178, 221, 0.45)";
