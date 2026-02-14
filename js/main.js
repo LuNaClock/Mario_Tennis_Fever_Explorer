@@ -27,7 +27,7 @@ const translations = {
     meta: { iconSuffix: "のアイコン" },
     changelog: { title: "更新履歴" },
     favorite: { addCharacter: "お気に入りに追加", removeCharacter: "お気に入り解除", addRacket: "お気に入りに追加", removeRacket: "お気に入り解除", addCourt: "お気に入りに追加", removeCourt: "お気に入り解除" },
-    tier: { characterBoard: "キャラTier", racketBoard: "ラケットTier", poolTitle: "未配置アイコン", modalTitle: "Tier行を編集", labelName: "ラベル名", labelColor: "背景色", clearRow: "行の中身をクリア", addAbove: "上に行追加", addBelow: "下に行追加", deleteRow: "行を削除", addItem: "行を追加", unassigned: "未配置", ruleTitle: "ルール条件", addGlobal: "全ルール共通Tierを追加", addConditional: "条件別Tierを追加", deleteProfile: "現在のTierを削除", courtType: "コート種別", gameMode: "ゲームモード", itemRule: "フィーバーラケット", matchupBase: "選択キャラ", matchupBaseNone: "指定なし", matchupBaseIconAlt: "選択キャラのアイコン", matchupSummary: "相性Tier:", matchupPerspectiveSuffix: "視点", globalLabel: "全ルール共通Tier", conditionalLabel: "条件別Tier", allConditions: "全条件", noProfiles: "該当するTierはありません", globalTab: "全ルール共通", conditionalTab: "条件別", profileDeleted: "Tierを削除しました", shareX: "Xへ画像投稿", saveImage: "画像で保存", shareXClipboard: "画像をコピーしました。X投稿画面で貼り付けてください", shareXClipboardAlert: "Tier画像をクリップボードにコピーしました。\nX投稿画面が開いたら、本文入力欄で貼り付け（Ctrl+V / 長押し→貼り付け）してください。", shareXFallback: "画像保存後にX投稿画面を開きました", shareXFallbackAlert: "クリップボードへのコピーに失敗したため、Tier画像を端末に保存しました。\nX投稿画面で画像を選択して添付してください。", shareXFailed: "X投稿画面を開けませんでした", imageSaved: "画像を保存しました", imageSaveFailed: "画像の保存に失敗しました" },
+    tier: { characterBoard: "キャラTier", racketBoard: "ラケットTier", poolTitle: "未配置アイコン", modalTitle: "Tier行を編集", labelName: "ラベル名", labelColor: "背景色", clearRow: "行の中身をクリア", addAbove: "上に行追加", addBelow: "下に行追加", deleteRow: "行を削除", addItem: "行を追加", unassigned: "未配置", ruleTitle: "ルール条件", addGlobal: "全ルール共通Tierを追加", addConditional: "条件別Tierを追加", deleteProfile: "現在のTierを削除", courtType: "コート種別", gameMode: "ゲームモード", itemRule: "フィーバーラケット", matchupBase: "選択キャラ", matchupBaseNone: "指定なし", matchupBaseIconAlt: "選択キャラのアイコン", matchupSummary: "相性Tier:", matchupPerspectiveSuffix: "視点", globalLabel: "全ルール共通Tier", conditionalLabel: "条件別Tier", allConditions: "全条件", noProfiles: "該当するTierはありません", globalTab: "全ルール共通", conditionalTab: "条件別", profileDeleted: "Tierを削除しました", shareX: "Xへ画像投稿", saveImage: "画像で保存", shareXClipboard: "画像をコピーしました。X投稿画面で貼り付けてください", shareXClipboardAlert: "Tier画像をクリップボードにコピーしました。\nX投稿画面が開いたら、本文入力欄で貼り付け（Ctrl+V / 長押し→貼り付け）してください。", shareXFallback: "画像保存後にX投稿画面を開きました", shareXFallbackAlert: "クリップボードへのコピーに失敗したため、Tier画像を端末に保存しました。\nX投稿画面で画像を選択して添付してください。", shareXFailed: "X投稿画面を開けませんでした", imageSaved: "画像を保存しました", imageSaveFailed: "画像の保存に失敗しました", freeNote: "メモ", freeNotePlaceholder: "環境に多いキャラ" },
   },
   en: {
     site: { pageTitle: "Mario Tennis Fever Data Explorer", pageDescription: "Reference site for Mario Tennis Fever character, racket, and system data.", title: "Mario Tennis Fever Explorer", language: "Language", lead: "A reference site to compare character and racket traits with filters and sorting." },
@@ -55,7 +55,7 @@ const translations = {
     meta: { iconSuffix: " icon" },
     changelog: { title: "Changelog" },
     favorite: { addCharacter: "Add to favorites", removeCharacter: "Remove from favorites", addRacket: "Add to favorites", removeRacket: "Remove from favorites", addCourt: "Add to favorites", removeCourt: "Remove from favorites" },
-    tier: { characterBoard: "Character Tier", racketBoard: "Racket Tier", poolTitle: "Unassigned Icons", modalTitle: "Edit Tier Row", labelName: "Label", labelColor: "Background color", clearRow: "Clear row", addAbove: "Add row above", addBelow: "Add row below", deleteRow: "Delete row", addItem: "Add row", unassigned: "Unassigned", ruleTitle: "Rule filters", addGlobal: "Add Global Tier", addConditional: "Add Conditional Tier", deleteProfile: "Delete Current Tier", courtType: "Court Type", gameMode: "Game Mode", itemRule: "Fever Racket", matchupBase: "Selected Character", matchupBaseNone: "None", matchupBaseIconAlt: "Selected character icon", matchupSummary: "Matchup Tier:", matchupPerspectiveSuffix: " perspective", globalLabel: "Global Tier", conditionalLabel: "Conditional Tier", allConditions: "All Conditions", noProfiles: "No tier boards match this filter", globalTab: "Global", conditionalTab: "Conditional", profileDeleted: "Tier deleted", shareX: "Post Image to X", saveImage: "Save as Image", shareXClipboard: "Image copied. Paste it in the X composer.", shareXClipboardAlert: "Tier image copied to your clipboard.\nWhen the X composer opens, paste it into the post field.", shareXFallback: "Saved image and opened X post dialog", shareXFallbackAlert: "Clipboard copy failed, so the Tier image was downloaded.\nPlease attach the saved image in the X composer.", shareXFailed: "Failed to open X post dialog", imageSaved: "Image saved", imageSaveFailed: "Failed to save image" },
+    tier: { characterBoard: "Character Tier", racketBoard: "Racket Tier", poolTitle: "Unassigned Icons", modalTitle: "Edit Tier Row", labelName: "Label", labelColor: "Background color", clearRow: "Clear row", addAbove: "Add row above", addBelow: "Add row below", deleteRow: "Delete row", addItem: "Add row", unassigned: "Unassigned", ruleTitle: "Rule filters", addGlobal: "Add Global Tier", addConditional: "Add Conditional Tier", deleteProfile: "Delete Current Tier", courtType: "Court Type", gameMode: "Game Mode", itemRule: "Fever Racket", matchupBase: "Selected Character", matchupBaseNone: "None", matchupBaseIconAlt: "Selected character icon", matchupSummary: "Matchup Tier:", matchupPerspectiveSuffix: " perspective", globalLabel: "Global Tier", conditionalLabel: "Conditional Tier", allConditions: "All Conditions", noProfiles: "No tier boards match this filter", globalTab: "Global", conditionalTab: "Conditional", profileDeleted: "Tier deleted", shareX: "Post Image to X", saveImage: "Save as Image", shareXClipboard: "Image copied. Paste it in the X composer.", shareXClipboardAlert: "Tier image copied to your clipboard.\nWhen the X composer opens, paste it into the post field.", shareXFallback: "Saved image and opened X post dialog", shareXFallbackAlert: "Clipboard copy failed, so the Tier image was downloaded.\nPlease attach the saved image in the X composer.", shareXFailed: "Failed to open X post dialog", imageSaved: "Image saved", imageSaveFailed: "Failed to save image", freeNote: "Free note", freeNotePlaceholder: "Popular characters in the current meta" },
   },
 };
 
@@ -239,7 +239,7 @@ function getTierDefaultRows(locale = currentLocale) {
   ];
 }
 
-const TIER_STORAGE_KEY = "tierBoardsV2";
+const TIER_STORAGE_KEY = "tierBoardsV3";
 let currentTierTab = "characters";
 let rowModalState = null;
 
@@ -277,6 +277,7 @@ function createTierMeta(kind = "global") {
     gameMode: "singles",
     items: "on",
     matchupBase: "",
+    freeNote: "",
   };
 }
 
@@ -337,6 +338,7 @@ function normalizeTierMeta(raw, fallbackKind = "conditional") {
     gameMode: raw?.gameMode === "singles" || raw?.gameMode === "doubles" ? raw.gameMode : "singles",
     items: raw?.items === "on" || raw?.items === "off" ? raw.items : "on",
     matchupBase: typeof raw?.matchupBase === "string" ? raw.matchupBase : "",
+    freeNote: typeof raw?.freeNote === "string" ? raw.freeNote.slice(0, 40) : "",
   };
 }
 
@@ -482,7 +484,9 @@ async function buildTierBoardCanvas(boardKey) {
     return Math.max(rowMinHeight, lines * iconSize + (lines - 1) * gap + 14);
   });
 
-  const headerHeight = 118;
+  const freeNoteText = profile.meta?.freeNote?.trim() || "";
+  const freeNoteHeight = freeNoteText ? 46 : 0;
+  const headerHeight = 56 + freeNoteHeight;
   const matchupSummaryHeight = boardKey === "characters" && getMatchupBaseCharacter(profile) ? 52 : 0;
   const totalHeight = headerHeight + matchupSummaryHeight + rowHeights.reduce((a, b) => a + b, 0) + 16;
 
@@ -499,24 +503,23 @@ async function buildTierBoardCanvas(boardKey) {
   ctx.font = "bold 26px sans-serif";
   ctx.fillText(boardKey === "characters" ? t("tier.characterBoard") : t("tier.racketBoard"), 18, 36);
 
-  ctx.fillStyle = "rgba(11, 31, 49, 0.9)";
-  ctx.fillRect(14, 52, boardWidth - 28, 52);
-  ctx.strokeStyle = "rgba(159, 195, 223, 0.45)";
-  ctx.lineWidth = 1;
-  ctx.strokeRect(14.5, 52.5, boardWidth - 29, 51);
-
   const matchupCharacter = boardKey === "characters" ? getMatchupBaseCharacter(profile) : null;
   const matchupIcon = matchupCharacter ? await loadImage(matchupCharacter.image).catch(() => null) : null;
-  const metaParts = getProfileMetaParts(profile.meta, boardKey);
-  let metaFontSize = 20;
-  let metaWidth = Infinity;
-  do {
-    ctx.font = `bold ${metaFontSize}px sans-serif`;
-    metaWidth = measureTierMetaPartsWidth(ctx, metaParts);
-    if (metaWidth <= boardWidth - 48 || metaFontSize <= 14) break;
-    metaFontSize -= 1;
-  } while (metaFontSize > 14);
-  drawTierMetaParts(ctx, metaParts, 24, 86);
+
+  if (freeNoteText) {
+    const noteY = 52;
+    ctx.fillStyle = "rgba(18, 43, 64, 0.95)";
+    ctx.fillRect(14, noteY, boardWidth - 28, 32);
+    ctx.strokeStyle = "rgba(114, 178, 221, 0.45)";
+    ctx.lineWidth = 1;
+    ctx.strokeRect(14.5, noteY + 0.5, boardWidth - 29, 31);
+    ctx.fillStyle = "#8eb4d1";
+    ctx.font = "bold 15px sans-serif";
+    ctx.fillText(`${t("tier.freeNote")}:`, 24, noteY + 21);
+    ctx.fillStyle = "#e7f4ff";
+    ctx.font = "bold 18px sans-serif";
+    ctx.fillText(freeNoteText, 122, noteY + 22);
+  }
 
   let y = headerHeight;
   if (boardKey === "characters" && matchupCharacter) {
@@ -707,6 +710,7 @@ function getProfileMetaLabel(meta, boardKey = "characters") {
   parts.push(`${t("tier.itemRule")}: ${itemLabels[meta.items] ?? meta.items}`);
   parts.push(`${t("tier.gameMode")}: ${modeLabel}`);
   parts.push(`${t("tier.courtType")}: ${courtLabel}`);
+  if (meta.freeNote) parts.push(`${t("tier.freeNote")}: ${meta.freeNote}`);
   return parts.join(" / ");
 }
 
@@ -718,6 +722,7 @@ function getProfileMetaParts(meta, boardKey = "characters") {
   parts.push({ label: `${t("tier.itemRule")}: `, value: itemLabels[meta.items] ?? meta.items, color: "#f97316" });
   parts.push({ label: `${t("tier.gameMode")}: `, value: modeLabel, color: "#22c55e" });
   parts.push({ label: `${t("tier.courtType")}: `, value: courtLabel, color: "#38bdf8" });
+  if (meta.freeNote) parts.push({ label: `${t("tier.freeNote")}: `, value: meta.freeNote, color: "#facc15" });
   return parts;
 }
 
@@ -2664,7 +2669,7 @@ function setupTierRuleManagers() {
         if (!active) return;
         const key = select.dataset.tierMeta;
         if (!key) return;
-        active.meta[key] = select.value;
+        active.meta[key] = key === "freeNote" ? select.value.slice(0, 40) : select.value;
         if (boardKey === "characters" && key === "matchupBase") {
           sanitizeTierBoardForMatchup(boardKey, active);
           syncTierCharacterMatchupBaseOptions();
