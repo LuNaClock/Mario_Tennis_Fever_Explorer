@@ -11,6 +11,7 @@ const translations = {
     footer: { note: "データは仮入力を含みます。後日更新予定です。", contactLabel: "作成者・問い合わせ先:", contactAccount: "@Lu_Na_Clock", changelog: "更新履歴" },
     stat: { speed: "スピード", power: "パワー", control: "コントロール", spin: "スピン" },
     court: { ballSpeed: "たまあし", bounce: "バウンド", note: "説明" },
+    courtPrediction: { title: "次コート予測（β）", description: "ランクマッチの観測順をもとに、現在のコートから次に来る可能性が高い候補を表示します。", currentCourt: "現在のコート", candidate: "候補{{rank}}", confidence: "確度", deterministic: "確定候補", note: "※ベータ版: データが増えるほど精度が向上します。" },
     sort: { name: "名前", ballSpeed: "たまあし", bounce: "バウンド" },
     order: { game: "ゲーム内順", asc: "昇順", desc: "降順", high: "数値が高い順", low: "数値が低い順" },
     common: { any: "指定なし", yes: "あり", no: "なし", wip: "仮実装", count: "{{count}}件表示", showCount: "{{count}}件を表示", searchHit: "検索ヒット: {{count}}件", noCharacter: "一致するキャラクターが見つかりません。", noRacket: "一致するラケットが見つかりません。", noTip: "一致するTipsが見つかりません。", language: "言語" },
@@ -39,6 +40,7 @@ const translations = {
     footer: { note: "Some data is provisional and will be updated later.", contactLabel: "Creator & Contact:", contactAccount: "@Lu_Na_Clock", changelog: "Changelog" },
     stat: { speed: "Speed", power: "Power", control: "Control", spin: "Spin" },
     court: { ballSpeed: "Ball Speed", bounce: "Bounce", note: "Notes" },
+    courtPrediction: { title: "Next Court Prediction (Beta)", description: "Shows likely next courts from the current court based on observed ranked-match rotations.", currentCourt: "Current court", candidate: "Candidate {{rank}}", confidence: "Confidence", deterministic: "Fixed candidate", note: "*Beta: prediction accuracy improves as more data is added." },
     sort: { name: "Name", ballSpeed: "Ball Speed", bounce: "Bounce" },
     order: { game: "Game order", asc: "A → Z", desc: "Z → A", high: "High → Low", low: "Low → High" },
     common: { any: "Any", yes: "Yes", no: "None", wip: "Work in progress", count: "{{count}} shown", showCount: "Show {{count}}", searchHit: "Search hits: {{count}}", noCharacter: "No matching characters found.", noRacket: "No matching rackets found.", noTip: "No matching tips found.", language: "Language" },
@@ -148,6 +150,8 @@ const courtOrder = document.getElementById("court-order");
 const courtSearch = document.getElementById("court-search");
 const courtFavoriteFilter = document.getElementById("court-favorite-filter");
 const courtActiveFilters = document.getElementById("court-active-filters");
+const courtPredictionCurrent = document.getElementById("court-prediction-current");
+const courtPredictionList = document.getElementById("court-prediction-list");
 
 const characterFavoriteFilter = document.getElementById("character-favorite-filter");
 const racketFavoriteFilter = document.getElementById("racket-favorite-filter");
@@ -799,6 +803,152 @@ function getBoardName(datasetKey, item) {
 
 const racketIndexMap = new Map(rackets.map((racket, index) => [racket, index]));
 const courtIndexMap = new Map(courts.map((court, index) => [court, index]));
+
+const courtPredictionAliases = {
+  グラス: "スタジアム グラス",
+  ハード: "スタジアム ハード",
+  クレイ: "スタジアム クレイ",
+  ウッド: "アカデミー ウッド",
+  ブロック: "アカデミー ブロック",
+  カーペット: "アカデミー カーペット",
+  サンド: "アカデミー サンド",
+  ワンダー: "ワンダーコート",
+  飛行船: "飛行船コート",
+  フォレスト: "フォレストコート",
+  ピンボール: "ワルイージピンボール",
+  ファクトリー: "ラケットファクトリー",
+};
+
+const rankedCourtObservedSequences = [
+  ["グラス", "カーペット", "ピンボール", "ハード", "ワンダー", "クレイ", "グラス", "ウッド", "飛行船", "ハード"],
+  ["ハード", "ブロック", "ファクトリー", "クレイ", "サンド", "フォレスト", "グラス", "カーペット"],
+  ["サンド", "フォレスト", "グラス", "カーペット", "ピンボール", "ハード", "ワンダー"],
+  ["ワンダー", "カーペット", "グラス", "ウッド", "飛行船"],
+];
+
+function resolveCourtPredictionAlias(name) {
+  return courtPredictionAliases[name] || name;
+}
+
+function buildCourtTransitionMatrix() {
+  const matrix = new Map();
+
+  const addTransition = (from, to, weight = 1) => {
+    const fromName = resolveCourtPredictionAlias(from);
+    const toName = resolveCourtPredictionAlias(to);
+    const fromCourt = courts.find((court) => rawValue(court.name) === fromName);
+    const toCourt = courts.find((court) => rawValue(court.name) === toName);
+    if (!fromCourt || !toCourt) return;
+
+    const fromKey = rawValue(fromCourt.name);
+    const toKey = rawValue(toCourt.name);
+    if (!matrix.has(fromKey)) matrix.set(fromKey, new Map());
+    const nextMap = matrix.get(fromKey);
+    nextMap.set(toKey, (nextMap.get(toKey) || 0) + weight);
+  };
+
+  rankedCourtObservedSequences.forEach((sequence) => {
+    for (let i = 0; i < sequence.length - 1; i += 1) {
+      addTransition(sequence[i], sequence[i + 1], 1);
+    }
+  });
+
+  return matrix;
+}
+
+const courtTransitionMatrix = buildCourtTransitionMatrix();
+
+function getCourtPredictionCandidates(currentCourtJaName) {
+  const nextMap = courtTransitionMatrix.get(currentCourtJaName);
+  if (!nextMap || nextMap.size === 0) return [];
+
+  const total = [...nextMap.values()].reduce((sum, value) => sum + value, 0);
+  return [...nextMap.entries()]
+    .map(([name, score]) => ({ name, score, probability: total > 0 ? score / total : 0 }))
+    .sort((a, b) => b.score - a.score || b.probability - a.probability);
+}
+
+function formatPercent(value) {
+  return `${Math.round(value * 100)}%`;
+}
+
+function renderCourtPrediction() {
+  if (!courtPredictionCurrent || !courtPredictionList) return;
+
+  const currentCourtJaName = courtPredictionCurrent.value;
+  const candidates = getCourtPredictionCandidates(currentCourtJaName);
+  const isDeterministic = candidates.length > 0 && candidates[0].probability === 1;
+  const displayCandidates = isDeterministic ? [candidates[0]] : candidates.slice(0, 3);
+
+  courtPredictionList.replaceChildren();
+
+  if (displayCandidates.length === 0) {
+    const empty = document.createElement("li");
+    empty.className = "court-prediction__item";
+    empty.textContent = "-";
+    courtPredictionList.append(empty);
+    return;
+  }
+
+  displayCandidates.forEach((candidate, index) => {
+    const item = document.createElement("li");
+    item.className = "court-prediction__item";
+
+    const label = document.createElement("span");
+    label.className = "court-prediction__candidate-label";
+    label.textContent = isDeterministic
+      ? t("courtPrediction.deterministic")
+      : t("courtPrediction.candidate", { rank: index + 1 });
+
+    const value = document.createElement("strong");
+    value.className = "court-prediction__candidate-name";
+    const matchedCourt = courts.find((court) => rawValue(court.name) === candidate.name);
+    value.textContent = matchedCourt ? localizeValue(matchedCourt.name) : candidate.name;
+
+    const confidence = document.createElement("span");
+    confidence.className = "court-prediction__candidate-confidence";
+    confidence.textContent = `${t("courtPrediction.confidence")}: ${formatPercent(candidate.probability)}`;
+
+    item.append(label, value, confidence);
+    courtPredictionList.append(item);
+  });
+}
+
+function syncCourtPredictionLocale() {
+  if (!courtPredictionCurrent) return;
+
+  Array.from(courtPredictionCurrent.options).forEach((option) => {
+    const matchedCourt = courts.find((court) => rawValue(court.name) === option.value);
+    if (matchedCourt) {
+      option.textContent = localizeValue(matchedCourt.name);
+    }
+  });
+
+  renderCourtPrediction();
+}
+
+function setupCourtPrediction() {
+  if (!courtPredictionCurrent) return;
+
+  const options = courts.map((court) => ({
+    jaName: rawValue(court.name),
+    label: localizeValue(court.name),
+  }));
+
+  options.forEach((optionData) => {
+    const option = document.createElement("option");
+    option.value = optionData.jaName;
+    option.textContent = optionData.label;
+    courtPredictionCurrent.append(option);
+  });
+
+  const defaultCourt = resolveCourtPredictionAlias("飛行船");
+  const fallback = options[0]?.jaName || "";
+  courtPredictionCurrent.value = options.some((item) => item.jaName === defaultCourt) ? defaultCourt : fallback;
+
+  courtPredictionCurrent.addEventListener("change", renderCourtPrediction);
+  renderCourtPrediction();
+}
 
 
 function createStatRow(label, value) {
@@ -2868,6 +3018,7 @@ function applyLocale() {
   renderCharacters();
   renderRackets();
   renderCourts();
+  syncCourtPredictionLocale();
   renderTips();
   renderAllTierBoards();
 }
@@ -2909,6 +3060,7 @@ setupTierTabs();
 setupTierRuleManagers();
 setupTierShareActions();
 setupTierModalActions();
+setupCourtPrediction();
 
 if (localeSelect) {
   localeSelect.addEventListener("change", (event) => {

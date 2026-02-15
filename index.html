@@ -272,6 +272,17 @@
       </div>
 
         <div id="court-list" class="card-grid"></div>
+
+        <div class="court-prediction" id="court-prediction" aria-live="polite">
+          <h3 class="court-prediction__title" data-i18n="courtPrediction.title">次コート予測（β）</h3>
+          <p class="court-prediction__description" data-i18n="courtPrediction.description">ランクマッチの観測順をもとに、現在のコートから次に来る可能性が高い候補を表示します。</p>
+          <label class="filter court-prediction__selector" for="court-prediction-current">
+            <span data-i18n="courtPrediction.currentCourt">現在のコート</span>
+            <select id="court-prediction-current" aria-label="現在のコート"></select>
+          </label>
+          <ul class="court-prediction__list" id="court-prediction-list"></ul>
+          <p class="court-prediction__note" data-i18n="courtPrediction.note">※ベータ版: データが増えるほど精度が向上します。</p>
+        </div>
       </div>
     </section>
 
