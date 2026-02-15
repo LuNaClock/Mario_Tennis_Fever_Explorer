@@ -872,8 +872,75 @@ function formatPercent(value) {
   return `${Math.round(value * 100)}%`;
 }
 
+function createPredictedCourtStatRow(label, value, symbol, meterClassName) {
+  const row = document.createElement("div");
+  row.className = "court-prediction-card__stat-row";
+
+  const name = document.createElement("span");
+  name.className = "court-prediction-card__stat-label";
+  name.textContent = label;
+
+  const valueWrap = document.createElement("div");
+  valueWrap.className = "court-prediction-card__stat-value";
+
+  const meter = document.createElement("div");
+  meter.className = `court-meter ${meterClassName}`;
+
+  for (let i = 1; i <= 5; i += 1) {
+    const segment = document.createElement("span");
+    segment.className = "court-meter__segment";
+    segment.textContent = symbol;
+    if (i <= value) {
+      segment.dataset.active = "true";
+      segment.dataset.level = String(i);
+    }
+    meter.append(segment);
+  }
+
+  const numeric = document.createElement("span");
+  numeric.className = "court-prediction-card__stat-number";
+  numeric.textContent = `${value.toFixed(0)}`;
+
+  valueWrap.append(meter, numeric);
+  row.append(name, valueWrap);
+
+  return row;
+}
+
+function focusCourtCard(court) {
+  const courtSectionToggle = document.querySelector('[data-collapse-target="court-content"]');
+  if (courtSectionToggle?.getAttribute("aria-expanded") === "false") {
+    courtSectionToggle.click();
+  }
+
+  const ensureVisibleWithCurrentFilters = () => {
+    const targetId = `court-card-${courtIndexMap.get(court)}`;
+    return document.getElementById(targetId);
+  };
+
+  let targetCard = ensureVisibleWithCurrentFilters();
+
+  if (!targetCard && (courtSearch?.value || courtFavoriteFilter?.value === "favorites")) {
+    if (courtSearch) courtSearch.value = "";
+    if (courtFavoriteFilter) courtFavoriteFilter.value = "all";
+    renderCourts();
+    targetCard = ensureVisibleWithCurrentFilters();
+  }
+
+  document.getElementById("courts")?.scrollIntoView({ behavior: "smooth", block: "start" });
+
+  if (!targetCard) return;
+
+  targetCard.scrollIntoView({ behavior: "smooth", block: "center" });
+  targetCard.classList.add("card--focused");
+  window.setTimeout(() => {
+    targetCard.classList.remove("card--focused");
+  }, 1500);
+}
+
 function createPredictedCourtCard(court) {
-  const card = document.createElement("article");
+  const card = document.createElement("button");
+  card.type = "button";
   card.className = "court-prediction-card";
 
   const image = document.createElement("img");
@@ -891,18 +958,14 @@ function createPredictedCourtCard(court) {
 
   const stats = document.createElement("div");
   stats.className = "court-prediction-card__stats";
+  stats.append(
+    createPredictedCourtStatRow(t("court.ballSpeed"), court.ballSpeed, "→", "court-meter--speed"),
+    createPredictedCourtStatRow(t("court.bounce"), court.bounce, "↗", "court-meter--bounce")
+  );
 
-  const speed = document.createElement("span");
-  speed.className = "court-prediction-card__stat";
-  speed.textContent = `${t("court.ballSpeed")}: ${court.ballSpeed}`;
-
-  const bounce = document.createElement("span");
-  bounce.className = "court-prediction-card__stat";
-  bounce.textContent = `${t("court.bounce")}: ${court.bounce}`;
-
-  stats.append(speed, bounce);
   content.append(name, stats);
   card.append(image, content);
+  card.addEventListener("click", () => focusCourtCard(court));
 
   return card;
 }
@@ -1061,6 +1124,12 @@ function createCourtCard(court) {
   const card = document.createElement("article");
   card.className = "card";
 
+  const courtIndex = courtIndexMap.get(court);
+  if (courtIndex != null) {
+    card.id = `court-card-${courtIndex}`;
+    card.dataset.courtJaName = rawValue(court.name);
+  }
+
   const header = document.createElement("div");
   header.className = "card-header";
 
@@ -1074,7 +1143,6 @@ function createCourtCard(court) {
 
   const media = document.createElement("div");
   media.className = "card-media";
-  const courtIndex = courtIndexMap.get(court);
   const favoriteButton = createFavoriteButton("court", isFavoriteCourt(court), (active) => {
     if (courtIndex == null) return;
     if (active) {
