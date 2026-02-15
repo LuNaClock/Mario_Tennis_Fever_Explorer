@@ -663,5 +663,12 @@ export const tips = [
             { ja: "Tipsを更新", en: "Updated Tips." }
         ],
       },
+      {
+        date: { ja: "2026-02-15", en: "2026-02-15" },
+        items: [
+            { ja: "Tier表にメモ欄追加", en: "Added a notes section to the tier list." },
+            { ja: "次コート予測機能(β)を実装", en: "Implemented next-court prediction feature (beta)." }
+        ],
+      },
   ];
   
