@@ -1657,6 +1657,42 @@ img {
   gap: 4px;
 }
 
+.court-prediction-card {
+  display: grid;
+  grid-template-columns: 56px 1fr;
+  gap: 10px;
+  align-items: center;
+}
+
+.court-prediction-card__image {
+  width: 56px;
+  height: 56px;
+  border-radius: 10px;
+  object-fit: cover;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(6, 19, 30, 0.8);
+}
+
+.court-prediction-card__content {
+  display: grid;
+  gap: 4px;
+}
+
+.court-prediction-card__name {
+  font-size: 0.95rem;
+}
+
+.court-prediction-card__stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.court-prediction-card__stat {
+  color: var(--muted);
+  font-size: 0.78rem;
+}
+
 .court-prediction__candidate-label {
   color: var(--muted);
   font-size: 0.78rem;

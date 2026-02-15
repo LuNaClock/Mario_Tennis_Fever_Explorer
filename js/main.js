@@ -872,6 +872,41 @@ function formatPercent(value) {
   return `${Math.round(value * 100)}%`;
 }
 
+function createPredictedCourtCard(court) {
+  const card = document.createElement("article");
+  card.className = "court-prediction-card";
+
+  const image = document.createElement("img");
+  image.className = "court-prediction-card__image";
+  image.src = court.image;
+  image.alt = `${localizeValue(court.name)} ${t("meta.iconSuffix")}`;
+  image.loading = "lazy";
+
+  const content = document.createElement("div");
+  content.className = "court-prediction-card__content";
+
+  const name = document.createElement("strong");
+  name.className = "court-prediction-card__name";
+  name.textContent = localizeValue(court.name);
+
+  const stats = document.createElement("div");
+  stats.className = "court-prediction-card__stats";
+
+  const speed = document.createElement("span");
+  speed.className = "court-prediction-card__stat";
+  speed.textContent = `${t("court.ballSpeed")}: ${court.ballSpeed}`;
+
+  const bounce = document.createElement("span");
+  bounce.className = "court-prediction-card__stat";
+  bounce.textContent = `${t("court.bounce")}: ${court.bounce}`;
+
+  stats.append(speed, bounce);
+  content.append(name, stats);
+  card.append(image, content);
+
+  return card;
+}
+
 function renderCourtPrediction() {
   if (!courtPredictionCurrent || !courtPredictionList) return;
 
@@ -900,16 +935,21 @@ function renderCourtPrediction() {
       ? t("courtPrediction.deterministic")
       : t("courtPrediction.candidate", { rank: index + 1 });
 
+    const matchedCourt = courts.find((court) => rawValue(court.name) === candidate.name);
+
     const value = document.createElement("strong");
     value.className = "court-prediction__candidate-name";
-    const matchedCourt = courts.find((court) => rawValue(court.name) === candidate.name);
     value.textContent = matchedCourt ? localizeValue(matchedCourt.name) : candidate.name;
 
     const confidence = document.createElement("span");
     confidence.className = "court-prediction__candidate-confidence";
     confidence.textContent = `${t("courtPrediction.confidence")}: ${formatPercent(candidate.probability)}`;
 
-    item.append(label, value, confidence);
+    if (matchedCourt) {
+      item.append(label, createPredictedCourtCard(matchedCourt), confidence);
+    } else {
+      item.append(label, value, confidence);
+    }
     courtPredictionList.append(item);
   });
 }
