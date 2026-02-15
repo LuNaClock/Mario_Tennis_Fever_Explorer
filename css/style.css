@@ -1642,20 +1642,93 @@ img {
 
 .court-prediction__list {
   list-style: none;
-  margin: 12px 0 0;
+  margin: 12px auto 0;
   padding: 0;
   display: grid;
   gap: 10px;
+  width: min(100%, 780px);
 }
 
 .court-prediction__item {
   border: 1px solid var(--border);
   border-radius: 10px;
-  padding: 10px;
+  padding: 12px;
   background: rgba(8, 26, 42, 0.72);
   display: grid;
-  gap: 4px;
+  gap: 8px;
 }
+
+.court-prediction-card {
+  width: 100%;
+  border: 1px solid rgba(120, 176, 219, 0.35);
+  border-radius: 12px;
+  background: rgba(4, 28, 48, 0.75);
+  display: grid;
+  grid-template-columns: 86px minmax(0, 1fr);
+  gap: 12px;
+  align-items: center;
+  padding: 10px;
+  text-align: left;
+  color: var(--text);
+  cursor: pointer;
+}
+
+.court-prediction-card:hover,
+.court-prediction-card:focus-visible {
+  border-color: rgba(126, 198, 255, 0.8);
+  transform: translateY(-1px);
+}
+
+.court-prediction-card__image {
+  width: 86px;
+  height: 86px;
+  border-radius: 10px;
+  object-fit: cover;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(6, 19, 30, 0.8);
+}
+
+.court-prediction-card__content {
+  display: grid;
+  gap: 8px;
+}
+
+.court-prediction-card__name {
+  font-size: 1.05rem;
+}
+
+.court-prediction-card__stats {
+  display: grid;
+  gap: 6px;
+}
+
+.court-prediction-card__stat-row {
+  display: grid;
+  grid-template-columns: auto auto;
+  gap: 10px;
+  align-items: center;
+}
+
+.court-prediction-card__stat-label {
+  color: var(--text);
+  font-size: 0.92rem;
+  white-space: nowrap;
+}
+
+.court-prediction-card__stat-value {
+  display: grid;
+  grid-template-columns: auto auto;
+  gap: 10px;
+  align-items: center;
+  justify-content: start;
+}
+
+.court-prediction-card__stat-number {
+  color: #f8fdff;
+  font-weight: 700;
+  min-width: 1ch;
+}
+
 
 .court-prediction__candidate-label {
   color: var(--muted);
