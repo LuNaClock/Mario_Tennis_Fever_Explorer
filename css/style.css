@@ -1615,3 +1615,58 @@ img {
     padding: 12px;
   }
 }
+
+.court-prediction {
+  margin-top: 16px;
+  padding: 16px;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: rgba(7, 22, 36, 0.72);
+}
+
+.court-prediction__title {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.court-prediction__description,
+.court-prediction__note {
+  margin: 8px 0 0;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.court-prediction__selector {
+  margin-top: 12px;
+}
+
+.court-prediction__list {
+  list-style: none;
+  margin: 12px 0 0;
+  padding: 0;
+  display: grid;
+  gap: 10px;
+}
+
+.court-prediction__item {
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 10px;
+  background: rgba(8, 26, 42, 0.72);
+  display: grid;
+  gap: 4px;
+}
+
+.court-prediction__candidate-label {
+  color: var(--muted);
+  font-size: 0.78rem;
+}
+
+.court-prediction__candidate-name {
+  font-size: 1rem;
+}
+
+.court-prediction__candidate-confidence {
+  color: var(--muted);
+  font-size: 0.82rem;
+}
