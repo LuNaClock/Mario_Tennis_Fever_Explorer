@@ -932,10 +932,6 @@ function focusCourtCard(court) {
   if (!targetCard) return;
 
   targetCard.scrollIntoView({ behavior: "smooth", block: "center" });
-  targetCard.classList.add("card--focused");
-  window.setTimeout(() => {
-    targetCard.classList.remove("card--focused");
-  }, 1500);
 }
 
 function createPredictedCourtCard(court) {

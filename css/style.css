@@ -1728,10 +1728,6 @@ img {
   min-width: 1ch;
 }
 
-.card--focused {
-  outline: 2px solid rgba(126, 198, 255, 0.95);
-  outline-offset: 2px;
-}
 
 .court-prediction__candidate-label {
   color: var(--muted);
