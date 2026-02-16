@@ -569,8 +569,8 @@ export const tierPurposeRecommendations = [
     rackets: {
       picks: ["アイスフラワーラケット", "メタルラケット", "スターラケット"],
       reason: {
-        ja: "全て強化型の為、カウンターされるリスクが低く、ラケットの強みを出しつつ戦いやすい。",
-        en: "All of them are boost-type rackets, so the risk of getting countered is lower, making them easier to use while still leveraging each racket's strengths.",
+        ja: "全て設置が不要なフィーバーショットの為、カウンターされるリスクが低く、ラケットの強みを出しつつ戦いやすい。",
+        en: "All of these Fever Shots require no setup, so the risk of being countered is lower, making them easier to use while still bringing out each racket's strengths.",
       },
     },
   },
