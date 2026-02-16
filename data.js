@@ -560,10 +560,10 @@ export const tierPurposeRecommendations = [
   {
     purpose: "beginner",
     characters: {
-      picks: ["デイジー", "キャサリン", "マリオ"],
+      picks: ["デイジー", "マリオ", "ボスパックン"],
       reason: {
-        ja: "パラメータのバランスがとれており、基礎を覚えながら試合を組み立てやすい。特にデイジーはトップボレーが速く、キャサリンはフラットのチャージが速い分強い球を打ちやすい。",
-        en: "Their parameters are well-balanced, making it easy to build match fundamentals while learning. Daisy's topspin volleys are fast, and Catherine's quick Flat charge helps produce strong shots consistently.",
+        ja: "パラメータのバランスがとれており、基礎を覚えながら試合を組み立てやすい。特にデイジーはトップボレーが速く決め球にしやすい。ボスパックン捕球範囲が広く、コントロールもあるので、強いフラットを活かしやすい。フラットサーブ失敗時のリスクを考慮すると、基本的にはスライスサーブで打つのがおすすめ。",
+        en: "",
       },
     },
     rackets: {
