@@ -560,17 +560,17 @@ export const tierPurposeRecommendations = [
   {
     purpose: "beginner",
     characters: {
-      picks: ["デイジー", "キャサリン", "マリオ"],
+      picks: ["デイジー", "マリオ", "ボスパックン"],
       reason: {
-        ja: "パラメータのバランスがとれており、基礎を覚えながら試合を組み立てやすい。特にデイジーはトップボレーが速く、キャサリンはフラットのチャージが速い分強い球を打ちやすい。",
-        en: "Their parameters are well-balanced, making it easy to build match fundamentals while learning. Daisy's topspin volleys are fast, and Catherine's quick Flat charge helps produce strong shots consistently.",
+        ja: "パラメータのバランスがとれており、基礎を覚えながら試合を組み立てやすい。特にデイジーはトップボレーが速く決め球にしやすい。ボスパックン捕球範囲が広く、コントロールもあるので、強いフラットを活かしやすい。フラットサーブ失敗時のリスクを考慮すると、基本的にはスライスサーブで打つのがおすすめ。",
+        en: "Their stats are well balanced, so they are easy to build points with while learning the fundamentals. Daisy in particular has a fast top volley that is easy to use as a finisher. Petey Piranha has a wide catch range and good control, making strong flat shots easier to leverage. Considering the risk when a flat serve fails, a slice serve is generally recommended.",
       },
     },
     rackets: {
       picks: ["アイスフラワーラケット", "メタルラケット", "スターラケット"],
       reason: {
-        ja: "全て強化型の為、カウンターされるリスクが低く、ラケットの強みを出しつつ戦いやすい。",
-        en: "All of them are boost-type rackets, so the risk of getting countered is lower, making them easier to use while still leveraging each racket's strengths.",
+        ja: "全て設置が不要なフィーバーショットの為、カウンターされるリスクが低く、ラケットの強みを出しつつ戦いやすい。",
+        en: "All of these Fever Shots require no setup, so the risk of being countered is lower, making them easier to use while still bringing out each racket's strengths.",
       },
     },
   },
@@ -727,7 +727,7 @@ export const tips = [
       {
         date: { ja: "2026-02-17", en: "2026-02-17" },
         items: [
-            { ja: "Tierに、目的別おすすめ欄を追加", en: "" }
+            { ja: "Tierに、目的別おすすめ欄を追加", en: "Added a purpose-based recommendations section to the tier list." }
         ],
       },
   ];
