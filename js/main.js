@@ -3123,11 +3123,31 @@ function renderTierPurposeGroup(parent, type, picks = [], reasonText = "") {
   });
 
   const reason = document.createElement("p");
-  reason.className = "tier-purpose-card__reason";
+  reason.className = `tier-purpose-card__reason tier-purpose-card__reason--${type}`;
   reason.textContent = reasonText;
 
   group.append(heading, pickGrid, reason);
   parent.append(group);
+}
+
+function syncTierPurposeReasonHeights() {
+  if (!tierPurposeList) return;
+
+  const cards = Array.from(tierPurposeList.querySelectorAll(".tier-purpose-card"));
+  ["characters", "rackets"].forEach((type) => {
+    const reasons = cards
+      .map((card) => card.querySelector(`.tier-purpose-card__reason--${type}`))
+      .filter(Boolean);
+
+    reasons.forEach((reason) => {
+      reason.style.minHeight = "";
+    });
+
+    const maxHeight = Math.max(0, ...reasons.map((reason) => reason.offsetHeight));
+    reasons.forEach((reason) => {
+      reason.style.minHeight = maxHeight > 0 ? `${maxHeight}px` : "";
+    });
+  });
 }
 
 function renderTierPurposeRecommendations() {
@@ -3152,6 +3172,7 @@ function renderTierPurposeRecommendations() {
   });
 
   tierPurposeList.append(fragment);
+  syncTierPurposeReasonHeights();
 }
 
 function renderAllTierBoards() {
@@ -3258,6 +3279,7 @@ if (localeSelect) {
 
 syncLocaleSelect();
 applyLocale();
+window.addEventListener("resize", debounce(syncTierPurposeReasonHeights, 120));
 setupSectionCollapse();
 setupAccordionRowSync();
 setupSectionNavVisibility();
