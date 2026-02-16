@@ -43,6 +43,7 @@
         <a class="section-nav__item" href="#rackets" data-target="rackets" data-i18n="nav.rackets">ラケット</a>
         <a class="section-nav__item" href="#courts" data-target="courts" data-i18n="nav.courts">コート</a>
         <a class="section-nav__item" href="#techniques" data-target="techniques">Tips</a>
+        <a class="section-nav__item" href="#faq" data-target="faq">FAQ</a>
         <a class="section-nav__item" href="#tier" data-target="tier" data-i18n="nav.tier">Tier</a>
       </div>
       <button type="button" class="section-nav__toggle" data-section-nav-toggle aria-expanded="true" aria-controls="desktop-section-nav-links" aria-label="セクションナビをたたむ" data-i18n-attr="aria-label:aria.collapseNav"></button>
@@ -448,6 +449,25 @@
         <div class="tier-pool" id="racket-tier-pool"></div>
       </div>
     </section>
+
+    <section class="section" id="faq" data-nav-label="FAQ">
+      <div class="section-header">
+        <div>
+          <h2>よくある質問（FAQ）</h2>
+          <p class="section-description">マリオテニスフィーバー 攻略でよく検索される内容を、初心者向けにまとめています。</p>
+        </div>
+      </div>
+      <dl class="info-panel">
+        <dt>マリオテニスフィーバー 攻略を始めた初心者は、まず何を見ればいいですか？</dt>
+        <dd>まずは「キャラクター一覧」でタイプごとの特徴を確認し、次に「ラケット一覧」で効果タイミングを比較するのがおすすめです。最後にTipsで操作の基本を確認すると、試合の流れをつかみやすくなります。</dd>
+
+        <dt>初心者向けのおすすめキャラはどのタイプですか？</dt>
+        <dd>初心者には、極端な弱点が少ないオールラウンドタイプか、操作感をつかみやすいテクニックタイプがおすすめです。フィルタでタイプを絞って、スピードやスタミナの数値を比較しながら選ぶと失敗しにくいです。</dd>
+
+        <dt>おすすめキャラと相性のよいラケットはどう選べますか？</dt>
+        <dd>おすすめキャラを決めた後は、ラケット一覧の「種類」と「効果タイミング」で絞り込み、キャラの長所を伸ばす構成を選ぶのが基本です。さらにTier表で候補を並べると、自分のプレイスタイルに合う組み合わせを整理できます。</dd>
+      </dl>
+    </section>
   </main>
 
   <nav class="mobile-bottom-nav js-section-nav" aria-label="モバイルセクションナビ" data-i18n-attr="aria-label:aria.mobileNav">
@@ -455,6 +475,7 @@
     <a class="mobile-bottom-nav__item" href="#rackets" data-target="rackets" data-i18n="nav.rackets">ラケット</a>
     <a class="mobile-bottom-nav__item" href="#courts" data-target="courts" data-i18n="nav.courts">コート</a>
     <a class="mobile-bottom-nav__item" href="#techniques" data-target="techniques">Tips</a>
+    <a class="mobile-bottom-nav__item" href="#faq" data-target="faq">FAQ</a>
     <a class="mobile-bottom-nav__item" href="#tier" data-target="tier" data-i18n="nav.tier">Tier</a>
   </nav>
 
@@ -506,6 +527,49 @@
       </div>
     </div>
   </div>
+
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebSite",
+          "name": "マリオテニスフィーバー Explorer",
+          "url": "https://lu-na-clock.github.io/Mario_Tennis_Fever_Explorer/",
+          "inLanguage": "ja"
+        },
+        {
+          "@type": "FAQPage",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "マリオテニスフィーバー 攻略を始めた初心者は、まず何を見ればいいですか？",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "まずは「キャラクター一覧」でタイプごとの特徴を確認し、次に「ラケット一覧」で効果タイミングを比較するのがおすすめです。最後にTipsで操作の基本を確認すると、試合の流れをつかみやすくなります。"
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "初心者向けのおすすめキャラはどのタイプですか？",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "初心者には、極端な弱点が少ないオールラウンドタイプか、操作感をつかみやすいテクニックタイプがおすすめです。フィルタでタイプを絞って、スピードやスタミナの数値を比較しながら選ぶと失敗しにくいです。"
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "おすすめキャラと相性のよいラケットはどう選べますか？",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "おすすめキャラを決めた後は、ラケット一覧の「種類」と「効果タイミング」で絞り込み、キャラの長所を伸ばす構成を選ぶのが基本です。さらにTier表で候補を並べると、自分のプレイスタイルに合う組み合わせを整理できます。"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  </script>
 
   <script type="module" src="js/main.js"></script>
 </body>
