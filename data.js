@@ -502,7 +502,7 @@ export const characters = [
         name: { ja: "マジックラケット", en: "Magic Racket" },
         category: "妨害",
         timing: "バウンド時",
-        effect: { ja: "まほうの杖を設置。設置地点からプレイヤーに直線軌道で弾を発射。触れると小時間行動不可 + ダメージ + ラケットがフライパンになり、効果中はフラット以外の球種が使用できず、フィーバーゲージの自動増加が停止/フィーバーショットも使用不可になる。", en: "Places a magic wand. It fires projectiles in a straight line from its placement point toward players. Contact causes brief immobilization + damage, and your racket turns into a frying pan, disabling all shot types except flat for a while." },
+        effect: { ja: "まほうの杖を設置。設置地点からプレイヤーに直線軌道で弾を発射。触れると小時間行動不可 + ダメージ + ラケットがフライパンになり、効果中はフラット以外の球種が使用できず、フィーバーゲージの自動増加が停止/フィーバーショットも使用不可になる。", en: "" },
         text: { ja: "バウンドした場所にまほうの杖を出現させる。まほうにふれるとラケットが変化", en: "A magic wand appears at the bounce point. Touch its magic and your racket transforms." },
         image: "assets/racket_icons/magic_racket.webp",
       },
@@ -596,8 +596,8 @@ export const tierPurposeRecommendations = [
     characters: {
       picks: ["ゲッソー", "ノコノコ", "クリボー"],
       reason: {
-        ja: "ゲッソーは独特のスライス、ノコノコはドロップチャージの速さ、クリボーはスライドフットワークや飛びつきの後隙が少ない為粘り力が強い。ポテンシャルはあるが引き出すのが難しいのが欠点",
-        en: "Blooper has a unique slice, Koopa Troopa has fast drop-shot charge, and Goomba can sustain rallies thanks to low recovery on slide footwork and dives. They have strong potential, but drawing it out is difficult.",
+        ja: "ゲッソーは独特のスライスによるミスの誘発しやすさ、ノコノコはスピードが良くドロップチャージも速いなどの利点。クリボーはスピードとコントロールのバランスが良く、スライドフットワークや飛びつきの後隙が少ない為粘り力が強い。どのキャラもポテンシャルはあるが引き出すのが難しいのが欠点。",
+        en: "",
       },
     },
     rackets: {
