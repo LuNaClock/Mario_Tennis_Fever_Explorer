@@ -503,7 +503,7 @@ export const characters = [
         category: "妨害",
         timing: "バウンド時",
         effect: { ja: "まほうの杖を設置。設置地点からプレイヤーに直線軌道で弾を発射。触れると小時間行動不可 + ダメージ + ラケットがフライパンになり、効果中はフラット以外の球種が使用できず、フィーバーゲージの自動増加が停止/フィーバーショットも使用不可になる。", en: "Places a magic wand. It fires projectiles in a straight line from its placement point toward players. Contact causes brief immobilization + damage, and your racket turns into a frying pan, disabling all shot types except flat for a while." },
-        text: { ja: "バウンドした場所にまほうの杖を出現させる。まほうにふれるとラケットが変化", en: "" },
+        text: { ja: "バウンドした場所にまほうの杖を出現させる。まほうにふれるとラケットが変化", en: "A magic wand appears at the bounce point. Touch its magic and your racket transforms." },
         image: "assets/racket_icons/magic_racket.webp",
       },
       {
@@ -563,14 +563,14 @@ export const tierPurposeRecommendations = [
       picks: ["デイジー", "キャサリン", "マリオ"],
       reason: {
         ja: "パラメータのバランスがとれており、基礎を覚えながら試合を組み立てやすい。特にデイジーはトップボレーが速く、キャサリンはフラットのチャージが速い分強い球を打ちやすい。",
-        en: "",
+        en: "Their parameters are well-balanced, making it easy to build match fundamentals while learning. Daisy's topspin volleys are fast, and Catherine's quick Flat charge helps produce strong shots consistently.",
       },
     },
     rackets: {
       picks: ["アイスフラワーラケット", "メタルラケット", "スターラケット"],
       reason: {
         ja: "全て強化型の為、カウンターされるリスクが低く、ラケットの強みを出しつつ戦いやすい。",
-        en: "",
+        en: "All of them are buff-type rackets, so the risk of getting countered is lower, making them easier to use while still leveraging each racket's strengths.",
       },
     },
   },
@@ -580,14 +580,14 @@ export const tierPurposeRecommendations = [
       picks: ["ドンキーコング", "ロゼッタ"],
       reason: {
         ja: "ドンキーはパワー/コントロール/スピードの全てが高く、弱点は浮いた球をスマッシュで返しづらいのと当たり判定が大きいところ。ロゼッタは全パラメータのバランスが良く浮遊タイプの為、安定しやすくも浮遊特有の伸びしろもある。",
-        en: "",
+        en: "Donkey Kong has high power, control, and speed; his weaknesses are difficulty smashing high floaters and a large hurtbox. Rosetta is a floating type with balanced parameters, offering stable performance plus the growth potential unique to floating characters.",
       },
     },
     rackets: {
       picks: ["ダッシュラケット", "メタルラケット"],
       reason: {
         ja: "ダッシュは殆どの相手に対応できる汎用性があり、メタルは妨害を避けつつショット威力が強化されるので主導権を取りやすい。",
-        en: "",
+        en: "Dash is highly versatile against most opponents, and Metal boosts shot power while avoiding disruption effects, making it easier to take initiative.",
       },
     },
   },
@@ -597,14 +597,14 @@ export const tierPurposeRecommendations = [
       picks: ["ゲッソー", "ノコノコ", "クリボー"],
       reason: {
         ja: "ゲッソーは独特のスライス、ノコノコはドロップチャージの速さ、クリボーはスライドフットワークや飛びつきの後隙が少ない為粘り力が強い。ポテンシャルはあるが引き出すのが難しいのが欠点",
-        en: "",
+        en: "Blooper has a unique slice, Koopa Troopa has fast drop-shot charge, and Goomba can sustain rallies thanks to low recovery on slide footwork and dives. They have strong potential, but drawing it out is difficult.",
       },
     },
     rackets: {
       picks: ["マジックラケット", "マメキノコラケット", "ドッスンラケット"],
       reason: {
         ja: "妨害系は設置する必要がある為、フィーバーショット時に点数を取るのと設置をする優先順位の理解が必要。使いこなせるとポイントを連取出来る強力さがある。カウンターされるリスクが高い為、初心者には不向き。",
-        en: "",
+        en: "Disruption rackets require setup, so you need to understand when to prioritize scoring with Fever Shot versus placing effects. Mastering them can snowball points, but their high counter risk makes them less suitable for beginners.",
       },
     },
   },
