@@ -727,7 +727,7 @@ export const tips = [
       {
         date: { ja: "2026-02-17", en: "2026-02-17" },
         items: [
-            { ja: "Tierに、目的別おすすめ欄を追加", en: "" }
+            { ja: "Tierに、目的別おすすめ欄を追加", en: "Added a purpose-based recommendations section to the tier list." }
         ],
       },
   ];
