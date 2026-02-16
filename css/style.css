@@ -752,6 +752,50 @@ img {
   content: "★";
 }
 
+.tier-purpose {
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: rgba(8, 24, 38, 0.7);
+  padding: 12px;
+  margin-top: 8px;
+}
+
+.tier-purpose__title {
+  margin: 0 0 10px;
+  font-size: 0.98rem;
+}
+
+.tier-purpose__list {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+}
+
+.tier-purpose-card {
+  border: 1px solid rgba(145, 182, 210, 0.3);
+  border-radius: 10px;
+  background: rgba(8, 26, 42, 0.72);
+  padding: 10px;
+}
+
+.tier-purpose-card__title {
+  margin: 0 0 6px;
+  font-size: 0.9rem;
+}
+
+.tier-purpose-card__names {
+  margin: 0 0 6px;
+  color: #d6ecff;
+  font-weight: 700;
+  font-size: 0.88rem;
+}
+
+.tier-purpose-card__reason {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.82rem;
+}
+
 .tier-controls {
   display: flex;
   gap: 8px;

@@ -556,6 +556,33 @@ export const characters = [
     },
   ];
 
+export const tierPurposeRecommendations = [
+  {
+    purpose: "beginner",
+    characters: ["マリオ", "デイジー", "キノピオ"],
+    reason: {
+      ja: "操作感が素直で、ショットの基礎を覚えながら試合を組み立てやすい。",
+      en: "Straightforward handling that helps you build fundamentals while learning match flow.",
+    },
+  },
+  {
+    purpose: "winrate",
+    characters: ["ロゼッタ", "ワリオ", "パタパタ"],
+    reason: {
+      ja: "現環境で強みを押し付けやすく、相手やコートを問わず安定して勝ち筋を作りやすい。",
+      en: "Strong current-meta options that consistently create win conditions across many matchups and courts.",
+    },
+  },
+  {
+    purpose: "growth",
+    characters: ["テレサ", "チコ", "カメック"],
+    reason: {
+      ja: "慣れが必要だが、使い込むほど択の幅と再現性が伸びて上振れを狙える。",
+      en: "They need practice, but mastery unlocks higher ceiling and more consistent advanced options.",
+    },
+  },
+];
+
 
 export const courts = [
   { name: { ja: "スタジアム グラス", en: "Stadium Court (Grass)" }, ballSpeed: 4, bounce: 1, description: { ja: "（個人的な説明欄は後日更新予定）", en: "(Personal notes will be added later.)" }, text: { ja: "手入れのゆきとどいた芝はたまあしが速い。判断力が大事な本格的なスタジアムコート", en: "Well-manicured turf that increases ball speed. Keep your eyes sharp on this court." }, image: "assets/coat_icons/stadium_grass.webp" },
