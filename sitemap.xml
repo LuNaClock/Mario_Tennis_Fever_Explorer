@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <!--
+    運用ルール:
+    1) 追加するURLごとに <url> を1ブロック追加する。
+    2) <lastmod> はページ内容を更新した日付を YYYY-MM-DD 形式で記載する。
+    3) <priority> はトップページを 1.0、主要な固定ページを 0.8、補助ページを 0.5 目安で運用する。
+  -->
+  <url>
+    <loc>https://mariotennis-fever-explorer.ai-lifebook.com/</loc>
+    <lastmod>2026-02-16</lastmod>
+    <priority>1.0</priority>
+  </url>
+</urlset>
