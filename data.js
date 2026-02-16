@@ -502,7 +502,7 @@ export const characters = [
         name: { ja: "マジックラケット", en: "Magic Racket" },
         category: "妨害",
         timing: "バウンド時",
-        effect: { ja: "まほうの杖を設置。設置地点からプレイヤーに直線軌道で弾を発射。触れると小時間行動不可 + ダメージ + ラケットがフライパンになり、効果中はフラット以外の球種が使用できず、フィーバーゲージの自動増加が停止/フィーバーショットも使用不可になる。", en: "" },
+        effect: { ja: "まほうの杖を設置。設置地点からプレイヤーに直線軌道で弾を発射。触れると小時間行動不可 + ダメージ + ラケットがフライパンになり、効果中はフラット以外の球種が使用できず、フィーバーゲージの自動増加が停止/フィーバーショットも使用不可になる。", en: "Places a magic wand. It fires projectiles in a straight line from its location toward players. On contact, it causes brief immobilization + damage, then turns your racket into a frying pan; while affected, only flat shots are available, Fever gauge auto-charge stops, and Fever Shot cannot be used." },
         text: { ja: "バウンドした場所にまほうの杖を出現させる。まほうにふれるとラケットが変化", en: "A magic wand appears at the bounce point. Touch its magic and your racket transforms." },
         image: "assets/racket_icons/magic_racket.webp",
       },
