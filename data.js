@@ -502,8 +502,8 @@ export const characters = [
         name: { ja: "マジックラケット", en: "Magic Racket" },
         category: "妨害",
         timing: "バウンド時",
-        effect: { ja: "まほうの杖を設置。設置地点からプレイヤーに直線軌道で弾を発射。触れると小時間行動不可 + ダメージ + ラケットがフライパンになり、一定時間フラット以外の球種が使用不可になる", en: "Places a magic wand. It fires projectiles in a straight line from its placement point toward players. Contact causes brief immobilization + damage, and your racket turns into a frying pan, disabling all shot types except flat for a while." },
-        text: { ja: "バウンドした場所にまほうの杖を出現させる。まほうにふれるとラケットが変化", en: "A magic wand appears at the bounce point. Touching the magic changes your racket." },
+        effect: { ja: "まほうの杖を設置。設置地点からプレイヤーに直線軌道で弾を発射。触れると小時間行動不可 + ダメージ + ラケットがフライパンになり、効果中はフラット以外の球種が使用できず、フィーバーゲージの自動増加が停止/フィーバーショットも使用不可になる。", en: "Places a magic wand. It fires projectiles in a straight line from its placement point toward players. Contact causes brief immobilization + damage, and your racket turns into a frying pan, disabling all shot types except flat for a while." },
+        text: { ja: "バウンドした場所にまほうの杖を出現させる。まほうにふれるとラケットが変化", en: "" },
         image: "assets/racket_icons/magic_racket.webp",
       },
       {
@@ -560,51 +560,51 @@ export const tierPurposeRecommendations = [
   {
     purpose: "beginner",
     characters: {
-      picks: ["マリオ", "デイジー", "キノピオ"],
+      picks: ["デイジー", "キャサリン", "マリオ"],
       reason: {
-        ja: "操作感が素直で、ショットの基礎を覚えながら試合を組み立てやすい。",
-        en: "Straightforward handling that helps you build fundamentals while learning match flow.",
+        ja: "パラメータのバランスがとれており、基礎を覚えながら試合を組み立てやすい。特にデイジーはトップボレーが速く、キャサリンはフラットのチャージが速い分強い球を打ちやすい。",
+        en: "",
       },
     },
     rackets: {
-      picks: ["マイラケット", "ダッシュラケット", "ファイアバーラケット"],
+      picks: ["アイスフラワーラケット", "メタルラケット", "スターラケット"],
       reason: {
-        ja: "効果が分かりやすく、まずは試合運びを崩さず扱いやすい構成。",
-        en: "Simple effects that are easy to understand and use without disrupting your core game plan.",
+        ja: "全て強化型の為、カウンターされるリスクが低く、ラケットの強みを出しつつ戦いやすい。",
+        en: "",
       },
     },
   },
   {
     purpose: "winrate",
     characters: {
-      picks: ["ロゼッタ", "ワリオ", "パタパタ"],
+      picks: ["ドンキーコング", "ロゼッタ"],
       reason: {
-        ja: "現環境で強みを押し付けやすく、相手やコートを問わず安定して勝ち筋を作りやすい。",
-        en: "Strong current-meta options that consistently create win conditions across many matchups and courts.",
+        ja: "ドンキーはパワー/コントロール/スピードの全てが高く、弱点は浮いた球をスマッシュで返しづらいのと当たり判定が大きいところ。ロゼッタは全パラメータのバランスが良く浮遊タイプの為、安定しやすくも浮遊特有の伸びしろもある。",
+        en: "",
       },
     },
     rackets: {
-      picks: ["ドロドロラケット", "アイスラケット", "インクラケット"],
+      picks: ["ダッシュラケット", "メタルラケット"],
       reason: {
-        ja: "相手の機動力を削る効果が強く、安定して主導権を取りやすい。",
-        en: "These options reliably limit opponent movement and help maintain initiative.",
+        ja: "ダッシュは殆どの相手に対応できる汎用性があり、メタルは妨害を避けつつショット威力が強化されるので主導権を取りやすい。",
+        en: "",
       },
     },
   },
   {
     purpose: "growth",
     characters: {
-      picks: ["テレサ", "チコ", "カメック"],
+      picks: ["ゲッソー", "ノコノコ", "クリボー"],
       reason: {
-        ja: "慣れが必要だが、使い込むほど択の幅と再現性が伸びて上振れを狙える。",
-        en: "They need practice, but mastery unlocks higher ceiling and more consistent advanced options.",
+        ja: "ゲッソーは独特のスライス、ノコノコはドロップチャージの速さ、クリボーはスライドフットワークや飛びつきの後隙が少ない為粘り力が強い。ポテンシャルはあるが引き出すのが難しいのが欠点",
+        en: "",
       },
     },
     rackets: {
-      picks: ["ブーメランラケット", "ヒューゴーラケット", "サンダーラケット"],
+      picks: ["マジックラケット", "マメキノコラケット", "ドッスンラケット"],
       reason: {
-        ja: "設置や軌道変化の理解が必要だが、使いこなすと展開力が大きく伸びる。",
-        en: "They require setup and trajectory control, but reward mastery with big playmaking potential.",
+        ja: "妨害系は設置する必要がある為、フィーバーショット時に点数を取るのと設置をする優先順位の理解が必要。使いこなせるとポイントを連取出来る強力さがある。カウンターされるリスクが高い為、初心者には不向き。",
+        en: "",
       },
     },
   },
