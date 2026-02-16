@@ -724,5 +724,11 @@ export const tips = [
             { ja: "次コート予測機能(β)を実装", en: "Implemented next-court prediction feature (beta)." }
         ],
       },
+      {
+        date: { ja: "2026-02-17", en: "2026-02-17" },
+        items: [
+            { ja: "Tierに、目的別おすすめ欄を追加", en: "" }
+        ],
+      },
   ];
   
