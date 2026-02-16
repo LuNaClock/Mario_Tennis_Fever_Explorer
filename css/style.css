@@ -752,6 +752,37 @@ img {
   content: "★";
 }
 
+
+.tier-related-guides {
+  margin: 16px 0 18px;
+  padding: 14px 16px;
+  border: 1px solid rgba(79, 195, 255, 0.35);
+  border-radius: 12px;
+  background: rgba(10, 31, 49, 0.82);
+}
+
+.tier-related-guides__title {
+  margin: 0 0 8px;
+  font-size: 0.96rem;
+}
+
+.tier-related-guides__list {
+  margin: 0;
+  padding-left: 1.2rem;
+  display: grid;
+  gap: 8px;
+  color: var(--muted);
+}
+
+.tier-related-guides a {
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.tier-related-guides a:hover {
+  text-decoration: underline;
+}
+
 .tier-controls {
   display: flex;
   gap: 8px;
@@ -1319,6 +1350,16 @@ img {
   .section-header-actions {
     width: 100%;
     justify-content: space-between;
+  }
+
+  .tier-related-guides {
+    margin: 12px 0 16px;
+    padding: 14px;
+  }
+
+  .tier-related-guides__list {
+    padding-left: 1rem;
+    gap: 10px;
   }
 
   .filter-modal {
