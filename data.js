@@ -559,26 +559,53 @@ export const characters = [
 export const tierPurposeRecommendations = [
   {
     purpose: "beginner",
-    characters: ["マリオ", "デイジー", "キノピオ"],
-    reason: {
-      ja: "操作感が素直で、ショットの基礎を覚えながら試合を組み立てやすい。",
-      en: "Straightforward handling that helps you build fundamentals while learning match flow.",
+    characters: {
+      picks: ["マリオ", "デイジー", "キノピオ"],
+      reason: {
+        ja: "操作感が素直で、ショットの基礎を覚えながら試合を組み立てやすい。",
+        en: "Straightforward handling that helps you build fundamentals while learning match flow.",
+      },
+    },
+    rackets: {
+      picks: ["マイラケット", "ダッシュラケット", "ファイアバーラケット"],
+      reason: {
+        ja: "効果が分かりやすく、まずは試合運びを崩さず扱いやすい構成。",
+        en: "Simple effects that are easy to understand and use without disrupting your core game plan.",
+      },
     },
   },
   {
     purpose: "winrate",
-    characters: ["ロゼッタ", "ワリオ", "パタパタ"],
-    reason: {
-      ja: "現環境で強みを押し付けやすく、相手やコートを問わず安定して勝ち筋を作りやすい。",
-      en: "Strong current-meta options that consistently create win conditions across many matchups and courts.",
+    characters: {
+      picks: ["ロゼッタ", "ワリオ", "パタパタ"],
+      reason: {
+        ja: "現環境で強みを押し付けやすく、相手やコートを問わず安定して勝ち筋を作りやすい。",
+        en: "Strong current-meta options that consistently create win conditions across many matchups and courts.",
+      },
+    },
+    rackets: {
+      picks: ["ドロドロラケット", "アイスラケット", "インクラケット"],
+      reason: {
+        ja: "相手の機動力を削る効果が強く、安定して主導権を取りやすい。",
+        en: "These options reliably limit opponent movement and help maintain initiative.",
+      },
     },
   },
   {
     purpose: "growth",
-    characters: ["テレサ", "チコ", "カメック"],
-    reason: {
-      ja: "慣れが必要だが、使い込むほど択の幅と再現性が伸びて上振れを狙える。",
-      en: "They need practice, but mastery unlocks higher ceiling and more consistent advanced options.",
+    characters: {
+      picks: ["テレサ", "チコ", "カメック"],
+      reason: {
+        ja: "慣れが必要だが、使い込むほど択の幅と再現性が伸びて上振れを狙える。",
+        en: "They need practice, but mastery unlocks higher ceiling and more consistent advanced options.",
+      },
+    },
+    rackets: {
+      picks: ["ブーメランラケット", "ヒューゴーラケット", "サンダーラケット"],
+      reason: {
+        ja: "設置や軌道変化の理解が必要だが、使いこなすと展開力が大きく伸びる。",
+        en: "They require setup and trajectory control, but reward mastery with big playmaking potential.",
+      },
     },
   },
 ];

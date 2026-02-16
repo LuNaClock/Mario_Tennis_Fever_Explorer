@@ -783,17 +783,64 @@ img {
   font-size: 0.9rem;
 }
 
-.tier-purpose-card__names {
-  margin: 0 0 6px;
-  color: #d6ecff;
-  font-weight: 700;
-  font-size: 0.88rem;
-}
-
 .tier-purpose-card__reason {
   margin: 0;
   color: var(--muted);
   font-size: 0.82rem;
+}
+
+.tier-purpose-group {
+  display: grid;
+  gap: 8px;
+}
+
+.tier-purpose-group + .tier-purpose-group {
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px dashed rgba(145, 182, 210, 0.25);
+}
+
+.tier-purpose-group__title {
+  margin: 0;
+  font-size: 0.8rem;
+  color: #9ed8ff;
+}
+
+.tier-purpose-picks {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.tier-purpose-pick {
+  border: 1px solid rgba(145, 182, 210, 0.35);
+  border-radius: 8px;
+  background: rgba(4, 16, 28, 0.85);
+  padding: 8px 6px;
+  display: grid;
+  place-items: center;
+  gap: 6px;
+}
+
+.tier-purpose-pick__image {
+  width: 48px;
+  height: 48px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 1px solid rgba(145, 182, 210, 0.35);
+  background: rgba(11, 31, 49, 0.95);
+}
+
+.tier-purpose-pick__image--racket {
+  object-fit: contain;
+  padding: 4px;
+}
+
+.tier-purpose-pick__name {
+  margin: 0;
+  font-size: 0.74rem;
+  line-height: 1.2;
+  text-align: center;
 }
 
 .tier-controls {
@@ -1523,6 +1570,10 @@ img {
   .tier-item {
     width: 46px;
     height: 46px;
+  }
+
+  .tier-purpose-picks {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .card--compact .card-image--racket {

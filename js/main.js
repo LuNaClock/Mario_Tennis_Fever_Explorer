@@ -28,7 +28,7 @@ const translations = {
     meta: { iconSuffix: "のアイコン" },
     changelog: { title: "更新履歴" },
     favorite: { addCharacter: "お気に入りに追加", removeCharacter: "お気に入り解除", addRacket: "お気に入りに追加", removeRacket: "お気に入り解除", addCourt: "お気に入りに追加", removeCourt: "お気に入り解除" },
-    tier: { characterBoard: "キャラTier", racketBoard: "ラケットTier", poolTitle: "未配置アイコン", modalTitle: "Tier行を編集", labelName: "ラベル名", labelColor: "背景色", clearRow: "行の中身をクリア", addAbove: "上に行追加", addBelow: "下に行追加", deleteRow: "行を削除", addItem: "行を追加", unassigned: "未配置", ruleTitle: "ルール条件", addGlobal: "全ルール共通Tierを追加", addConditional: "条件別Tierを追加", deleteProfile: "現在のTierを削除", courtType: "コート種別", gameMode: "ゲームモード", itemRule: "フィーバーラケット", matchupBase: "選択キャラ", matchupBaseNone: "指定なし", matchupBaseIconAlt: "選択キャラのアイコン", matchupSummary: "相性Tier:", matchupPerspectiveSuffix: "視点", globalLabel: "全ルール共通Tier", conditionalLabel: "条件別Tier", allConditions: "全条件", noProfiles: "該当するTierはありません", globalTab: "全ルール共通", conditionalTab: "条件別", profileDeleted: "Tierを削除しました", shareX: "Xへ画像投稿", saveImage: "画像で保存", shareXClipboard: "画像をコピーしました。X投稿画面で貼り付けてください", shareXClipboardAlert: "Tier画像をクリップボードにコピーしました。\nX投稿画面が開いたら、本文入力欄で貼り付け（Ctrl+V / 長押し→貼り付け）してください。", shareXFallback: "画像保存後にX投稿画面を開きました", shareXFallbackAlert: "クリップボードへのコピーに失敗したため、Tier画像を端末に保存しました。\nX投稿画面で画像を選択して添付してください。", shareXFailed: "X投稿画面を開けませんでした", imageSaved: "画像を保存しました", imageSaveFailed: "画像の保存に失敗しました", freeNote: "メモ", freeNotePlaceholder: "環境に多いキャラ", purposeTitle: "目的別おすすめ", purposeBeginner: "初心者向け（扱いやすさ重視）", purposeWinrate: "勝率重視（現環境で安定）", purposeGrowth: "伸びしろ重視（使い込むと強い）" },
+    tier: { characterBoard: "キャラTier", racketBoard: "ラケットTier", poolTitle: "未配置アイコン", modalTitle: "Tier行を編集", labelName: "ラベル名", labelColor: "背景色", clearRow: "行の中身をクリア", addAbove: "上に行追加", addBelow: "下に行追加", deleteRow: "行を削除", addItem: "行を追加", unassigned: "未配置", ruleTitle: "ルール条件", addGlobal: "全ルール共通Tierを追加", addConditional: "条件別Tierを追加", deleteProfile: "現在のTierを削除", courtType: "コート種別", gameMode: "ゲームモード", itemRule: "フィーバーラケット", matchupBase: "選択キャラ", matchupBaseNone: "指定なし", matchupBaseIconAlt: "選択キャラのアイコン", matchupSummary: "相性Tier:", matchupPerspectiveSuffix: "視点", globalLabel: "全ルール共通Tier", conditionalLabel: "条件別Tier", allConditions: "全条件", noProfiles: "該当するTierはありません", globalTab: "全ルール共通", conditionalTab: "条件別", profileDeleted: "Tierを削除しました", shareX: "Xへ画像投稿", saveImage: "画像で保存", shareXClipboard: "画像をコピーしました。X投稿画面で貼り付けてください", shareXClipboardAlert: "Tier画像をクリップボードにコピーしました。\nX投稿画面が開いたら、本文入力欄で貼り付け（Ctrl+V / 長押し→貼り付け）してください。", shareXFallback: "画像保存後にX投稿画面を開きました", shareXFallbackAlert: "クリップボードへのコピーに失敗したため、Tier画像を端末に保存しました。\nX投稿画面で画像を選択して添付してください。", shareXFailed: "X投稿画面を開けませんでした", imageSaved: "画像を保存しました", imageSaveFailed: "画像の保存に失敗しました", freeNote: "メモ", freeNotePlaceholder: "環境に多いキャラ", purposeTitle: "目的別おすすめ", purposeBeginner: "初心者向け（扱いやすさ重視）", purposeWinrate: "勝率重視（現環境で安定）", purposeGrowth: "伸びしろ重視（使い込むと強い）", purposeCharacterPicks: "キャラおすすめ", purposeRacketPicks: "ラケットおすすめ" },
   },
   en: {
     site: { pageTitle: "Mario Tennis Fever Data Explorer", pageDescription: "Reference site for Mario Tennis Fever character, racket, and system data.", title: "Mario Tennis Fever Explorer", language: "Language", lead: "A reference site to compare character and racket traits with filters and sorting." },
@@ -57,7 +57,7 @@ const translations = {
     meta: { iconSuffix: " icon" },
     changelog: { title: "Changelog" },
     favorite: { addCharacter: "Add to favorites", removeCharacter: "Remove from favorites", addRacket: "Add to favorites", removeRacket: "Remove from favorites", addCourt: "Add to favorites", removeCourt: "Remove from favorites" },
-    tier: { characterBoard: "Character Tier", racketBoard: "Racket Tier", poolTitle: "Unassigned Icons", modalTitle: "Edit Tier Row", labelName: "Label", labelColor: "Background color", clearRow: "Clear row", addAbove: "Add row above", addBelow: "Add row below", deleteRow: "Delete row", addItem: "Add row", unassigned: "Unassigned", ruleTitle: "Rule filters", addGlobal: "Add Global Tier", addConditional: "Add Conditional Tier", deleteProfile: "Delete Current Tier", courtType: "Court Type", gameMode: "Game Mode", itemRule: "Fever Racket", matchupBase: "Selected Character", matchupBaseNone: "None", matchupBaseIconAlt: "Selected character icon", matchupSummary: "Matchup Tier:", matchupPerspectiveSuffix: " perspective", globalLabel: "Global Tier", conditionalLabel: "Conditional Tier", allConditions: "All Conditions", noProfiles: "No tier boards match this filter", globalTab: "Global", conditionalTab: "Conditional", profileDeleted: "Tier deleted", shareX: "Post Image to X", saveImage: "Save as Image", shareXClipboard: "Image copied. Paste it in the X composer.", shareXClipboardAlert: "Tier image copied to your clipboard.\nWhen the X composer opens, paste it into the post field.", shareXFallback: "Saved image and opened X post dialog", shareXFallbackAlert: "Clipboard copy failed, so the Tier image was downloaded.\nPlease attach the saved image in the X composer.", shareXFailed: "Failed to open X post dialog", imageSaved: "Image saved", imageSaveFailed: "Failed to save image", freeNote: "Free note", freeNotePlaceholder: "Popular characters in the current meta", purposeTitle: "Recommendations by Purpose", purposeBeginner: "For Beginners (ease of use)", purposeWinrate: "Win Rate Focus (stable in current meta)", purposeGrowth: "Growth Potential (strong with mastery)" },
+    tier: { characterBoard: "Character Tier", racketBoard: "Racket Tier", poolTitle: "Unassigned Icons", modalTitle: "Edit Tier Row", labelName: "Label", labelColor: "Background color", clearRow: "Clear row", addAbove: "Add row above", addBelow: "Add row below", deleteRow: "Delete row", addItem: "Add row", unassigned: "Unassigned", ruleTitle: "Rule filters", addGlobal: "Add Global Tier", addConditional: "Add Conditional Tier", deleteProfile: "Delete Current Tier", courtType: "Court Type", gameMode: "Game Mode", itemRule: "Fever Racket", matchupBase: "Selected Character", matchupBaseNone: "None", matchupBaseIconAlt: "Selected character icon", matchupSummary: "Matchup Tier:", matchupPerspectiveSuffix: " perspective", globalLabel: "Global Tier", conditionalLabel: "Conditional Tier", allConditions: "All Conditions", noProfiles: "No tier boards match this filter", globalTab: "Global", conditionalTab: "Conditional", profileDeleted: "Tier deleted", shareX: "Post Image to X", saveImage: "Save as Image", shareXClipboard: "Image copied. Paste it in the X composer.", shareXClipboardAlert: "Tier image copied to your clipboard.\nWhen the X composer opens, paste it into the post field.", shareXFallback: "Saved image and opened X post dialog", shareXFallbackAlert: "Clipboard copy failed, so the Tier image was downloaded.\nPlease attach the saved image in the X composer.", shareXFailed: "Failed to open X post dialog", imageSaved: "Image saved", imageSaveFailed: "Failed to save image", freeNote: "Free note", freeNotePlaceholder: "Popular characters in the current meta", purposeTitle: "Recommendations by Purpose", purposeBeginner: "For Beginners (ease of use)", purposeWinrate: "Win Rate Focus (stable in current meta)", purposeGrowth: "Growth Potential (strong with mastery)", purposeCharacterPicks: "Recommended Characters", purposeRacketPicks: "Recommended Rackets" },
   },
 };
 
@@ -221,6 +221,9 @@ const tierPurposeLabelKeyMap = {
   winrate: "tier.purposeWinrate",
   growth: "tier.purposeGrowth",
 };
+
+const characterByJaName = new Map(characters.map((character) => [rawValue(character.name), character]));
+const racketByJaName = new Map(rackets.map((racket) => [rawValue(racket.name), racket]));
 const tierRowModal = document.getElementById("tier-row-modal");
 const tierRowModalClose = document.getElementById("tier-row-modal-close");
 const tierRowLabelInput = document.getElementById("tier-row-label-input");
@@ -3081,6 +3084,52 @@ function setupTierModalActions() {
 }
 
 
+function createTierPurposePickCard(type, nameJa) {
+  const sourceMap = type === "characters" ? characterByJaName : racketByJaName;
+  const item = sourceMap.get(nameJa);
+  if (!item) return null;
+
+  const card = document.createElement("article");
+  card.className = "tier-purpose-pick";
+
+  const image = document.createElement("img");
+  image.className = `tier-purpose-pick__image${type === "rackets" ? " tier-purpose-pick__image--racket" : ""}`;
+  image.src = item.image;
+  image.alt = `${localizeValue(item.name)} ${t("meta.iconSuffix")}`;
+  image.loading = "lazy";
+
+  const name = document.createElement("p");
+  name.className = "tier-purpose-pick__name";
+  name.textContent = localizeValue(item.name);
+
+  card.append(image, name);
+  return card;
+}
+
+function renderTierPurposeGroup(parent, type, picks = [], reasonText = "") {
+  const group = document.createElement("section");
+  group.className = "tier-purpose-group";
+
+  const heading = document.createElement("h5");
+  heading.className = "tier-purpose-group__title";
+  heading.textContent = type === "characters" ? t("tier.purposeCharacterPicks") : t("tier.purposeRacketPicks");
+
+  const pickGrid = document.createElement("div");
+  pickGrid.className = "tier-purpose-picks";
+
+  picks.forEach((pickName) => {
+    const pickCard = createTierPurposePickCard(type, pickName);
+    if (pickCard) pickGrid.append(pickCard);
+  });
+
+  const reason = document.createElement("p");
+  reason.className = "tier-purpose-card__reason";
+  reason.textContent = reasonText;
+
+  group.append(heading, pickGrid, reason);
+  parent.append(group);
+}
+
 function renderTierPurposeRecommendations() {
   if (!tierPurposeList) return;
   tierPurposeList.innerHTML = "";
@@ -3094,15 +3143,11 @@ function renderTierPurposeRecommendations() {
     title.className = "tier-purpose-card__title";
     title.textContent = t(tierPurposeLabelKeyMap[entry.purpose] || entry.purpose);
 
-    const names = document.createElement("p");
-    names.className = "tier-purpose-card__names";
-    names.textContent = (entry.characters || []).join(" / ");
+    card.append(title);
 
-    const reason = document.createElement("p");
-    reason.className = "tier-purpose-card__reason";
-    reason.textContent = localizeValue(entry.reason);
+    renderTierPurposeGroup(card, "characters", entry.characters?.picks || [], localizeValue(entry.characters?.reason));
+    renderTierPurposeGroup(card, "rackets", entry.rackets?.picks || [], localizeValue(entry.rackets?.reason));
 
-    card.append(title, names, reason);
     fragment.append(card);
   });
 
