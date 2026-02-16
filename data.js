@@ -563,7 +563,7 @@ export const tierPurposeRecommendations = [
       picks: ["デイジー", "マリオ", "ボスパックン"],
       reason: {
         ja: "パラメータのバランスがとれており、基礎を覚えながら試合を組み立てやすい。特にデイジーはトップボレーが速く決め球にしやすい。ボスパックン捕球範囲が広く、コントロールもあるので、強いフラットを活かしやすい。フラットサーブ失敗時のリスクを考慮すると、基本的にはスライスサーブで打つのがおすすめ。",
-        en: "",
+        en: "Their stats are well balanced, so they are easy to build points with while learning the fundamentals. Daisy in particular has a fast top volley that is easy to use as a finisher. Petey Piranha has a wide catch range and good control, making strong flat shots easier to leverage. Considering the risk when a flat serve fails, a slice serve is generally recommended.",
       },
     },
     rackets: {
