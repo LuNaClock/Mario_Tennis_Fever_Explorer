@@ -597,7 +597,7 @@ export const tierPurposeRecommendations = [
       picks: ["ゲッソー", "ノコノコ", "クリボー"],
       reason: {
         ja: "ゲッソーは独特のスライスによるミスの誘発しやすさ、ノコノコはスピードが良くドロップチャージも速いなどの利点。クリボーはスピードとコントロールのバランスが良く、スライドフットワークや飛びつきの後隙が少ない為粘り力が強い。どのキャラもポテンシャルはあるが引き出すのが難しいのが欠点。",
-        en: "",
+        en: "Blooper can force errors with its unique slice, Koopa Troopa benefits from strong speed and fast drop-charge, and Goomba has balanced speed/control with strong persistence thanks to low recovery on slide footwork and dives. All three have high potential, but the drawback is that drawing it out is difficult.",
       },
     },
     rackets: {
