@@ -3,8 +3,8 @@ import { characters, rackets, courts, tips, changelog, tierPurposeRecommendation
 const translations = {
   ja: {
     site: { pageTitle: "マリオテニスフィーバー データ参照サイト", pageDescription: "マリオテニスフィーバーのキャラクターやラケット、システム関連データを一覧で確認できる参照サイト。", title: "マリオテニスフィーバー Explorer", language: "Language", lead: "キャラクターやラケットの特徴などを確認できるデータまとめサイトです。フィルタ・ソートで目的の情報を整理しながら参照できます。" },
-    nav: { faq: "FAQ", characters: "キャラ", rackets: "ラケット", courts: "コート", tier: "Tier" },
-    section: { faq: { title: "FAQ", description: "最短で知りたいことに辿り着けるよう、よくある質問を先頭にまとめています。" }, characters: { title: "キャラクター一覧", description: "タイプ別の特徴やパラメータを比較できます。" }, rackets: { title: "ラケット一覧", description: "効果やタイミングを比較できます。" }, courts: { title: "コート一覧", description: "コートごとのたまあしとバウンドの特性を比較できます。" }, tips: { description: "試合で役立つ操作のポイントを素早く確認できます。" }, tier: { title: "Tier表", description: "キャラとラケットを自分基準でランク付けできます。" } },
+    nav: { faq: "よくある質問", characters: "キャラ", rackets: "ラケット", courts: "コート", tier: "Tier" },
+    section: { faq: { title: "よくある質問", description: "最短で知りたいことに辿り着けるよう、よくある質問を先頭にまとめています。" }, characters: { title: "キャラクター一覧", description: "タイプ別の特徴やパラメータを比較できます。" }, rackets: { title: "ラケット一覧", description: "効果やタイミングを比較できます。" }, courts: { title: "コート一覧", description: "コートごとのたまあしとバウンドの特性を比較できます。" }, tips: { description: "試合で役立つ操作のポイントを素早く確認できます。" }, tier: { title: "Tier表", description: "キャラとラケットを自分基準でランク付けできます。" } },
     filter: { searchAndFilter: "検索・絞り込み", search: "検索", type: "タイプ", special: "特殊能力", favoritesOnly: "お気に入りのみ", sortBy: "ソート項目", order: "並び順", category: "種類", timing: "効果タイミング", tipsCategory: "カテゴリ", verification: "検証" },
     modal: { characterFilter: "キャラクターの検索・絞り込み", racketFilter: "ラケットの検索・絞り込み", courtFilter: "コートの検索・絞り込み" },
     placeholder: { characterSearch: "キャラクター名で検索", racketSearch: "ラケット名で検索", courtSearch: "コート名で検索" },
@@ -31,7 +31,7 @@ const translations = {
     faq: {
       beginner: { question: "最終的にどのキャラを使うべき？", answer: "プレイスタイル・ルール・コートで最適解は変わるため、まずは「目的別おすすめ」で候補を絞り、Tierで実戦向けに微調整するのがおすすめです。", linkToTier: "目的別おすすめ（Tier）へ進む →" },
       winrate: { question: "勝率を上げるには、何から見ればいい？", answer: "まずはTierの「ルール条件」でシングルス/ダブルスやコートを合わせ、今の環境に合う評価へ切り替えてください。", linkToTier: "Tierの条件別評価を見る →" },
-      backToFaq: "← FAQへ戻る",
+      backToFaq: "← よくある質問へ戻る",
       toBeginnerQuestion: "初心者向け質問を見る"
     },
     favorite: { addCharacter: "お気に入りに追加", removeCharacter: "お気に入り解除", addRacket: "お気に入りに追加", removeRacket: "お気に入り解除", addCourt: "お気に入りに追加", removeCourt: "お気に入り解除" },
@@ -39,8 +39,8 @@ const translations = {
   },
   en: {
     site: { pageTitle: "Mario Tennis Fever Data Explorer", pageDescription: "Reference site for Mario Tennis Fever character, racket, and system data.", title: "Mario Tennis Fever Explorer", language: "Language", lead: "A reference site to compare character and racket traits with filters and sorting." },
-    nav: { faq: "FAQ", characters: "Characters", rackets: "Rackets", courts: "Courts", tier: "Tier" },
-    section: { faq: { title: "FAQ", description: "Common questions are placed first so you can reach the right section quickly." }, characters: { title: "Character List", description: "Compare traits and parameters by type." }, rackets: { title: "Racket List", description: "Compare effects and trigger timing." }, courts: { title: "Court List", description: "Compare each court's ball speed and bounce characteristics." }, tips: { description: "Quickly review useful operation tips for matches." }, tier: { title: "Tier Board", description: "Rank characters and rackets by your own criteria." } },
+    nav: { faq: "FAQs", characters: "Characters", rackets: "Rackets", courts: "Courts", tier: "Tier" },
+    section: { faq: { title: "FAQs", description: "Common questions are placed first so you can reach the right section quickly." }, characters: { title: "Character List", description: "Compare traits and parameters by type." }, rackets: { title: "Racket List", description: "Compare effects and trigger timing." }, courts: { title: "Court List", description: "Compare each court's ball speed and bounce characteristics." }, tips: { description: "Quickly review useful operation tips for matches." }, tier: { title: "Tier Board", description: "Rank characters and rackets by your own criteria." } },
     filter: { searchAndFilter: "Search / Filter", search: "Search", type: "Type", special: "Special", favoritesOnly: "Favorites only", sortBy: "Sort by", order: "Order", category: "Category", timing: "Effect timing", tipsCategory: "Category", verification: "Verification" },
     modal: { characterFilter: "Character Search / Filter", racketFilter: "Racket Search / Filter", courtFilter: "Court Search / Filter" },
     placeholder: { characterSearch: "Search by character name", racketSearch: "Search by racket name", courtSearch: "Search by court name" },
@@ -63,6 +63,10 @@ const translations = {
     tierValue: { hard: "Hard", clay: "Clay", grass: "Grass", singles: "Singles", doubles: "Doubles", fever: "Fever" },
     meta: { iconSuffix: " icon" },
     changelog: { title: "Changelog" },
+    faq: {
+      backToFaq: "← Back to FAQs",
+      toBeginnerQuestion: "See beginner-friendly question"
+    },
     favorite: { addCharacter: "Add to favorites", removeCharacter: "Remove from favorites", addRacket: "Add to favorites", removeRacket: "Remove from favorites", addCourt: "Add to favorites", removeCourt: "Remove from favorites" },
     tier: { characterBoard: "Character Tier", racketBoard: "Racket Tier", poolTitle: "Unassigned Icons", modalTitle: "Edit Tier Row", labelName: "Label", labelColor: "Background color", clearRow: "Clear row", addAbove: "Add row above", addBelow: "Add row below", deleteRow: "Delete row", addItem: "Add row", unassigned: "Unassigned", ruleTitle: "Rule filters", addGlobal: "Add Global Tier", addConditional: "Add Conditional Tier", deleteProfile: "Delete Current Tier", courtType: "Court Type", gameMode: "Game Mode", itemRule: "Fever Racket", matchupBase: "Selected Character", matchupBaseNone: "None", matchupBaseIconAlt: "Selected character icon", matchupSummary: "Matchup Tier:", matchupPerspectiveSuffix: " perspective", globalLabel: "Global Tier", conditionalLabel: "Conditional Tier", allConditions: "All Conditions", noProfiles: "No tier boards match this filter", globalTab: "Global", conditionalTab: "Conditional", profileDeleted: "Tier deleted", shareX: "Post Image to X", saveImage: "Save as Image", shareXClipboard: "Image copied. Paste it in the X composer.", shareXClipboardAlert: "Tier image copied to your clipboard.\nWhen the X composer opens, paste it into the post field.", shareXFallback: "Saved image and opened X post dialog", shareXFallbackAlert: "Clipboard copy failed, so the Tier image was downloaded.\nPlease attach the saved image in the X composer.", shareXFailed: "Failed to open X post dialog", imageSaved: "Image saved", imageSaveFailed: "Failed to save image", freeNote: "Free note", freeNotePlaceholder: "Popular characters in the current meta", purposeTitle: "Recommendations by Purpose", purposeBeginner: "For Beginners (ease of use)", purposeWinrate: "Win Rate Focus (stable in current meta)", purposeGrowth: "Growth Potential (strong with mastery)", purposeCharacterPicks: "Recommended Characters", purposeRacketPicks: "Recommended Rackets" },
   },
