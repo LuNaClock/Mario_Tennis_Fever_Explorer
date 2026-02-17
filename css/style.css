@@ -147,10 +147,10 @@ img {
 
 .section-nav__links {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
-  gap: 8px;
-  width: min(740px, 100%);
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  gap: 6px;
+  width: min(920px, 100%);
   margin: 0 auto;
   transition: opacity 0.2s ease;
 }
@@ -200,11 +200,13 @@ img {
   font-size: 0.82rem;
   font-weight: 700;
   letter-spacing: 0.01em;
-  padding: 7px 12px;
+  padding: 7px 10px;
   border-radius: 999px;
   border: 1px solid transparent;
-  min-width: 118px;
-  max-width: 148px;
+  min-width: 0;
+  max-width: none;
+  flex: 1 1 0;
+  white-space: nowrap;
   text-align: center;
   transition: color 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
 }
