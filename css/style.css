@@ -250,6 +250,55 @@ img {
   color: var(--muted);
 }
 
+
+
+.faq-intro {
+  margin: 16px 0 0;
+  color: var(--muted);
+}
+
+.faq-groups {
+  display: grid;
+  gap: 16px;
+  margin-top: 18px;
+}
+
+.faq-group {
+  border: 1px solid var(--border);
+  background: rgba(8, 26, 42, 0.7);
+  border-radius: 14px;
+  padding: 14px;
+}
+
+.faq-group__title {
+  margin: 0 0 10px;
+  font-size: 1rem;
+}
+
+.faq-list {
+  margin: 0;
+  display: grid;
+  gap: 10px;
+}
+
+.faq-item {
+  border-top: 1px dashed rgba(79, 195, 255, 0.25);
+  padding-top: 10px;
+}
+
+.faq-item:first-child {
+  border-top: none;
+  padding-top: 0;
+}
+
+.faq-item dt {
+  font-weight: 700;
+}
+
+.faq-item dd {
+  margin: 6px 0 0;
+  color: var(--muted);
+}
 .section-description {
   margin: 6px 0 0;
   color: var(--muted);
