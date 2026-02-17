@@ -611,6 +611,26 @@ export const tierPurposeRecommendations = [
 ];
 
 
+export const officialTierSections = [
+  {
+    key: "currentMetaStrongCharacters",
+    type: "characters",
+    rows: [
+      { label: "S", picks: ["ドンキーコング"] },
+      { label: "A", picks: ["ロゼッタ", "ノコノコ", "ゲッソー", "ボスパックン", "クリボー"] },
+    ],
+  },
+  {
+    key: "currentMetaStrongRackets",
+    type: "rackets",
+    rows: [
+      { label: "S", picks: ["ダッシュラケット", "メタルラケット"] },
+      { label: "A", picks: ["マジックラケット", "マメキノコラケット"] },
+    ],
+  },
+];
+
+
 export const courts = [
   { name: { ja: "スタジアム グラス", en: "Stadium Court (Grass)" }, ballSpeed: 4, bounce: 1, description: { ja: "（個人的な説明欄は後日更新予定）", en: "(Personal notes will be added later.)" }, text: { ja: "手入れのゆきとどいた芝はたまあしが速い。判断力が大事な本格的なスタジアムコート", en: "Well-manicured turf that increases ball speed. Keep your eyes sharp on this court." }, image: "assets/coat_icons/stadium_grass.webp" },
   { name: { ja: "スタジアム ハード", en: "Stadium Court (Hard)" }, ballSpeed: 2, bounce: 2, description: { ja: "（個人的な説明欄は後日更新予定）", en: "(Personal notes will be added later.)" }, text: { ja: "ラバーにおおわれたバランスのよいはね具合。実力勝負にむいた本格的なスタジアムコート", en: "Rubber provides a balanced bounce. Good for real test of skill!" }, image: "assets/coat_icons/stadium_hard.webp" },
