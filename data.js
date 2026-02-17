@@ -620,6 +620,14 @@ export const officialTierSections = [
       { label: "A", picks: ["ロゼッタ", "ノコノコ", "ゲッソー", "ボスパックン", "クリボー"] },
     ],
   },
+  {
+    key: "currentMetaStrongRackets",
+    type: "rackets",
+    rows: [
+      { label: "S", picks: ["メタルラケット"] },
+      { label: "A", picks: ["ダッシュラケット", "スターラケット"] },
+    ],
+  },
 ];
 
 
