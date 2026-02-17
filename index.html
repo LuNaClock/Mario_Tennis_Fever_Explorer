@@ -39,6 +39,7 @@
   <main class="container">
     <nav class="section-nav" aria-label="セクションナビゲーション" data-i18n-attr="aria-label:aria.sectionNav">
       <div class="section-nav__links js-section-nav" id="desktop-section-nav-links">
+        <a class="section-nav__item" href="#faq" data-target="faq" data-i18n="nav.faq">よくある質問</a>
         <a class="section-nav__item" href="#characters" data-target="characters" data-i18n="nav.characters">キャラ</a>
         <a class="section-nav__item" href="#rackets" data-target="rackets" data-i18n="nav.rackets">ラケット</a>
         <a class="section-nav__item" href="#courts" data-target="courts" data-i18n="nav.courts">コート</a>
@@ -47,6 +48,93 @@
       </div>
       <button type="button" class="section-nav__toggle" data-section-nav-toggle aria-expanded="true" aria-controls="desktop-section-nav-links" aria-label="セクションナビをたたむ" data-i18n-attr="aria-label:aria.collapseNav"></button>
     </nav>
+
+    <section class="section section--faq" id="faq" data-nav-label="よくある質問">
+      <div class="section-header">
+        <div>
+          <h2>よくある質問</h2>
+          <p class="section-description">初心者が迷いやすい内容を中心に、実戦で使える考え方をまとめています。</p>
+        </div>
+      </div>
+
+      <div class="faq-list">
+        <div class="faq-category">
+          <h3 class="faq-category__title">初心者向け</h3>
+
+          <details class="faq-item" id="faq-beginner-choices" open>
+            <summary class="faq-item__question">初心者にオススメのキャラは？</summary>
+            <div class="faq-item__answer">
+              <p>デイジー・マリオ・ボスパックンのいずれかがオススメです。</p>
+              <p>強いキャラを使いたいなら、ドンキーやロゼッタも候補に挙がります。</p>
+              <p><a class="faq-link" href="#tier-recommendation">詳しくはTierのおすすめキャラ欄を確認してください。 →</a></p>
+            </div>
+          </details>
+
+          <details class="faq-item">
+            <summary class="faq-item__question">何を優先して覚えるとランクマで通用する？</summary>
+            <div class="faq-item__answer">
+              <p>まずは得点パターンを覚えましょう。</p>
+              <ul class="faq-item__list">
+                <li>角度のついた返球や、その裏を読んで正面に打つ。</li>
+                <li>相手がいなくて取れなさそうな方向にフィーバーショットを打つ。</li>
+              </ul>
+              <p>ゲーム内メインメニューの「遊び方」でも得点パターンに触れられているので、まずはそちらの確認がおすすめです。</p>
+            </div>
+          </details>
+        </div>
+
+        <div class="faq-category">
+          <h3 class="faq-category__title">Tier基準</h3>
+
+          <details class="faq-item" id="faq-tier-rank-diff">
+            <summary class="faq-item__question">各ランク帯の違いは？</summary>
+            <div class="faq-item__answer">
+              <p><strong>S</strong> は抜けて強い評価です。</p>
+              <p><strong>A</strong> はSほどではないものの、上位環境でも強く通用するキャラです。</p>
+            </div>
+          </details>
+
+          <details class="faq-item">
+            <summary class="faq-item__question">Tier表はそのまま信じて良い？</summary>
+            <div class="faq-item__answer">
+              <p>あくまで目安です。コートやルールによって評価は変化します。</p>
+            </div>
+          </details>
+        </div>
+
+        <div class="faq-category">
+          <h3 class="faq-category__title">勝てない際の考え方</h3>
+
+          <details class="faq-item" id="faq-losing">
+            <summary class="faq-item__question">負けてしまう</summary>
+            <div class="faq-item__answer">
+              <p>まずは得点パターンを見直しましょう。何のショットで得点しようとしていたかを振り返ることが重要です。</p>
+              <p>その状況では有効ではなかったり、他に強い選択肢がある可能性があります。手軽な見直し方法は、失点時の動画を本体機能で撮ることです。</p>
+              <p>次に失点パターンを見直します。得点パターンを掴めたら、防御面も考えましょう。</p>
+              <ul class="faq-item__list">
+                <li>角度ショット後にさらに角度をつけられて失点するなら、一旦角度を抑えて返す。</li>
+                <li>ロブやドロップで失点するなら、立ち位置を少し後ろ/前に調整する。</li>
+              </ul>
+              <p>「なぜ自分がそう動いたか」を整理できると、短期的に負け込んでも後から勝率が上がりやすくなります。</p>
+            </div>
+          </details>
+
+          <details class="faq-item">
+            <summary class="faq-item__question">負ける理由がよく分からない</summary>
+            <div class="faq-item__answer">
+              <p>失点時の3手前くらいまで動画で見直すと、原因が見つかることがあります。</p>
+              <ul class="faq-item__list">
+                <li>相手に有利な行動を取っている。</li>
+                <li>フィーバーショットを打つ/打たれる展開を考慮できていない。</li>
+              </ul>
+              <p>など複数の要因があるはずです。</p>
+              <p>どうしても分からなければ、Xで質問してもらえれば答えられる範囲で対応できます。動画があるとより具体的に回答しやすいです。</p>
+              <p><a class="faq-link" href="#site-contact">Xのリンクはページ最下部にあります。 ↓</a></p>
+            </div>
+          </details>
+        </div>
+      </div>
+    </section>
 
     <section class="section" id="characters" data-nav-label="キャラ">
       <div class="section-header">
@@ -338,7 +426,11 @@
       </div>
 
       <div class="tier-purpose" id="tier-purpose-recommendations">
-        <h3 class="tier-purpose__title" data-i18n="tier.purposeTitle">目的別おすすめ</h3>
+        <h3 class="tier-purpose__title" id="tier-recommendation" data-i18n="tier.purposeTitle">目的別おすすめ</h3>
+        <p class="tier-reciprocal-links">
+          <a class="faq-link" href="#faq" data-i18n="faq.backToFaq">← よくある質問へ戻る</a>
+          <a class="faq-link" href="#faq-beginner-choices" data-i18n="faq.toBeginnerQuestion">初心者向け質問を見る</a>
+        </p>
         <div class="tier-purpose__list" id="tier-purpose-list"></div>
       </div>
 
@@ -456,6 +548,7 @@
   </main>
 
   <nav class="mobile-bottom-nav js-section-nav" aria-label="モバイルセクションナビ" data-i18n-attr="aria-label:aria.mobileNav">
+    <a class="mobile-bottom-nav__item" href="#faq" data-target="faq" data-i18n="nav.faq">よくある質問</a>
     <a class="mobile-bottom-nav__item" href="#characters" data-target="characters" data-i18n="nav.characters">キャラ</a>
     <a class="mobile-bottom-nav__item" href="#rackets" data-target="rackets" data-i18n="nav.rackets">ラケット</a>
     <a class="mobile-bottom-nav__item" href="#courts" data-target="courts" data-i18n="nav.courts">コート</a>
@@ -466,7 +559,7 @@
   <footer class="site-footer">
     <div class="container">
       <p data-i18n="footer.note">データは仮入力を含みます。後日更新予定です。</p>
-      <p class="site-footer__contact">
+      <p class="site-footer__contact" id="site-contact">
         <span data-i18n="footer.contactLabel">作成者・問い合わせ先:</span>
         <a href="https://x.com/Lu_Na_Clock" target="_blank" rel="noopener noreferrer" data-i18n="footer.contactAccount" data-i18n-attr="aria-label:aria.contactX" aria-label="Xアカウント @Lu_Na_Clock">@Lu_Na_Clock</a>
       </p>
