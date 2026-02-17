@@ -1,4 +1,4 @@
-import { characters, rackets, courts, tips, changelog, tierPurposeRecommendations } from "../data.js";
+import { characters, rackets, courts, tips, changelog, tierPurposeRecommendations, officialTierSections } from "../data.js";
 
 const translations = {
   ja: {
@@ -35,7 +35,7 @@ const translations = {
       toBeginnerQuestion: "初心者向け質問を見る"
     },
     favorite: { addCharacter: "お気に入りに追加", removeCharacter: "お気に入り解除", addRacket: "お気に入りに追加", removeRacket: "お気に入り解除", addCourt: "お気に入りに追加", removeCourt: "お気に入り解除" },
-    tier: { characterBoard: "キャラTier", racketBoard: "ラケットTier", poolTitle: "未配置アイコン", modalTitle: "Tier行を編集", labelName: "ラベル名", labelColor: "背景色", clearRow: "行の中身をクリア", addAbove: "上に行追加", addBelow: "下に行追加", deleteRow: "行を削除", addItem: "行を追加", unassigned: "未配置", ruleTitle: "ルール条件", addGlobal: "全ルール共通Tierを追加", addConditional: "条件別Tierを追加", deleteProfile: "現在のTierを削除", courtType: "コート種別", gameMode: "ゲームモード", itemRule: "フィーバーラケット", matchupBase: "選択キャラ", matchupBaseNone: "指定なし", matchupBaseIconAlt: "選択キャラのアイコン", matchupSummary: "相性Tier:", matchupPerspectiveSuffix: "視点", globalLabel: "全ルール共通Tier", conditionalLabel: "条件別Tier", allConditions: "全条件", noProfiles: "該当するTierはありません", globalTab: "全ルール共通", conditionalTab: "条件別", profileDeleted: "Tierを削除しました", shareX: "Xへ画像投稿", saveImage: "画像で保存", shareXClipboard: "画像をコピーしました。X投稿画面で貼り付けてください", shareXClipboardAlert: "Tier画像をクリップボードにコピーしました。\nX投稿画面が開いたら、本文入力欄で貼り付け（Ctrl+V / 長押し→貼り付け）してください。", shareXFallback: "画像保存後にX投稿画面を開きました", shareXFallbackAlert: "クリップボードへのコピーに失敗したため、Tier画像を端末に保存しました。\nX投稿画面で画像を選択して添付してください。", shareXFailed: "X投稿画面を開けませんでした", imageSaved: "画像を保存しました", imageSaveFailed: "画像の保存に失敗しました", freeNote: "メモ", freeNotePlaceholder: "環境に多いキャラ", purposeTitle: "目的別おすすめ", purposeBeginner: "初心者向け（扱いやすさ重視）", purposeWinrate: "勝率重視（現環境で安定）", purposeGrowth: "伸びしろ重視（使い込むと強い）", purposeCharacterPicks: "キャラおすすめ", purposeRacketPicks: "ラケットおすすめ" },
+    tier: { characterBoard: "キャラTier", racketBoard: "ラケットTier", poolTitle: "未配置アイコン", modalTitle: "Tier行を編集", labelName: "ラベル名", labelColor: "背景色", clearRow: "行の中身をクリア", addAbove: "上に行追加", addBelow: "下に行追加", deleteRow: "行を削除", addItem: "行を追加", unassigned: "未配置", ruleTitle: "ルール条件", addGlobal: "全ルール共通Tierを追加", addConditional: "条件別Tierを追加", deleteProfile: "現在のTierを削除", courtType: "コート種別", gameMode: "ゲームモード", itemRule: "フィーバーラケット", matchupBase: "選択キャラ", matchupBaseNone: "指定なし", matchupBaseIconAlt: "選択キャラのアイコン", matchupSummary: "相性Tier:", matchupPerspectiveSuffix: "視点", globalLabel: "全ルール共通Tier", conditionalLabel: "条件別Tier", allConditions: "全条件", noProfiles: "該当するTierはありません", globalTab: "全ルール共通", conditionalTab: "条件別", profileDeleted: "Tierを削除しました", shareX: "Xへ画像投稿", saveImage: "画像で保存", shareXClipboard: "画像をコピーしました。X投稿画面で貼り付けてください", shareXClipboardAlert: "Tier画像をクリップボードにコピーしました。\nX投稿画面が開いたら、本文入力欄で貼り付け（Ctrl+V / 長押し→貼り付け）してください。", shareXFallback: "画像保存後にX投稿画面を開きました", shareXFallbackAlert: "クリップボードへのコピーに失敗したため、Tier画像を端末に保存しました。\nX投稿画面で画像を選択して添付してください。", shareXFailed: "X投稿画面を開けませんでした", imageSaved: "画像を保存しました", imageSaveFailed: "画像の保存に失敗しました", freeNote: "メモ", freeNotePlaceholder: "環境に多いキャラ", purposeTitle: "目的別おすすめ", purposeBeginner: "初心者向け（扱いやすさ重視）", purposeWinrate: "勝率重視（現環境で安定）", purposeGrowth: "伸びしろ重視（使い込むと強い）", purposeCharacterPicks: "キャラおすすめ", purposeRacketPicks: "ラケットおすすめ", officialTitle: "サイト作成者Tier表", officialCurrentMetaStrongCharacters: "現環境で強いキャラ" },
   },
   en: {
     site: { pageTitle: "Mario Tennis Fever Data Explorer", pageDescription: "Reference site for Mario Tennis Fever character, racket, and system data.", title: "Mario Tennis Fever Explorer", language: "Language", lead: "A reference site to compare character and racket traits with filters and sorting." },
@@ -68,7 +68,7 @@ const translations = {
       toBeginnerQuestion: "See beginner-friendly question"
     },
     favorite: { addCharacter: "Add to favorites", removeCharacter: "Remove from favorites", addRacket: "Add to favorites", removeRacket: "Remove from favorites", addCourt: "Add to favorites", removeCourt: "Remove from favorites" },
-    tier: { characterBoard: "Character Tier", racketBoard: "Racket Tier", poolTitle: "Unassigned Icons", modalTitle: "Edit Tier Row", labelName: "Label", labelColor: "Background color", clearRow: "Clear row", addAbove: "Add row above", addBelow: "Add row below", deleteRow: "Delete row", addItem: "Add row", unassigned: "Unassigned", ruleTitle: "Rule filters", addGlobal: "Add Global Tier", addConditional: "Add Conditional Tier", deleteProfile: "Delete Current Tier", courtType: "Court Type", gameMode: "Game Mode", itemRule: "Fever Racket", matchupBase: "Selected Character", matchupBaseNone: "None", matchupBaseIconAlt: "Selected character icon", matchupSummary: "Matchup Tier:", matchupPerspectiveSuffix: " perspective", globalLabel: "Global Tier", conditionalLabel: "Conditional Tier", allConditions: "All Conditions", noProfiles: "No tier boards match this filter", globalTab: "Global", conditionalTab: "Conditional", profileDeleted: "Tier deleted", shareX: "Post Image to X", saveImage: "Save as Image", shareXClipboard: "Image copied. Paste it in the X composer.", shareXClipboardAlert: "Tier image copied to your clipboard.\nWhen the X composer opens, paste it into the post field.", shareXFallback: "Saved image and opened X post dialog", shareXFallbackAlert: "Clipboard copy failed, so the Tier image was downloaded.\nPlease attach the saved image in the X composer.", shareXFailed: "Failed to open X post dialog", imageSaved: "Image saved", imageSaveFailed: "Failed to save image", freeNote: "Free note", freeNotePlaceholder: "Popular characters in the current meta", purposeTitle: "Recommendations by Purpose", purposeBeginner: "For Beginners (ease of use)", purposeWinrate: "Win Rate Focus (stable in current meta)", purposeGrowth: "Growth Potential (strong with mastery)", purposeCharacterPicks: "Recommended Characters", purposeRacketPicks: "Recommended Rackets" },
+    tier: { characterBoard: "Character Tier", racketBoard: "Racket Tier", poolTitle: "Unassigned Icons", modalTitle: "Edit Tier Row", labelName: "Label", labelColor: "Background color", clearRow: "Clear row", addAbove: "Add row above", addBelow: "Add row below", deleteRow: "Delete row", addItem: "Add row", unassigned: "Unassigned", ruleTitle: "Rule filters", addGlobal: "Add Global Tier", addConditional: "Add Conditional Tier", deleteProfile: "Delete Current Tier", courtType: "Court Type", gameMode: "Game Mode", itemRule: "Fever Racket", matchupBase: "Selected Character", matchupBaseNone: "None", matchupBaseIconAlt: "Selected character icon", matchupSummary: "Matchup Tier:", matchupPerspectiveSuffix: " perspective", globalLabel: "Global Tier", conditionalLabel: "Conditional Tier", allConditions: "All Conditions", noProfiles: "No tier boards match this filter", globalTab: "Global", conditionalTab: "Conditional", profileDeleted: "Tier deleted", shareX: "Post Image to X", saveImage: "Save as Image", shareXClipboard: "Image copied. Paste it in the X composer.", shareXClipboardAlert: "Tier image copied to your clipboard.\nWhen the X composer opens, paste it into the post field.", shareXFallback: "Saved image and opened X post dialog", shareXFallbackAlert: "Clipboard copy failed, so the Tier image was downloaded.\nPlease attach the saved image in the X composer.", shareXFailed: "Failed to open X post dialog", imageSaved: "Image saved", imageSaveFailed: "Failed to save image", freeNote: "Free note", freeNotePlaceholder: "Popular characters in the current meta", purposeTitle: "Recommendations by Purpose", purposeBeginner: "For Beginners (ease of use)", purposeWinrate: "Win Rate Focus (stable in current meta)", purposeGrowth: "Growth Potential (strong with mastery)", purposeCharacterPicks: "Recommended Characters", purposeRacketPicks: "Recommended Rackets", officialTitle: "Creator Tier Board", officialCurrentMetaStrongCharacters: "Strong Characters in the Current Meta" },
   },
 };
 
@@ -226,6 +226,7 @@ const characterTierPool = document.getElementById("character-tier-pool");
 const racketTierBoard = document.getElementById("racket-tier-board");
 const racketTierPool = document.getElementById("racket-tier-pool");
 const tierPurposeList = document.getElementById("tier-purpose-list");
+const officialTierList = document.getElementById("official-tier-list");
 
 const tierPurposeLabelKeyMap = {
   beginner: "tier.purposeBeginner",
@@ -3186,6 +3187,45 @@ function renderTierPurposeRecommendations() {
   syncTierPurposeReasonHeights();
 }
 
+function renderOfficialTierSections() {
+  if (!officialTierList) return;
+  officialTierList.innerHTML = "";
+
+  const fragment = document.createDocumentFragment();
+  officialTierSections.forEach((entry) => {
+    const card = document.createElement("article");
+    card.className = "tier-purpose-card";
+
+    const title = document.createElement("h4");
+    title.className = "tier-purpose-card__title";
+    title.textContent = t(`tier.official${entry.key.charAt(0).toUpperCase()}${entry.key.slice(1)}`);
+    card.append(title);
+
+    entry.rows.forEach((row) => {
+      const group = document.createElement("section");
+      group.className = "tier-purpose-group";
+
+      const heading = document.createElement("h5");
+      heading.className = "tier-purpose-group__title";
+      heading.textContent = `${row.label} Tier`;
+
+      const pickGrid = document.createElement("div");
+      pickGrid.className = "tier-purpose-picks";
+      row.picks.forEach((pickName) => {
+        const pickCard = createTierPurposePickCard(entry.type, pickName);
+        if (pickCard) pickGrid.append(pickCard);
+      });
+
+      group.append(heading, pickGrid);
+      card.append(group);
+    });
+
+    fragment.append(card);
+  });
+
+  officialTierList.append(fragment);
+}
+
 function renderAllTierBoards() {
   syncTierCharacterMatchupBaseOptions();
   renderTierBoard("characters");
@@ -3239,6 +3279,7 @@ function applyLocale() {
   renderTips();
   renderAllTierBoards();
   renderTierPurposeRecommendations();
+  renderOfficialTierSections();
 }
 function bindChangeListeners(elements, handler) {
   elements.forEach((element) => element.addEventListener("change", handler));
