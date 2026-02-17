@@ -39,6 +39,7 @@
   <main class="container">
     <nav class="section-nav" aria-label="セクションナビゲーション" data-i18n-attr="aria-label:aria.sectionNav">
       <div class="section-nav__links js-section-nav" id="desktop-section-nav-links">
+        <a class="section-nav__item" href="#faq" data-target="faq" data-i18n="nav.faq">FAQ</a>
         <a class="section-nav__item" href="#characters" data-target="characters" data-i18n="nav.characters">キャラ</a>
         <a class="section-nav__item" href="#rackets" data-target="rackets" data-i18n="nav.rackets">ラケット</a>
         <a class="section-nav__item" href="#courts" data-target="courts" data-i18n="nav.courts">コート</a>
@@ -47,6 +48,37 @@
       </div>
       <button type="button" class="section-nav__toggle" data-section-nav-toggle aria-expanded="true" aria-controls="desktop-section-nav-links" aria-label="セクションナビをたたむ" data-i18n-attr="aria-label:aria.collapseNav"></button>
     </nav>
+
+    <section class="section section--faq" id="faq" data-nav-label="FAQ">
+      <div class="section-header">
+        <div>
+          <h2 data-i18n="section.faq.title">FAQ</h2>
+          <p class="section-description" data-i18n="section.faq.description">最短で知りたいことに辿り着けるよう、よくある質問を先頭にまとめています。</p>
+        </div>
+      </div>
+
+      <div class="faq-list">
+        <details class="faq-item" id="faq-beginner-choices" open>
+          <summary class="faq-item__question" data-i18n="faq.beginner.question">最終的にどのキャラを使うべき？</summary>
+          <p class="faq-item__answer" data-i18n="faq.beginner.answer">
+            プレイスタイル・ルール・コートで最適解は変わるため、まずは「目的別おすすめ」で候補を絞り、Tierで実戦向けに微調整するのがおすすめです。
+          </p>
+          <p class="faq-item__links">
+            <a class="faq-link" href="#tier-recommendation" data-i18n="faq.beginner.linkToTier">目的別おすすめ（Tier）へ進む →</a>
+          </p>
+        </details>
+
+        <details class="faq-item" id="faq-winrate">
+          <summary class="faq-item__question" data-i18n="faq.winrate.question">勝率を上げるには、何から見ればいい？</summary>
+          <p class="faq-item__answer" data-i18n="faq.winrate.answer">
+            まずはTierの「ルール条件」でシングルス/ダブルスやコートを合わせ、今の環境に合う評価へ切り替えてください。
+          </p>
+          <p class="faq-item__links">
+            <a class="faq-link" href="#tier-recommendation" data-i18n="faq.winrate.linkToTier">Tierの条件別評価を見る →</a>
+          </p>
+        </details>
+      </div>
+    </section>
 
     <section class="section" id="characters" data-nav-label="キャラ">
       <div class="section-header">
@@ -338,7 +370,11 @@
       </div>
 
       <div class="tier-purpose" id="tier-purpose-recommendations">
-        <h3 class="tier-purpose__title" data-i18n="tier.purposeTitle">目的別おすすめ</h3>
+        <h3 class="tier-purpose__title" id="tier-recommendation" data-i18n="tier.purposeTitle">目的別おすすめ</h3>
+        <p class="tier-reciprocal-links">
+          <a class="faq-link" href="#faq" data-i18n="faq.backToFaq">← FAQへ戻る</a>
+          <a class="faq-link" href="#faq-beginner-choices" data-i18n="faq.toBeginnerQuestion">初心者向け質問を見る</a>
+        </p>
         <div class="tier-purpose__list" id="tier-purpose-list"></div>
       </div>
 
@@ -456,6 +492,7 @@
   </main>
 
   <nav class="mobile-bottom-nav js-section-nav" aria-label="モバイルセクションナビ" data-i18n-attr="aria-label:aria.mobileNav">
+    <a class="mobile-bottom-nav__item" href="#faq" data-target="faq" data-i18n="nav.faq">FAQ</a>
     <a class="mobile-bottom-nav__item" href="#characters" data-target="characters" data-i18n="nav.characters">キャラ</a>
     <a class="mobile-bottom-nav__item" href="#rackets" data-target="rackets" data-i18n="nav.rackets">ラケット</a>
     <a class="mobile-bottom-nav__item" href="#courts" data-target="courts" data-i18n="nav.courts">コート</a>

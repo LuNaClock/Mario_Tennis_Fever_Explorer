@@ -3,8 +3,8 @@ import { characters, rackets, courts, tips, changelog, tierPurposeRecommendation
 const translations = {
   ja: {
     site: { pageTitle: "マリオテニスフィーバー データ参照サイト", pageDescription: "マリオテニスフィーバーのキャラクターやラケット、システム関連データを一覧で確認できる参照サイト。", title: "マリオテニスフィーバー Explorer", language: "Language", lead: "キャラクターやラケットの特徴などを確認できるデータまとめサイトです。フィルタ・ソートで目的の情報を整理しながら参照できます。" },
-    nav: { characters: "キャラ", rackets: "ラケット", courts: "コート", tier: "Tier" },
-    section: { characters: { title: "キャラクター一覧", description: "タイプ別の特徴やパラメータを比較できます。" }, rackets: { title: "ラケット一覧", description: "効果やタイミングを比較できます。" }, courts: { title: "コート一覧", description: "コートごとのたまあしとバウンドの特性を比較できます。" }, tips: { description: "試合で役立つ操作のポイントを素早く確認できます。" }, tier: { title: "Tier表", description: "キャラとラケットを自分基準でランク付けできます。" } },
+    nav: { faq: "FAQ", characters: "キャラ", rackets: "ラケット", courts: "コート", tier: "Tier" },
+    section: { faq: { title: "FAQ", description: "最短で知りたいことに辿り着けるよう、よくある質問を先頭にまとめています。" }, characters: { title: "キャラクター一覧", description: "タイプ別の特徴やパラメータを比較できます。" }, rackets: { title: "ラケット一覧", description: "効果やタイミングを比較できます。" }, courts: { title: "コート一覧", description: "コートごとのたまあしとバウンドの特性を比較できます。" }, tips: { description: "試合で役立つ操作のポイントを素早く確認できます。" }, tier: { title: "Tier表", description: "キャラとラケットを自分基準でランク付けできます。" } },
     filter: { searchAndFilter: "検索・絞り込み", search: "検索", type: "タイプ", special: "特殊能力", favoritesOnly: "お気に入りのみ", sortBy: "ソート項目", order: "並び順", category: "種類", timing: "効果タイミング", tipsCategory: "カテゴリ", verification: "検証" },
     modal: { characterFilter: "キャラクターの検索・絞り込み", racketFilter: "ラケットの検索・絞り込み", courtFilter: "コートの検索・絞り込み" },
     placeholder: { characterSearch: "キャラクター名で検索", racketSearch: "ラケット名で検索", courtSearch: "コート名で検索" },
@@ -27,13 +27,20 @@ const translations = {
     tierValue: { hard: "ハード", clay: "クレー", grass: "グラス", singles: "シングルス", doubles: "ダブルス", fever: "フィーバー" },
     meta: { iconSuffix: "のアイコン" },
     changelog: { title: "更新履歴" },
+
+    faq: {
+      beginner: { question: "最終的にどのキャラを使うべき？", answer: "プレイスタイル・ルール・コートで最適解は変わるため、まずは「目的別おすすめ」で候補を絞り、Tierで実戦向けに微調整するのがおすすめです。", linkToTier: "目的別おすすめ（Tier）へ進む →" },
+      winrate: { question: "勝率を上げるには、何から見ればいい？", answer: "まずはTierの「ルール条件」でシングルス/ダブルスやコートを合わせ、今の環境に合う評価へ切り替えてください。", linkToTier: "Tierの条件別評価を見る →" },
+      backToFaq: "← FAQへ戻る",
+      toBeginnerQuestion: "初心者向け質問を見る"
+    },
     favorite: { addCharacter: "お気に入りに追加", removeCharacter: "お気に入り解除", addRacket: "お気に入りに追加", removeRacket: "お気に入り解除", addCourt: "お気に入りに追加", removeCourt: "お気に入り解除" },
     tier: { characterBoard: "キャラTier", racketBoard: "ラケットTier", poolTitle: "未配置アイコン", modalTitle: "Tier行を編集", labelName: "ラベル名", labelColor: "背景色", clearRow: "行の中身をクリア", addAbove: "上に行追加", addBelow: "下に行追加", deleteRow: "行を削除", addItem: "行を追加", unassigned: "未配置", ruleTitle: "ルール条件", addGlobal: "全ルール共通Tierを追加", addConditional: "条件別Tierを追加", deleteProfile: "現在のTierを削除", courtType: "コート種別", gameMode: "ゲームモード", itemRule: "フィーバーラケット", matchupBase: "選択キャラ", matchupBaseNone: "指定なし", matchupBaseIconAlt: "選択キャラのアイコン", matchupSummary: "相性Tier:", matchupPerspectiveSuffix: "視点", globalLabel: "全ルール共通Tier", conditionalLabel: "条件別Tier", allConditions: "全条件", noProfiles: "該当するTierはありません", globalTab: "全ルール共通", conditionalTab: "条件別", profileDeleted: "Tierを削除しました", shareX: "Xへ画像投稿", saveImage: "画像で保存", shareXClipboard: "画像をコピーしました。X投稿画面で貼り付けてください", shareXClipboardAlert: "Tier画像をクリップボードにコピーしました。\nX投稿画面が開いたら、本文入力欄で貼り付け（Ctrl+V / 長押し→貼り付け）してください。", shareXFallback: "画像保存後にX投稿画面を開きました", shareXFallbackAlert: "クリップボードへのコピーに失敗したため、Tier画像を端末に保存しました。\nX投稿画面で画像を選択して添付してください。", shareXFailed: "X投稿画面を開けませんでした", imageSaved: "画像を保存しました", imageSaveFailed: "画像の保存に失敗しました", freeNote: "メモ", freeNotePlaceholder: "環境に多いキャラ", purposeTitle: "目的別おすすめ", purposeBeginner: "初心者向け（扱いやすさ重視）", purposeWinrate: "勝率重視（現環境で安定）", purposeGrowth: "伸びしろ重視（使い込むと強い）", purposeCharacterPicks: "キャラおすすめ", purposeRacketPicks: "ラケットおすすめ" },
   },
   en: {
     site: { pageTitle: "Mario Tennis Fever Data Explorer", pageDescription: "Reference site for Mario Tennis Fever character, racket, and system data.", title: "Mario Tennis Fever Explorer", language: "Language", lead: "A reference site to compare character and racket traits with filters and sorting." },
-    nav: { characters: "Characters", rackets: "Rackets", courts: "Courts", tier: "Tier" },
-    section: { characters: { title: "Character List", description: "Compare traits and parameters by type." }, rackets: { title: "Racket List", description: "Compare effects and trigger timing." }, courts: { title: "Court List", description: "Compare each court's ball speed and bounce characteristics." }, tips: { description: "Quickly review useful operation tips for matches." }, tier: { title: "Tier Board", description: "Rank characters and rackets by your own criteria." } },
+    nav: { faq: "FAQ", characters: "Characters", rackets: "Rackets", courts: "Courts", tier: "Tier" },
+    section: { faq: { title: "FAQ", description: "Common questions are placed first so you can reach the right section quickly." }, characters: { title: "Character List", description: "Compare traits and parameters by type." }, rackets: { title: "Racket List", description: "Compare effects and trigger timing." }, courts: { title: "Court List", description: "Compare each court's ball speed and bounce characteristics." }, tips: { description: "Quickly review useful operation tips for matches." }, tier: { title: "Tier Board", description: "Rank characters and rackets by your own criteria." } },
     filter: { searchAndFilter: "Search / Filter", search: "Search", type: "Type", special: "Special", favoritesOnly: "Favorites only", sortBy: "Sort by", order: "Order", category: "Category", timing: "Effect timing", tipsCategory: "Category", verification: "Verification" },
     modal: { characterFilter: "Character Search / Filter", racketFilter: "Racket Search / Filter", courtFilter: "Court Search / Filter" },
     placeholder: { characterSearch: "Search by character name", racketSearch: "Search by racket name", courtSearch: "Search by court name" },
