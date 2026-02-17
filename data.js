@@ -624,8 +624,8 @@ export const officialTierSections = [
     key: "currentMetaStrongRackets",
     type: "rackets",
     rows: [
-      { label: "S", picks: ["メタルラケット"] },
-      { label: "A", picks: ["ダッシュラケット", "スターラケット"] },
+      { label: "S", picks: ["ダッシュラケット", "メタルラケット"] },
+      { label: "A", picks: ["マジックラケット", "マメキノコラケット"] },
     ],
   },
 ];
