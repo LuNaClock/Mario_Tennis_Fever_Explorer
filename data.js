@@ -616,9 +616,8 @@ export const officialTierSections = [
     key: "currentMetaStrongCharacters",
     type: "characters",
     rows: [
-      { label: "S", picks: ["ドンキーコング", "ロゼッタ"] },
-      { label: "A", picks: ["デイジー", "ボスパックン", "ルイージ"] },
-      { label: "B", picks: ["マリオ", "ノコノコ", "ワルイージ"] },
+      { label: "S", picks: ["ドンキーコング"] },
+      { label: "A", picks: ["ロゼッタ", "ノコノコ", "ゲッソー", "ボスパックン", "クリボー"] },
     ],
   },
 ];
