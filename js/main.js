@@ -2486,9 +2486,9 @@ function renderChangelogContent(content) {
 
 function setupSectionNavVisibility() {
   const nav = document.querySelector(".section-nav");
-  const charactersSection = document.getElementById("characters");
+  const faqSection = document.getElementById("faq");
 
-  if (!nav || !charactersSection) {
+  if (!nav || !faqSection) {
     return;
   }
 
@@ -2501,7 +2501,7 @@ function setupSectionNavVisibility() {
     }
 
     const triggerOffset = 120;
-    const shouldShow = charactersSection.getBoundingClientRect().top <= triggerOffset;
+    const shouldShow = faqSection.getBoundingClientRect().top <= triggerOffset;
     nav.classList.toggle("is-visible", shouldShow);
   };
 
