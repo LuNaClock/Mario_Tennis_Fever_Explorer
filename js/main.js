@@ -142,7 +142,7 @@ const translations = {
         answer1: "It is a shot where you press the shot-type button only once.",
         point1: "Weak shots are easier to angle, and it is a common term among players familiar with previous titles.",
         point2: "If you press the button two or more times, it becomes a strong shot. It is harder to angle than a weak shot, but the ball speed is faster.",
-        answer2: "Remember it as: use weak shots for angle, and strong shots for speed."
+        answer2: "Remember it as: use weak shots for angle, and strong shots for speed. Since this terminology is mainly used in Japanese-speaking communities, names may differ overseas."
       },
       tierDiff: {
         question: "What is the difference between each tier rank?",
