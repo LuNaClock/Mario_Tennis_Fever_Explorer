@@ -50,6 +50,13 @@ const translations = {
         point2: "ストーリーモードが専門用語の解説もまじえたチュートリアル的な設計なので、順番に学んでいける構造",
         answer2: "ストーリーをやらずに遊び方を熟読して実戦で覚えたい人もいる為、お好みの方法で学んでいくのが良いです。"
       },
+      weakShot: {
+        question: "弱打ってどんなショット?",
+        answer1: "各球種のボタンを1回だけ押したショットです。",
+        point1: "弱打は角度をつけたショットを打ちやすく、前作で慣れてるプレイヤーはよく使う用語の1つです。",
+        point2: "なお、ボタンを2回以上押すと強打になります。弱打より角度をつけづらい代わりに、球速が速い弾になります。",
+        answer2: "角度をつけたショットを打つなら弱打、速い球速で打ちたいなら強打と覚えると良いです。"
+      },
       tierDiff: {
         question: "各ランク帯の違いは？",
         answer1: "S は抜けて強い評価です。",
@@ -129,6 +136,13 @@ const translations = {
         point1: "Skim through How to Play first—you don't need to memorize everything in one go.",
         point2: "Story Mode works like a tutorial and explains core terms step by step.",
         answer2: "Some players prefer to skip Story Mode and learn by reading then practicing in matches. Choose the method that fits you best."
+      },
+      weakShot: {
+        question: "What is a weak shot?",
+        answer1: "It is a shot where you press the shot-type button only once.",
+        point1: "Weak shots are easier to angle, and it is a common term among players familiar with previous titles.",
+        point2: "If you press the button two or more times, it becomes a strong shot. It is harder to angle than a weak shot, but the ball speed is faster.",
+        answer2: "Remember it as: use weak shots for angle, and strong shots for speed."
       },
       tierDiff: {
         question: "What is the difference between each tier rank?",
