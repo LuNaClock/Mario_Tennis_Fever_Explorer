@@ -29,8 +29,54 @@ const translations = {
     changelog: { title: "更新履歴" },
 
     faq: {
-      beginner: { question: "最終的にどのキャラを使うべき？", answer: "プレイスタイル・ルール・コートで最適解は変わるため、まずは「目的別おすすめ」で候補を絞り、Tierで実戦向けに微調整するのがおすすめです。", linkToTier: "目的別おすすめ（Tier）へ進む →" },
-      winrate: { question: "勝率を上げるには、何から見ればいい？", answer: "まずはTierの「ルール条件」でシングルス/ダブルスやコートを合わせ、今の環境に合う評価へ切り替えてください。", linkToTier: "Tierの条件別評価を見る →" },
+      categories: { beginner: "初心者向け", tier: "Tier基準", losing: "勝てない際の考え方" },
+      beginnerCharacter: {
+        question: "初心者にオススメのキャラは？",
+        answer1: "デイジー・マリオ・ボスパックンのいずれかがオススメです。",
+        answer2: "強いキャラを使いたいなら、ドンキーやロゼッタも候補に挙がります。",
+        link: "詳しくはTierのおすすめキャラ欄を確認してください。 →"
+      },
+      learnPriority: {
+        question: "何を優先して覚えるとランクマで通用する？",
+        answer1: "まずは得点パターンを覚えましょう。",
+        point1: "角度のついた返球や、その裏を読んで正面に打つ。",
+        point2: "相手がいなくて取れなさそうな方向にフィーバーショットを打つ。",
+        answer2: "ゲーム内メインメニューの「遊び方」でも得点パターンに触れられているので、まずはそちらの確認がおすすめです。"
+      },
+      shotBasics: {
+        question: "そもそもどんなショットを打てば良いかも分からない",
+        answer1: "ゲーム内の遊び方やストーリーモードで確認しましょう。",
+        point1: "ゲーム内の遊び方を一回で覚えなくて良いのでサラッと見る",
+        point2: "ストーリーモードが専門用語の解説もまじえたチュートリアル的な設計なので、順番に学んでいける構造",
+        answer2: "ストーリーをやらずに遊び方を熟読して実戦で覚えたい人もいる為、お好みの方法で学んでいくのが良いです。"
+      },
+      tierDiff: {
+        question: "各ランク帯の違いは？",
+        answer1: "S は抜けて強い評価です。",
+        answer2: "A はSほどではないものの、上位環境でも強く通用するキャラです。"
+      },
+      tierTrust: {
+        question: "Tier表はそのまま信じて良い？",
+        answer1: "複数の上位勢(S+ランク)の意見も取り入れましたが、あくまで目安です。コートやルールによって評価は変化します。"
+      },
+      losing: {
+        question: "負けてしまう",
+        answer1: "まずは得点パターンを見直しましょう。何のショットで得点しようとしていたかを振り返ることが重要です。",
+        answer2: "その状況では有効ではなかったり、他に強い選択肢がある可能性があります。手軽な見直し方法は、失点時の動画を本体機能で撮ることです。",
+        answer3: "次に失点パターンを見直します。得点パターンを掴めたら、防御面も考えましょう。",
+        point1: "角度ショット後にさらに角度をつけられて失点するなら、一旦角度を抑えて返す。",
+        point2: "ロブやドロップで失点するなら、立ち位置を少し後ろ/前に調整する。",
+        answer4: "「なぜ自分がそう動いたか」を整理できると、短期的に負け込んでも後から勝率が上がりやすくなります。"
+      },
+      reasonUnknown: {
+        question: "負ける理由がよく分からない",
+        answer1: "失点時の3手前くらいまで動画で見直すと、原因が見つかることがあります。",
+        point1: "相手に有利な行動を取っている。",
+        point2: "フィーバーショットを打つ/打たれる展開を考慮できていない。",
+        answer2: "など複数の要因があるはずです。",
+        answer3: "どうしても分からなければ、Xで質問してもらえれば答えられる範囲で対応できます。動画があるとより具体的に回答しやすいです。",
+        link: "Xのリンクはページ最下部にあります。 ↓"
+      },
       backToFaq: "← FAQへ戻る"
     },
     favorite: { addCharacter: "お気に入りに追加", removeCharacter: "お気に入り解除", addRacket: "お気に入りに追加", removeRacket: "お気に入り解除", addCourt: "お気に入りに追加", removeCourt: "お気に入り解除" },
@@ -63,6 +109,54 @@ const translations = {
     meta: { iconSuffix: " icon" },
     changelog: { title: "Changelog" },
     faq: {
+      categories: { beginner: "For beginners", tier: "Tier criteria", losing: "How to think when you keep losing" },
+      beginnerCharacter: {
+        question: "Which character is recommended for beginners?",
+        answer1: "Daisy, Mario, or Petey Piranha are good starter picks.",
+        answer2: "If you want stronger meta options, Donkey Kong and Rosalina are also candidates.",
+        link: "See the recommended characters in the Tier section. →"
+      },
+      learnPriority: {
+        question: "What should I learn first to compete in ranked matches?",
+        answer1: "Start by learning reliable scoring patterns.",
+        point1: "Use angled returns, and occasionally hit straight to punish reads.",
+        point2: "Use Fever Shots toward spaces the opponent cannot reasonably cover.",
+        answer2: "The in-game \"How to Play\" also introduces scoring patterns, so checking that first is recommended."
+      },
+      shotBasics: {
+        question: "I don’t even know which shots I should use yet.",
+        answer1: "Use the in-game How to Play and Story Mode as your starting point.",
+        point1: "Skim through How to Play first—you don't need to memorize everything in one go.",
+        point2: "Story Mode works like a tutorial and explains core terms step by step.",
+        answer2: "Some players prefer to skip Story Mode and learn by reading then practicing in matches. Choose the method that fits you best."
+      },
+      tierDiff: {
+        question: "What is the difference between each tier rank?",
+        answer1: "S means exceptionally strong.",
+        answer2: "A is slightly below S, but still highly viable even at top level."
+      },
+      tierTrust: {
+        question: "Should I trust the Tier list as-is?",
+        answer1: "It includes opinions from multiple top players (S+ level), but it is still a guideline. Ratings can change depending on court and rules."
+      },
+      losing: {
+        question: "I keep losing.",
+        answer1: "First, review your scoring patterns. It is important to look back at what shot pattern you were trying to score with.",
+        answer2: "That option might not have been effective in that situation, and there may have been a stronger alternative. A quick review method is to record points you lost and watch them back.",
+        answer3: "Next, review your losing patterns. Once you understand how you score, think about defense as well.",
+        point1: "If you lose after giving too much angle repeatedly, return safer and reduce angle once.",
+        point2: "If you often lose to lobs or drops, adjust your position slightly backward/forward.",
+        answer4: "If you can organize why you moved the way you did, your win rate tends to recover even after short losing streaks."
+      },
+      reasonUnknown: {
+        question: "I can’t figure out why I’m losing.",
+        answer1: "Watching back the 2–3 shots before each lost point often reveals the cause.",
+        point1: "You are choosing actions that favor your opponent.",
+        point2: "You are not accounting for Fever Shot offense/defense scenarios.",
+        answer2: "In many cases, multiple factors are involved.",
+        answer3: "If you still can’t tell, feel free to ask on X and I’ll answer what I can. Video clips help provide much more specific feedback.",
+        link: "The X link is at the bottom of this page. ↓"
+      },
       backToFaq: "← Back to FAQs",
       toBeginnerQuestion: "See beginner-friendly question"
     },
