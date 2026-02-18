@@ -624,8 +624,22 @@ export const officialTierSections = [
     key: "currentMetaStrongRackets",
     type: "rackets",
     rows: [
-      { label: "S", picks: ["ダッシュラケット", "メタルラケット"] },
-      { label: "A", picks: ["マジックラケット", "マメキノコラケット"] },
+      {
+        label: "S",
+        picks: ["ダッシュラケット", "メタルラケット"],
+        reason: {
+          ja: "ダッシュは殆どの相手に対応出来る為。\n\nメタルは無敵かつショットの威力が上がる為、妨害を防ぎながらポイント取得も狙いやすい。\nただし、ダッシュには強くなったショットを返されやすく相性が悪い。",
+          en: "Dash handles most opponents, making it broadly reliable.\n\nMetal grants invulnerability and boosts shot power, so it is easier to block disruption while still aiming to score points.\nHowever, powered-up shots are easier for Dash to return, so this matchup is unfavorable.",
+        },
+      },
+      {
+        label: "A",
+        picks: ["マジックラケット", "マメキノコラケット"],
+        reason: {
+          ja: "マジックは杖から魔法が出る為、ダッシュの後隙を取りやすく、ダッシュ対策として強い。\n他のラケット相手でも当てさえすればポイントが確定するシーンがあり、逆転性も高い。\nその分カウンターされた際の影響力も大きいので注意。\n\nマメキノコに当たると補給範囲が小さく、大きく吹き飛ばされやすくなる為、ダッシュ相手でも有効。\n効果が切れるまで連続ポイントできることも珍しくない為、爆発力が高め。\nこちらもカウンターには十分注意すること。",
+          en: "Magic releases spells from the wand, making it easier to punish Dash recovery and serving as a strong anti-Dash option.\nEven against other rackets, landing it can secure points in key situations, giving it high comeback potential.\nThat said, getting countered can be very costly.\n\nMini Mushroom shrinks the opponent's coverage and makes knockback easier, so it remains effective even into Dash.\nIt can often chain multiple points before the effect expires, giving it strong burst potential.\nBe very careful of counters here as well.",
+        },
+      },
     ],
   },
 ];

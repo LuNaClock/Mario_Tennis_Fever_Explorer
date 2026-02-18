@@ -3229,6 +3229,15 @@ function renderOfficialTierSections() {
     });
 
     group.append(heading, pickGrid);
+
+    const reasonText = localizeValue(row.reason);
+    if (reasonText) {
+      const reason = document.createElement("p");
+      reason.className = "tier-purpose-card__reason";
+      reason.textContent = reasonText;
+      group.append(reason);
+    }
+
     card.append(group);
   });
 
