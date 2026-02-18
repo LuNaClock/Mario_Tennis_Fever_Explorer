@@ -3297,6 +3297,84 @@ function syncLocaleSelect() {
   }
 }
 
+function normalizeStructuredText(text) {
+  return (text || "").replace(/\s+/g, " ").trim();
+}
+
+function setStructuredDataScript(scriptId, payload) {
+  if (!payload) return;
+  let script = document.getElementById(scriptId);
+  if (!script) {
+    script = document.createElement("script");
+    script.id = scriptId;
+    script.type = "application/ld+json";
+    document.head.append(script);
+  }
+  script.textContent = JSON.stringify(payload);
+}
+
+function buildFaqStructuredData() {
+  const faqItems = Array.from(document.querySelectorAll("#faq .faq-item"))
+    .map((item) => {
+      const question = normalizeStructuredText(item.querySelector(".faq-item__question")?.textContent);
+      const answer = normalizeStructuredText(item.querySelector(".faq-item__answer")?.textContent);
+      if (!question || !answer) return null;
+
+      return {
+        "@type": "Question",
+        name: question,
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: answer,
+        },
+      };
+    })
+    .filter(Boolean);
+
+  if (!faqItems.length) return null;
+
+  return {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    inLanguage: currentLocale,
+    mainEntity: faqItems,
+  };
+}
+
+function buildItemListStructuredData(items, listName, sectionHash) {
+  const listItems = items.map((entry, index) => ({
+    "@type": "ListItem",
+    position: index + 1,
+    item: {
+      "@type": "Thing",
+      name: localizeValue(entry.name),
+      description: localizeValue(entry.text),
+      url: `${window.location.origin}${window.location.pathname}${sectionHash}`,
+    },
+  }));
+
+  return {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: listName,
+    inLanguage: currentLocale,
+    numberOfItems: listItems.length,
+    itemListElement: listItems,
+  };
+}
+
+function updateStructuredData() {
+  setStructuredDataScript("structured-data-faq", buildFaqStructuredData());
+  setStructuredDataScript(
+    "structured-data-characters",
+    buildItemListStructuredData(characters, t("section.characters.title"), "#characters")
+  );
+  setStructuredDataScript(
+    "structured-data-rackets",
+    buildItemListStructuredData(rackets, t("section.rackets.title"), "#rackets")
+  );
+}
+
 function applyLocale() {
   applyStaticTranslations();
   const changelogContent = document.getElementById("changelog-content");
@@ -3312,6 +3390,7 @@ function applyLocale() {
   renderAllTierBoards();
   renderTierPurposeRecommendations();
   renderOfficialTierSections();
+  updateStructuredData();
 }
 function bindChangeListeners(elements, handler) {
   elements.forEach((element) => element.addEventListener("change", handler));
