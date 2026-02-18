@@ -616,8 +616,22 @@ export const officialTierSections = [
     key: "currentMetaStrongCharacters",
     type: "characters",
     rows: [
-      { label: "S", picks: ["ドンキーコング"] },
-      { label: "A", picks: ["ロゼッタ", "ノコノコ", "ゲッソー", "ボスパックン", "クリボー"] },
+      {
+        label: "S",
+        picks: ["ドンキーコング"],
+        reason: {
+          ja: "ドンキーは他に並べそうなキャラがいない為。",
+          en: "Donkey Kong is placed alone because there are no other characters that currently match his overall level.",
+        },
+      },
+      {
+        label: "A",
+        picks: ["ロゼッタ", "ノコノコ", "ゲッソー", "ボスパックン", "クリボー"],
+        reason: {
+          ja: "ロゼッタは安定したパラメータやロブの強さにより、立ち回りを安定させやすいことを評価。浮遊なのも考慮。\n\nゲッソーはパワースライスによる弾道の高さや曲がりやすい軌道によるミスを誘発しやすい。扱いが難しく、対策も追いついていない傾向のキャラではあるので今後変動する可能性あり。\n\nノコノコはスピードが早くスライドフットワークの後隙も少ない。ドロップのチャージが速い点やアングルもある程度つけれる事を評価。\n\nクリボーもノコノコと似た理由で評価。スピードが僅かに遅くドロップチャージ速度も普通だが、コントロールは少し上なのが利点。\n\nボスパックンは捕球範囲が広く、コントロールもあるので、強いフラットを活かしやすい。スピードもそれなりにあるので性能が全体的に高め。フィーバーラケット無しだとそれらの強みがさらに出やすい分人口が増加傾向にある。",
+          en: "Rosetta is rated highly for her stable parameters and strong lobs, which make neutral play more consistent. Her floating trait is also a plus.\n\nBlooper can induce mistakes with the high and curving trajectory of its power slice. It is difficult to use and counterplay is still developing, so this placement may change over time.\n\nKoopa Troopa is valued for high speed, low recovery after slide footwork, fast drop-shot charge, and decent angle creation.\n\nGoomba is rated for similar reasons to Koopa Troopa. It is slightly slower and has normal drop-charge speed, but has slightly better control.\n\nPetey Piranha has wide catch range and decent control, which helps capitalize on strong flat shots. With reasonable speed as well, its overall performance is high. Its player count is increasing, especially in rules without Fever Rackets where those strengths stand out even more.",
+        },
+      },
     ],
   },
   {
