@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tips・テクニック | マリオテニスフィーバー Explorer</title>
+  <meta name="description" content="実戦で役立つ操作のコツや仕様メモをカテゴリ別にまとめたTipsセクションです。" />
+  <link rel="canonical" href="https://mariotennis-fever-explorer.ai-lifebook.com/techniques" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Tips・テクニック | マリオテニスフィーバー Explorer" />
+  <meta property="og:description" content="実戦で役立つ操作のコツや仕様メモをカテゴリ別にまとめたTipsセクションです。" />
+  <meta property="og:url" content="https://mariotennis-fever-explorer.ai-lifebook.com/techniques" />
+  <meta property="og:site_name" content="マリオテニスフィーバー Explorer" />
+  <link rel="stylesheet" href="/css/style.css" />
+  <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-TWSQ9VLNT5"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-TWSQ9VLNT5');
+</script>
+</head>
+<body data-route-section="techniques">
+  <header class="site-header">
+    <div class="container">
+      <div class="site-header__top">
+        <h1 data-i18n="site.title">マリオテニスフィーバー Explorer</h1>
+      </div>
+      <label class="locale-switcher" for="locale-select">
+        <span class="locale-switcher__label" data-i18n="site.language">Language</span>
+        <select id="locale-select" aria-label="Language selector">
+          <option value="ja">日本語</option>
+          <option value="en">English</option>
+        </select>
+      </label>
+      <p class="site-lead" data-i18n="site.lead">
+        キャラクターやラケットの特徴などを確認できるデータまとめサイトです。
+        フィルタ・ソートで目的の情報を整理しながら参照できます。
+      </p>
+    </div>
+  </header>
+
+  <main class="container">
+    <nav class="section-nav" aria-label="セクションナビゲーション" data-i18n-attr="aria-label:aria.sectionNav">
+      <div class="section-nav__links js-section-nav" id="desktop-section-nav-links">
+        <a class="section-nav__item" href="/faq" data-target="faq" data-i18n="nav.faq">FAQ</a>
+        <a class="section-nav__item" href="/characters" data-target="characters" data-i18n="nav.characters">キャラ</a>
+        <a class="section-nav__item" href="/rackets" data-target="rackets" data-i18n="nav.rackets">ラケット</a>
+        <a class="section-nav__item" href="/courts" data-target="courts" data-i18n="nav.courts">コート</a>
+        <a class="section-nav__item" href="/techniques" data-target="techniques">Tips</a>
+        <a class="section-nav__item" href="/tier" data-target="tier" data-i18n="nav.tier">Tier</a>
+      </div>
+      <button type="button" class="section-nav__toggle" data-section-nav-toggle aria-expanded="true" aria-controls="desktop-section-nav-links" aria-label="セクションナビをたたむ" data-i18n-attr="aria-label:aria.collapseNav"></button>
+    </nav>
+
+<section class="section" id="techniques" data-nav-label="Tips">
+      <div class="section-header">
+        <div>
+          <h2>Tips</h2>
+          <p class="section-description" data-i18n="section.tips.description">試合で役立つ操作のポイントを素早く確認できます。</p>
+        </div>
+      </div>
+      <div class="filters tips-filters">
+        <label class="filter">
+          <span data-i18n="filter.tipsCategory">カテゴリ</span>
+          <select id="tips-category-filter">
+            <option value="all" data-i18n="common.any">指定なし</option>
+            <option value="仕様" data-i18n="tipsCategory.仕様">仕様</option>
+            <option value="実践知識" data-i18n="tipsCategory.実践知識">実践知識</option>
+          </select>
+        </label>
+        <label class="filter">
+          <span data-i18n="filter.verification">検証</span>
+          <select id="tips-verification-filter">
+            <option value="all" data-i18n="common.any">指定なし</option>
+            <option value="検証中" data-i18n="verification.検証中">検証中</option>
+            <option value="検証済" data-i18n="verification.検証済">検証済</option>
+          </select>
+        </label>
+      </div>
+
+      <p id="tips-count" class="result-count" aria-live="polite">0件表示</p>
+      <div id="tips-list" class="tips-grid"></div>
+
+      <div id="tips-empty" class="info-panel" hidden>
+        <p data-i18n="common.noTip">一致するTipsが見つかりません。</p>
+      </div>
+    </section>
+  </main>
+
+  <nav class="mobile-bottom-nav js-section-nav" aria-label="モバイルセクションナビ" data-i18n-attr="aria-label:aria.mobileNav">
+    <a class="mobile-bottom-nav__item" href="/faq" data-target="faq" data-i18n="nav.faq">FAQ</a>
+    <a class="mobile-bottom-nav__item" href="/characters" data-target="characters" data-i18n="nav.characters">キャラ</a>
+    <a class="mobile-bottom-nav__item" href="/rackets" data-target="rackets" data-i18n="nav.rackets">ラケット</a>
+    <a class="mobile-bottom-nav__item" href="/courts" data-target="courts" data-i18n="nav.courts">コート</a>
+    <a class="mobile-bottom-nav__item" href="/techniques" data-target="techniques">Tips</a>
+    <a class="mobile-bottom-nav__item" href="/tier" data-target="tier" data-i18n="nav.tier">Tier</a>
+  </nav>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p data-i18n="footer.note">データは仮入力を含みます。後日更新予定です。</p>
+      <p class="site-footer__contact" id="site-contact">
+        <span data-i18n="footer.contactLabel">作成者・問い合わせ先:</span>
+        <a href="https://x.com/Lu_Na_Clock" target="_blank" rel="noopener noreferrer" data-i18n="footer.contactAccount" data-i18n-attr="aria-label:aria.contactX" aria-label="Xアカウント @Lu_Na_Clock">@Lu_Na_Clock</a>
+      </p>
+      <p class="changelog-link-wrap">
+        <button type="button" class="changelog-trigger" data-modal-target="changelog-modal" aria-label="更新履歴を表示" data-i18n="footer.changelog" data-i18n-attr="aria-label:aria.showChangelog">
+          更新履歴
+        </button>
+      </p>
+      <p class="site-footer__copyright">© 2026 Lu:Na:Clock</p>
+    </div>
+  </footer>
+
+  <div class="changelog-modal" id="changelog-modal" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="changelog-modal__panel">
+      <div class="changelog-modal__header">
+        <h2 class="changelog-modal__title" data-i18n="footer.changelog">更新履歴</h2>
+        <button type="button" class="changelog-modal__close" data-modal-close="changelog-modal" aria-label="閉じる" data-i18n-attr="aria-label:aria.close">✕</button>
+      </div>
+      <div class="changelog-modal__body" id="changelog-content"></div>
+    </div>
+  </div>
+
+  <div class="tier-modal" id="tier-row-modal" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="tier-modal__panel">
+      <div class="tier-modal__header">
+        <h2 data-i18n="tier.modalTitle">Tier行を編集</h2>
+        <button type="button" class="tier-modal__close" id="tier-row-modal-close" data-i18n-attr="aria-label:aria.close" aria-label="閉じる">✕</button>
+      </div>
+      <label class="filter">
+        <span data-i18n="tier.labelName">ラベル名</span>
+        <input type="text" id="tier-row-label-input" maxlength="24" />
+      </label>
+      <label class="filter">
+        <span data-i18n="tier.labelColor">背景色</span>
+        <input type="color" id="tier-row-color-input" />
+      </label>
+      <div class="tier-modal__actions">
+        <button type="button" class="tier-modal__btn" id="tier-row-clear" data-i18n="tier.clearRow">行の中身をクリア</button>
+        <button type="button" class="tier-modal__btn" id="tier-row-add-above" data-i18n="tier.addAbove">上に行追加</button>
+        <button type="button" class="tier-modal__btn" id="tier-row-add-below" data-i18n="tier.addBelow">下に行追加</button>
+        <button type="button" class="tier-modal__btn tier-modal__btn--danger" id="tier-row-delete" data-i18n="tier.deleteRow">行を削除</button>
+      </div>
+    </div>
+  </div>
+  <script type="module">
+(async () => {
+  const targetSectionId = "techniques";
+
+  try {
+    const response = await fetch('/index.html', { credentials: 'same-origin' });
+    if (!response.ok) throw new Error('index fetch failed');
+
+    const html = await response.text();
+    const parser = new DOMParser();
+    const sourceDoc = parser.parseFromString(html, 'text/html');
+
+    const currentMain = document.querySelector('main.container');
+    const sourceMain = sourceDoc.querySelector('main.container');
+
+    if (!currentMain || !sourceMain) throw new Error('main missing');
+
+    const existingSectionIds = new Set(
+      Array.from(currentMain.querySelectorAll('section[id]')).map((section) => section.id)
+    );
+
+    sourceMain.querySelectorAll('section[id]').forEach((section) => {
+      if (!existingSectionIds.has(section.id)) {
+        currentMain.append(document.importNode(section, true));
+      }
+    });
+
+    document.body.dataset.routeSection = targetSectionId;
+    await import('/js/main.js');
+  } catch (error) {
+    window.location.replace('/#' + targetSectionId);
+  }
+})();
+  </script>
+</body>
+</html>

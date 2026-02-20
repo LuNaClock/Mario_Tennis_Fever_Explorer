@@ -217,6 +217,14 @@ function rawValue(value) {
   return value;
 }
 
+function assetUrl(src) {
+  if (!src) return "";
+  if (/^(?:[a-z]+:)?\/\//i.test(src) || src.startsWith("/") || src.startsWith("data:")) {
+    return src;
+  }
+  return `/${src.replace(/^\.?\//, "")}`;
+}
+
 const statLabels = {
   speed: () => t("stat.speed"),
   power: () => t("stat.power"),
@@ -323,6 +331,19 @@ const sectionNavSections = Array.from(
       .map((item) => document.getElementById(item.dataset.target))
       .filter(Boolean)
   )
+);
+
+const SECTION_ROUTE_MAP = {
+  faq: "/faq",
+  characters: "/characters",
+  rackets: "/rackets",
+  courts: "/courts",
+  techniques: "/techniques",
+  tier: "/tier",
+};
+
+const ROUTE_SECTION_MAP = Object.fromEntries(
+  Object.entries(SECTION_ROUTE_MAP).map(([sectionId, routePath]) => [routePath, sectionId])
 );
 
 const characterIndexMap = new Map(characters.map((character, index) => [character, index]));
@@ -592,7 +613,7 @@ function loadImage(src) {
     const img = new Image();
     img.onload = () => resolve(img);
     img.onerror = reject;
-    img.src = src;
+    img.src = assetUrl(src);
   });
 }
 
@@ -811,7 +832,7 @@ function syncTierCharacterMatchupBaseOptions() {
   }
 
   const image = document.createElement("img");
-  image.src = baseCharacter.image;
+  image.src = assetUrl(baseCharacter.image);
   image.alt = `${localizeValue(baseCharacter.name)} ${t("tier.matchupBaseIconAlt")}`;
   tierCharacterMatchupBasePreview.hidden = false;
   tierCharacterMatchupBasePreview.replaceChildren(image);
@@ -827,7 +848,7 @@ function updateCharacterTierMatchupSummary(profile) {
   }
 
   const image = document.createElement("img");
-  image.src = baseCharacter.image;
+  image.src = assetUrl(baseCharacter.image);
   image.alt = `${localizeValue(baseCharacter.name)} ${t("tier.matchupBaseIconAlt")}`;
 
   const text = document.createElement("span");
@@ -1072,7 +1093,7 @@ function createPredictedCourtCard(court) {
 
   const image = document.createElement("img");
   image.className = "court-prediction-card__image";
-  image.src = court.image;
+  image.src = assetUrl(court.image);
   image.alt = `${localizeValue(court.name)} ${t("meta.iconSuffix")}`;
   image.loading = "lazy";
 
@@ -1265,7 +1286,7 @@ function createCourtCard(court) {
 
   const image = document.createElement("img");
   image.className = "card-image card-image--court";
-  image.src = court.image;
+  image.src = assetUrl(court.image);
   image.alt = `${localizeValue(court.name)} ${t("meta.iconSuffix")}`;
 
   const media = document.createElement("div");
@@ -1552,7 +1573,7 @@ function createCharacterCard(character) {
   `;
 
   const image = document.createElement("img");
-  image.src = character.image;
+  image.src = assetUrl(character.image);
   image.alt = `${localizeValue(character.name)}${t("meta.iconSuffix")}`;
   image.loading = "lazy";
   image.className = "card-image";
@@ -1650,7 +1671,7 @@ function createRacketCard(racket) {
   `;
 
   const image = document.createElement("img");
-  image.src = racket.image;
+  image.src = assetUrl(racket.image);
   image.alt = `${localizeValue(racket.name)}${t("meta.iconSuffix")}`;
   image.loading = "lazy";
   image.decoding = "async";
@@ -1756,7 +1777,7 @@ function buildRacketMoviePath(imagePath) {
     return "";
   }
 
-  return `assets/racket_movies/${movieBaseName}.mp4`;
+  return assetUrl(`assets/racket_movies/${movieBaseName}.mp4`);
 }
 
 async function doesVideoSourceExist(src) {
@@ -2072,7 +2093,7 @@ function createRacketSearchShortcut(racket) {
 
   const icon = document.createElement("img");
   icon.className = "search-shortcut__icon search-shortcut__icon--racket";
-  icon.src = racket.image;
+  icon.src = assetUrl(racket.image);
   icon.alt = "";
   icon.loading = "lazy";
   icon.decoding = "async";
@@ -2139,7 +2160,7 @@ function createCharacterSearchShortcut(character) {
 
   const icon = document.createElement("img");
   icon.className = "search-shortcut__icon";
-  icon.src = character.image;
+  icon.src = assetUrl(character.image);
   icon.alt = "";
   icon.loading = "lazy";
 
@@ -2648,6 +2669,44 @@ function activateSectionNav(sectionId) {
   });
 }
 
+function getSectionIdFromUrl() {
+  const hashSectionId = window.location.hash?.replace("#", "");
+  if (hashSectionId && SECTION_ROUTE_MAP[hashSectionId]) {
+    return hashSectionId;
+  }
+
+  const routeSectionId = ROUTE_SECTION_MAP[window.location.pathname.replace(/\/$/, "") || "/"];
+  if (routeSectionId) {
+    return routeSectionId;
+  }
+
+  const htmlSectionId = document.body.dataset.routeSection;
+  if (htmlSectionId && SECTION_ROUTE_MAP[htmlSectionId]) {
+    return htmlSectionId;
+  }
+
+  return null;
+}
+
+function syncUrlToSection(sectionId, mode = "replace") {
+  const nextPath = SECTION_ROUTE_MAP[sectionId];
+  if (!nextPath) {
+    return;
+  }
+
+  const url = `${nextPath}${window.location.search}`;
+  if (window.location.pathname === nextPath) {
+    return;
+  }
+
+  if (mode === "push") {
+    history.pushState({ sectionId }, "", url);
+    return;
+  }
+
+  history.replaceState({ sectionId }, "", url);
+}
+
 function setupSectionNav() {
   if (!sectionNavItems.length || !sectionNavSections.length) {
     return;
@@ -2668,7 +2727,7 @@ function setupSectionNav() {
       }
 
       target.scrollIntoView({ behavior: "smooth", block: "start" });
-      history.replaceState(null, "", `#${targetId}`);
+      syncUrlToSection(targetId, "push");
       activateSectionNav(targetId);
     });
   });
@@ -2691,8 +2750,31 @@ function setupSectionNav() {
 
   sectionNavSections.forEach((section) => observer.observe(section));
 
-  const initialId = window.location.hash?.replace("#", "");
-  activateSectionNav(initialId || sectionNavSections[0].id);
+  const initialId = getSectionIdFromUrl() || sectionNavSections[0].id;
+  const initialSection = document.getElementById(initialId);
+  if (initialSection) {
+    initialSection.scrollIntoView({ block: "start" });
+  }
+
+  const isRootFaqInitialRoute =
+    window.location.pathname === "/" &&
+    !window.location.hash &&
+    initialId === "faq";
+
+  if (!isRootFaqInitialRoute) {
+    syncUrlToSection(initialId, "replace");
+  }
+
+  activateSectionNav(initialId);
+
+  window.addEventListener("popstate", () => {
+    const nextSectionId = getSectionIdFromUrl() || sectionNavSections[0].id;
+    const nextSection = document.getElementById(nextSectionId);
+    if (!nextSection) return;
+
+    nextSection.scrollIntoView({ behavior: "smooth", block: "start" });
+    activateSectionNav(nextSectionId);
+  });
 }
 
 
@@ -2852,7 +2934,7 @@ function createTierItem(boardKey, itemIndex, rowId = null) {
 
   const image = document.createElement("img");
   image.className = getBoardImageClass(boardKey);
-  image.src = item.image;
+  image.src = assetUrl(item.image);
   image.alt = `${getBoardName(boardKey, item)}${t("meta.iconSuffix")}`;
   image.loading = "lazy";
 
@@ -3215,7 +3297,7 @@ function createTierPurposePickCard(type, nameJa) {
 
   const image = document.createElement("img");
   image.className = `tier-purpose-pick__image${type === "rackets" ? " tier-purpose-pick__image--racket" : ""}`;
-  image.src = item.image;
+  image.src = assetUrl(item.image);
   image.alt = `${localizeValue(item.name)} ${t("meta.iconSuffix")}`;
   image.loading = "lazy";
 
