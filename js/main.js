@@ -2755,7 +2755,16 @@ function setupSectionNav() {
   if (initialSection) {
     initialSection.scrollIntoView({ block: "start" });
   }
-  syncUrlToSection(initialId, "replace");
+
+  const isRootFaqInitialRoute =
+    window.location.pathname === "/" &&
+    !window.location.hash &&
+    initialId === "faq";
+
+  if (!isRootFaqInitialRoute) {
+    syncUrlToSection(initialId, "replace");
+  }
+
   activateSectionNav(initialId);
 
   window.addEventListener("popstate", () => {
