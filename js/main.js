@@ -325,6 +325,19 @@ const sectionNavSections = Array.from(
   )
 );
 
+const SECTION_ROUTE_MAP = {
+  faq: "/faq",
+  characters: "/characters",
+  rackets: "/rackets",
+  courts: "/courts",
+  techniques: "/techniques",
+  tier: "/tier",
+};
+
+const ROUTE_SECTION_MAP = Object.fromEntries(
+  Object.entries(SECTION_ROUTE_MAP).map(([sectionId, routePath]) => [routePath, sectionId])
+);
+
 const characterIndexMap = new Map(characters.map((character, index) => [character, index]));
 const tierTabButtons = Array.from(document.querySelectorAll(".tier-tab"));
 const tierPanels = Array.from(document.querySelectorAll(".tier-panel"));
@@ -2648,6 +2661,44 @@ function activateSectionNav(sectionId) {
   });
 }
 
+function getSectionIdFromUrl() {
+  const hashSectionId = window.location.hash?.replace("#", "");
+  if (hashSectionId && SECTION_ROUTE_MAP[hashSectionId]) {
+    return hashSectionId;
+  }
+
+  const routeSectionId = ROUTE_SECTION_MAP[window.location.pathname.replace(/\/$/, "") || "/"];
+  if (routeSectionId) {
+    return routeSectionId;
+  }
+
+  const htmlSectionId = document.body.dataset.routeSection;
+  if (htmlSectionId && SECTION_ROUTE_MAP[htmlSectionId]) {
+    return htmlSectionId;
+  }
+
+  return null;
+}
+
+function syncUrlToSection(sectionId, mode = "replace") {
+  const nextPath = SECTION_ROUTE_MAP[sectionId];
+  if (!nextPath) {
+    return;
+  }
+
+  const url = `${nextPath}${window.location.search}`;
+  if (window.location.pathname === nextPath) {
+    return;
+  }
+
+  if (mode === "push") {
+    history.pushState({ sectionId }, "", url);
+    return;
+  }
+
+  history.replaceState({ sectionId }, "", url);
+}
+
 function setupSectionNav() {
   if (!sectionNavItems.length || !sectionNavSections.length) {
     return;
@@ -2668,7 +2719,7 @@ function setupSectionNav() {
       }
 
       target.scrollIntoView({ behavior: "smooth", block: "start" });
-      history.replaceState(null, "", `#${targetId}`);
+      syncUrlToSection(targetId, "push");
       activateSectionNav(targetId);
     });
   });
@@ -2691,8 +2742,22 @@ function setupSectionNav() {
 
   sectionNavSections.forEach((section) => observer.observe(section));
 
-  const initialId = window.location.hash?.replace("#", "");
-  activateSectionNav(initialId || sectionNavSections[0].id);
+  const initialId = getSectionIdFromUrl() || sectionNavSections[0].id;
+  const initialSection = document.getElementById(initialId);
+  if (initialSection) {
+    initialSection.scrollIntoView({ block: "start" });
+  }
+  syncUrlToSection(initialId, "replace");
+  activateSectionNav(initialId);
+
+  window.addEventListener("popstate", () => {
+    const nextSectionId = getSectionIdFromUrl() || sectionNavSections[0].id;
+    const nextSection = document.getElementById(nextSectionId);
+    if (!nextSection) return;
+
+    nextSection.scrollIntoView({ behavior: "smooth", block: "start" });
+    activateSectionNav(nextSectionId);
+  });
 }
 
 

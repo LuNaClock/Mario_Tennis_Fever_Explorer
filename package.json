@@ -1,0 +1,8 @@
+{
+  "name": "mario-tennis-fever-explorer",
+  "private": true,
+  "scripts": {
+    "prerender": "node scripts/prerender.mjs",
+    "build": "npm run prerender"
+  }
+}
