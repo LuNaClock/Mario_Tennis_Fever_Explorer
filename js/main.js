@@ -217,6 +217,14 @@ function rawValue(value) {
   return value;
 }
 
+function assetUrl(src) {
+  if (!src) return "";
+  if (/^(?:[a-z]+:)?\/\//i.test(src) || src.startsWith("/") || src.startsWith("data:")) {
+    return src;
+  }
+  return `/${src.replace(/^\.?\//, "")}`;
+}
+
 const statLabels = {
   speed: () => t("stat.speed"),
   power: () => t("stat.power"),
@@ -605,7 +613,7 @@ function loadImage(src) {
     const img = new Image();
     img.onload = () => resolve(img);
     img.onerror = reject;
-    img.src = src;
+    img.src = assetUrl(src);
   });
 }
 
@@ -824,7 +832,7 @@ function syncTierCharacterMatchupBaseOptions() {
   }
 
   const image = document.createElement("img");
-  image.src = baseCharacter.image;
+  image.src = assetUrl(baseCharacter.image);
   image.alt = `${localizeValue(baseCharacter.name)} ${t("tier.matchupBaseIconAlt")}`;
   tierCharacterMatchupBasePreview.hidden = false;
   tierCharacterMatchupBasePreview.replaceChildren(image);
@@ -840,7 +848,7 @@ function updateCharacterTierMatchupSummary(profile) {
   }
 
   const image = document.createElement("img");
-  image.src = baseCharacter.image;
+  image.src = assetUrl(baseCharacter.image);
   image.alt = `${localizeValue(baseCharacter.name)} ${t("tier.matchupBaseIconAlt")}`;
 
   const text = document.createElement("span");
@@ -1085,7 +1093,7 @@ function createPredictedCourtCard(court) {
 
   const image = document.createElement("img");
   image.className = "court-prediction-card__image";
-  image.src = court.image;
+  image.src = assetUrl(court.image);
   image.alt = `${localizeValue(court.name)} ${t("meta.iconSuffix")}`;
   image.loading = "lazy";
 
@@ -1278,7 +1286,7 @@ function createCourtCard(court) {
 
   const image = document.createElement("img");
   image.className = "card-image card-image--court";
-  image.src = court.image;
+  image.src = assetUrl(court.image);
   image.alt = `${localizeValue(court.name)} ${t("meta.iconSuffix")}`;
 
   const media = document.createElement("div");
@@ -1565,7 +1573,7 @@ function createCharacterCard(character) {
   `;
 
   const image = document.createElement("img");
-  image.src = character.image;
+  image.src = assetUrl(character.image);
   image.alt = `${localizeValue(character.name)}${t("meta.iconSuffix")}`;
   image.loading = "lazy";
   image.className = "card-image";
@@ -1663,7 +1671,7 @@ function createRacketCard(racket) {
   `;
 
   const image = document.createElement("img");
-  image.src = racket.image;
+  image.src = assetUrl(racket.image);
   image.alt = `${localizeValue(racket.name)}${t("meta.iconSuffix")}`;
   image.loading = "lazy";
   image.decoding = "async";
@@ -1769,7 +1777,7 @@ function buildRacketMoviePath(imagePath) {
     return "";
   }
 
-  return `assets/racket_movies/${movieBaseName}.mp4`;
+  return assetUrl(`assets/racket_movies/${movieBaseName}.mp4`);
 }
 
 async function doesVideoSourceExist(src) {
@@ -2085,7 +2093,7 @@ function createRacketSearchShortcut(racket) {
 
   const icon = document.createElement("img");
   icon.className = "search-shortcut__icon search-shortcut__icon--racket";
-  icon.src = racket.image;
+  icon.src = assetUrl(racket.image);
   icon.alt = "";
   icon.loading = "lazy";
   icon.decoding = "async";
@@ -2152,7 +2160,7 @@ function createCharacterSearchShortcut(character) {
 
   const icon = document.createElement("img");
   icon.className = "search-shortcut__icon";
-  icon.src = character.image;
+  icon.src = assetUrl(character.image);
   icon.alt = "";
   icon.loading = "lazy";
 
@@ -2917,7 +2925,7 @@ function createTierItem(boardKey, itemIndex, rowId = null) {
 
   const image = document.createElement("img");
   image.className = getBoardImageClass(boardKey);
-  image.src = item.image;
+  image.src = assetUrl(item.image);
   image.alt = `${getBoardName(boardKey, item)}${t("meta.iconSuffix")}`;
   image.loading = "lazy";
 
@@ -3280,7 +3288,7 @@ function createTierPurposePickCard(type, nameJa) {
 
   const image = document.createElement("img");
   image.className = `tier-purpose-pick__image${type === "rackets" ? " tier-purpose-pick__image--racket" : ""}`;
-  image.src = item.image;
+  image.src = assetUrl(item.image);
   image.alt = `${localizeValue(item.name)} ${t("meta.iconSuffix")}`;
   image.loading = "lazy";
 
