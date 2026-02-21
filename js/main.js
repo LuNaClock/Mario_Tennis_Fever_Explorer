@@ -187,9 +187,23 @@ const browserLocale = browserLanguages.some((lang) => String(lang).toLowerCase()
   ? "ja"
   : "en";
 const routeLocale = window.location.pathname.startsWith("/en") ? "en" : "ja";
-let currentLocale = localStorage.getItem("locale") || routeLocale || browserLocale;
+let currentLocale = routeLocale || localStorage.getItem("locale") || browserLocale;
 if (!translations[currentLocale]) {
   currentLocale = "ja";
+}
+
+function getLocalizedPath(pathname, nextLocale) {
+  const normalizedPath = pathname || "/";
+  const isEnglishPath = normalizedPath === "/en" || normalizedPath.startsWith("/en/");
+
+  if (nextLocale === "en") {
+    if (isEnglishPath) return normalizedPath;
+    return normalizedPath === "/" ? "/en/" : `/en${normalizedPath}`;
+  }
+
+  if (!isEnglishPath) return normalizedPath;
+  const jaPath = normalizedPath.replace(/^\/en/, "") || "/";
+  return jaPath;
 }
 
 function t(key, vars = {}) {
@@ -3626,8 +3640,19 @@ setupCourtPrediction();
 
 if (localeSelect) {
   localeSelect.addEventListener("change", (event) => {
-    currentLocale = event.target.value === "en" ? "en" : "ja";
+    const nextLocale = event.target.value === "en" ? "en" : "ja";
+    const nextPath = getLocalizedPath(window.location.pathname, nextLocale);
+    const currentFullPath = `${window.location.pathname}${window.location.search}${window.location.hash}`;
+    const nextFullPath = `${nextPath}${window.location.search}${window.location.hash}`;
+
+    currentLocale = nextLocale;
     localStorage.setItem("locale", currentLocale);
+
+    if (currentFullPath !== nextFullPath) {
+      window.location.assign(nextFullPath);
+      return;
+    }
+
     applyLocale();
   });
 }
