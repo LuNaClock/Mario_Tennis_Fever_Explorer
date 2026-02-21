@@ -1,19 +1,19 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>キャラクター一覧 | マリオテニスフィーバー Explorer</title>
-  <meta name="description" content="全キャラクターのタイプや主要ステータス、特殊能力を比較しやすい一覧ページです。" />
-  <link rel="canonical" href="https://mariotennis-fever-explorer.ai-lifebook.com/characters" />
-  <link rel="alternate" hreflang="ja" href="https://mariotennis-fever-explorer.ai-lifebook.com/characters" />
-  <link rel="alternate" hreflang="en" href="https://mariotennis-fever-explorer.ai-lifebook.com/en/characters" />
+  <title>Court List | Mario Tennis Fever Explorer</title>
+  <meta name="description" content="Comparison page for each court's ball speed, bounce characteristics, and notes." />
+  <link rel="canonical" href="https://mariotennis-fever-explorer.ai-lifebook.com/en/courts" />
+  <link rel="alternate" hreflang="ja" href="https://mariotennis-fever-explorer.ai-lifebook.com/courts" />
+  <link rel="alternate" hreflang="en" href="https://mariotennis-fever-explorer.ai-lifebook.com/en/courts" />
   <link rel="alternate" hreflang="x-default" href="https://mariotennis-fever-explorer.ai-lifebook.com/" />
   <meta property="og:type" content="article" />
-  <meta property="og:title" content="キャラクター一覧 | マリオテニスフィーバー Explorer" />
-  <meta property="og:description" content="全キャラクターのタイプや主要ステータス、特殊能力を比較しやすい一覧ページです。" />
-  <meta property="og:url" content="https://mariotennis-fever-explorer.ai-lifebook.com/characters" />
-  <meta property="og:site_name" content="マリオテニスフィーバー Explorer" />
+  <meta property="og:title" content="Court List | Mario Tennis Fever Explorer" />
+  <meta property="og:description" content="Comparison page for each court's ball speed, bounce characteristics, and notes." />
+  <meta property="og:url" content="https://mariotennis-fever-explorer.ai-lifebook.com/en/courts" />
+  <meta property="og:site_name" content="Mario Tennis Fever Explorer" />
   <link rel="stylesheet" href="/css/style.css" />
   <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-TWSQ9VLNT5"></script>
@@ -25,7 +25,7 @@
   gtag('config', 'G-TWSQ9VLNT5');
 </script>
 </head>
-<body data-route-section="characters">
+<body data-route-section="courts">
   <header class="site-header">
     <div class="container">
       <div class="site-header__top">
@@ -48,115 +48,101 @@
   <main class="container">
     <nav class="section-nav" aria-label="セクションナビゲーション" data-i18n-attr="aria-label:aria.sectionNav">
       <div class="section-nav__links js-section-nav" id="desktop-section-nav-links">
-        <a class="section-nav__item" href="/faq" data-target="faq" data-i18n="nav.faq">FAQ</a>
-        <a class="section-nav__item" href="/characters" data-target="characters" data-i18n="nav.characters">キャラ</a>
-        <a class="section-nav__item" href="/rackets" data-target="rackets" data-i18n="nav.rackets">ラケット</a>
-        <a class="section-nav__item" href="/courts" data-target="courts" data-i18n="nav.courts">コート</a>
-        <a class="section-nav__item" href="/techniques" data-target="techniques">Tips</a>
-        <a class="section-nav__item" href="/tier" data-target="tier" data-i18n="nav.tier">Tier</a>
+        <a class="section-nav__item" href="/en/faq" data-target="faq" data-i18n="nav.faq">FAQ</a>
+        <a class="section-nav__item" href="/en/characters" data-target="characters" data-i18n="nav.characters">キャラ</a>
+        <a class="section-nav__item" href="/en/rackets" data-target="rackets" data-i18n="nav.rackets">ラケット</a>
+        <a class="section-nav__item" href="/en/courts" data-target="courts" data-i18n="nav.courts">コート</a>
+        <a class="section-nav__item" href="/en/techniques" data-target="techniques">Tips</a>
+        <a class="section-nav__item" href="/en/tier" data-target="tier" data-i18n="nav.tier">Tier</a>
       </div>
       <button type="button" class="section-nav__toggle" data-section-nav-toggle aria-expanded="true" aria-controls="desktop-section-nav-links" aria-label="セクションナビをたたむ" data-i18n-attr="aria-label:aria.collapseNav"></button>
     </nav>
 
-<section class="section" id="characters" data-nav-label="キャラ">
+<section class="section" id="courts" data-nav-label="コート">
       <div class="section-header">
         <div>
           <h2>
-            <button type="button" class="section-title-toggle" data-collapse-target="character-content" aria-expanded="true">
-              <span data-i18n="section.characters.title">キャラクター一覧</span>
-              <span class="section-meta" id="character-count"></span>
+            <button type="button" class="section-title-toggle" data-collapse-target="court-content" aria-expanded="true">
+              <span data-i18n="section.courts.title">コート一覧</span>
+              <span class="section-meta" id="court-count"></span>
             </button>
           </h2>
-          <p class="section-description" data-i18n="section.characters.description">タイプ別の特徴やパラメータを比較できます。</p>
+          <p class="section-description" data-i18n="section.courts.description">コートごとのたまあしとバウンドの特性を比較できます。</p>
         </div>
       </div>
 
-      <div id="character-content" class="section-content">
-
+      <div id="court-content" class="section-content">
       <div class="mobile-filter-trigger-wrap">
-        <button type="button" class="mobile-filter-trigger" data-modal-target="character-filter-modal" data-i18n="filter.searchAndFilter">検索・絞り込み</button>
+        <button type="button" class="mobile-filter-trigger" data-modal-target="court-filter-modal" data-i18n="filter.searchAndFilter">検索・絞り込み</button>
       </div>
 
-      <div class="active-filter-chips" id="character-active-filters" aria-live="polite"></div>
+      <div class="active-filter-chips" id="court-active-filters" aria-live="polite"></div>
 
-      <div class="filters" id="character-inline-filters">
+      <div class="filters" id="court-inline-filters">
         <label class="filter filter--search">
           <span data-i18n="filter.search">検索</span>
-          <input type="search" id="character-search" placeholder="キャラクター名で検索" data-i18n-attr="placeholder:placeholder.characterSearch" />
-        </label>
-        <label class="filter">
-          <span data-i18n="filter.type">タイプ</span>
-          <select id="character-type-filter">
-            <option value="all" data-i18n="common.any">指定なし</option>
-            <option value="オールラウンド" data-i18n="type.オールラウンド">オールラウンド</option>
-            <option value="テクニック" data-i18n="type.テクニック">テクニック</option>
-            <option value="パワー" data-i18n="type.パワー">パワー</option>
-            <option value="ディフェンス" data-i18n="type.ディフェンス">ディフェンス</option>
-            <option value="トリッキー" data-i18n="type.トリッキー">トリッキー</option>
-            <option value="スピード" data-i18n="type.スピード">スピード</option>
-          </select>
-        </label>
-        <label class="filter">
-          <span data-i18n="filter.special">特殊能力</span>
-          <select id="character-special-filter">
-            <option value="all" data-i18n="common.any">指定なし</option>
-            <option value="yes" data-i18n="common.yes">あり</option>
-            <option value="no" data-i18n="common.no">なし</option>
-          </select>
+          <input id="court-search" type="search" placeholder="コート名で検索" data-i18n-attr="placeholder:placeholder.courtSearch" />
         </label>
         <label class="filter">
           <span data-i18n="filter.favoritesOnly">お気に入り</span>
-          <select id="character-favorite-filter">
+          <select id="court-favorite-filter">
             <option value="all" data-i18n="common.any">指定なし</option>
             <option value="favorites" data-i18n="filter.favoritesOnly">お気に入りのみ</option>
           </select>
         </label>
         <label class="filter">
           <span data-i18n="filter.sortBy">ソート項目</span>
-          <select id="character-sort">
+          <select id="court-sort">
             <option value="name" data-i18n="sort.name">名前</option>
-            <option value="speed" data-i18n="stat.speed">スピード</option>
-            <option value="power" data-i18n="stat.power">パワー</option>
-            <option value="control" data-i18n="stat.control">コントロール</option>
-            <option value="spin" data-i18n="stat.spin">スピン</option>
+            <option value="ballSpeed" data-i18n="sort.ballSpeed">たまあし</option>
+            <option value="bounce" data-i18n="sort.bounce">バウンド</option>
           </select>
         </label>
         <label class="filter">
           <span data-i18n="filter.order">並び順</span>
-          <select id="character-order">
+          <select id="court-order">
             <option value="game" data-i18n="order.game">ゲーム内順</option>
-            <option value="asc" data-i18n="order.asc">昇順</option>
-            <option value="desc" data-i18n="order.desc">降順</option>
+            <option value="asc" data-i18n="order.high">数値が高い順</option>
+            <option value="desc" data-i18n="order.low">数値が低い順</option>
           </select>
         </label>
       </div>
 
-      <div id="character-search-results" class="search-shortcuts" aria-live="polite"></div>
-
-      <div class="filter-modal" id="character-filter-modal" aria-hidden="true">
-        <div class="filter-modal__panel">
+      <div class="filter-modal" id="court-filter-modal" aria-hidden="true">
+        <div class="filter-modal__backdrop" data-modal-close="court-filter-modal"></div>
+        <div class="filter-modal__dialog" role="dialog" aria-modal="true" aria-labelledby="court-filter-modal-title">
           <div class="filter-modal__header">
-            <h3 data-i18n="modal.characterFilter">キャラクターの検索・絞り込み</h3>
-            <button type="button" class="filter-modal__close" data-modal-close="character-filter-modal" aria-label="閉じる" data-i18n-attr="aria-label:aria.close">✕</button>
+            <h3 id="court-filter-modal-title" data-i18n="modal.courtFilter">コートの検索・絞り込み</h3>
+            <button type="button" class="filter-modal__close" data-modal-close="court-filter-modal" aria-label="閉じる" data-i18n-attr="aria-label:aria.close">✕</button>
           </div>
-          <div class="filters filters--modal" id="character-modal-filters"></div>
-          <div id="character-modal-search-results" class="search-shortcuts search-shortcuts--modal" aria-live="polite"></div>
-          <button type="button" class="filter-modal__apply" id="character-filter-apply">0件を表示</button>
+          <div class="filters filters--modal" id="court-modal-filters"></div>
+          <button type="button" class="filter-modal__apply" id="court-filter-apply">0件を表示</button>
         </div>
       </div>
 
-      <div id="character-list" class="card-grid"></div>
+        <div id="court-list" class="card-grid"></div>
+
+        <div class="court-prediction" id="court-prediction" aria-live="polite">
+          <h3 class="court-prediction__title" data-i18n="courtPrediction.title">次コート予測（β）</h3>
+          <p class="court-prediction__description" data-i18n="courtPrediction.description">ランクマッチの観測順をもとに、現在のコートから次に来る可能性が高い候補を表示します。</p>
+          <label class="filter court-prediction__selector" for="court-prediction-current">
+            <span data-i18n="courtPrediction.currentCourt">現在のコート</span>
+            <select id="court-prediction-current" aria-label="現在のコート"></select>
+          </label>
+          <ul class="court-prediction__list" id="court-prediction-list"></ul>
+          <p class="court-prediction__note" data-i18n="courtPrediction.note">※ベータ版: ベータ版の為、精度はあくまで目安です。</p>
+        </div>
       </div>
     </section>
   </main>
 
   <nav class="mobile-bottom-nav js-section-nav" aria-label="モバイルセクションナビ" data-i18n-attr="aria-label:aria.mobileNav">
-    <a class="mobile-bottom-nav__item" href="/faq" data-target="faq" data-i18n="nav.faq">FAQ</a>
-    <a class="mobile-bottom-nav__item" href="/characters" data-target="characters" data-i18n="nav.characters">キャラ</a>
-    <a class="mobile-bottom-nav__item" href="/rackets" data-target="rackets" data-i18n="nav.rackets">ラケット</a>
-    <a class="mobile-bottom-nav__item" href="/courts" data-target="courts" data-i18n="nav.courts">コート</a>
-    <a class="mobile-bottom-nav__item" href="/techniques" data-target="techniques">Tips</a>
-    <a class="mobile-bottom-nav__item" href="/tier" data-target="tier" data-i18n="nav.tier">Tier</a>
+    <a class="mobile-bottom-nav__item" href="/en/faq" data-target="faq" data-i18n="nav.faq">FAQ</a>
+    <a class="mobile-bottom-nav__item" href="/en/characters" data-target="characters" data-i18n="nav.characters">キャラ</a>
+    <a class="mobile-bottom-nav__item" href="/en/rackets" data-target="rackets" data-i18n="nav.rackets">ラケット</a>
+    <a class="mobile-bottom-nav__item" href="/en/courts" data-target="courts" data-i18n="nav.courts">コート</a>
+    <a class="mobile-bottom-nav__item" href="/en/techniques" data-target="techniques">Tips</a>
+    <a class="mobile-bottom-nav__item" href="/en/tier" data-target="tier" data-i18n="nav.tier">Tier</a>
   </nav>
 
   <footer class="site-footer">
@@ -209,7 +195,7 @@
   </div>
   <script type="module">
 (async () => {
-  const targetSectionId = "characters";
+  const targetSectionId = "courts";
   const isEnglishPath = window.location.pathname.startsWith('/en');
   const entryPath = isEnglishPath ? '/en/index.html' : '/index.html';
   const fallbackBase = isEnglishPath ? '/en/#' : '/#';

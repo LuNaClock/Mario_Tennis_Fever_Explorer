@@ -186,7 +186,8 @@ const browserLanguages = Array.isArray(navigator.languages) && navigator.languag
 const browserLocale = browserLanguages.some((lang) => String(lang).toLowerCase().startsWith("ja"))
   ? "ja"
   : "en";
-let currentLocale = localStorage.getItem("locale") || browserLocale;
+const routeLocale = window.location.pathname.startsWith("/en") ? "en" : "ja";
+let currentLocale = localStorage.getItem("locale") || routeLocale || browserLocale;
 if (!translations[currentLocale]) {
   currentLocale = "ja";
 }
