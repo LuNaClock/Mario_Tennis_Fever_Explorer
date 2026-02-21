@@ -115,6 +115,16 @@ function buildHybridLoaderScript(sectionId) {
   return `  <script type="module">\n(async () => {\n  const targetSectionId = ${safeSectionId};\n  const isEnglishPath = window.location.pathname.startsWith('/en');\n  const entryPath = isEnglishPath ? '/en/index.html' : '/index.html';\n  const fallbackBase = isEnglishPath ? '/en/#' : '/#';\n\n  try {\n    const response = await fetch(entryPath, { credentials: 'same-origin' });\n    if (!response.ok) throw new Error('index fetch failed');\n\n    const html = await response.text();\n    const parser = new DOMParser();\n    const sourceDoc = parser.parseFromString(html, 'text/html');\n\n    const currentMain = document.querySelector('main.container');\n    const sourceMain = sourceDoc.querySelector('main.container');\n\n    if (!currentMain || !sourceMain) throw new Error('main missing');\n\n    const existingSectionIds = new Set(\n      Array.from(currentMain.querySelectorAll('section[id]')).map((section) => section.id)\n    );\n\n    sourceMain.querySelectorAll('section[id]').forEach((section) => {\n      if (!existingSectionIds.has(section.id)) {\n        currentMain.append(document.importNode(section, true));\n      }\n    });\n\n    document.body.dataset.routeSection = targetSectionId;\n    await import('/js/main.js');\n  } catch (error) {\n    window.location.replace(fallbackBase + targetSectionId);\n  }\n})();\n  </script>`;
 }
 
+function localizeInternalLinks(html, localePrefix = "") {
+  const mappings = ["faq", "characters", "rackets", "courts", "techniques", "tier"];
+  return mappings.reduce((acc, segment) => {
+    const prefixed = `${localePrefix}/${segment}`;
+    return acc
+      .replaceAll(`href="/${segment}"`, `href="${prefixed}"`)
+      .replaceAll(`href="/${segment}#`, `href="${prefixed}#`);
+  }, html);
+}
+
 function renderHtml(template, route, sections) {
   const withoutSeo = stripSeoTags(template);
   const withSeo = withoutSeo.replace(/(<meta name="viewport"[^\n]*\n)/, `$1${buildSeoTags(route)}\n`);
@@ -123,13 +133,7 @@ function renderHtml(template, route, sections) {
   const localePrefix = route.localePathPrefix || "";
 
   if (route.path === "/" || route.path === "/en/") {
-    return withBodySection
-      .replaceAll('href="/faq"', `href="${localePrefix}/faq"`)
-      .replaceAll('href="/characters"', `href="${localePrefix}/characters"`)
-      .replaceAll('href="/rackets"', `href="${localePrefix}/rackets"`)
-      .replaceAll('href="/courts"', `href="${localePrefix}/courts"`)
-      .replaceAll('href="/techniques"', `href="${localePrefix}/techniques"`)
-      .replaceAll('href="/tier"', `href="${localePrefix}/tier"`);
+    return localizeInternalLinks(withBodySection, localePrefix);
   }
 
   const targetSection = pickSectionById(sections, route.sectionId);
@@ -139,13 +143,7 @@ function renderHtml(template, route, sections) {
   const withoutMainBundleScript = withMinimalMain.replace(/\s*<script type="module" src="\/js\/main\.js"><\/script>\s*/m, "\n");
   const hybridLoader = buildHybridLoaderScript(route.sectionId);
 
-  return withoutMainBundleScript
-    .replaceAll('href="/faq"', `href="${localePrefix}/faq"`)
-    .replaceAll('href="/characters"', `href="${localePrefix}/characters"`)
-    .replaceAll('href="/rackets"', `href="${localePrefix}/rackets"`)
-    .replaceAll('href="/courts"', `href="${localePrefix}/courts"`)
-    .replaceAll('href="/techniques"', `href="${localePrefix}/techniques"`)
-    .replaceAll('href="/tier"', `href="${localePrefix}/tier"`)
+  return localizeInternalLinks(withoutMainBundleScript, localePrefix)
     .replace(/<\/body>/, `${hybridLoader}\n</body>`);
 }
 
