@@ -199,7 +199,6 @@
   const targetSectionId = "rackets";
   const isEnglishPath = window.location.pathname.startsWith('/en');
   const entryPath = isEnglishPath ? '/en/index.html' : '/index.html';
-  const fallbackBase = isEnglishPath ? '/en/#' : '/#';
 
   try {
     const response = await fetch(entryPath, { credentials: 'same-origin' });
@@ -227,7 +226,9 @@
     document.body.dataset.routeSection = targetSectionId;
     await import('/js/main.js');
   } catch (error) {
-    window.location.replace(fallbackBase + targetSectionId);
+    console.warn('Failed to prefetch index.html, booting standalone section page.', error);
+    document.body.dataset.routeSection = targetSectionId;
+    await import('/js/main.js');
   }
 })();
   </script>
