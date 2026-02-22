@@ -58,7 +58,288 @@
       <button type="button" class="section-nav__toggle" data-section-nav-toggle aria-expanded="true" aria-controls="desktop-section-nav-links" aria-label="セクションナビをたたむ" data-i18n-attr="aria-label:aria.collapseNav"></button>
     </nav>
 
-<section class="section" id="courts" data-nav-label="コート">
+    <section class="section section--faq" id="faq" data-nav-label="FAQ">
+      <div class="section-header">
+        <div>
+          <h2 data-i18n="section.faq.title">FAQ</h2>
+          <p class="section-description" data-i18n="section.faq.description">初心者が迷いやすい内容を中心に、実戦で使える考え方をまとめています。</p>
+        </div>
+      </div>
+
+      <div class="faq-list">
+        <div class="faq-category">
+          <h3 class="faq-category__title" data-i18n="faq.categories.beginner">初心者向け</h3>
+
+          <details class="faq-item" id="faq-beginner-choices" open>
+            <summary class="faq-item__question" data-i18n="faq.beginnerCharacter.question">初心者にオススメのキャラは？</summary>
+            <div class="faq-item__answer">
+              <p data-i18n="faq.beginnerCharacter.answer1">デイジー・マリオ・ボスパックンのいずれかがオススメです。</p>
+              <p data-i18n="faq.beginnerCharacter.answer2">強いキャラを使いたいなら、ドンキーやロゼッタも候補に挙がります。</p>
+              <p><a class="faq-link" href="/tier#tier-recommendation" data-i18n="faq.beginnerCharacter.link">詳しくはTierのおすすめキャラ欄を確認してください。 →</a></p>
+            </div>
+          </details>
+
+          <details class="faq-item">
+            <summary class="faq-item__question" data-i18n="faq.learnPriority.question">何を優先して覚えるとランクマで通用する？</summary>
+            <div class="faq-item__answer">
+              <p data-i18n="faq.learnPriority.answer1">まずは得点パターンを覚えましょう。</p>
+              <ul class="faq-item__list">
+                <li data-i18n="faq.learnPriority.point1">角度のついた返球や、その裏を読んで正面に打つ。</li>
+                <li data-i18n="faq.learnPriority.point2">相手がいなくて取れなさそうな方向にフィーバーショットを打つ。</li>
+              </ul>
+              <p data-i18n="faq.learnPriority.answer2">ゲーム内メインメニューの「遊び方」でも得点パターンに触れられているので、まずはそちらの確認がおすすめです。</p>
+            </div>
+          </details>
+
+          <details class="faq-item">
+            <summary class="faq-item__question" data-i18n="faq.shotBasics.question">そもそもどんなショットを打てば良いかも分からない</summary>
+            <div class="faq-item__answer">
+              <p data-i18n="faq.shotBasics.answer1">ゲーム内の遊び方やストーリーモードで確認しましょう。</p>
+              <ul class="faq-item__list">
+                <li data-i18n="faq.shotBasics.point1">ゲーム内の遊び方を一回で覚えなくて良いのでサラッと見る</li>
+                <li data-i18n="faq.shotBasics.point2">ストーリーモードが専門用語の解説もまじえたチュートリアル的な設計なので、順番に学んでいける構造</li>
+              </ul>
+              <p data-i18n="faq.shotBasics.answer2">ストーリーをやらずに遊び方を熟読して実戦で覚えたい人もいる為、お好みの方法で学んでいくのが良いです。</p>
+            </div>
+          </details>
+
+          <details class="faq-item">
+            <summary class="faq-item__question" data-i18n="faq.weakShot.question">弱打ってどんなショット?</summary>
+            <div class="faq-item__answer">
+              <p data-i18n="faq.weakShot.answer1">各球種のボタンを1回だけ押したショットです。</p>
+              <ul class="faq-item__list">
+                <li data-i18n="faq.weakShot.point1">弱打は角度をつけたショットを打ちやすく、前作で慣れてるプレイヤーはよく使う用語の1つです。</li>
+                <li data-i18n="faq.weakShot.point2">なお、ボタンを2回以上押すと強打になります。弱打より角度をつけづらい代わりに、球速が速い弾になります。</li>
+              </ul>
+              <p data-i18n="faq.weakShot.answer2">角度をつけたショットを打つなら弱打、速い球速で打ちたいなら強打と覚えると良いです。</p>
+            </div>
+          </details>
+        </div>
+
+        <div class="faq-category">
+          <h3 class="faq-category__title" data-i18n="faq.categories.tier">Tier基準</h3>
+
+          <details class="faq-item" id="faq-tier-rank-diff">
+            <summary class="faq-item__question" data-i18n="faq.tierDiff.question">各ランク帯の違いは？</summary>
+            <div class="faq-item__answer">
+              <p data-i18n="faq.tierDiff.answer1"><strong>S</strong> は抜けて強い評価です。</p>
+              <p data-i18n="faq.tierDiff.answer2"><strong>A</strong> はSほどではないものの、上位環境でも強く通用するキャラです。</p>
+            </div>
+          </details>
+
+          <details class="faq-item">
+            <summary class="faq-item__question" data-i18n="faq.tierTrust.question">Tier表はそのまま信じて良い？</summary>
+            <div class="faq-item__answer">
+              <p data-i18n="faq.tierTrust.answer1">複数の上位勢(S+ランク)の意見も取り入れましたが、あくまで目安です。コートやルールによって評価は変化します。</p>
+            </div>
+          </details>
+        </div>
+
+        <div class="faq-category">
+          <h3 class="faq-category__title" data-i18n="faq.categories.losing">勝てない際の考え方</h3>
+
+          <details class="faq-item" id="faq-losing">
+            <summary class="faq-item__question" data-i18n="faq.losing.question">負けてしまう</summary>
+            <div class="faq-item__answer">
+              <p data-i18n="faq.losing.answer1">まずは得点パターンを見直しましょう。何のショットで得点しようとしていたかを振り返ることが重要です。</p>
+              <p data-i18n="faq.losing.answer2">その状況では有効ではなかったり、他に強い選択肢がある可能性があります。手軽な見直し方法は、失点時の動画を本体機能で撮ることです。</p>
+              <p data-i18n="faq.losing.answer3">次に失点パターンを見直します。得点パターンを掴めたら、防御面も考えましょう。</p>
+              <ul class="faq-item__list">
+                <li data-i18n="faq.losing.point1">角度ショット後にさらに角度をつけられて失点するなら、一旦角度を抑えて返す。</li>
+                <li data-i18n="faq.losing.point2">ロブやドロップで失点するなら、立ち位置を少し後ろ/前に調整する。</li>
+              </ul>
+              <p data-i18n="faq.losing.answer4">「なぜ自分がそう動いたか」を整理できると、短期的に負け込んでも後から勝率が上がりやすくなります。</p>
+            </div>
+          </details>
+
+          <details class="faq-item">
+            <summary class="faq-item__question" data-i18n="faq.reasonUnknown.question">負ける理由がよく分からない</summary>
+            <div class="faq-item__answer">
+              <p data-i18n="faq.reasonUnknown.answer1">失点時の3手前くらいまで動画で見直すと、原因が見つかることがあります。</p>
+              <ul class="faq-item__list">
+                <li data-i18n="faq.reasonUnknown.point1">相手に有利な行動を取っている。</li>
+                <li data-i18n="faq.reasonUnknown.point2">フィーバーショットを打つ/打たれる展開を考慮できていない。</li>
+              </ul>
+              <p data-i18n="faq.reasonUnknown.answer2">など複数の要因があるはずです。</p>
+              <p data-i18n="faq.reasonUnknown.answer3">どうしても分からなければ、Xで質問してもらえれば答えられる範囲で対応できます。動画があるとより具体的に回答しやすいです。</p>
+              <p><a class="faq-link" href="#site-contact" data-i18n="faq.reasonUnknown.link">Xのリンクはページ最下部にあります。 ↓</a></p>
+            </div>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="characters" data-nav-label="キャラ">
+      <div class="section-header">
+        <div>
+          <h2>
+            <button type="button" class="section-title-toggle" data-collapse-target="character-content" aria-expanded="true">
+              <span data-i18n="section.characters.title">キャラクター一覧</span>
+              <span class="section-meta" id="character-count"></span>
+            </button>
+          </h2>
+          <p class="section-description" data-i18n="section.characters.description">タイプ別の特徴やパラメータを比較できます。</p>
+        </div>
+      </div>
+
+      <div id="character-content" class="section-content">
+
+      <div class="mobile-filter-trigger-wrap">
+        <button type="button" class="mobile-filter-trigger" data-modal-target="character-filter-modal" data-i18n="filter.searchAndFilter">検索・絞り込み</button>
+      </div>
+
+      <div class="active-filter-chips" id="character-active-filters" aria-live="polite"></div>
+
+      <div class="filters" id="character-inline-filters">
+        <label class="filter filter--search">
+          <span data-i18n="filter.search">検索</span>
+          <input type="search" id="character-search" placeholder="キャラクター名で検索" data-i18n-attr="placeholder:placeholder.characterSearch" />
+        </label>
+        <label class="filter">
+          <span data-i18n="filter.type">タイプ</span>
+          <select id="character-type-filter">
+            <option value="all" data-i18n="common.any">指定なし</option>
+            <option value="オールラウンド" data-i18n="type.オールラウンド">オールラウンド</option>
+            <option value="テクニック" data-i18n="type.テクニック">テクニック</option>
+            <option value="パワー" data-i18n="type.パワー">パワー</option>
+            <option value="ディフェンス" data-i18n="type.ディフェンス">ディフェンス</option>
+            <option value="トリッキー" data-i18n="type.トリッキー">トリッキー</option>
+            <option value="スピード" data-i18n="type.スピード">スピード</option>
+          </select>
+        </label>
+        <label class="filter">
+          <span data-i18n="filter.special">特殊能力</span>
+          <select id="character-special-filter">
+            <option value="all" data-i18n="common.any">指定なし</option>
+            <option value="yes" data-i18n="common.yes">あり</option>
+            <option value="no" data-i18n="common.no">なし</option>
+          </select>
+        </label>
+        <label class="filter">
+          <span data-i18n="filter.favoritesOnly">お気に入り</span>
+          <select id="character-favorite-filter">
+            <option value="all" data-i18n="common.any">指定なし</option>
+            <option value="favorites" data-i18n="filter.favoritesOnly">お気に入りのみ</option>
+          </select>
+        </label>
+        <label class="filter">
+          <span data-i18n="filter.sortBy">ソート項目</span>
+          <select id="character-sort">
+            <option value="name" data-i18n="sort.name">名前</option>
+            <option value="speed" data-i18n="stat.speed">スピード</option>
+            <option value="power" data-i18n="stat.power">パワー</option>
+            <option value="control" data-i18n="stat.control">コントロール</option>
+            <option value="spin" data-i18n="stat.spin">スピン</option>
+          </select>
+        </label>
+        <label class="filter">
+          <span data-i18n="filter.order">並び順</span>
+          <select id="character-order">
+            <option value="game" data-i18n="order.game">ゲーム内順</option>
+            <option value="asc" data-i18n="order.asc">昇順</option>
+            <option value="desc" data-i18n="order.desc">降順</option>
+          </select>
+        </label>
+      </div>
+
+      <div id="character-search-results" class="search-shortcuts" aria-live="polite"></div>
+
+      <div class="filter-modal" id="character-filter-modal" aria-hidden="true">
+        <div class="filter-modal__panel">
+          <div class="filter-modal__header">
+            <h3 data-i18n="modal.characterFilter">キャラクターの検索・絞り込み</h3>
+            <button type="button" class="filter-modal__close" data-modal-close="character-filter-modal" aria-label="閉じる" data-i18n-attr="aria-label:aria.close">✕</button>
+          </div>
+          <div class="filters filters--modal" id="character-modal-filters"></div>
+          <div id="character-modal-search-results" class="search-shortcuts search-shortcuts--modal" aria-live="polite"></div>
+          <button type="button" class="filter-modal__apply" id="character-filter-apply">0件を表示</button>
+        </div>
+      </div>
+
+      <div id="character-list" class="card-grid"></div>
+      </div>
+    </section>
+
+    <section class="section" id="rackets" data-nav-label="ラケット">
+      <div class="section-header">
+        <div>
+          <h2>
+            <button type="button" class="section-title-toggle" data-collapse-target="racket-content" aria-expanded="true">
+              <span data-i18n="section.rackets.title">ラケット一覧</span>
+              <span class="section-meta" id="racket-count"></span>
+            </button>
+          </h2>
+          <p class="section-description" data-i18n="section.rackets.description">効果やタイミングを比較できます。</p>
+        </div>
+      </div>
+
+      <div id="racket-content" class="section-content">
+
+      <div class="mobile-filter-trigger-wrap">
+        <button type="button" class="mobile-filter-trigger" data-modal-target="racket-filter-modal" data-i18n="filter.searchAndFilter">検索・絞り込み</button>
+      </div>
+
+      <div class="active-filter-chips" id="racket-active-filters" aria-live="polite"></div>
+
+      <div class="filters" id="racket-inline-filters">
+        <label class="filter filter--search">
+          <span data-i18n="filter.search">検索</span>
+          <input type="search" id="racket-search" placeholder="ラケット名で検索" data-i18n-attr="placeholder:placeholder.racketSearch" />
+        </label>
+        <label class="filter">
+          <span data-i18n="filter.category">種類</span>
+          <select id="racket-type-filter">
+            <option value="all" data-i18n="common.any">指定なし</option>
+            <option value="妨害" data-i18n="category.妨害">妨害</option>
+            <option value="強化" data-i18n="category.強化">強化</option>
+            <option value="その他" data-i18n="category.その他">その他</option>
+          </select>
+        </label>
+        <label class="filter">
+          <span data-i18n="filter.timing">効果タイミング</span>
+          <select id="racket-timing-filter">
+            <option value="all" data-i18n="common.any">指定なし</option>
+            <option value="即時" data-i18n="timing.即時">即時</option>
+            <option value="バウンド時" data-i18n="timing.バウンド時">バウンド時</option>
+          </select>
+        </label>
+        <label class="filter">
+          <span data-i18n="filter.favoritesOnly">お気に入り</span>
+          <select id="racket-favorite-filter">
+            <option value="all" data-i18n="common.any">指定なし</option>
+            <option value="favorites" data-i18n="filter.favoritesOnly">お気に入りのみ</option>
+          </select>
+        </label>
+        <label class="filter">
+          <span data-i18n="filter.order">並び順</span>
+          <select id="racket-order">
+            <option value="game" data-i18n="order.game">ゲーム内順</option>
+            <option value="asc" data-i18n="order.asc">昇順</option>
+            <option value="desc" data-i18n="order.desc">降順</option>
+          </select>
+        </label>
+      </div>
+
+      <div id="racket-search-results" class="search-shortcuts" aria-live="polite"></div>
+
+      <div class="filter-modal" id="racket-filter-modal" aria-hidden="true">
+        <div class="filter-modal__panel">
+          <div class="filter-modal__header">
+            <h3 data-i18n="modal.racketFilter">ラケットの検索・絞り込み</h3>
+            <button type="button" class="filter-modal__close" data-modal-close="racket-filter-modal" aria-label="閉じる" data-i18n-attr="aria-label:aria.close">✕</button>
+          </div>
+          <div class="filters filters--modal" id="racket-modal-filters"></div>
+          <div id="racket-modal-search-results" class="search-shortcuts search-shortcuts--modal" aria-live="polite"></div>
+          <button type="button" class="filter-modal__apply" id="racket-filter-apply">0件を表示</button>
+        </div>
+      </div>
+
+      <div id="racket-list" class="card-grid"></div>
+      </div>
+    </section>
+
+
+    <section class="section" id="courts" data-nav-label="コート">
       <div class="section-header">
         <div>
           <h2>
@@ -134,6 +415,177 @@
         </div>
       </div>
     </section>
+
+    <section class="section" id="techniques" data-nav-label="Tips">
+      <div class="section-header">
+        <div>
+          <h2>Tips</h2>
+          <p class="section-description" data-i18n="section.tips.description">試合で役立つ操作のポイントを素早く確認できます。</p>
+        </div>
+      </div>
+      <div class="filters tips-filters">
+        <label class="filter">
+          <span data-i18n="filter.tipsCategory">カテゴリ</span>
+          <select id="tips-category-filter">
+            <option value="all" data-i18n="common.any">指定なし</option>
+            <option value="仕様" data-i18n="tipsCategory.仕様">仕様</option>
+            <option value="実践知識" data-i18n="tipsCategory.実践知識">実践知識</option>
+          </select>
+        </label>
+        <label class="filter">
+          <span data-i18n="filter.verification">検証</span>
+          <select id="tips-verification-filter">
+            <option value="all" data-i18n="common.any">指定なし</option>
+            <option value="検証中" data-i18n="verification.検証中">検証中</option>
+            <option value="検証済" data-i18n="verification.検証済">検証済</option>
+          </select>
+        </label>
+      </div>
+
+      <p id="tips-count" class="result-count" aria-live="polite">0件表示</p>
+      <div id="tips-list" class="tips-grid"></div>
+
+      <div id="tips-empty" class="info-panel" hidden>
+        <p data-i18n="common.noTip">一致するTipsが見つかりません。</p>
+      </div>
+    </section>
+
+    <section class="section" id="tier" data-nav-label="Tier">
+      <div class="section-header">
+        <div>
+          <h2 data-i18n="section.tier.title">Tier表</h2>
+          <p class="section-description" data-i18n="section.tier.description">キャラとラケットを自分基準でランク付けできます。</p>
+        </div>
+      </div>
+
+      <div class="tier-purpose" id="tier-purpose-recommendations">
+        <h3 class="tier-purpose__title" id="tier-recommendation" data-i18n="tier.purposeTitle">目的別おすすめ</h3>
+        <p class="tier-reciprocal-links">
+          <a class="faq-link" href="/faq" data-i18n="faq.backToFaq">← FAQへ戻る</a>
+        </p>
+        <div class="tier-purpose__list" id="tier-purpose-list"></div>
+      </div>
+
+      <div class="tier-purpose" id="official-tier-sections">
+        <h3 class="tier-purpose__title" data-i18n="tier.officialTitle">固定Tier表</h3>
+        <div class="official-tier-tabs" role="tablist" aria-label="固定Tier項目">
+          <button type="button" class="official-tier-tab is-active" data-official-tier-tab="currentMetaStrongCharacters" data-i18n="tier.officialCurrentMetaStrongCharacters">現環境で強いキャラ</button>
+          <button type="button" class="official-tier-tab" data-official-tier-tab="currentMetaStrongRackets" data-i18n="tier.officialCurrentMetaStrongRackets">現環境で強いラケット</button>
+        </div>
+        <div class="tier-purpose__list" id="official-tier-list"></div>
+      </div>
+
+      <div class="tier-controls">
+        <button type="button" class="tier-tab is-active" data-tier-tab="characters" data-i18n="tier.characterBoard">キャラTier</button>
+        <button type="button" class="tier-tab" data-tier-tab="rackets" data-i18n="tier.racketBoard">ラケットTier</button>
+      </div>
+
+      <div class="tier-panel is-active" data-tier-panel="characters">
+        <div class="tier-rule-manager" data-tier-type="characters">
+          <div class="tier-rule-manager__header">
+            <h3 data-i18n="tier.ruleTitle">ルール条件</h3>
+            <div class="tier-share-actions">
+              <button type="button" class="tier-share-btn tier-share-btn--x" data-tier-share-x="characters" data-i18n="tier.shareX">Xへ画像投稿</button>
+              <button type="button" class="tier-share-btn tier-share-btn--image" data-tier-save-image="characters" data-i18n="tier.saveImage">画像で保存</button>
+            </div>
+          </div>
+
+          <div class="tier-rule-filters">
+            <label class="filter">
+              <span data-i18n="tier.matchupBase">選択キャラ</span>
+              <div class="tier-matchup-base-control">
+                <select data-tier-meta="matchupBase" data-tier-type="characters" id="tier-character-matchup-base">
+                  <option value="" data-i18n="tier.matchupBaseNone">指定なし</option>
+                </select>
+                <div class="tier-matchup-base-preview" id="tier-character-matchup-base-preview" hidden></div>
+              </div>
+            </label>
+            <label class="filter">
+              <span data-i18n="tier.itemRule">フィーバーラケット</span>
+              <select data-tier-meta="items" data-tier-type="characters">
+                <option value="on" data-i18n="common.yes">あり</option>
+                <option value="off" data-i18n="common.no">なし</option>
+              </select>
+            </label>
+            <label class="filter">
+              <span data-i18n="tier.gameMode">ゲームモード</span>
+              <select data-tier-meta="gameMode" data-tier-type="characters">
+                <option value="singles" data-i18n="tierValue.singles">シングルス</option>
+                <option value="doubles" data-i18n="tierValue.doubles">ダブルス</option>
+              </select>
+            </label>
+            <label class="filter">
+              <span data-i18n="tier.courtType">コート種別</span>
+              <select data-tier-meta="courtType" data-tier-type="characters">
+                <option value="all" data-i18n="common.any">指定なし</option>
+                <option value="hard" data-i18n="tierValue.hard">ハード</option>
+                <option value="clay" data-i18n="tierValue.clay">クレー</option>
+                <option value="grass" data-i18n="tierValue.grass">グラス</option>
+              </select>
+            </label>
+            <label class="filter tier-free-note-filter">
+              <span data-i18n="tier.freeNote">自由入力メモ</span>
+              <input type="text" data-tier-meta="freeNote" data-tier-type="characters" maxlength="40" placeholder="環境に多いキャラ" data-i18n-attr="placeholder:tier.freeNotePlaceholder" />
+            </label>
+          </div>
+
+          <p class="tier-rule-label" data-tier-rule-label="characters"></p>
+          <p class="tier-share-status" data-tier-share-status="characters" aria-live="polite"></p>
+        </div>
+        <div class="tier-matchup-summary" id="character-tier-matchup-summary" hidden></div>
+        <div class="tier-board" id="character-tier-board"></div>
+        <h3 class="tier-pool-title" data-i18n="tier.poolTitle">未配置アイコン</h3>
+        <div class="tier-pool" id="character-tier-pool"></div>
+      </div>
+
+      <div class="tier-panel" data-tier-panel="rackets">
+        <div class="tier-rule-manager" data-tier-type="rackets">
+          <div class="tier-rule-manager__header">
+            <h3 data-i18n="tier.ruleTitle">ルール条件</h3>
+            <div class="tier-share-actions">
+              <button type="button" class="tier-share-btn tier-share-btn--x" data-tier-share-x="rackets" data-i18n="tier.shareX">Xへ画像投稿</button>
+              <button type="button" class="tier-share-btn tier-share-btn--image" data-tier-save-image="rackets" data-i18n="tier.saveImage">画像で保存</button>
+            </div>
+          </div>
+
+          <div class="tier-rule-filters">
+            <label class="filter">
+              <span data-i18n="tier.itemRule">フィーバーラケット</span>
+              <select data-tier-meta="items" data-tier-type="rackets">
+                <option value="on" data-i18n="common.yes">あり</option>
+                <option value="off" data-i18n="common.no">なし</option>
+              </select>
+            </label>
+            <label class="filter">
+              <span data-i18n="tier.gameMode">ゲームモード</span>
+              <select data-tier-meta="gameMode" data-tier-type="rackets">
+                <option value="singles" data-i18n="tierValue.singles">シングルス</option>
+                <option value="doubles" data-i18n="tierValue.doubles">ダブルス</option>
+              </select>
+            </label>
+            <label class="filter">
+              <span data-i18n="tier.courtType">コート種別</span>
+              <select data-tier-meta="courtType" data-tier-type="rackets">
+                <option value="all" data-i18n="common.any">指定なし</option>
+                <option value="hard" data-i18n="tierValue.hard">ハード</option>
+                <option value="clay" data-i18n="tierValue.clay">クレー</option>
+                <option value="grass" data-i18n="tierValue.grass">グラス</option>
+              </select>
+            </label>
+            <label class="filter tier-free-note-filter">
+              <span data-i18n="tier.freeNote">自由入力メモ</span>
+              <input type="text" data-tier-meta="freeNote" data-tier-type="rackets" maxlength="40" placeholder="環境に多いキャラ" data-i18n-attr="placeholder:tier.freeNotePlaceholder" />
+            </label>
+          </div>
+
+          <p class="tier-rule-label" data-tier-rule-label="rackets"></p>
+          <p class="tier-share-status" data-tier-share-status="rackets" aria-live="polite"></p>
+        </div>
+        <div class="tier-board" id="racket-tier-board"></div>
+        <h3 class="tier-pool-title" data-i18n="tier.poolTitle">未配置アイコン</h3>
+        <div class="tier-pool" id="racket-tier-pool"></div>
+      </div>
+    </section>
   </main>
 
   <nav class="mobile-bottom-nav js-section-nav" aria-label="モバイルセクションナビ" data-i18n-attr="aria-label:aria.mobileNav">
@@ -193,42 +645,7 @@
       </div>
     </div>
   </div>
-  <script type="module">
-(async () => {
-  const targetSectionId = "courts";
-  const isEnglishPath = window.location.pathname.startsWith('/en');
-  const entryPath = isEnglishPath ? '/en/index.html' : '/index.html';
-  const fallbackBase = isEnglishPath ? '/en/#' : '/#';
 
-  try {
-    const response = await fetch(entryPath, { credentials: 'same-origin' });
-    if (!response.ok) throw new Error('index fetch failed');
-
-    const html = await response.text();
-    const parser = new DOMParser();
-    const sourceDoc = parser.parseFromString(html, 'text/html');
-
-    const currentMain = document.querySelector('main.container');
-    const sourceMain = sourceDoc.querySelector('main.container');
-
-    if (!currentMain || !sourceMain) throw new Error('main missing');
-
-    const existingSectionIds = new Set(
-      Array.from(currentMain.querySelectorAll('section[id]')).map((section) => section.id)
-    );
-
-    sourceMain.querySelectorAll('section[id]').forEach((section) => {
-      if (!existingSectionIds.has(section.id)) {
-        currentMain.append(document.importNode(section, true));
-      }
-    });
-
-    document.body.dataset.routeSection = targetSectionId;
-    await import('/js/main.js');
-  } catch (error) {
-    window.location.replace(fallbackBase + targetSectionId);
-  }
-})();
-  </script>
+  <script type="module" src="/js/main.js"></script>
 </body>
 </html>
