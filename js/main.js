@@ -186,9 +186,24 @@ const browserLanguages = Array.isArray(navigator.languages) && navigator.languag
 const browserLocale = browserLanguages.some((lang) => String(lang).toLowerCase().startsWith("ja"))
   ? "ja"
   : "en";
-let currentLocale = localStorage.getItem("locale") || browserLocale;
+const routeLocale = window.location.pathname.startsWith("/en") ? "en" : "ja";
+let currentLocale = routeLocale || localStorage.getItem("locale") || browserLocale;
 if (!translations[currentLocale]) {
   currentLocale = "ja";
+}
+
+function getLocalizedPath(pathname, nextLocale) {
+  const normalizedPath = pathname || "/";
+  const isEnglishPath = normalizedPath === "/en" || normalizedPath.startsWith("/en/");
+
+  if (nextLocale === "en") {
+    if (isEnglishPath) return normalizedPath;
+    return normalizedPath === "/" ? "/en/" : `/en${normalizedPath}`;
+  }
+
+  if (!isEnglishPath) return normalizedPath;
+  const jaPath = normalizedPath.replace(/^\/en/, "") || "/";
+  return jaPath;
 }
 
 function t(key, vars = {}) {
@@ -333,7 +348,7 @@ const sectionNavSections = Array.from(
   )
 );
 
-const SECTION_ROUTE_MAP = {
+const sectionRouteBaseMap = {
   faq: "/faq",
   characters: "/characters",
   rackets: "/rackets",
@@ -341,6 +356,10 @@ const SECTION_ROUTE_MAP = {
   techniques: "/techniques",
   tier: "/tier",
 };
+const sectionRoutePrefix = window.location.pathname.startsWith("/en") ? "/en" : "";
+const SECTION_ROUTE_MAP = Object.fromEntries(
+  Object.entries(sectionRouteBaseMap).map(([sectionId, routePath]) => [sectionId, `${sectionRoutePrefix}${routePath}`])
+);
 
 const ROUTE_SECTION_MAP = Object.fromEntries(
   Object.entries(SECTION_ROUTE_MAP).map(([sectionId, routePath]) => [routePath, sectionId])
@@ -2757,7 +2776,7 @@ function setupSectionNav() {
   }
 
   const isRootFaqInitialRoute =
-    window.location.pathname === "/" &&
+    (window.location.pathname === "/" || window.location.pathname === "/en/") &&
     !window.location.hash &&
     initialId === "faq";
 
@@ -3625,8 +3644,19 @@ setupCourtPrediction();
 
 if (localeSelect) {
   localeSelect.addEventListener("change", (event) => {
-    currentLocale = event.target.value === "en" ? "en" : "ja";
+    const nextLocale = event.target.value === "en" ? "en" : "ja";
+    const nextPath = getLocalizedPath(window.location.pathname, nextLocale);
+    const currentFullPath = `${window.location.pathname}${window.location.search}${window.location.hash}`;
+    const nextFullPath = `${nextPath}${window.location.search}${window.location.hash}`;
+
+    currentLocale = nextLocale;
     localStorage.setItem("locale", currentLocale);
+
+    if (currentFullPath !== nextFullPath) {
+      window.location.assign(nextFullPath);
+      return;
+    }
+
     applyLocale();
   });
 }
