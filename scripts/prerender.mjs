@@ -91,30 +91,6 @@ function stripSeoTags(html) {
     .replace(/^\s*<meta property="og:[^\n]*\n?/gm, "");
 }
 
-function extractMainAndSections(html) {
-  const mainMatch = html.match(/<main class="container">[\s\S]*?<\/main>/);
-  if (!mainMatch) {
-    throw new Error("Could not find <main class=\"container\"> block in index.html");
-  }
-
-  const mainHtml = mainMatch[0];
-  const sections = mainHtml.match(/<section class="section[\s\S]*?<\/section>/g) || [];
-  return { mainHtml, sections };
-}
-
-function pickSectionById(sections, sectionId) {
-  const target = sections.find((sectionHtml) => new RegExp(`id="${sectionId}"`).test(sectionHtml));
-  if (!target) {
-    throw new Error(`Could not find section id=${sectionId}`);
-  }
-  return target;
-}
-
-function buildHybridLoaderScript(sectionId) {
-  const safeSectionId = JSON.stringify(sectionId);
-  return `  <script type="module">\n(async () => {\n  const targetSectionId = ${safeSectionId};\n  const isEnglishPath = window.location.pathname.startsWith('/en');\n  const entryPath = isEnglishPath ? '/en/index.html' : '/index.html';\n\n  try {\n    const response = await fetch(entryPath, { credentials: 'same-origin' });\n    if (!response.ok) throw new Error('index fetch failed');\n\n    const html = await response.text();\n    const parser = new DOMParser();\n    const sourceDoc = parser.parseFromString(html, 'text/html');\n\n    const currentMain = document.querySelector('main.container');\n    const sourceMain = sourceDoc.querySelector('main.container');\n\n    if (!currentMain || !sourceMain) throw new Error('main missing');\n\n    const existingSectionIds = new Set(\n      Array.from(currentMain.querySelectorAll('section[id]')).map((section) => section.id)\n    );\n\n    sourceMain.querySelectorAll('section[id]').forEach((section) => {\n      if (!existingSectionIds.has(section.id)) {\n        currentMain.append(document.importNode(section, true));\n      }\n    });\n\n    document.body.dataset.routeSection = targetSectionId;\n    await import('/js/main.js');\n  } catch (error) {\n    console.warn('Failed to prefetch index.html, booting standalone section page.', error);\n    document.body.dataset.routeSection = targetSectionId;\n    await import('/js/main.js');\n  }\n})();\n  </script>`;
-}
-
 function localizeInternalLinks(html, localePrefix = "") {
   const mappings = ["faq", "characters", "rackets", "courts", "techniques", "tier"];
   return mappings.reduce((acc, segment) => {
@@ -125,33 +101,20 @@ function localizeInternalLinks(html, localePrefix = "") {
   }, html);
 }
 
-function renderHtml(template, route, sections) {
+function renderHtml(template, route) {
   const withoutSeo = stripSeoTags(template);
   const withSeo = withoutSeo.replace(/(<meta name="viewport"[^\n]*\n)/, `$1${buildSeoTags(route)}\n`);
   const withLang = route.lang ? withSeo.replace(/<html lang="[^"]+">/, `<html lang="${route.lang}">`) : withSeo;
   const withBodySection = withLang.replace(/<body[^>]*>/, `<body data-route-section="${route.sectionId}">`);
   const localePrefix = route.localePathPrefix || "";
 
-  if (route.path === "/" || route.path === "/en/") {
-    return localizeInternalLinks(withBodySection, localePrefix);
-  }
-
-  const targetSection = pickSectionById(sections, route.sectionId);
-  const minimalMain = `<main class="container">\n    <nav class="section-nav" aria-label="セクションナビゲーション" data-i18n-attr="aria-label:aria.sectionNav">\n      <div class="section-nav__links js-section-nav" id="desktop-section-nav-links">\n        <a class="section-nav__item" href="${localePrefix}/faq" data-target="faq" data-i18n="nav.faq">FAQ</a>\n        <a class="section-nav__item" href="${localePrefix}/characters" data-target="characters" data-i18n="nav.characters">キャラ</a>\n        <a class="section-nav__item" href="${localePrefix}/rackets" data-target="rackets" data-i18n="nav.rackets">ラケット</a>\n        <a class="section-nav__item" href="${localePrefix}/courts" data-target="courts" data-i18n="nav.courts">コート</a>\n        <a class="section-nav__item" href="${localePrefix}/techniques" data-target="techniques">Tips</a>\n        <a class="section-nav__item" href="${localePrefix}/tier" data-target="tier" data-i18n="nav.tier">Tier</a>\n      </div>\n      <button type="button" class="section-nav__toggle" data-section-nav-toggle aria-expanded="true" aria-controls="desktop-section-nav-links" aria-label="セクションナビをたたむ" data-i18n-attr="aria-label:aria.collapseNav"></button>\n    </nav>\n\n${targetSection}\n  </main>`;
-
-  const withMinimalMain = withBodySection.replace(/<main class="container">[\s\S]*?<\/main>/, minimalMain);
-  const withoutMainBundleScript = withMinimalMain.replace(/\s*<script type="module" src="\/js\/main\.js"><\/script>\s*/m, "\n");
-  const hybridLoader = buildHybridLoaderScript(route.sectionId);
-
-  return localizeInternalLinks(withoutMainBundleScript, localePrefix)
-    .replace(/<\/body>/, `${hybridLoader}\n</body>`);
+  return localizeInternalLinks(withBodySection, localePrefix);
 }
 
 const baseTemplate = fs.readFileSync(indexPath, "utf8");
-const { sections } = extractMainAndSections(baseTemplate);
 
 for (const route of allRoutes) {
-  const rendered = renderHtml(baseTemplate, route, sections);
+  const rendered = renderHtml(baseTemplate, route);
   if (route.path === "/" || route.path === "/en/") {
     const outputPath = route.path === "/" ? indexPath : path.join(root, "en", "index.html");
     fs.mkdirSync(path.dirname(outputPath), { recursive: true });
@@ -164,4 +127,4 @@ for (const route of allRoutes) {
   fs.writeFileSync(path.join(dir, "index.html"), rendered);
 }
 
-console.log(`Generated ${allRoutes.length} prerendered HTML files (hybrid SPA mode).`);
+console.log(`Generated ${allRoutes.length} prerendered HTML files (full static mode).`);
