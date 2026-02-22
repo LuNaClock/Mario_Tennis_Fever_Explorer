@@ -348,7 +348,7 @@ const sectionNavSections = Array.from(
   )
 );
 
-const SECTION_ROUTE_MAP = {
+const sectionRouteBaseMap = {
   faq: "/faq",
   characters: "/characters",
   rackets: "/rackets",
@@ -356,6 +356,10 @@ const SECTION_ROUTE_MAP = {
   techniques: "/techniques",
   tier: "/tier",
 };
+const sectionRoutePrefix = window.location.pathname.startsWith("/en") ? "/en" : "";
+const SECTION_ROUTE_MAP = Object.fromEntries(
+  Object.entries(sectionRouteBaseMap).map(([sectionId, routePath]) => [sectionId, `${sectionRoutePrefix}${routePath}`])
+);
 
 const ROUTE_SECTION_MAP = Object.fromEntries(
   Object.entries(SECTION_ROUTE_MAP).map(([sectionId, routePath]) => [routePath, sectionId])
@@ -2772,7 +2776,7 @@ function setupSectionNav() {
   }
 
   const isRootFaqInitialRoute =
-    window.location.pathname === "/" &&
+    (window.location.pathname === "/" || window.location.pathname === "/en/") &&
     !window.location.hash &&
     initialId === "faq";
 
