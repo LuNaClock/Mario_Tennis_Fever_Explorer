@@ -349,21 +349,40 @@ const sectionNavSections = Array.from(
 );
 
 const sectionRouteBaseMap = {
-  faq: "/faq",
-  characters: "/characters",
-  rackets: "/rackets",
-  courts: "/courts",
-  techniques: "/techniques",
-  tier: "/tier",
+  faq: "/faq/",
+  characters: "/characters/",
+  rackets: "/rackets/",
+  courts: "/courts/",
+  techniques: "/techniques/",
+  tier: "/tier/",
 };
 const sectionRoutePrefix = window.location.pathname.startsWith("/en") ? "/en" : "";
 const SECTION_ROUTE_MAP = Object.fromEntries(
   Object.entries(sectionRouteBaseMap).map(([sectionId, routePath]) => [sectionId, `${sectionRoutePrefix}${routePath}`])
 );
 
-const ROUTE_SECTION_MAP = Object.fromEntries(
-  Object.entries(SECTION_ROUTE_MAP).map(([sectionId, routePath]) => [routePath, sectionId])
-);
+function normalizeSectionPath(pathname) {
+  if (!pathname || pathname === "/") {
+    return "/";
+  }
+
+  if (pathname === "/en" || pathname === "/en/") {
+    return "/en/";
+  }
+
+  return pathname.endsWith("/") ? pathname : `${pathname}/`;
+}
+
+const ROUTE_SECTION_MAP = Object.entries(SECTION_ROUTE_MAP).reduce((acc, [sectionId, routePath]) => {
+  const normalized = normalizeSectionPath(routePath);
+  acc[normalized] = sectionId;
+
+  if (normalized !== "/" && normalized !== "/en/") {
+    acc[normalized.replace(/\/$/, "")] = sectionId;
+  }
+
+  return acc;
+}, {});
 
 const characterIndexMap = new Map(characters.map((character, index) => [character, index]));
 const tierTabButtons = Array.from(document.querySelectorAll(".tier-tab"));
@@ -2694,7 +2713,8 @@ function getSectionIdFromUrl() {
     return hashSectionId;
   }
 
-  const routeSectionId = ROUTE_SECTION_MAP[window.location.pathname.replace(/\/$/, "") || "/"];
+  const routeSectionId = ROUTE_SECTION_MAP[normalizeSectionPath(window.location.pathname)]
+    || ROUTE_SECTION_MAP[window.location.pathname];
   if (routeSectionId) {
     return routeSectionId;
   }

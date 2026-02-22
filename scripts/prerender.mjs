@@ -13,12 +13,12 @@ const routes = [
     description: "マリオテニスフィーバーのFAQ・キャラクター・ラケット・コート・Tips・Tierを横断して確認できる参照サイト。",
     ogType: "website",
   },
-  { path: "/faq", sectionId: "faq", title: "FAQ | マリオテニスフィーバー Explorer", description: "初心者向け質問、Tier基準、勝てないときの見直し方をFAQ形式で素早く確認できます。", ogType: "article" },
-  { path: "/characters", sectionId: "characters", title: "キャラクター一覧 | マリオテニスフィーバー Explorer", description: "全キャラクターのタイプや主要ステータス、特殊能力を比較しやすい一覧ページです。", ogType: "article" },
-  { path: "/rackets", sectionId: "rackets", title: "ラケット一覧 | マリオテニスフィーバー Explorer", description: "ラケットの種類・効果タイミング・性能テキストを比較できるデータ一覧です。", ogType: "article" },
-  { path: "/courts", sectionId: "courts", title: "コート一覧 | マリオテニスフィーバー Explorer", description: "コートごとのたまあし・バウンド特性とメモを一覧で確認できる比較ページです。", ogType: "article" },
-  { path: "/techniques", sectionId: "techniques", title: "Tips・テクニック | マリオテニスフィーバー Explorer", description: "実戦で役立つ操作のコツや仕様メモをカテゴリ別にまとめたTipsセクションです。", ogType: "article" },
-  { path: "/tier", sectionId: "tier", title: "Tier表 | マリオテニスフィーバー Explorer", description: "キャラクター・ラケットのTier表を参照し、条件別に評価を整理できます。", ogType: "article" },
+  { path: "/faq/", sectionId: "faq", title: "FAQ | マリオテニスフィーバー Explorer", description: "初心者向け質問、Tier基準、勝てないときの見直し方をFAQ形式で素早く確認できます。", ogType: "article" },
+  { path: "/characters/", sectionId: "characters", title: "キャラクター一覧 | マリオテニスフィーバー Explorer", description: "全キャラクターのタイプや主要ステータス、特殊能力を比較しやすい一覧ページです。", ogType: "article" },
+  { path: "/rackets/", sectionId: "rackets", title: "ラケット一覧 | マリオテニスフィーバー Explorer", description: "ラケットの種類・効果タイミング・性能テキストを比較できるデータ一覧です。", ogType: "article" },
+  { path: "/courts/", sectionId: "courts", title: "コート一覧 | マリオテニスフィーバー Explorer", description: "コートごとのたまあし・バウンド特性とメモを一覧で確認できる比較ページです。", ogType: "article" },
+  { path: "/techniques/", sectionId: "techniques", title: "Tips・テクニック | マリオテニスフィーバー Explorer", description: "実戦で役立つ操作のコツや仕様メモをカテゴリ別にまとめたTipsセクションです。", ogType: "article" },
+  { path: "/tier/", sectionId: "tier", title: "Tier表 | マリオテニスフィーバー Explorer", description: "キャラクター・ラケットのTier表を参照し、条件別に評価を整理できます。", ogType: "article" },
 ];
 
 const localizedRoutes = [
@@ -31,12 +31,12 @@ const localizedRoutes = [
     lang: "en",
     localePathPrefix: "/en",
   },
-  { path: "/en/faq", sectionId: "faq", title: "FAQ | Mario Tennis Fever Explorer", description: "Quickly check beginner FAQs, tier criteria, and how to review your play when you are losing.", ogType: "article", lang: "en", localePathPrefix: "/en" },
-  { path: "/en/characters", sectionId: "characters", title: "Character List | Mario Tennis Fever Explorer", description: "A comparison page for all Mario Tennis Fever character types, key stats, and special abilities.", ogType: "article", lang: "en", localePathPrefix: "/en" },
-  { path: "/en/rackets", sectionId: "rackets", title: "Racket List | Mario Tennis Fever Explorer", description: "Data list to compare racket types, effect timing, and in-game performance text.", ogType: "article", lang: "en", localePathPrefix: "/en" },
-  { path: "/en/courts", sectionId: "courts", title: "Court List | Mario Tennis Fever Explorer", description: "Comparison page for each court's ball speed, bounce characteristics, and notes.", ogType: "article", lang: "en", localePathPrefix: "/en" },
-  { path: "/en/techniques", sectionId: "techniques", title: "Tips & Techniques | Mario Tennis Fever Explorer", description: "Tips section that organizes useful controls and mechanic notes by category.", ogType: "article", lang: "en", localePathPrefix: "/en" },
-  { path: "/en/tier", sectionId: "tier", title: "Tier Board | Mario Tennis Fever Explorer", description: "Browse character and racket tier rankings and organize evaluations by conditions.", ogType: "article", lang: "en", localePathPrefix: "/en" },
+  { path: "/en/faq/", sectionId: "faq", title: "FAQ | Mario Tennis Fever Explorer", description: "Quickly check beginner FAQs, tier criteria, and how to review your play when you are losing.", ogType: "article", lang: "en", localePathPrefix: "/en" },
+  { path: "/en/characters/", sectionId: "characters", title: "Character List | Mario Tennis Fever Explorer", description: "A comparison page for all Mario Tennis Fever character types, key stats, and special abilities.", ogType: "article", lang: "en", localePathPrefix: "/en" },
+  { path: "/en/rackets/", sectionId: "rackets", title: "Racket List | Mario Tennis Fever Explorer", description: "Data list to compare racket types, effect timing, and in-game performance text.", ogType: "article", lang: "en", localePathPrefix: "/en" },
+  { path: "/en/courts/", sectionId: "courts", title: "Court List | Mario Tennis Fever Explorer", description: "Comparison page for each court's ball speed, bounce characteristics, and notes.", ogType: "article", lang: "en", localePathPrefix: "/en" },
+  { path: "/en/techniques/", sectionId: "techniques", title: "Tips & Techniques | Mario Tennis Fever Explorer", description: "Tips section that organizes useful controls and mechanic notes by category.", ogType: "article", lang: "en", localePathPrefix: "/en" },
+  { path: "/en/tier/", sectionId: "tier", title: "Tier Board | Mario Tennis Fever Explorer", description: "Browse character and racket tier rankings and organize evaluations by conditions.", ogType: "article", lang: "en", localePathPrefix: "/en" },
 ];
 
 const allRoutes = [...routes, ...localizedRoutes];
@@ -96,6 +96,8 @@ function localizeInternalLinks(html, localePrefix = "") {
   return mappings.reduce((acc, segment) => {
     const prefixed = `${localePrefix}/${segment}`;
     return acc
+      .replaceAll(`href="/${segment}/"`, `href="${prefixed}/"`)
+      .replaceAll(`href="/${segment}/#`, `href="${prefixed}/#`)
       .replaceAll(`href="/${segment}"`, `href="${prefixed}"`)
       .replaceAll(`href="/${segment}#`, `href="${prefixed}#`);
   }, html);
