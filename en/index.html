@@ -34,7 +34,7 @@
       <label class="locale-switcher" for="locale-select">
         <span class="locale-switcher__label" data-i18n="site.language">Language</span>
         <select id="locale-select" aria-label="Language selector">
-          <option value="ja">日本語</option>
+          <option value="ja">Japanese</option>
           <option value="en">English</option>
         </select>
       </label>
@@ -249,7 +249,7 @@
           </div>
           <div class="filters filters--modal" id="character-modal-filters"></div>
           <div id="character-modal-search-results" class="search-shortcuts search-shortcuts--modal" aria-live="polite"></div>
-          <button type="button" class="filter-modal__apply" id="character-filter-apply">0件を表示</button>
+          <button type="button" class="filter-modal__apply" id="character-filter-apply" data-i18n="common.showCount">Show 0</button>
         </div>
       </div>
 
@@ -327,7 +327,7 @@
           </div>
           <div class="filters filters--modal" id="racket-modal-filters"></div>
           <div id="racket-modal-search-results" class="search-shortcuts search-shortcuts--modal" aria-live="polite"></div>
-          <button type="button" class="filter-modal__apply" id="racket-filter-apply">0件を表示</button>
+          <button type="button" class="filter-modal__apply" id="racket-filter-apply" data-i18n="common.showCount">Show 0</button>
         </div>
       </div>
 
@@ -394,7 +394,7 @@
             <button type="button" class="filter-modal__close" data-modal-close="court-filter-modal" aria-label="Close" data-i18n-attr="aria-label:aria.close">✕</button>
           </div>
           <div class="filters filters--modal" id="court-modal-filters"></div>
-          <button type="button" class="filter-modal__apply" id="court-filter-apply">0件を表示</button>
+          <button type="button" class="filter-modal__apply" id="court-filter-apply" data-i18n="common.showCount">Show 0</button>
         </div>
       </div>
 
@@ -405,7 +405,7 @@
           <p class="court-prediction__description" data-i18n="courtPrediction.description">Shows likely next courts from the current court based on observed ranked-match rotations.</p>
           <label class="filter court-prediction__selector" for="court-prediction-current">
             <span data-i18n="courtPrediction.currentCourt">Current court</span>
-            <select id="court-prediction-current" aria-label="現在のコート"></select>
+            <select id="court-prediction-current" aria-label="Current court" data-i18n-attr="aria-label:courtPrediction.currentCourt"></select>
           </label>
           <ul class="court-prediction__list" id="court-prediction-list"></ul>
           <p class="court-prediction__note" data-i18n="courtPrediction.note">*Beta: prediction accuracy improves as more data is added.</p>
@@ -439,7 +439,7 @@
         </label>
       </div>
 
-      <p id="tips-count" class="result-count" aria-live="polite">0件表示</p>
+      <p id="tips-count" class="result-count" aria-live="polite" data-i18n="common.count">0 shown</p>
       <div id="tips-list" class="tips-grid"></div>
 
       <div id="tips-empty" class="info-panel" hidden>
@@ -465,7 +465,7 @@
 
       <div class="tier-purpose" id="official-tier-sections">
         <h3 class="tier-purpose__title" data-i18n="tier.officialTitle">Fixed Tier Board</h3>
-        <div class="official-tier-tabs" role="tablist" aria-label="固定Tier項目">
+        <div class="official-tier-tabs" role="tablist" aria-label="Fixed tier categories" data-i18n-attr="aria-label:aria.officialTierTabs">
           <button type="button" class="official-tier-tab is-active" data-official-tier-tab="currentMetaStrongCharacters" data-i18n="tier.officialCurrentMetaStrongCharacters">Strong Characters in the Current Meta</button>
           <button type="button" class="official-tier-tab" data-official-tier-tab="currentMetaStrongRackets" data-i18n="tier.officialCurrentMetaStrongRackets">Strong Rackets in the Current Meta</button>
         </div>
