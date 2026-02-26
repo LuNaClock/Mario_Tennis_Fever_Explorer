@@ -3,6 +3,7 @@ import path from "node:path";
 
 const root = process.cwd();
 const indexPath = path.join(root, "index.html");
+const mainJsPath = path.join(root, "js", "main.js");
 const siteOrigin = "https://mariotennis-fever-explorer.ai-lifebook.com";
 
 const routes = [
@@ -110,7 +111,60 @@ function renderHtml(template, route) {
   const withBodySection = withLang.replace(/<body[^>]*>/, `<body data-route-section="${route.sectionId}">`);
   const localePrefix = route.localePathPrefix || "";
 
-  return localizeInternalLinks(withBodySection, localePrefix);
+  const linked = localizeInternalLinks(withBodySection, localePrefix);
+  return route.lang === "en" ? applyEnglishFallbacks(linked) : linked;
+}
+
+function loadEnTranslations() {
+  const source = fs.readFileSync(mainJsPath, "utf8");
+  const match = source.match(/const translations = (\{[\s\S]*?\n\};)\n\nconst localeSelect/);
+  if (!match) {
+    throw new Error("Failed to load translations from js/main.js");
+  }
+
+  const translations = new Function(`return (${match[1].slice(0, -1)});`)();
+  return translations.en ?? {};
+}
+
+const enTranslations = loadEnTranslations();
+
+function tEn(key) {
+  return key.split(".").reduce((acc, part) => (acc ? acc[part] : undefined), enTranslations);
+}
+
+function setAttr(startTag, attr, value) {
+  const escaped = escapeHtml(value);
+  const attrPattern = new RegExp(`(${attr}=")(.*?)(")`, "i");
+  if (attrPattern.test(startTag)) {
+    return startTag.replace(attrPattern, `$1${escaped}$3`);
+  }
+  return startTag.replace(/>$/, ` ${attr}="${escaped}">`);
+}
+
+function applyEnglishFallbacks(html) {
+  const withI18nText = html.replace(/<([a-zA-Z0-9:-]+)([^>]*\sdata-i18n="([^"]+)"[^>]*)>([\s\S]*?)<\/\1>/g, (all, tag, attrs, key) => {
+    const translated = tEn(key);
+    if (typeof translated !== "string") return all;
+    return `<${tag}${attrs}>${escapeHtml(translated)}</${tag}>`;
+  });
+
+  const withI18nAttrs = withI18nText.replace(/<([a-zA-Z0-9:-]+)([^>]*\sdata-i18n-attr="([^"]+)"[^>]*)>/g, (all, tag, attrs, mapping) => {
+    let startTag = `<${tag}${attrs}>`;
+    for (const pair of mapping.split(",")) {
+      const [attr, key] = pair.split(":").map((part) => part?.trim());
+      if (!attr || !key) continue;
+      const translated = tEn(key);
+      if (typeof translated === "string") {
+        startTag = setAttr(startTag, attr, translated);
+      }
+    }
+    return startTag;
+  });
+
+  return withI18nAttrs
+    .replace('data-nav-label="キャラ"', 'data-nav-label="Characters"')
+    .replace('data-nav-label="ラケット"', 'data-nav-label="Rackets"')
+    .replace('data-nav-label="コート"', 'data-nav-label="Courts"');
 }
 
 const baseTemplate = fs.readFileSync(indexPath, "utf8");

@@ -3,6 +3,8 @@
   "private": true,
   "scripts": {
     "prerender": "node scripts/prerender.mjs",
-    "build": "npm run prerender"
+    "build": "npm run prerender",
+    "check:en-fallbacks": "node scripts/check-en-fallbacks.mjs",
+    "check": "npm run check:en-fallbacks"
   }
 }
