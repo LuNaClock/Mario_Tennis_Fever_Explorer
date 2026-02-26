@@ -193,17 +193,37 @@ if (!translations[currentLocale]) {
 }
 
 function getLocalizedPath(pathname, nextLocale) {
-  const normalizedPath = pathname || "/";
+  const normalizeTrailingSlash = (path) => {
+    if (!path || path === "/") return "/";
+    return path.endsWith("/") ? path : `${path}/`;
+  };
+
+  const splitPathQueryHash = (value) => {
+    const source = value || "/";
+    const match = source.match(/^([^?#]*)(\?[^#]*)?(#.*)?$/);
+    return {
+      path: match?.[1] || "/",
+      query: match?.[2] || "",
+      hash: match?.[3] || "",
+    };
+  };
+
+  const joinPathQueryHash = (path, query, hash) => `${path}${query}${hash}`;
+  const { path, query, hash } = splitPathQueryHash(pathname);
+  const normalizedPath = path || "/";
   const isEnglishPath = normalizedPath === "/en" || normalizedPath.startsWith("/en/");
 
   if (nextLocale === "en") {
-    if (isEnglishPath) return normalizedPath;
-    return normalizedPath === "/" ? "/en/" : `/en${normalizedPath}`;
+    const nextPath = isEnglishPath
+      ? normalizedPath
+      : (normalizedPath === "/" ? "/en/" : `/en${normalizedPath}`);
+    return joinPathQueryHash(normalizeTrailingSlash(nextPath), query, hash);
   }
 
-  if (!isEnglishPath) return normalizedPath;
-  const jaPath = normalizedPath.replace(/^\/en/, "") || "/";
-  return jaPath;
+  const jaPath = !isEnglishPath
+    ? normalizedPath
+    : (normalizedPath.replace(/^\/en/, "") || "/");
+  return joinPathQueryHash(normalizeTrailingSlash(jaPath), query, hash);
 }
 
 function t(key, vars = {}) {
