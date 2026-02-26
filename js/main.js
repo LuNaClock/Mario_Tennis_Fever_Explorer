@@ -195,6 +195,12 @@ if (!translations[currentLocale]) {
 function getLocalizedPath(pathname, nextLocale) {
   const normalizeTrailingSlash = (path) => {
     if (!path || path === "/") return "/";
+
+    const segments = path.split("/").filter(Boolean);
+    const lastSegment = segments[segments.length - 1] || "";
+    const isFilePath = lastSegment.includes(".");
+    if (isFilePath) return path;
+
     return path.endsWith("/") ? path : `${path}/`;
   };
 
