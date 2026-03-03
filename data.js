@@ -702,11 +702,41 @@ export const tips = [
     verification: "検証済",
     content: { ja: "フィーバーショットでの返球位置は、最短距離ではなくボールに回り込むような挙動で行う。その為、ボールの角度が鋭い場合や弾速が速いと返球出来ない可能性が高くなる", en: "During a Fever Shot, the return movement tends to curve around the ball instead of taking the shortest path. Because of this, returns are more likely to fail when the shot angle is sharp or the ball speed is very high." },
   },
-    {
+  {
     title: { ja: "ラリーが続くと移動速度が低下", en: "Movement speed drops during long rallies" },
     category: "実践知識",
     verification: "検証済",
     content: { ja: "大体20ラリーくらいすると遅くなり、その後は10ラリー程度毎に加速度的に減速、恐らく90ラリーくらいで限界値になる", en: "Movement starts slowing down at around 20 rallies, then decreases more rapidly about every 10 rallies after that. It likely reaches its lower limit around 90 rallies." },
+  },
+  {
+    title: { ja: "ビリキュー対策", en: "Countering Spike Balls" },
+    category: "実践知識",
+    verification: "検証済",
+    content: { ja: "メタルやスターなどの無敵状態であれば、ビリキュー本体をキャラが通過した後にショットを打つかポイントが入ると消滅する", en: "" },
+  },
+  {
+    title: { ja: "LATE条件", en: "LATE trigger conditions" },
+    category: "仕様",
+    verification: "検証済",
+    content: { ja: "身体正面(ボディショット)判定でボールに触れると発生する。ただし相手の球速が速いと発生せず、サービスライン付近だとほぼ失敗する", en: "" },
+  },
+  {
+    title: { ja: "2ボタン強打", en: "2-button power shot" },
+    category: "実践知識",
+    verification: "検証済",
+    content: { ja: "1ボタンでのドロップ→トップ、または1ボタンでのロブ→スライスで、それぞれ強打が打てる。スマッシュへの咄嗟の反撃やダブルスでの前衛時に特に有効", en: "" },
+  },
+  {
+    title: { ja: "ダッシュラケットの後隙", en: "Dash racket recovery" },
+    category: "実践知識",
+    verification: "検証済",
+    content: { ja: "ダッシュ後の後隙は各キャラによって異なる。恐らくスライドフットワークの後隙に依存していると思われる", en: "" },
+  },
+  {
+    title: { ja: "浮遊タイプへの妨害床効果", en: "Interference floor effects on floating characters" },
+    category: "実践知識",
+    verification: "検証済",
+    content: { ja: "床上でスライドフットワークか飛びつきをすると妨害効果を受ける。逆に床の範囲外から床の範囲内に飛びついた場合は効果を受けない。上記はダッシュラケットの効果中も同様(ドロドロラケットの効果でのみ確認)", en: "" },
   },
 ];
 
