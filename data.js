@@ -1,4 +1,4 @@
-export const characters = [
+﻿export const characters = [
     {
       name: { ja: "マリオ", en: "Mario" },
       type: "オールラウンド",
@@ -738,7 +738,18 @@ export const tips = [
     verification: "検証済",
     content: { ja: "床上でスライドフットワークか飛びつきをすると妨害効果を受ける。逆に床の範囲外から床の範囲内に飛びついた場合は効果を受けない。上記はダッシュラケットの効果中も同様(ドロドロラケットの効果でのみ確認)", en: "" },
   },
-];
+  {
+    title: { ja: "フラットショットへの返球", en: "Returning a flat shot" },
+    category: "実践知識",
+    verification: "検証済",
+    content: { ja: "遊び方に記載はないが、フラットに対してフラットを返球すると弾速が速くなる", en: "Not listed in How to Play, but returning a flat shot with a flat shot increases ball speed."},
+  },
+  {
+    title: { ja: "スマッシュへの返球", en: "Smash return with a topspin volley" },
+    category: "実践知識",
+    verification: "検証済",
+    content: { ja: "スマッシュに対して、トップボレーを行うと弾速が上がったボレーが出来る。状況によっては決め球になるので、覚えておくと有用", en: "Returning a smash with a topspin volley produces a faster volley. In the right situation it can be a put-away shot, so it is useful to remember."},
+  },];
 
   /** @type {{ date: { ja: string; en: string }; items: { ja: string; en: string }[] }[]} */
   export const changelog = [
@@ -808,5 +819,10 @@ export const tips = [
             { ja: "Tierに、目的別おすすめ欄を追加", en: "Added a purpose-based recommendations section to the tier list." }
         ],
       },
-  ];
+      {
+        date: { ja: "2026-03-07", en: "2026-03-07" },
+        items: [
+            { ja: "Tipsを追加(フラット返球・スマッシュ返球)", en: "Added Tips: returning flat shots and smash return with topspin volley." }
+        ],
+      },];
   
