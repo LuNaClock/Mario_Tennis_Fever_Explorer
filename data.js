@@ -613,46 +613,90 @@ export const tierPurposeRecommendations = [
 
 export const officialTierSections = [
   {
-    key: "currentMetaStrongCharacters",
-    type: "characters",
-    rows: [
+    key: "feverSingles",
+    sections: [
       {
-        label: "S",
-        picks: ["ドンキーコング"],
-        reason: {
-          ja: "ドンキーは他に並べそうなキャラがいない為",
-          en: "Donkey Kong is placed alone because there are no other characters that currently match his overall level.",
+        key: "currentMetaStrongCharacters",
+        type: "characters",
+        note: {
+          ja: "ゲーム発売からまだ期間が経っていない為、B/C/Dランクや未掲載キャラは現時点ではまだ判断がついていません。",
+          en: "Since not much time has passed since launch, characters in B/C/D and any unlisted characters are still too early to judge at this point.",
         },
+        rows: [
+          {
+            label: "S",
+            picks: ["ドンキーコング"],
+            reason: {
+              ja: "ドンキーは他に並べそうなキャラがいない為",
+              en: "Donkey Kong is placed alone because there are no other characters that currently match his overall level.",
+            },
+          },
+          {
+            label: "A",
+            picks: ["ロゼッタ", "ノコノコ", "ゲッソー", "ボスパックン", "クリボー"],
+            reason: {
+              ja: "ロゼッタは安定したパラメータやロブの強さにより、立ち回りを安定させやすいことを評価。浮遊なのも考慮。\n\nゲッソーはパワースライスによる弾道の高さや曲がりやすい軌道によるミスを誘発しやすい。\n扱いが難しく、対策も追いついていない傾向のキャラではあるので今後変動する可能性あり。\n\nノコノコはスピードが早くスライドフットワークの後隙も少ない。ドロップのチャージが速い点やアングルもある程度つけれる事を評価。\n\nクリボーもノコノコと似た理由で評価。スピードが僅かに遅くドロップチャージ速度も普通だが、コントロールは少し上なのが利点。\n\nボスパックンは捕球範囲が広く、コントロールもあるので、強いフラットを活かしやすい。スピードもそれなりにあるので性能が全体的に高め。\nフィーバーラケット無しだとそれらの強みがさらに出やすい分人口が増加傾向にある。",
+              en: "Rosetta is rated highly for her stable parameters and strong lobs, which make neutral play more consistent. Her floating trait is also a plus.\n\nBlooper can induce mistakes with the high and curving trajectory of its power slice. It is difficult to use and counterplay is still developing, so this placement may change over time.\n\nKoopa Troopa is valued for high speed, low recovery after slide footwork, fast drop-shot charge, and decent angle creation.\n\nGoomba is rated for similar reasons to Koopa Troopa. It is slightly slower and has normal drop-charge speed, but has slightly better control.\n\nPetey Piranha has wide catch range and decent control, which helps capitalize on strong flat shots. With reasonable speed as well, its overall performance is high. Its player count is increasing, especially in rules without Fever Rackets where those strengths stand out even more.",
+            },
+          },
+        ],
       },
       {
-        label: "A",
-        picks: ["ロゼッタ", "ノコノコ", "ゲッソー", "ボスパックン", "クリボー"],
-        reason: {
-          ja: "ロゼッタは安定したパラメータやロブの強さにより、立ち回りを安定させやすいことを評価。浮遊なのも考慮。\n\nゲッソーはパワースライスによる弾道の高さや曲がりやすい軌道によるミスを誘発しやすい。\n扱いが難しく、対策も追いついていない傾向のキャラではあるので今後変動する可能性あり。\n\nノコノコはスピードが早くスライドフットワークの後隙も少ない。ドロップのチャージが速い点やアングルもある程度つけれる事を評価。\n\nクリボーもノコノコと似た理由で評価。スピードが僅かに遅くドロップチャージ速度も普通だが、コントロールは少し上なのが利点。\n\nボスパックンは捕球範囲が広く、コントロールもあるので、強いフラットを活かしやすい。スピードもそれなりにあるので性能が全体的に高め。\nフィーバーラケット無しだとそれらの強みがさらに出やすい分人口が増加傾向にある。",
-          en: "Rosetta is rated highly for her stable parameters and strong lobs, which make neutral play more consistent. Her floating trait is also a plus.\n\nBlooper can induce mistakes with the high and curving trajectory of its power slice. It is difficult to use and counterplay is still developing, so this placement may change over time.\n\nKoopa Troopa is valued for high speed, low recovery after slide footwork, fast drop-shot charge, and decent angle creation.\n\nGoomba is rated for similar reasons to Koopa Troopa. It is slightly slower and has normal drop-charge speed, but has slightly better control.\n\nPetey Piranha has wide catch range and decent control, which helps capitalize on strong flat shots. With reasonable speed as well, its overall performance is high. Its player count is increasing, especially in rules without Fever Rackets where those strengths stand out even more.",
+        key: "currentMetaStrongRackets",
+        type: "rackets",
+        note: {
+          ja: "ゲーム発売からまだ期間が経っていない為、B/C/Dランクや未掲載ラケットは現時点ではまだ判断がついていません。",
+          en: "Since not much time has passed since launch, rackets in B/C/D and any unlisted rackets are still too early to judge at this point.",
         },
+        rows: [
+          {
+            label: "S",
+            picks: ["ダッシュラケット", "メタルラケット"],
+            reason: {
+              ja: "ダッシュは殆どの相手に対応出来る為。\n\nメタルは無敵かつショットの威力が上がる為、妨害を防ぎながらポイント取得も狙いやすい。\nただし、ダッシュには強くなったショットを返されやすく相性が悪い。",
+              en: "Dash handles most opponents, making it broadly reliable.\n\nMetal grants invulnerability and boosts shot power, so it is easier to block disruption while still aiming to score points.\nHowever, powered-up shots are easier for Dash to return, so this matchup is unfavorable.",
+            },
+          },
+          {
+            label: "A",
+            picks: ["マジックラケット", "マメキノコラケット"],
+            reason: {
+              ja: "マジックは杖から魔法が出る為、ダッシュの後隙を取りやすく、ダッシュ対策として強い。\n他のラケット相手でも当てさえすればポイントが確定するシーンがあり、逆転性も高い。\nその分カウンターされた際の影響力も大きいので注意。\n\nマメキノコに当たると補給範囲が小さく、大きく吹き飛ばされやすくなる為、ダッシュ相手でも有効。\n効果が切れるまで連続ポイントできることも珍しくない為、爆発力が高め。\nこちらもカウンターには十分注意すること。",
+              en: "Magic releases spells from the wand, making it easier to punish Dash recovery and serving as a strong anti-Dash option.\nEven against other rackets, landing it can secure points in key situations, giving it high comeback potential.\nThat said, getting countered can be very costly.\n\nMini Mushroom shrinks the opponent's coverage and makes knockback easier, so it remains effective even into Dash.\nIt can often chain multiple points before the effect expires, giving it strong burst potential.\nBe very careful of counters here as well.",
+            },
+          },
+        ],
       },
     ],
   },
   {
-    key: "currentMetaStrongRackets",
-    type: "rackets",
-    rows: [
+    key: "noFeverSingles",
+    sections: [
       {
-        label: "S",
-        picks: ["ダッシュラケット", "メタルラケット"],
-        reason: {
-          ja: "ダッシュは殆どの相手に対応出来る為。\n\nメタルは無敵かつショットの威力が上がる為、妨害を防ぎながらポイント取得も狙いやすい。\nただし、ダッシュには強くなったショットを返されやすく相性が悪い。",
-          en: "Dash handles most opponents, making it broadly reliable.\n\nMetal grants invulnerability and boosts shot power, so it is easier to block disruption while still aiming to score points.\nHowever, powered-up shots are easier for Dash to return, so this matchup is unfavorable.",
+        key: "currentMetaStrongCharacters",
+        type: "characters",
+        note: {
+          ja: "ゲーム発売からまだ期間が経っていない為、B/C/Dランクや未掲載キャラは現時点ではまだ判断がついていません。",
+          en: "Since not much time has passed since launch, characters in B/C/D and any unlisted characters are still too early to judge at this point.",
         },
-      },
-      {
-        label: "A",
-        picks: ["マジックラケット", "マメキノコラケット"],
-        reason: {
-          ja: "マジックは杖から魔法が出る為、ダッシュの後隙を取りやすく、ダッシュ対策として強い。\n他のラケット相手でも当てさえすればポイントが確定するシーンがあり、逆転性も高い。\nその分カウンターされた際の影響力も大きいので注意。\n\nマメキノコに当たると補給範囲が小さく、大きく吹き飛ばされやすくなる為、ダッシュ相手でも有効。\n効果が切れるまで連続ポイントできることも珍しくない為、爆発力が高め。\nこちらもカウンターには十分注意すること。",
-          en: "Magic releases spells from the wand, making it easier to punish Dash recovery and serving as a strong anti-Dash option.\nEven against other rackets, landing it can secure points in key situations, giving it high comeback potential.\nThat said, getting countered can be very costly.\n\nMini Mushroom shrinks the opponent's coverage and makes knockback easier, so it remains effective even into Dash.\nIt can often chain multiple points before the effect expires, giving it strong burst potential.\nBe very careful of counters here as well.",
-        },
+        rows: [
+          {
+            label: "S",
+            picks: ["ドンキーコング", "ボスパックン"],
+            reason: {
+              ja: "ドンキーコングはフィーバーありとほぼ同様の理由でS。\n\nボスパックンはドンキーより練度が必要だが身長の高さがある分、ロブやトップスピンなど高さがある球の処理をしやすい。\n組み合わせや状況によってはドンキー以上の強みが出る場面がある。",
+              en: "Donkey Kong remains S-tier for almost the same reasons as in Fever-on singles.\n\nPetey Piranha requires more practice than Donkey Kong, but its height makes it easier to handle high-bouncing balls such as lobs and topspin shots.\nDepending on the matchup and situation, there are moments where it can show strengths that exceed Donkey Kong's.",
+            },
+          },
+          {
+            label: "A",
+            picks: ["ロゼッタ", "ノコノコ", "ゲッソー", "デイジー", "マリオ", "クリボー"],
+            reason: {
+              ja: "ロゼッタ、ノコノコ、ゲッソーはフィーバーありと同様の理由でA。\nこの3キャラは同じAランクでも若干上の方にいる印象。\n\nデイジーはトップスピンの球速が速く、コントロールもそれなり。スピードも最低限はあるので決め球が多いのが魅力。\n\nマリオは必要十分のパワーやコントロール、特に小回りが効くスピードの良さを活かしやすい。\n\nクリボーはフィーバーありと同様の理由だが、フィーバーなしだとスライドフットワークの隙の無さによる粘り強さも活かしやすくなる。",
+              en: "Rosalina, Koopa Troopa, and Blooper stay in A-tier for the same reasons as in Fever-on singles.\nAmong the A-tier group, these three feel slightly closer to the top.\n\nDaisy stands out for her fast topspin ball speed, decent control, and enough speed to create many reliable finishing patterns.\n\nMario is easy to value because he has sufficient power and control across the board, especially with speed that allows tight movement and quick adjustments.\n\nGoomba remains A-tier for similar reasons as in Fever-on singles, but in no-Fever rules its tenacity also stands out more thanks to the low vulnerability on its slide footwork.",
+            },
+          },
+        ],
       },
     ],
   },

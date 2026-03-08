@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />  <link rel="stylesheet" href="/css/style.css" />  <!-- Google tag (gtag.js) --><script async src="https://www.googletagmanager.com/gtag/js?id=G-TWSQ9VLNT5"></script><script>
   <title>Tips・テクニック | マリオテニスフィーバー Explorer</title>
   <meta name="description" content="実戦で役立つ操作のコツや仕様メモをカテゴリ別にまとめたTipsセクションです。" />
   <link rel="canonical" href="https://mariotennis-fever-explorer.ai-lifebook.com/techniques/" />
@@ -14,10 +14,6 @@
   <meta property="og:description" content="実戦で役立つ操作のコツや仕様メモをカテゴリ別にまとめたTipsセクションです。" />
   <meta property="og:url" content="https://mariotennis-fever-explorer.ai-lifebook.com/techniques/" />
   <meta property="og:site_name" content="マリオテニスフィーバー Explorer" />
-  <link rel="stylesheet" href="/css/style.css" />
-  <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-TWSQ9VLNT5"></script>
-<script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
@@ -252,7 +248,7 @@
           </div>
           <div class="filters filters--modal" id="character-modal-filters"></div>
           <div id="character-modal-search-results" class="search-shortcuts search-shortcuts--modal" aria-live="polite"></div>
-          <button type="button" class="filter-modal__apply" id="character-filter-apply">0件を表示</button>
+          <button type="button" class="filter-modal__apply" id="character-filter-apply" data-i18n="common.showCount">0件を表示</button>
         </div>
       </div>
 
@@ -330,7 +326,7 @@
           </div>
           <div class="filters filters--modal" id="racket-modal-filters"></div>
           <div id="racket-modal-search-results" class="search-shortcuts search-shortcuts--modal" aria-live="polite"></div>
-          <button type="button" class="filter-modal__apply" id="racket-filter-apply">0件を表示</button>
+          <button type="button" class="filter-modal__apply" id="racket-filter-apply" data-i18n="common.showCount">0件を表示</button>
         </div>
       </div>
 
@@ -397,7 +393,7 @@
             <button type="button" class="filter-modal__close" data-modal-close="court-filter-modal" aria-label="閉じる" data-i18n-attr="aria-label:aria.close">✕</button>
           </div>
           <div class="filters filters--modal" id="court-modal-filters"></div>
-          <button type="button" class="filter-modal__apply" id="court-filter-apply">0件を表示</button>
+          <button type="button" class="filter-modal__apply" id="court-filter-apply" data-i18n="common.showCount">0件を表示</button>
         </div>
       </div>
 
@@ -408,7 +404,7 @@
           <p class="court-prediction__description" data-i18n="courtPrediction.description">ランクマッチの観測順をもとに、現在のコートから次に来る可能性が高い候補を表示します。</p>
           <label class="filter court-prediction__selector" for="court-prediction-current">
             <span data-i18n="courtPrediction.currentCourt">現在のコート</span>
-            <select id="court-prediction-current" aria-label="現在のコート"></select>
+            <select id="court-prediction-current" aria-label="現在のコート" data-i18n-attr="aria-label:courtPrediction.currentCourt"></select>
           </label>
           <ul class="court-prediction__list" id="court-prediction-list"></ul>
           <p class="court-prediction__note" data-i18n="courtPrediction.note">※ベータ版: ベータ版の為、精度はあくまで目安です。</p>
@@ -442,7 +438,7 @@
         </label>
       </div>
 
-      <p id="tips-count" class="result-count" aria-live="polite">0件表示</p>
+      <p id="tips-count" class="result-count" aria-live="polite" data-i18n="common.count">0件表示</p>
       <div id="tips-list" class="tips-grid"></div>
 
       <div id="tips-empty" class="info-panel" hidden>
@@ -468,10 +464,8 @@
 
       <div class="tier-purpose" id="official-tier-sections">
         <h3 class="tier-purpose__title" data-i18n="tier.officialTitle">固定Tier表</h3>
-        <div class="official-tier-tabs" role="tablist" aria-label="固定Tier項目">
-          <button type="button" class="official-tier-tab is-active" data-official-tier-tab="currentMetaStrongCharacters" data-i18n="tier.officialCurrentMetaStrongCharacters">現環境で強いキャラ</button>
-          <button type="button" class="official-tier-tab" data-official-tier-tab="currentMetaStrongRackets" data-i18n="tier.officialCurrentMetaStrongRackets">現環境で強いラケット</button>
-        </div>
+        <div class="official-tier-tabs official-tier-tabs--groups" id="official-tier-group-tabs" role="tablist" data-i18n-attr="aria-label:aria.officialTierTabs"></div>
+        <div class="official-tier-tabs official-tier-tabs--sections" id="official-tier-section-tabs" role="tablist" data-i18n-attr="aria-label:aria.officialTierTabs"></div>
         <div class="tier-purpose__list" id="official-tier-list"></div>
       </div>
 

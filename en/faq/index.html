@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />  <link rel="stylesheet" href="/css/style.css" />  <!-- Google tag (gtag.js) --><script async src="https://www.googletagmanager.com/gtag/js?id=G-TWSQ9VLNT5"></script><script>
   <title>FAQ | Mario Tennis Fever Explorer</title>
   <meta name="description" content="Quickly check beginner FAQs, tier criteria, and how to review your play when you are losing." />
   <link rel="canonical" href="https://mariotennis-fever-explorer.ai-lifebook.com/en/faq/" />
@@ -14,10 +14,6 @@
   <meta property="og:description" content="Quickly check beginner FAQs, tier criteria, and how to review your play when you are losing." />
   <meta property="og:url" content="https://mariotennis-fever-explorer.ai-lifebook.com/en/faq/" />
   <meta property="og:site_name" content="Mario Tennis Fever Explorer" />
-  <link rel="stylesheet" href="/css/style.css" />
-  <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-TWSQ9VLNT5"></script>
-<script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
@@ -34,7 +30,7 @@
       <label class="locale-switcher" for="locale-select">
         <span class="locale-switcher__label" data-i18n="site.language">Language</span>
         <select id="locale-select" aria-label="Language selector">
-          <option value="ja">Japanese</option>
+          <option value="ja">日本語</option>
           <option value="en">English</option>
         </select>
       </label>
@@ -249,7 +245,7 @@
           </div>
           <div class="filters filters--modal" id="character-modal-filters"></div>
           <div id="character-modal-search-results" class="search-shortcuts search-shortcuts--modal" aria-live="polite"></div>
-          <button type="button" class="filter-modal__apply" id="character-filter-apply" data-i18n="common.showCount">Show 0</button>
+          <button type="button" class="filter-modal__apply" id="character-filter-apply" data-i18n="common.showCount">Show {{count}}</button>
         </div>
       </div>
 
@@ -327,7 +323,7 @@
           </div>
           <div class="filters filters--modal" id="racket-modal-filters"></div>
           <div id="racket-modal-search-results" class="search-shortcuts search-shortcuts--modal" aria-live="polite"></div>
-          <button type="button" class="filter-modal__apply" id="racket-filter-apply" data-i18n="common.showCount">Show 0</button>
+          <button type="button" class="filter-modal__apply" id="racket-filter-apply" data-i18n="common.showCount">Show {{count}}</button>
         </div>
       </div>
 
@@ -394,7 +390,7 @@
             <button type="button" class="filter-modal__close" data-modal-close="court-filter-modal" aria-label="Close" data-i18n-attr="aria-label:aria.close">✕</button>
           </div>
           <div class="filters filters--modal" id="court-modal-filters"></div>
-          <button type="button" class="filter-modal__apply" id="court-filter-apply" data-i18n="common.showCount">Show 0</button>
+          <button type="button" class="filter-modal__apply" id="court-filter-apply" data-i18n="common.showCount">Show {{count}}</button>
         </div>
       </div>
 
@@ -439,7 +435,7 @@
         </label>
       </div>
 
-      <p id="tips-count" class="result-count" aria-live="polite" data-i18n="common.count">0 shown</p>
+      <p id="tips-count" class="result-count" aria-live="polite" data-i18n="common.count">{{count}} shown</p>
       <div id="tips-list" class="tips-grid"></div>
 
       <div id="tips-empty" class="info-panel" hidden>
@@ -465,10 +461,8 @@
 
       <div class="tier-purpose" id="official-tier-sections">
         <h3 class="tier-purpose__title" data-i18n="tier.officialTitle">Fixed Tier Board</h3>
-        <div class="official-tier-tabs" role="tablist" aria-label="Fixed tier categories" data-i18n-attr="aria-label:aria.officialTierTabs">
-          <button type="button" class="official-tier-tab is-active" data-official-tier-tab="currentMetaStrongCharacters" data-i18n="tier.officialCurrentMetaStrongCharacters">Strong Characters in the Current Meta</button>
-          <button type="button" class="official-tier-tab" data-official-tier-tab="currentMetaStrongRackets" data-i18n="tier.officialCurrentMetaStrongRackets">Strong Rackets in the Current Meta</button>
-        </div>
+        <div class="official-tier-tabs official-tier-tabs--groups" id="official-tier-group-tabs" role="tablist" data-i18n-attr="aria-label:aria.officialTierTabs" aria-label="Fixed tier categories"></div>
+        <div class="official-tier-tabs official-tier-tabs--sections" id="official-tier-section-tabs" role="tablist" data-i18n-attr="aria-label:aria.officialTierTabs" aria-label="Fixed tier categories"></div>
         <div class="tier-purpose__list" id="official-tier-list"></div>
       </div>
 

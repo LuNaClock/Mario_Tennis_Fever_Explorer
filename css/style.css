@@ -857,6 +857,14 @@ img {
   margin: 0 0 10px;
 }
 
+.official-tier-tabs--groups {
+  margin-bottom: 8px;
+}
+
+.official-tier-tabs--sections {
+  margin-bottom: 12px;
+}
+
 .official-tier-tab {
   appearance: none;
   border: 1px solid rgba(145, 182, 210, 0.45);
@@ -867,6 +875,16 @@ img {
   font-size: 0.78rem;
   font-weight: 700;
   cursor: pointer;
+}
+
+.official-tier-tabs--groups .official-tier-tab {
+  padding: 8px 14px;
+  font-size: 0.82rem;
+}
+
+.official-tier-tabs--sections .official-tier-tab {
+  background: rgba(8, 26, 42, 0.74);
+  border-color: rgba(145, 182, 210, 0.35);
 }
 
 .official-tier-tab.is-active {
@@ -896,6 +914,32 @@ img {
   margin: 0;
   color: var(--muted);
   font-size: 0.82rem;
+  white-space: pre-line;
+}
+
+.tier-purpose-card__reason--placeholder {
+  color: var(--text);
+}
+
+.tier-purpose-card__placeholder-label {
+  display: inline-flex;
+  align-items: center;
+  margin: 0 0 8px;
+  padding: 4px 8px;
+  border-radius: 999px;
+  border: 1px solid rgba(145, 182, 210, 0.35);
+  background: rgba(7, 22, 37, 0.72);
+  color: #9ed8ff;
+  font-size: 0.74rem;
+  font-weight: 700;
+}
+
+.tier-purpose-card__note {
+  margin: 10px 0 0;
+  padding-top: 10px;
+  border-top: 1px dashed rgba(145, 182, 210, 0.25);
+  color: var(--muted);
+  font-size: 0.78rem;
   white-space: pre-line;
 }
 

@@ -117,7 +117,7 @@ function renderHtml(template, route) {
 
 function loadEnTranslations() {
   const source = fs.readFileSync(mainJsPath, "utf8");
-  const match = source.match(/const translations = (\{[\s\S]*?\n\};)\n\nconst localeSelect/);
+  const match = source.match(/const translations = (\{[\s\S]*?\r?\n\};)\r?\n\r?\nconst localeSelect/);
   if (!match) {
     throw new Error("Failed to load translations from js/main.js");
   }
