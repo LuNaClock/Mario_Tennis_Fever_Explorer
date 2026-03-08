@@ -685,7 +685,7 @@ export const officialTierSections = [
             picks: ["ドンキーコング", "ボスパックン"],
             reason: {
               ja: "ドンキーコングはフィーバーありとほぼ同様の理由でS。\n\nボスパックンはドンキーより練度が必要だが身長の高さがある分、ロブやトップスピンなど高さがある球の処理をしやすい。\n組み合わせや状況によってはドンキー以上の強みが出る場面がある。",
-              en: "Donkey Kong remains S-tier for almost the same reasons as in Fever-on singles.\n\nPetey Piranha requires more practice than Donkey Kong, but its height makes it easier to handle high-bouncing balls such as lobs and topspin shots.\nDepending on the matchup and situation, there are moments where it can show strengths that exceed Donkey Kong's.",
+              en: "Donkey Kong remains A-tier for almost the same reasons as in Fever-on singles.\n\nPetey Piranha requires more practice than Donkey Kong, but its height makes it easier to handle high-bouncing balls such as lobs and topspin shots.\nDepending on the matchup and situation, there are moments where it can show strengths that exceed Donkey Kong's.",
             },
           },
           {
@@ -693,7 +693,7 @@ export const officialTierSections = [
             picks: ["ロゼッタ", "ノコノコ", "ゲッソー", "デイジー", "マリオ", "クリボー"],
             reason: {
               ja: "ロゼッタ、ノコノコ、ゲッソーはフィーバーありと同様の理由でA。\nこの3キャラは同じAランクでも若干上の方にいる印象。\n\nデイジーはトップスピンの球速が速く、コントロールもそれなり。スピードも最低限はあるので決め球が多いのが魅力。\n\nマリオは必要十分のパワーやコントロール、特に小回りが効くスピードの良さを活かしやすい。\n\nクリボーはフィーバーありと同様の理由だが、フィーバーなしだとスライドフットワークの隙の無さによる粘り強さも活かしやすくなる。",
-              en: "Rosalina, Koopa Troopa, and Blooper stay in A-tier for the same reasons as in Fever-on singles.\nAmong the A-tier group, these three feel slightly closer to the top.\n\nDaisy stands out for her fast topspin ball speed, decent control, and enough speed to create many reliable finishing patterns.\n\nMario is easy to value because he has sufficient power and control across the board, especially with speed that allows tight movement and quick adjustments.\n\nGoomba remains A-tier for similar reasons as in Fever-on singles, but in no-Fever rules its tenacity also stands out more thanks to the low vulnerability on its slide footwork.",
+              en: "Rosalina, Koopa Troopa, and Blooper stay in B-tier for the same reasons as in Fever-on singles.\nAmong the B-tier group, these three feel slightly closer to the top.\n\nDaisy stands out for her fast topspin ball speed, decent control, and enough speed to create many reliable finishing patterns.\n\nMario is easy to value because he has sufficient power and control across the board, especially with speed that allows tight movement and quick adjustments.\n\nGoomba remains B-tier for similar reasons as in Fever-on singles, but in no-Fever rules its tenacity also stands out more thanks to the low vulnerability on its slide footwork.",
             },
           },
         ],
@@ -732,7 +732,7 @@ export const tips = [
     title: { ja: "フィーバーゲージの溜まる速度", en: "Movement speed drops during long rallies" },
     category: "実践知識",
     verification: "検証済",
-    content: { ja: "2本目のゲージを溜めている最中の方が1本目に比べて僅かに溜まる速度が遅い為、先にフィーバーショットをした方がより効率的にゲージを溜められる", en: "" },
+    content: { ja: "2本目のゲージを溜めている最中の方が1本目に比べて僅かに溜まる速度が遅い為、先にフィーバーショットをした方がより効率的にゲージを溜められる", en: "The second bar fills slightly more slowly than the first. Because of that, using a Fever Shot earlier lets you charge the gauge more efficiently overall." },
   },
   {
     title: { ja: "浮遊キャラについて", en: "Floating character list" },
@@ -756,31 +756,31 @@ export const tips = [
     title: { ja: "ビリキュー対策", en: "Countering Spike Balls" },
     category: "実践知識",
     verification: "検証済",
-    content: { ja: "メタルやスターなどの無敵状態であれば、ビリキュー本体をキャラが通過した後にショットを打つかポイントが入ると消滅する", en: "" },
+    content: { ja: "メタルやスターなどの無敵状態であれば、ビリキュー本体をキャラが通過した後にショットを打つかポイントが入ると消滅する", en: "If you are invincible with effects such as Metal or Star, the Spike Ball disappears once your character passes through the Spike Ball itself and then either hits a shot or the point ends." },
   },
   {
     title: { ja: "LATE条件", en: "LATE trigger conditions" },
     category: "仕様",
     verification: "検証済",
-    content: { ja: "身体正面(ボディショット)判定でボールに触れると発生する。ただし相手の球速が速いと発生せず、サービスライン付近だとほぼ失敗する", en: "" },
+    content: { ja: "身体正面(ボディショット)判定でボールに触れると発生する。ただし相手の球速が速いと発生せず、サービスライン付近だとほぼ失敗する", en: "It triggers when the ball contacts the character's front-facing body-shot area. However, it will not trigger if the opponent's shot is too fast, and it almost always fails near the service line." },
   },
   {
     title: { ja: "2ボタン強打", en: "2-button power shot" },
     category: "実践知識",
     verification: "検証済",
-    content: { ja: "1ボタンでのドロップ→トップ、または1ボタンでのロブ→スライスで、それぞれ強打が打てる。スマッシュへの咄嗟の反撃やダブルスでの前衛時に特に有効", en: "" },
+    content: { ja: "1ボタンでのドロップ→トップ、または1ボタンでのロブ→スライスで、それぞれ強打が打てる。スマッシュへの咄嗟の反撃やダブルスでの前衛時に特に有効", en: "You can produce a power shot by inputting a 1-button drop followed by topspin, or a 1-button lob followed by slice. This is especially useful for quick counterattacks against smashes and when playing at the net in doubles." },
   },
   {
     title: { ja: "ダッシュラケットの後隙", en: "Dash racket recovery" },
     category: "実践知識",
     verification: "検証済",
-    content: { ja: "ダッシュ後の後隙は各キャラによって異なる。恐らくスライドフットワークの後隙に依存していると思われる", en: "" },
+    content: { ja: "ダッシュ後の後隙は各キャラによって異なる。恐らくスライドフットワークの後隙に依存していると思われる", en: "Recovery after using Dash differs by character. It is likely tied to each character's recovery after slide footwork." },
   },
   {
     title: { ja: "浮遊タイプへの妨害床効果", en: "Interference floor effects on floating characters" },
     category: "実践知識",
     verification: "検証済",
-    content: { ja: "床上でスライドフットワークか飛びつきをすると妨害効果を受ける。逆に床の範囲外から床の範囲内に飛びついた場合は効果を受けない。上記はダッシュラケットの効果中も同様(ドロドロラケットの効果でのみ確認)", en: "" },
+    content: { ja: "床上でスライドフットワークか飛びつきをすると妨害効果を受ける。逆に床の範囲外から床の範囲内に飛びついた場合は効果を受けない。上記はダッシュラケットの効果中も同様(ドロドロラケットの効果でのみ確認)", en: "Floating characters still suffer interference floor effects if they use slide footwork or dive while already on the floor area. By contrast, if they dive into the floor area from outside it, the effect does not apply. The same behavior also occurs during Dash racket movement, though this has only been confirmed with the Muddy racket effect." },
   },
   {
     title: { ja: "フラットショットへの返球", en: "Returning a flat shot" },

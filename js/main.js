@@ -146,8 +146,8 @@ const translations = {
       },
       tierDiff: {
         question: "What is the difference between each tier rank?",
-        answer1: "S means exceptionally strong.",
-        answer2: "A is slightly below S, but still highly viable even at top level."
+        answer1: "A means exceptionally strong.",
+        answer2: "B is slightly below A, but still highly viable even at top level."
       },
       tierTrust: {
         question: "Should I trust the Tier list as-is?",
@@ -439,24 +439,48 @@ const tierRowAddAboveButton = document.getElementById("tier-row-add-above");
 const tierRowAddBelowButton = document.getElementById("tier-row-add-below");
 const tierRowDeleteButton = document.getElementById("tier-row-delete");
 
-function getTierDefaultRows(locale = currentLocale) {
-  if (locale === "en") {
-    return [
-      { label: "A", color: "#f07575" },
-      { label: "B", color: "#efb676" },
-      { label: "C", color: "#ecd37a" },
-      { label: "D", color: "#e2ea72" },
-      { label: "E", color: "#aee56f" },
-    ];
-  }
+const canonicalTierDefaultRows = [
+  { label: "S", color: "#f07575" },
+  { label: "A", color: "#efb676" },
+  { label: "B", color: "#ecd37a" },
+  { label: "C", color: "#e2ea72" },
+  { label: "D", color: "#aee56f" },
+];
 
-  return [
-    { label: "S", color: "#f07575" },
-    { label: "A", color: "#efb676" },
-    { label: "B", color: "#ecd37a" },
-    { label: "C", color: "#e2ea72" },
-    { label: "D", color: "#aee56f" },
-  ];
+const englishTierDisplayMap = {
+  S: "A",
+  A: "B",
+  B: "C",
+  C: "D",
+  D: "E",
+  E: "F",
+};
+
+const englishTierCanonicalMap = Object.fromEntries(
+  Object.entries(englishTierDisplayMap).map(([canonical, display]) => [display, canonical]),
+);
+
+function getTierDefaultRows(locale = currentLocale) {
+  return canonicalTierDefaultRows.map((row) => ({ ...row }));
+}
+
+function getTierDisplayLabel(label, locale = currentLocale) {
+  const normalized = typeof label === "string" ? label.trim() : "";
+  if (locale !== "en") return normalized || "?";
+  return englishTierDisplayMap[normalized] || normalized || "?";
+}
+
+function getCanonicalTierLabel(label, locale = currentLocale) {
+  const normalized = typeof label === "string" ? label.trim() : "";
+  if (locale !== "en") return normalized || "?";
+  return englishTierCanonicalMap[normalized] || normalized || "?";
+}
+
+function isLegacyEnglishTierRows(rows) {
+  return rows.length === canonicalTierDefaultRows.length && rows.every((row, index) => (
+    row?.label === englishTierDisplayMap[canonicalTierDefaultRows[index].label]
+    && row?.color === canonicalTierDefaultRows[index].color
+  ));
 }
 
 const TIER_STORAGE_KEY = "tierBoardsV3";
@@ -570,13 +594,20 @@ function normalizeSingleTierBoard(raw, itemCount, fallbackKind = "conditional") 
     return fallback;
   }
 
-  const rows = raw.rows
+  let rows = raw.rows
     .filter((row) => row && typeof row.id === "string")
     .map((row) => ({
       id: row.id,
       label: typeof row.label === "string" && row.label.trim() ? row.label.trim().slice(0, 24) : "?",
       color: typeof row.color === "string" && row.color ? row.color : "#666666",
     }));
+
+  if (isLegacyEnglishTierRows(rows)) {
+    rows = rows.map((row) => ({
+      ...row,
+      label: getCanonicalTierLabel(row.label, "en"),
+    }));
+  }
 
   if (!rows.length) {
     return fallback;
@@ -780,7 +811,7 @@ async function buildTierBoardCanvas(boardKey) {
     ctx.fillRect(12, y, labelWidth, h);
     ctx.fillStyle = getContrastingColor(row.color);
     ctx.font = "bold 20px sans-serif";
-    ctx.fillText(row.label, 22, y + 32);
+    ctx.fillText(getTierDisplayLabel(row.label), 22, y + 32);
 
     ctx.fillStyle = "#0b1f31";
     ctx.fillRect(12 + labelWidth, y, contentWidth, h);
@@ -3082,7 +3113,7 @@ function openTierRowModal(boardKey, rowId) {
 
   rowModalState = { boardKey, rowId, rowIndex };
   const row = board.rows[rowIndex];
-  tierRowLabelInput.value = row.label;
+  tierRowLabelInput.value = getTierDisplayLabel(row.label);
   tierRowColorInput.value = row.color;
   tierRowModal.classList.add("is-open");
   tierRowModal.setAttribute("aria-hidden", "false");
@@ -3125,7 +3156,7 @@ function renderTierBoard(boardKey) {
     label.className = "tier-row__label";
     label.style.backgroundColor = row.color;
     label.style.color = getContrastingColor(row.color);
-    label.textContent = row.label;
+    label.textContent = getTierDisplayLabel(row.label);
 
     const items = document.createElement("div");
     items.className = "tier-row__items";
@@ -3290,7 +3321,7 @@ function setupTierModalActions() {
     const board = getActiveTierProfile(rowModalState.boardKey);
     const row = board.rows.find((target) => target.id === rowModalState.rowId);
     if (!row) return;
-    row.label = tierRowLabelInput.value.slice(0, 24) || "?";
+    row.label = getCanonicalTierLabel(tierRowLabelInput.value.slice(0, 24), currentLocale);
     saveTierBoards();
     renderTierBoard(rowModalState.boardKey);
   });
@@ -3527,7 +3558,7 @@ function renderOfficialTierSections() {
 
     const heading = document.createElement("h5");
     heading.className = "tier-purpose-group__title";
-    heading.textContent = `${row.label} Tier`;
+    heading.textContent = `${getTierDisplayLabel(row.label)} Tier`;
 
     const pickGrid = document.createElement("div");
     pickGrid.className = "tier-purpose-picks";
