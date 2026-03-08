@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mario Tennis Fever Explorer リポジトリ解説</title>
+  <style>
+    @page {
+      size: A4;
+      margin: 12mm;
+    }
+
+    :root {
+      --bg: #f3f7fb;
+      --ink: #152433;
+      --muted: #4c6277;
+      --line: #d5e1ec;
+      --panel: #ffffff;
+      --accent: #0b6db5;
+      --accent-soft: #eaf4fc;
+      --accent-strong: #083e66;
+      --good: #18794e;
+      --warn: #945700;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Yu Gothic UI", "Hiragino Sans", "Meiryo", sans-serif;
+      color: var(--ink);
+      background: var(--bg);
+      line-height: 1.65;
+      font-size: 11pt;
+    }
+
+    main {
+      width: 100%;
+    }
+
+    section {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 16px 18px;
+      margin-bottom: 14px;
+      box-shadow: 0 8px 18px rgba(13, 41, 65, 0.06);
+    }
+
+    .page-break {
+      break-before: page;
+    }
+
+    .hero {
+      padding: 24px;
+      background:
+        linear-gradient(145deg, rgba(11, 109, 181, 0.08), rgba(8, 62, 102, 0.14)),
+        #ffffff;
+    }
+
+    .eyebrow {
+      margin: 0 0 8px;
+      color: var(--accent);
+      font-size: 10pt;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    h1, h2, h3, h4 {
+      margin: 0 0 10px;
+      line-height: 1.3;
+    }
+
+    h1 {
+      font-size: 24pt;
+    }
+
+    h2 {
+      font-size: 17pt;
+      color: var(--accent-strong);
+    }
+
+    h3 {
+      font-size: 13pt;
+      color: var(--accent-strong);
+    }
+
+    h4 {
+      font-size: 11.5pt;
+    }
+
+    p {
+      margin: 0 0 10px;
+    }
+
+    ul, ol {
+      margin: 8px 0 0 20px;
+      padding: 0;
+    }
+
+    li + li {
+      margin-top: 5px;
+    }
+
+    .lead {
+      font-size: 12pt;
+      color: var(--muted);
+    }
+
+    .meta-grid,
+    .cards,
+    .grid-2,
+    .grid-3,
+    .flow-grid {
+      display: grid;
+      gap: 12px;
+    }
+
+    .meta-grid,
+    .grid-3 {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .cards {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .grid-2,
+    .flow-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .card,
+    .flow-card,
+    .note,
+    .summary-box {
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 12px;
+      background: #fff;
+    }
+
+    .card h3,
+    .flow-card h3,
+    .summary-box h3 {
+      margin-bottom: 6px;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 3px 8px;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      color: var(--accent-strong);
+      font-size: 9pt;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .summary-box {
+      background: linear-gradient(180deg, #ffffff, #f8fbfe);
+    }
+
+    .note {
+      background: #fbfdff;
+    }
+
+    .note strong {
+      color: var(--accent-strong);
+    }
+
+    .good {
+      border-left: 4px solid var(--good);
+    }
+
+    .warn {
+      border-left: 4px solid var(--warn);
+    }
+
+    .tree,
+    .code {
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 9.5pt;
+      white-space: pre-wrap;
+      background: #0f2030;
+      color: #eef6ff;
+      border-radius: 14px;
+      padding: 12px;
+      overflow-wrap: anywhere;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 8px;
+      font-size: 10.2pt;
+    }
+
+    th,
+    td {
+      border: 1px solid var(--line);
+      padding: 8px 9px;
+      vertical-align: top;
+    }
+
+    th {
+      background: #f1f7fc;
+      text-align: left;
+      color: var(--accent-strong);
+    }
+
+    .flow {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 8px;
+    }
+
+    .flow-step {
+      flex: 1 1 160px;
+      min-height: 74px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 10px;
+      background: #fff;
+    }
+
+    .arrow {
+      font-weight: 700;
+      color: var(--accent);
+    }
+
+    .chapter-label {
+      margin-bottom: 6px;
+      color: var(--accent);
+      font-size: 9pt;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .small {
+      font-size: 9.5pt;
+      color: var(--muted);
+    }
+
+    .footer {
+      color: var(--muted);
+      font-size: 9pt;
+      text-align: center;
+      margin-top: 8px;
+    }
+
+    .avoid-break {
+      break-inside: avoid;
+    }
+
+    @media print {
+      body {
+        background: #fff;
+      }
+
+      section {
+        box-shadow: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <section class="hero avoid-break">
+      <p class="eyebrow">Repository Guide</p>
+      <h1>Mario Tennis Fever Explorer<br />リポジトリ解説資料</h1>
+      <p class="lead">
+        この資料は、「自分が後から読み返して理解できること」と「事情を知らない他人に全体像を説明できること」を両立するための、
+        学習用・引き継ぎ用のリポジトリ説明書です。
+      </p>
+      <div class="meta-grid">
+        <div class="summary-box">
+          <div class="badge">一言でいうと</div>
+          <p>
+            HTML/CSS/JavaScript を中心に作られた、<strong>静的な攻略・参照サイト</strong>です。
+            JavaScript が画面の表示と操作を担い、Node.js のスクリプトがページ生成やチェックを補助しています。
+          </p>
+        </div>
+        <div class="summary-box">
+          <div class="badge">まず見るファイル</div>
+          <p><strong>data.js</strong>: データ本体</p>
+          <p><strong>js/main.js</strong>: 画面表示と操作</p>
+          <p><strong>scripts/prerender.mjs</strong>: 英語ページ生成</p>
+        </div>
+        <div class="summary-box">
+          <div class="badge">この資料の読み方</div>
+          <p>
+            まず「全体像」を掴み、そのあと「どの修正をどのファイルでやるか」を判断できるようになる構成にしています。
+          </p>
+        </div>
+      </div>
+      <div class="note good" style="margin-top: 12px;">
+        <strong>結論:</strong>
+        React や Next.js のような大きいフレームワークではなく、素の JavaScript に近い形で組まれた静的サイトです。
+        そのため「HTML が骨格」「CSS が見た目」「JS が動き」「Node.js スクリプトが生成補助」という分担で読むと理解しやすいです。
+      </div>
+    </section>
+
+    <section class="avoid-break">
+      <p class="chapter-label">Chapter 1</p>
+      <h2>このリポジトリは何か</h2>
+      <div class="cards">
+        <div class="card">
+          <h3>FAQ</h3>
+          <p>初心者向けの質問、Tier の見方、負けたときの振り返り方をまとめる入口です。</p>
+        </div>
+        <div class="card">
+          <h3>Character / Racket / Court</h3>
+          <p>各要素を比較しやすく一覧化する、データベース的な中核ページです。</p>
+        </div>
+        <div class="card">
+          <h3>Tips</h3>
+          <p>試合で使う知識や操作メモを、検索・絞り込みしながら読めるようにしています。</p>
+        </div>
+        <div class="card">
+          <h3>Tier</h3>
+          <p>自分基準の評価表をブラウザ内で編集し、画像として保存・共有できます。</p>
+        </div>
+      </div>
+      <div class="flow">
+        <div class="flow-step">
+          <strong>役割</strong><br />
+          ゲーム攻略の「資料置き場」であり、ブログよりも参照性を優先したサイト。
+        </div>
+        <div class="arrow">→</div>
+        <div class="flow-step">
+          <strong>性格</strong><br />
+          文章中心ではなく、検索・比較・一覧表示ができることが重要。
+        </div>
+        <div class="arrow">→</div>
+        <div class="flow-step">
+          <strong>設計の結果</strong><br />
+          データを 1 か所に集め、同じ HTML を元に複数の静的ページを出力する構成になっています。
+        </div>
+      </div>
+      <div class="note warn" style="margin-top: 12px;">
+        <strong>初心者向け一言まとめ:</strong>
+        これは「アプリっぽく動く静的サイト」です。サーバーサイドで複雑な処理をしているわけではなく、
+        ブラウザで動く JavaScript がかなり多くの役割を担っています。
+      </div>
+    </section>
+
+    <section class="page-break avoid-break">
+      <p class="chapter-label">Chapter 2</p>
+      <h2>使われている技術</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>技術</th>
+            <th>このリポジトリでの役割</th>
+            <th>初心者向けの見方</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>HTML</td>
+            <td>ページの骨格、各セクション、フォーム、カードを置く器</td>
+            <td>「どんな部品があるか」を定義する土台</td>
+          </tr>
+          <tr>
+            <td>CSS</td>
+            <td>配色、レイアウト、カード、モーダル、レスポンシブ表示</td>
+            <td>「見た目」と「配置」を決める層</td>
+          </tr>
+          <tr>
+            <td>JavaScript</td>
+            <td>翻訳、絞り込み、ソート、描画、保存、画像出力、初期化</td>
+            <td>「何が起きるか」を決める層</td>
+          </tr>
+          <tr>
+            <td>Node.js</td>
+            <td>英語ページの事前生成、英語フォールバックの検査、PDF出力補助</td>
+            <td>公開前にファイルを整える裏方</td>
+          </tr>
+          <tr>
+            <td>GitHub Actions</td>
+            <td>push / pull request 時に英語ページの品質チェックを実行</td>
+            <td>壊れていないかを自動で見る仕組み</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="grid-2" style="margin-top: 12px;">
+        <div class="card">
+          <h3>この構成の特徴</h3>
+          <ul>
+            <li>フレームワーク依存が薄く、ファイルの役割が直接的</li>
+            <li>ビルドの責務が小さく、静的ホスティングしやすい</li>
+            <li>データと UI の関係が追いやすい</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>読むときの注意</h3>
+          <ul>
+            <li><code>main.js</code> は大きい 1 ファイルなので、上から全部読むと疲れやすい</li>
+            <li>処理順ではなく「翻訳」「フィルタ」「Tier」など役割単位で読む方が楽</li>
+            <li>まずは関数名を見るだけでも構造がかなり分かる</li>
+          </ul>
+        </div>
+      </div>
+      <div class="note good" style="margin-top: 12px;">
+        <strong>初心者向け一言まとめ:</strong>
+        このリポジトリは「難しいフレームワークを覚えないと読めない」タイプではありません。
+        その代わり、JavaScript が 1 ファイルに多く集まっているので、役割で分けて理解するのがコツです。
+      </div>
+    </section>
+
+    <section class="avoid-break">
+      <p class="chapter-label">Chapter 3</p>
+      <h2>フォルダとファイルの役割</h2>
+      <div class="tree">/
+├─ index.html                … 元になるHTML
+├─ data.js                   … キャラ / ラケット / コート / Tips / Tier関連データ
+├─ css/
+│  └─ style.css              … サイト全体の見た目
+├─ js/
+│  └─ main.js                … 画面表示・検索・保存・翻訳・初期化
+├─ scripts/
+│  ├─ prerender.mjs          … 英語ページと各ルートHTMLを生成
+│  ├─ check-en-fallbacks.mjs … 英語ページに日本語が残っていないか検査
+│  └─ export-repository-guide-pdf.mjs … この資料のPDF出力
+├─ en/                       … 生成済み英語ページ
+├─ faq/ characters/ rackets/ courts/ techniques/ tier/
+│                            … 生成済みの各ルートHTML
+├─ assets/                   … 画像素材
+├─ robots.txt / sitemap.xml  … 公開サイト向け補助ファイル
+└─ .github/workflows/        … 自動チェック設定</div>
+      <table>
+        <thead>
+          <tr>
+            <th>場所</th>
+            <th>役割</th>
+            <th>見に行くタイミング</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>data.js</code></td>
+            <td>サイトに載せる実データを持つ</td>
+            <td>内容を直したいとき</td>
+          </tr>
+          <tr>
+            <td><code>js/main.js</code></td>
+            <td>検索、ソート、描画、保存、翻訳など画面の動作を持つ</td>
+            <td>挙動を直したいとき</td>
+          </tr>
+          <tr>
+            <td><code>css/style.css</code></td>
+            <td>見た目とレイアウトを持つ</td>
+            <td>デザインを直したいとき</td>
+          </tr>
+          <tr>
+            <td><code>scripts/</code></td>
+            <td>公開前の生成・検査を行う</td>
+            <td>ビルドや運用を理解したいとき</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="grid-3" style="margin-top: 12px;">
+        <div class="card">
+          <h3>まず読む順 1</h3>
+          <p><strong>data.js</strong> を見て、どんなデータ型があるか把握する。</p>
+        </div>
+        <div class="card">
+          <h3>まず読む順 2</h3>
+          <p><strong>main.js の関数名一覧</strong>を見て、何をしているファイルかを掴む。</p>
+        </div>
+        <div class="card">
+          <h3>まず読む順 3</h3>
+          <p><strong>prerender.mjs</strong> を見て、生成済みページの意味を理解する。</p>
+        </div>
+      </div>
+      <div class="note good" style="margin-top: 12px;">
+        <strong>初心者向け一言まとめ:</strong>
+        「どのファイルを触れば何が変わるか」を先に覚えると、コードを全部読まなくてもかなり動けます。
+      </div>
+    </section>
+
+    <section class="page-break avoid-break">
+      <p class="chapter-label">Chapter 4</p>
+      <h2>ページがどう作られているか</h2>
+      <div class="flow">
+        <div class="flow-step">
+          <strong>1. index.html</strong><br />
+          共通の土台となるページ骨格を持つ
+        </div>
+        <div class="arrow">→</div>
+        <div class="flow-step">
+          <strong>2. js/main.js</strong><br />
+          各セクションの中身を描画し、操作に反応する
+        </div>
+        <div class="arrow">→</div>
+        <div class="flow-step">
+          <strong>3. scripts/prerender.mjs</strong><br />
+          ルート別HTMLと英語ページを事前生成する
+        </div>
+      </div>
+      <div class="flow-grid" style="margin-top: 12px;">
+        <div class="flow-card">
+          <h3>ブラウザで起きること</h3>
+          <ul>
+            <li><code>main.js</code> が <code>data.js</code> の配列を読み込む</li>
+            <li>現在の言語に応じて文言を切り替える</li>
+            <li>検索条件や並び順に応じてカードを再描画する</li>
+            <li>お気に入りや Tier を <code>localStorage</code> に保存する</li>
+          </ul>
+        </div>
+        <div class="flow-card">
+          <h3>公開前に起きること</h3>
+          <ul>
+            <li><code>prerender.mjs</code> が各ルート用の HTML を書き出す</li>
+            <li>SEO タグや英語用リンクを埋め込む</li>
+            <li><code>check-en-fallbacks.mjs</code> が英語ページの残留日本語を検査する</li>
+            <li>GitHub Actions がこのチェックを自動実行する</li>
+          </ul>
+        </div>
+      </div>
+      <div class="card" style="margin-top: 12px;">
+        <h3>生成済みディレクトリの意味</h3>
+        <p>
+          <code>/faq/</code> や <code>/characters/</code> などのディレクトリは、
+          別プロジェクトではなく <strong>同じテンプレートから出力された静的HTML</strong> です。
+          つまり「ページが多い」のではなく「同じサイトをルート別に出力している」と考えると整理しやすいです。
+        </p>
+      </div>
+      <div class="note good" style="margin-top: 12px;">
+        <strong>初心者向け一言まとめ:</strong>
+        実際に編集する中心は少数のファイルです。見えている HTML ディレクトリが多くても、
+        元をたどると「土台HTML + JS + データ + 生成スクリプト」に集約されます。
+      </div>
+    </section>
+
+    <section class="avoid-break">
+      <p class="chapter-label">Chapter 5</p>
+      <h2>データの流れ</h2>
+      <div class="flow">
+        <div class="flow-step">
+          <strong>data.js</strong><br />
+          配列としてデータを保持
+        </div>
+        <div class="arrow">→</div>
+        <div class="flow-step">
+          <strong>getFiltered*</strong><br />
+          検索・絞り込み条件で対象を減らす
+        </div>
+        <div class="arrow">→</div>
+        <div class="flow-step">
+          <strong>render*</strong><br />
+          DOM を組み立てて画面に表示
+        </div>
+        <div class="arrow">→</div>
+        <div class="flow-step">
+          <strong>ユーザー操作</strong><br />
+          条件変更で再度描画
+        </div>
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th>やりたいこと</th>
+            <th>主に触る場所</th>
+            <th>理由</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>キャラ説明文を直す</td>
+            <td><code>data.js</code></td>
+            <td>表示元のテキストがそこにあるから</td>
+          </tr>
+          <tr>
+            <td>検索条件を増やす</td>
+            <td><code>js/main.js</code></td>
+            <td>フィルタ処理と描画処理がそこにあるから</td>
+          </tr>
+          <tr>
+            <td>カードの見た目を直す</td>
+            <td><code>css/style.css</code></td>
+            <td>UI の装飾は CSS が担当しているから</td>
+          </tr>
+          <tr>
+            <td>英語ページ出力を変える</td>
+            <td><code>scripts/prerender.mjs</code></td>
+            <td>生成時の差し替え処理がそこにあるから</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="grid-2" style="margin-top: 12px;">
+        <div class="card">
+          <h3>重要な発想</h3>
+          <p>
+            このサイトは「データを画面に流し込む」構成です。
+            だから、まずデータがどう書かれているかを見ると、UI の意味も理解しやすくなります。
+          </p>
+        </div>
+        <div class="card">
+          <h3>初心者が混乱しやすい点</h3>
+          <p>
+            HTML に全ての内容が直書きされているわけではありません。
+            実際には JavaScript がカードを作って挿入している部分が多いです。
+          </p>
+        </div>
+      </div>
+      <div class="note good" style="margin-top: 12px;">
+        <strong>初心者向け一言まとめ:</strong>
+        「表示内容を直したいなら data.js」「動きを直したいなら main.js」「見た目を直したいなら style.css」と覚えると迷いにくいです。
+      </div>
+    </section>
+
+    <section class="page-break avoid-break">
+      <p class="chapter-label">Chapter 6</p>
+      <h2>JavaScript は何をしているか</h2>
+      <div class="grid-2">
+        <div class="card">
+          <h3>1. 翻訳と言語切替</h3>
+          <p><code>translations</code>、<code>t()</code>、<code>localizeValue()</code> が中心。</p>
+          <p>日本語と英語の文言を持ち、現在の言語に合わせて取り出します。</p>
+        </div>
+        <div class="card">
+          <h3>2. フィルタと検索</h3>
+          <p><code>getFilteredCharacters()</code>、<code>getFilteredRackets()</code>、<code>getFilteredCourts()</code> が中心。</p>
+          <p>フォームの値を読み取り、配列を絞り込んでいます。</p>
+        </div>
+        <div class="card">
+          <h3>3. カード生成と描画</h3>
+          <p><code>createCharacterCard()</code>、<code>createRacketCard()</code>、<code>createCourtCard()</code> と <code>render*</code> 群が担当。</p>
+          <p>表示要素を組み立てて DOM に差し込みます。</p>
+        </div>
+        <div class="card">
+          <h3>4. 保存</h3>
+          <p><code>loadFavoriteSet()</code>、<code>saveFavoriteSet()</code>、<code>loadTierBoards()</code>、<code>saveTierBoards()</code> が中心。</p>
+          <p>お気に入りや Tier 編集結果を <code>localStorage</code> に残します。</p>
+        </div>
+        <div class="card">
+          <h3>5. 画像出力</h3>
+          <p><code>buildTierBoardCanvas()</code>、<code>exportTierBoardAsImage()</code> が担当。</p>
+          <p>Tier 表を Canvas 化し、画像として保存・共有できるようにしています。</p>
+        </div>
+        <div class="card">
+          <h3>6. SEO と構造化データ</h3>
+          <p><code>buildFaqStructuredData()</code>、<code>updateStructuredData()</code> が中心。</p>
+          <p>FAQ や一覧情報を検索エンジン向けの構造化データとして出力します。</p>
+        </div>
+      </div>
+      <div class="card" style="margin-top: 12px;">
+        <h3>初期化の流れ</h3>
+        <div class="flow">
+          <div class="flow-step">
+            <strong>applyStaticTranslations()</strong><br />
+            固定文言を現在言語に合わせる
+          </div>
+          <div class="arrow">→</div>
+          <div class="flow-step">
+            <strong>renderCharacters / Rackets / Courts / Tips</strong><br />
+            各一覧を描画する
+          </div>
+          <div class="arrow">→</div>
+          <div class="flow-step">
+            <strong>renderAllTierBoards()</strong><br />
+            Tier 関連 UI を初期化する
+          </div>
+          <div class="arrow">→</div>
+          <div class="flow-step">
+            <strong>updateStructuredData()</strong><br />
+            SEO 向け情報も更新する
+          </div>
+        </div>
+      </div>
+      <div class="card" style="margin-top: 12px;">
+        <h3>main.js の読み方</h3>
+        <ol>
+          <li>関数名だけざっと見る</li>
+          <li><code>getFiltered*</code> と <code>render*</code> の対応を見る</li>
+          <li>保存系と Tier 系を分けて読む</li>
+          <li>最後に <code>applyLocale()</code> とイベント登録を見る</li>
+        </ol>
+      </div>
+      <div class="note good" style="margin-top: 12px;">
+        <strong>初心者向け一言まとめ:</strong>
+        <code>main.js</code> を全部理解する必要はありません。
+        「入力を受ける」「表示を作る」「保存する」の 3 種類に分けるだけで、かなり読めるようになります。
+      </div>
+    </section>
+
+    <section class="avoid-break">
+      <p class="chapter-label">Chapter 7</p>
+      <h2>英語対応とビルド</h2>
+      <div class="flow">
+        <div class="flow-step">
+          <strong>翻訳データ</strong><br />
+          <code>main.js</code> 内の <code>translations</code> に文言を保持
+        </div>
+        <div class="arrow">→</div>
+        <div class="flow-step">
+          <strong>prerender</strong><br />
+          ルート別HTMLと <code>/en</code> 以下の英語ページを生成
+        </div>
+        <div class="arrow">→</div>
+        <div class="flow-step">
+          <strong>check</strong><br />
+          英語ページに日本語フォールバックが残っていないか確認
+        </div>
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th>要素</th>
+            <th>何をしているか</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>scripts/prerender.mjs</code></td>
+            <td>各ルートの HTML を生成し、SEO タグ、alternate、英語リンクなどを差し込む</td>
+          </tr>
+          <tr>
+            <td><code>scripts/check-en-fallbacks.mjs</code></td>
+            <td>英語HTMLの中に日本語が残っていないか、必須の <code>data-i18n</code> 属性があるかを見る</td>
+          </tr>
+          <tr>
+            <td><code>.github/workflows/check-en-fallbacks.yml</code></td>
+            <td>push / pull request のたびにこのチェックを自動実行する</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="card" style="margin-top: 12px;">
+        <h3>よく使うコマンド</h3>
+        <div class="code">npm run build
+npm run check
+npm run docs:repo-guide:pdf</div>
+      </div>
+      <div class="note good" style="margin-top: 12px;">
+        <strong>初心者向け一言まとめ:</strong>
+        このリポジトリの「ビルド」は複雑なJS変換ではなく、
+        主に「静的ページを整えて書き出す作業」と「英語ページの品質確認」です。
+      </div>
+    </section>
+
+    <section class="page-break avoid-break">
+      <p class="chapter-label">Chapter 8</p>
+      <h2>このリポジトリで学べること</h2>
+      <div class="grid-3">
+        <div class="card">
+          <h3>静的サイト構築</h3>
+          <p>サーバーアプリを使わなくても、十分に実用的な参照サイトを作れる例です。</p>
+        </div>
+        <div class="card">
+          <h3>配列データ管理</h3>
+          <p>コンテンツを配列で持ち、それを一覧 UI に流し込む考え方を学べます。</p>
+        </div>
+        <div class="card">
+          <h3>DOM操作</h3>
+          <p>フレームワークなしでカードやモーダルを描画・更新する実装を読めます。</p>
+        </div>
+        <div class="card">
+          <h3>ローカライズ</h3>
+          <p>1つのサイトを日本語/英語で使い分ける基本設計を学べます。</p>
+        </div>
+        <div class="card">
+          <h3>事前生成</h3>
+          <p>静的サイトでもビルド時にページや SEO 情報を生成できることが分かります。</p>
+        </div>
+        <div class="card">
+          <h3>簡単な CI</h3>
+          <p>GitHub Actions で、壊れやすいポイントを自動で確認する考え方を学べます。</p>
+        </div>
+      </div>
+      <div class="card" style="margin-top: 12px;">
+        <h3>JS 初心者ならこの順で読む</h3>
+        <ol>
+          <li><code>data.js</code> でデータの形を見る</li>
+          <li><code>main.js</code> の関数名一覧を見る</li>
+          <li><code>getFiltered*</code> と <code>render*</code> を読む</li>
+          <li>お気に入り保存と Tier 保存を見る</li>
+          <li><code>prerender.mjs</code> でビルドの意味を理解する</li>
+        </ol>
+      </div>
+      <div class="card" style="margin-top: 12px;">
+        <h3>この資料を読んだあとにできるようになりたいこと</h3>
+        <ul>
+          <li>このサイトが「データ・表示・生成」の 3 層でできていると説明できる</li>
+          <li>修正したい内容に応じて、どのファイルを触るべきか判断できる</li>
+          <li><code>data.js</code> と <code>main.js</code> の役割差を言える</li>
+          <li>英語ページ生成と自動チェックの流れを 1 段落で説明できる</li>
+        </ul>
+      </div>
+      <div class="note good" style="margin-top: 12px;">
+        <strong>初心者向け一言まとめ:</strong>
+        このリポジトリは、JavaScript の実用コードを学ぶ題材としてかなり良いです。
+        理由は、UI・データ・保存・多言語・ビルドが 1 つの題材にまとまっているからです。
+      </div>
+    </section>
+
+    <section class="avoid-break">
+      <p class="chapter-label">Appendix</p>
+      <h2>要約メモ</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>質問</th>
+            <th>短い答え</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>これは何のリポジトリか</td>
+            <td>Mario Tennis Fever の攻略・参照用静的サイト</td>
+          </tr>
+          <tr>
+            <td>どの言語で作られているか</td>
+            <td>HTML / CSS / JavaScript、補助に Node.js</td>
+          </tr>
+          <tr>
+            <td>一番重要なファイルは何か</td>
+            <td><code>data.js</code>、<code>js/main.js</code>、<code>scripts/prerender.mjs</code></td>
+          </tr>
+          <tr>
+            <td>JS は主に何をしているか</td>
+            <td>翻訳、絞り込み、描画、保存、画像出力、初期化</td>
+          </tr>
+          <tr>
+            <td>ビルドは主に何をするか</td>
+            <td>静的HTML生成と英語ページの品質確認</td>
+          </tr>
+        </tbody>
+      </table>
+      <p class="footer">Generated for local study and repository handoff.</p>
+    </section>
+  </main>
+</body>
+</html>

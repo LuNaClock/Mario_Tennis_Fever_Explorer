@@ -5,6 +5,7 @@
     "prerender": "node scripts/prerender.mjs",
     "build": "npm run prerender",
     "check:en-fallbacks": "node scripts/check-en-fallbacks.mjs",
-    "check": "npm run check:en-fallbacks"
+    "check": "npm run check:en-fallbacks",
+    "docs:repo-guide:pdf": "node scripts/export-repository-guide-pdf.mjs"
   }
 }
