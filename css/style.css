@@ -1387,6 +1387,130 @@ img {
   line-height: 1.6;
 }
 
+.section--beginner-videos {
+  padding-top: 10px;
+}
+
+.beginner-videos__locale-note {
+  margin: 0 0 16px;
+}
+
+.beginner-video-categories {
+  display: grid;
+  gap: 14px;
+}
+
+.beginner-video-category {
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: rgba(8, 24, 38, 0.7);
+  padding: 14px;
+}
+
+.beginner-video-category__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.beginner-video-category__title {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.beginner-video-category__toggle {
+  border: 1px solid rgba(79, 195, 255, 0.24);
+  background: rgba(10, 30, 48, 0.88);
+  color: var(--accent);
+  border-radius: 999px;
+  padding: 8px 12px;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.beginner-video-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+  align-items: start;
+}
+
+.beginner-video-card {
+  display: block;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: rgba(7, 22, 36, 0.82);
+  padding: 0;
+  overflow: hidden;
+  text-align: left;
+  color: inherit;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.beginner-video-card:hover,
+.beginner-video-card:focus-visible {
+  border-color: rgba(79, 195, 255, 0.55);
+  box-shadow: 0 0 0 1px rgba(79, 195, 255, 0.18);
+}
+
+.beginner-video-card__thumbnail-wrap {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  background: rgba(5, 14, 24, 0.96);
+}
+
+.beginner-video-card__thumbnail {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.beginner-video-card__play {
+  position: absolute;
+  left: 12px;
+  bottom: 12px;
+  border-radius: 999px;
+  padding: 6px 10px;
+  background: rgba(7, 22, 36, 0.88);
+  color: var(--text);
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.beginner-video-card__body {
+  display: grid;
+  gap: 8px;
+  padding: 12px;
+}
+
+.beginner-video-card__locale-badge {
+  display: inline-flex;
+  width: fit-content;
+  padding: 3px 8px;
+  border-radius: 999px;
+  background: rgba(255, 209, 102, 0.14);
+  color: #ffd166;
+  font-size: 0.74rem;
+  font-weight: 700;
+}
+
+.beginner-video-card__title {
+  margin: 0;
+  font-size: 0.98rem;
+}
+
+.beginner-video-card__summary {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.6;
+  font-size: 0.9rem;
+}
+
 .info-panel {
   padding: 16px 18px;
   border: 1px solid var(--border);
@@ -1758,6 +1882,20 @@ img {
     line-height: 1.55;
   }
 
+  .beginner-video-category__header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .beginner-video-category__toggle {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .beginner-video-grid {
+    grid-template-columns: 1fr;
+  }
+
   .tier-reciprocal-links {
     margin-top: 8px;
   }
@@ -1836,6 +1974,12 @@ img {
   .mobile-bottom-nav__item.is-active {
     background: var(--accent-soft);
     color: var(--accent);
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1100px) {
+  .beginner-video-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 

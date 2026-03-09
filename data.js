@@ -721,6 +721,87 @@ export const courts = [
 ];
 
 
+// TODO: Replace the sample YouTube IDs below with the actual beginner guide videos.
+export const beginnerVideos = [
+  {
+    id: "basics-movement-positioning",
+    category: "basics",
+    title: { ja: "基本的な動き 1", en: "Fundamentals 1" },
+    summary: {
+      ja: "基本的な動きの導入として確認したい動画です。",
+      en: "A starter video for core movement fundamentals.",
+    },
+    youtubeId: "Xx18P7IXRdw",
+    priority: 1,
+  },
+  {
+    id: "basics-shot-buttons",
+    category: "basics",
+    title: { ja: "基本的な動き 2", en: "Fundamentals 2" },
+    summary: {
+      ja: "基本的な動きの流れを続けて確認するための動画です。",
+      en: "A follow-up video for core movement fundamentals.",
+    },
+    youtubeId: "lsA7tc-Kghs",
+    priority: 2,
+  },
+  {
+    id: "basics-weak-strong-shots",
+    category: "basics",
+    title: { ja: "基本的な動き 3", en: "Fundamentals 3" },
+    summary: {
+      ja: "基本的な動きを段階的に見直すための動画です。",
+      en: "A progression video for reviewing the basics.",
+    },
+    youtubeId: "LJjrToCb5zE",
+    priority: 3,
+  },
+  {
+    id: "basics-serve-return",
+    category: "basics",
+    title: { ja: "基本的な動き 4", en: "Fundamentals 4" },
+    summary: {
+      ja: "基本的な動きの理解を深めるための補足動画です。",
+      en: "An additional video to reinforce movement basics.",
+    },
+    youtubeId: "SbIyeWvssvM",
+    priority: 4,
+  },
+  {
+    id: "basics-rally-control",
+    category: "basics",
+    title: { ja: "基本的な動き 5", en: "Fundamentals 5" },
+    summary: {
+      ja: "基本的な動きカテゴリの仕上げとして見ておきたい動画です。",
+      en: "A final fundamentals video for this category.",
+    },
+    youtubeId: "vPcg0BZUamo",
+    priority: 5,
+  },
+  {
+    id: "fever-when-to-use",
+    category: "fever-shot",
+    title: { ja: "フィーバーショット", en: "Fever Shot" },
+    summary: {
+      ja: "フィーバーショットの基本をまとめて確認するための動画です。",
+      en: "A video covering the basics of Fever Shots.",
+    },
+    youtubeId: "EloV8zaN3VI",
+    priority: 1,
+  },
+  {
+    id: "advanced-score-patterns",
+    category: "advanced",
+    title: { ja: "応用編", en: "Advanced" },
+    summary: {
+      ja: "基礎の次に見たい応用内容をまとめた動画です。",
+      en: "An advanced follow-up video after the basics.",
+    },
+    youtubeId: "BM6YcvMlL4Y",
+    priority: 1,
+  },
+];
+
 export const tips = [
   {
     title: { ja: "フィーバーゲージについて", en: "About the Fever Gauge" },

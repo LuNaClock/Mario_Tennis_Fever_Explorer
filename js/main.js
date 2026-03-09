@@ -1,4 +1,4 @@
-import { characters, rackets, courts, tips, changelog, tierPurposeRecommendations, officialTierSections } from "../data.js";
+import { characters, rackets, courts, beginnerVideos, changelog, tierPurposeRecommendations, officialTierSections, tips } from "../data.js";
 
 const translations = {
   ja: {
@@ -179,6 +179,47 @@ const translations = {
   },
 };
 
+translations.ja.section.beginnerVideos = {
+  title: "お役立ち動画",
+  description: "最初に見ておくと理解しやすい動画を、基礎・フィーバー・応用の順でまとめています。",
+};
+translations.en.section.beginnerVideos = {
+  title: "Helpful Videos",
+  description: "Starter-friendly video picks grouped into fundamentals, Fever Shots, and follow-up practice.",
+};
+
+translations.ja.beginnerVideos = {
+  categories: {
+    basics: "基礎的な動き",
+    "fever-shot": "フィーバーショット",
+    advanced: "応用編",
+  },
+  more: "もっと見る",
+  less: "閉じる",
+  play: "再生する",
+  close: "閉じる",
+  japaneseNotice: "※ 英語ページでも、掲載している動画自体は日本語です。",
+  japaneseBadge: "日本語動画",
+};
+translations.en.beginnerVideos = {
+  categories: {
+    basics: "Fundamentals",
+    "fever-shot": "Fever Shots",
+    advanced: "Advanced",
+  },
+  more: "Show more",
+  less: "Show less",
+  play: "Play",
+  close: "Close",
+  japaneseNotice: "These videos are in Japanese.",
+  japaneseBadge: "Japanese video",
+};
+
+translations.ja.faq.videoGuideLink = "お役立ち動画もあわせて見る ->";
+translations.en.faq.videoGuideLink = "See helpful videos ->";
+translations.ja.beginnerVideos.play = "YouTubeで見る";
+translations.en.beginnerVideos.play = "Open on YouTube";
+
 const localeSelect = document.getElementById("locale-select");
 const browserLanguages = Array.isArray(navigator.languages) && navigator.languages.length
   ? navigator.languages
@@ -294,6 +335,8 @@ const courtCount = document.getElementById("court-count");
 const tipsList = document.getElementById("tips-list");
 const tipsCount = document.getElementById("tips-count");
 const tipsEmpty = document.getElementById("tips-empty");
+const beginnerVideoCategories = document.getElementById("beginner-video-categories");
+const beginnerVideosNotice = document.getElementById("beginner-videos-notice");
 
 const characterTypeFilter = document.getElementById("character-type-filter");
 const characterSpecialFilter = document.getElementById("character-special-filter");
@@ -330,6 +373,11 @@ const FAVORITE_STORAGE_KEYS = {
   rackets: "favoriteRackets",
   courts: "favoriteCourts",
 };
+
+const beginnerVideoCategoryOrder = ["basics", "fever-shot", "advanced"];
+const beginnerVideoExpandedCategories = new Set();
+const beginnerVideoVisibleCount = 3;
+let beginnerVideoMetadata = {};
 
 function loadFavoriteSet(key) {
   try {
@@ -2453,6 +2501,150 @@ function renderTips() {
   tipsEmpty.hidden = filteredTips.length !== 0;
 }
 
+function getBeginnerVideosByCategory(categoryKey) {
+  return beginnerVideos
+    .filter((video) => video.category === categoryKey)
+    .sort((a, b) => a.priority - b.priority || getBeginnerVideoTitle(a).localeCompare(getBeginnerVideoTitle(b), currentLocale));
+}
+
+function buildBeginnerVideoThumbnailUrl(youtubeId) {
+  return `https://img.youtube.com/vi/${youtubeId}/hqdefault.jpg`;
+}
+
+function buildBeginnerVideoWatchUrl(youtubeId) {
+  return `https://www.youtube.com/watch?v=${youtubeId}`;
+}
+
+function getBeginnerVideoTitle(video) {
+  const metadataTitle = beginnerVideoMetadata?.[video.id]?.title;
+  if (metadataTitle) return metadataTitle;
+  return localizeValue(video.title) || video.id;
+}
+
+function getBeginnerVideoSummary(video) {
+  const metadataSummary = beginnerVideoMetadata?.[video.id]?.summary;
+  if (metadataSummary) return metadataSummary;
+  return localizeValue(video.summary) || "";
+}
+
+async function loadBeginnerVideoMetadata() {
+  try {
+    const response = await fetch(assetUrl("assets/beginner-video-metadata.json"), { cache: "no-store" });
+    if (!response.ok) {
+      return;
+    }
+    const payload = await response.json();
+    if (!payload || typeof payload !== "object") {
+      return;
+    }
+    beginnerVideoMetadata = payload;
+    renderBeginnerVideos();
+  } catch {
+    // Ignore metadata fetch failures and keep fallback labels.
+  }
+}
+
+function createBeginnerVideoCard(video) {
+  const card = document.createElement("a");
+  card.className = "beginner-video-card";
+  card.href = buildBeginnerVideoWatchUrl(video.youtubeId);
+  card.target = "_blank";
+  card.rel = "noopener noreferrer";
+
+  const thumbnailWrap = document.createElement("div");
+  thumbnailWrap.className = "beginner-video-card__thumbnail-wrap";
+
+  const thumbnail = document.createElement("img");
+  thumbnail.className = "beginner-video-card__thumbnail";
+  thumbnail.src = buildBeginnerVideoThumbnailUrl(video.youtubeId);
+  thumbnail.alt = getBeginnerVideoTitle(video);
+  thumbnail.loading = "lazy";
+
+  const playBadge = document.createElement("span");
+  playBadge.className = "beginner-video-card__play";
+  playBadge.textContent = t("beginnerVideos.play");
+
+  thumbnailWrap.append(thumbnail, playBadge);
+
+  const body = document.createElement("div");
+  body.className = "beginner-video-card__body";
+
+  if (currentLocale === "en") {
+    const localeBadge = document.createElement("span");
+    localeBadge.className = "beginner-video-card__locale-badge";
+    localeBadge.textContent = t("beginnerVideos.japaneseBadge");
+    body.append(localeBadge);
+  }
+
+  const title = document.createElement("h4");
+  title.className = "beginner-video-card__title";
+  title.textContent = getBeginnerVideoTitle(video);
+
+  const summary = document.createElement("p");
+  summary.className = "beginner-video-card__summary";
+  summary.textContent = getBeginnerVideoSummary(video);
+
+  body.append(title, summary);
+  card.append(thumbnailWrap, body);
+
+  return card;
+}
+
+function renderBeginnerVideos() {
+  if (!beginnerVideoCategories) return;
+
+  beginnerVideosNotice.hidden = currentLocale !== "en";
+
+  const fragment = document.createDocumentFragment();
+
+  beginnerVideoCategoryOrder.forEach((categoryKey) => {
+    const videos = getBeginnerVideosByCategory(categoryKey);
+    if (!videos.length) return;
+
+    const section = document.createElement("section");
+    section.className = "beginner-video-category";
+
+    const header = document.createElement("div");
+    header.className = "beginner-video-category__header";
+
+    const title = document.createElement("h3");
+    title.className = "beginner-video-category__title";
+    title.textContent = t(`beginnerVideos.categories.${categoryKey}`);
+
+    header.append(title);
+
+    if (videos.length > beginnerVideoVisibleCount) {
+      const toggle = document.createElement("button");
+      toggle.type = "button";
+      toggle.className = "beginner-video-category__toggle";
+      const expanded = beginnerVideoExpandedCategories.has(categoryKey);
+      toggle.setAttribute("aria-expanded", expanded ? "true" : "false");
+      toggle.textContent = t(expanded ? "beginnerVideos.less" : "beginnerVideos.more");
+      toggle.addEventListener("click", () => {
+        if (beginnerVideoExpandedCategories.has(categoryKey)) {
+          beginnerVideoExpandedCategories.delete(categoryKey);
+        } else {
+          beginnerVideoExpandedCategories.add(categoryKey);
+        }
+        renderBeginnerVideos();
+      });
+      header.append(toggle);
+    }
+
+    const grid = document.createElement("div");
+    grid.className = "beginner-video-grid";
+
+    const expanded = beginnerVideoExpandedCategories.has(categoryKey);
+    const visibleVideos = expanded ? videos : videos.slice(0, beginnerVideoVisibleCount);
+    visibleVideos.forEach((video) => grid.append(createBeginnerVideoCard(video)));
+
+    section.append(header, grid);
+    fragment.append(section);
+  });
+
+  beginnerVideoCategories.replaceChildren(fragment);
+}
+
 function renderRackets() {
   const filteredRackets = getFilteredRackets();
   const sorted = sortItems(filteredRackets, "name", racketOrder.value);
@@ -3749,6 +3941,7 @@ function applyLocale() {
   renderCourts();
   syncCourtPredictionLocale();
   renderTips();
+  renderBeginnerVideos();
   renderAllTierBoards();
   renderTierPurposeRecommendations();
   renderOfficialTierSections();
@@ -3816,6 +4009,7 @@ if (localeSelect) {
 
 syncLocaleSelect();
 applyLocale();
+void loadBeginnerVideoMetadata();
 window.addEventListener("resize", debounce(syncTierPurposeReasonHeights, 120));
 setupSectionCollapse();
 setupAccordionRowSync();

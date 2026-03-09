@@ -2,7 +2,8 @@
   "name": "mario-tennis-fever-explorer",
   "private": true,
   "scripts": {
-    "prerender": "node scripts/prerender.mjs",
+    "generate:beginner-video-metadata": "node scripts/generate-beginner-video-metadata.mjs",
+    "prerender": "node scripts/generate-beginner-video-metadata.mjs && node scripts/prerender.mjs",
     "build": "npm run prerender",
     "check:en-fallbacks": "node scripts/check-en-fallbacks.mjs",
     "check": "npm run check:en-fallbacks",
