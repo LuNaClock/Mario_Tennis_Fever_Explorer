@@ -15,7 +15,7 @@ const translations = {
     sort: { name: "名前", ballSpeed: "たまあし", bounce: "バウンド" },
     order: { game: "ゲーム内順", asc: "昇順", desc: "降順", high: "数値が高い順", low: "数値が低い順" },
     common: { any: "指定なし", yes: "あり", no: "なし", wip: "仮実装", count: "{{count}}件表示", showCount: "{{count}}件を表示", searchHit: "検索ヒット: {{count}}件", noCharacter: "一致するキャラクターが見つかりません。", noRacket: "一致するラケットが見つかりません。", noTip: "一致するTipsが見つかりません。", language: "言語" },
-    accordion: { special: "特殊能力", gameText: "ゲーム内テキスト", details: "全項目を見る", video: "動画で効果を確認する" },
+    accordion: { special: "特殊能力", gameText: "ゲーム内テキスト", details: "全項目を見る", unlockCondition: "ラケットの開放条件", video: "動画で効果を確認する" },
     video: { unavailable: "動画は準備中です。", checking: "動画の有無を確認中です…", openYoutube: "YouTubeで開く" },
     chip: { type: "タイプ", search: "検索", special: "特殊能力", favorites: "お気に入り", sort: "ソート", order: "並び順", category: "種類", timing: "効果タイミング", yes: "あり", no: "なし" },
     aria: { sectionNav: "セクションナビゲーション", mobileNav: "モバイルセクションナビ", close: "閉じる", showChangelog: "更新履歴を表示", collapseNav: "セクションナビをたたむ", expandNav: "セクションナビを表示", contactX: "Xアカウント @Lu_Na_Clock", officialTierTabs: "固定Tier項目" },
@@ -103,7 +103,7 @@ const translations = {
     sort: { name: "Name", ballSpeed: "Ball Speed", bounce: "Bounce" },
     order: { game: "Game order", asc: "A → Z", desc: "Z → A", high: "High → Low", low: "Low → High" },
     common: { any: "Any", yes: "Yes", no: "None", wip: "Work in progress", count: "{{count}} shown", showCount: "Show {{count}}", searchHit: "Search hits: {{count}}", noCharacter: "No matching characters found.", noRacket: "No matching rackets found.", noTip: "No matching tips found.", language: "Language" },
-    accordion: { special: "Special", gameText: "In-game text", details: "Show all", video: "Watch effect video" },
+    accordion: { special: "Special", gameText: "In-game text", details: "Show all", unlockCondition: "Unlock condition", video: "Watch effect video" },
     video: { unavailable: "Video is coming soon.", checking: "Checking video availability…", openYoutube: "Open on YouTube" },
     chip: { type: "Type", search: "Search", special: "Special", favorites: "Favorites", sort: "Sort", order: "Order", category: "Category", timing: "Effect timing", yes: "Yes", no: "No" },
     aria: { sectionNav: "Section navigation", mobileNav: "Mobile section navigation", close: "Close", showChangelog: "Show changelog", collapseNav: "Collapse section nav", expandNav: "Expand section nav", contactX: "X account @Lu_Na_Clock", officialTierTabs: "Fixed tier categories" },
@@ -219,6 +219,38 @@ translations.ja.faq.videoGuideLink = "お役立ち動画もあわせて見る ->
 translations.en.faq.videoGuideLink = "See helpful videos ->";
 translations.ja.beginnerVideos.play = "YouTubeで見る";
 translations.en.beginnerVideos.play = "Open on YouTube";
+
+const DEFAULT_RACKET_UNLOCK_CONDITION = {
+  ja: "初期状態で開放済み",
+  en: "Unlocked from the start.",
+};
+
+const RACKET_UNLOCK_CONDITIONS = new Map([
+  ["マメキノコラケット", { ja: "ストーリーでキッズクラスクリア", en: "Clear Story Mode Kids Class." }],
+  ["ファイアフラワーラケット", { ja: "ストーリーでEランククリア", en: "Clear Story Mode Rank E." }],
+  ["アイスフラワーラケット", { ja: "ストーリーでDランククリア", en: "Clear Story Mode Rank D." }],
+  ["スターラケット", { ja: "ストーリーでCランククリア", en: "Clear Story Mode Rank C." }],
+  ["たつまきラケット", { ja: "ストーリーでBランククリア", en: "Clear Story Mode Rank B." }],
+  ["サンボラケット", { ja: "ストーリーでAランククリア", en: "Clear Story Mode Rank A." }],
+  ["シャドウラケット", { ja: "テニスの試合を2回プレイする", en: "Play 2 tennis matches." }],
+  ["ファイアバーラケット", { ja: "テニスの試合を4回プレイする", en: "Play 4 tennis matches." }],
+  ["フリーズラケット", { ja: "テニスの試合を6回プレイする", en: "Play 6 tennis matches." }],
+  ["ビリキューラケット", { ja: "テニスの試合を8回プレイする", en: "Play 8 tennis matches." }],
+  ["カーブラケット", { ja: "テニスの試合を12回プレイする", en: "Play 12 tennis matches." }],
+  ["インクラケット", { ja: "テニスの試合を14回プレイする", en: "Play 14 tennis matches." }],
+  ["バナナラケット", { ja: "テニスの試合を16回プレイする", en: "Play 16 tennis matches." }],
+  ["かざんラケット", { ja: "テニスの試合を18回プレイする", en: "Play 18 tennis matches." }],
+  ["おばけラケット", { ja: "テニスの試合を22回プレイする", en: "Play 22 tennis matches." }],
+  ["ダッシュラケット", { ja: "テニスの試合を24回プレイする", en: "Play 24 tennis matches." }],
+  ["ブルラケット", { ja: "テニスの試合を26回プレイする", en: "Play 26 tennis matches." }],
+  ["トゲゾーラケット", { ja: "テニスの試合を28回プレイする", en: "Play 28 tennis matches." }],
+  ["マジックラケット", { ja: "テニスの試合を32回プレイする", en: "Play 32 tennis matches." }],
+  ["キラーラケット", { ja: "テニスの試合を34回プレイする", en: "Play 34 tennis matches." }],
+  ["ドッスンラケット", { ja: "テニスの試合を36回プレイする", en: "Play 36 tennis matches." }],
+  ["オシダシーラケット", { ja: "テニスの試合を38回プレイする", en: "Play 38 tennis matches." }],
+  ["メタルラケット", { ja: "テニスの試合を42回プレイする", en: "Play 42 tennis matches." }],
+  ["ハテナケット", { ja: "このラケット以外のすべてのラケットを入手する", en: "Obtain every racket except this one." }],
+]);
 
 const localeSelect = document.getElementById("locale-select");
 const browserLanguages = Array.isArray(navigator.languages) && navigator.languages.length
@@ -1851,12 +1883,12 @@ function createRacketCard(racket) {
   effect.textContent = localizeValue(racket.effect);
 
   const text = createAccordion(t("accordion.gameText"), localizeValue(racket.text));
-  const video = createRacketVideoAccordion(racket);
+  const unlockCondition = createRacketUnlockAccordion(racket);
 
   if (mobileView) {
     const detailsBody = document.createElement("div");
     detailsBody.className = "card-details";
-    detailsBody.append(effect, text, video);
+    detailsBody.append(effect, text, unlockCondition);
 
     const details = createAccordion(t("accordion.details"), detailsBody);
     details.classList.add("accordion--details");
@@ -1864,155 +1896,17 @@ function createRacketCard(racket) {
     return card;
   }
 
-  card.append(header, effect, text, video);
+  card.append(header, effect, text, unlockCondition);
   return card;
 }
 
-function createRacketVideoAccordion(racket) {
-  const videoData = getRacketVideoData(racket);
-  const content = createRacketVideoContent(videoData);
-  const accordion = createAccordion(t("accordion.video"), content);
-
-  if (videoData?.src && videoData.type !== "youtube") {
-    const toggle = accordion.querySelector(".accordion-toggle");
-    const panel = accordion.querySelector(".accordion-panel");
-    const initializeOnExpand = () => {
-      if (Boolean(panel?.hidden)) {
-        initializeRacketVideoContent(content, videoData);
-      }
-    };
-
-    toggle?.addEventListener("click", initializeOnExpand, { capture: true });
-    toggle?.addEventListener("accordion-sync-state", (event) => {
-      if (event?.detail?.expanded) {
-        initializeRacketVideoContent(content, videoData);
-      }
-    });
-  }
-
-  return accordion;
+function getRacketUnlockCondition(racket) {
+  const racketName = rawValue(racket.name);
+  return localizeValue(RACKET_UNLOCK_CONDITIONS.get(racketName) || DEFAULT_RACKET_UNLOCK_CONDITION);
 }
 
-const checkedVideoSourceCache = new Map();
-
-function getRacketVideoData(racket) {
-  if (racket.video?.src) {
-    return racket.video;
-  }
-
-  const fallbackSrc = buildRacketMoviePath(racket.image);
-  if (!fallbackSrc) {
-    return null;
-  }
-
-  return {
-    src: fallbackSrc,
-    mime: "video/mp4",
-  };
-}
-
-function buildRacketMoviePath(imagePath) {
-  if (!imagePath) {
-    return "";
-  }
-
-  const fileName = imagePath.split("/").pop() || "";
-  const movieBaseName = fileName.replace(/_racket\.[a-zA-Z0-9]+$/, "");
-  if (!movieBaseName) {
-    return "";
-  }
-
-  return assetUrl(`assets/racket_movies/${movieBaseName}.mp4`);
-}
-
-async function doesVideoSourceExist(src) {
-  if (!src) {
-    return false;
-  }
-
-  if (checkedVideoSourceCache.has(src)) {
-    return checkedVideoSourceCache.get(src);
-  }
-
-  const existsPromise = fetch(src, { method: "HEAD" })
-    .then((response) => response.ok)
-    .catch(() => false);
-
-  checkedVideoSourceCache.set(src, existsPromise);
-  return existsPromise;
-}
-
-function createUnavailableVideoMessage() {
-  const unavailable = document.createElement("p");
-  unavailable.className = "racket-video__unavailable";
-  unavailable.textContent = t("video.unavailable");
-  return unavailable;
-}
-
-function createRacketVideoContent(videoData) {
-  const wrapper = document.createElement("div");
-  wrapper.className = "racket-video";
-
-  if (!videoData?.src) {
-    wrapper.dataset.videoState = "unavailable";
-    wrapper.append(createUnavailableVideoMessage());
-    return wrapper;
-  }
-
-  if (videoData.type === "youtube") {
-    const link = document.createElement("a");
-    link.className = "racket-video__link";
-    link.href = videoData.src;
-    link.target = "_blank";
-    link.rel = "noopener noreferrer";
-    link.textContent = t("video.openYoutube");
-    wrapper.dataset.videoState = "ready";
-    wrapper.append(link);
-    return wrapper;
-  }
-
-  wrapper.dataset.videoState = "idle";
-  return wrapper;
-}
-
-function initializeRacketVideoContent(wrapper, videoData) {
-  const state = wrapper.dataset.videoState;
-  if (state === "loading" || state === "ready" || state === "unavailable") {
-    return;
-  }
-
-  wrapper.dataset.videoState = "loading";
-
-  const checking = document.createElement("p");
-  checking.className = "racket-video__unavailable";
-  checking.textContent = t("video.checking");
-  wrapper.replaceChildren(checking);
-
-  void doesVideoSourceExist(videoData.src).then((exists) => {
-    wrapper.replaceChildren();
-    if (!exists) {
-      wrapper.dataset.videoState = "unavailable";
-      wrapper.append(createUnavailableVideoMessage());
-      return;
-    }
-
-    const video = document.createElement("video");
-    video.className = "racket-video__player";
-    video.controls = true;
-    video.muted = true;
-    video.preload = "none";
-    if (videoData.poster) {
-      video.poster = videoData.poster;
-    }
-
-    const source = document.createElement("source");
-    source.src = videoData.src;
-    source.type = videoData.mime || "video/mp4";
-    video.append(source);
-
-    wrapper.dataset.videoState = "ready";
-    wrapper.append(video);
-  });
+function createRacketUnlockAccordion(racket) {
+  return createAccordion(t("accordion.unlockCondition"), getRacketUnlockCondition(racket));
 }
 
 function sortItems(items, key, order) {
