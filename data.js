@@ -339,7 +339,7 @@
       image: "assets/racket_icons/sunder_racket.webp",
     },
     {
-      name: { ja: "ヒューゴーラケット", en: "Ty-Foo Racket" },
+      name: { ja: "ビューゴーラケット", en: "Ty-Foo Racket" },
       category: "妨害",
       timing: "バウンド時",
       effect: { ja: "動く竜巻を設置。触れると小時間操作不能+ダメージ。ボールが当たると軌道変化。", en: "Places a moving tornado. Touching it briefly disables controls and deals damage. If the ball hits it, the ball’s trajectory changes." },
