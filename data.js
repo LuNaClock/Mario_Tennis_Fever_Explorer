@@ -892,7 +892,13 @@ export const tips = [
     category: "実践知識",
     verification: "検証済",
     content: { ja: "スマッシュに対して、トップボレーを行うと弾速が上がったボレーが出来る。状況によっては決め球になるので、覚えておくと有用", en: "Returning a smash with a topspin volley produces a faster volley. In the right situation it can be a put-away shot, so it is useful to remember."},
-  },];
+  },
+  {
+  title: { ja: "ラケットを持ち替えた場合の挙動", en: "Smash return with a topspin volley" },
+  category: "実践知識",
+  verification: "検証済",
+  content: { ja: "ラケットの効果発動中にラケットを持ち替えた場合、自己強化同士のラケットだと効果が切れる。自己強化中にハテナラケットに持ち変えた場合にも消える", en: ""},
+}];
 
   /** @type {{ date: { ja: string; en: string }; items: { ja: string; en: string }[] }[]} */
   export const changelog = [
