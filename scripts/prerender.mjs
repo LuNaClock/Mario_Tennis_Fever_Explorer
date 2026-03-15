@@ -3,8 +3,17 @@ import path from "node:path";
 
 const root = process.cwd();
 const indexPath = path.join(root, "index.html");
+const dataPath = path.join(root, "data.js");
 const mainJsPath = path.join(root, "js", "main.js");
 const siteOrigin = "https://mariotennis-fever-explorer.ai-lifebook.com";
+
+function loadSiteData() {
+  const source = fs.readFileSync(dataPath, "utf8");
+  const transformed = source.replaceAll("export const ", "const ");
+  return new Function(`${transformed}\nreturn { characters, rackets, courts };`)();
+}
+
+const { characters, rackets, courts } = loadSiteData();
 
 const routes = [
   {
@@ -41,6 +50,19 @@ const localizedRoutes = [
 ];
 
 const allRoutes = [...routes, ...localizedRoutes];
+const CRITICAL_IMAGE_LIMIT = 4;
+
+function toPublicAssetPath(src) {
+  if (!src) return "";
+  if (src.startsWith("/")) return src;
+  return `/${src.replace(/^\.?\//, "")}`;
+}
+
+const criticalImageManifest = {
+  characters: characters.slice(0, CRITICAL_IMAGE_LIMIT).map((item) => toPublicAssetPath(item.image)),
+  rackets: rackets.slice(0, CRITICAL_IMAGE_LIMIT).map((item) => toPublicAssetPath(item.image)),
+  courts: courts.slice(0, CRITICAL_IMAGE_LIMIT).map((item) => toPublicAssetPath(item.image)),
+};
 
 function mapAlternatePath(routePath) {
   if (routePath === "/") return { ja: "/", en: "/en/" };
@@ -83,10 +105,22 @@ function buildSeoTags(route) {
   ].join("\n");
 }
 
+function buildPreloadTags(route) {
+  const imagePaths = criticalImageManifest[route.sectionId];
+  if (!Array.isArray(imagePaths) || imagePaths.length === 0) {
+    return "";
+  }
+
+  return imagePaths
+    .map((imagePath) => `  <link rel="preload" as="image" href="${escapeHtml(imagePath)}" />`)
+    .join("\n");
+}
+
 function stripSeoTags(html) {
   return html
     .replace(/^\s*<title>[\s\S]*?<\/title>\n?/m, "")
     .replace(/^\s*<meta name="description"[^\n]*\n?/m, "")
+    .replace(/^\s*<link rel="preload" as="image"[^\n]*\n?/gm, "")
     .replace(/^\s*<link rel="canonical"[^\n]*\n?/gm, "")
     .replace(/^\s*<link rel="alternate"[^\n]*\n?/gm, "")
     .replace(/^\s*<meta property="og:[^\n]*\n?/gm, "");
@@ -106,7 +140,8 @@ function localizeInternalLinks(html, localePrefix = "") {
 
 function renderHtml(template, route) {
   const withoutSeo = stripSeoTags(template);
-  const withSeo = withoutSeo.replace(/(<meta name="viewport"[^\n]*\n)/, `$1${buildSeoTags(route)}\n`);
+  const headTags = [buildSeoTags(route), buildPreloadTags(route)].filter(Boolean).join("\n");
+  const withSeo = withoutSeo.replace(/(<meta name="viewport"[^\n]*\n)/, `$1${headTags}\n`);
   const withLang = route.lang ? withSeo.replace(/<html lang="[^"]+">/, `<html lang="${route.lang}">`) : withSeo;
   const withBodySection = withLang.replace(/<body[^>]*>/, `<body data-route-section="${route.sectionId}">`);
   const localePrefix = route.localePathPrefix || "";

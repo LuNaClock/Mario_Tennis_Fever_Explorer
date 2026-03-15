@@ -410,6 +410,32 @@ const beginnerVideoCategoryOrder = ["basics", "fever-shot", "advanced"];
 const beginnerVideoExpandedCategories = new Set();
 const beginnerVideoVisibleCount = 3;
 let beginnerVideoMetadata = {};
+let beginnerVideoMetadataRequest = null;
+let hasSetupCourtPrediction = false;
+
+const PRIORITY_IMAGE_LIMIT = 4;
+const deferredRenderableSectionIds = new Set(["beginner-videos", "characters", "rackets", "courts", "techniques", "tier"]);
+const renderedSections = new Set();
+const prioritySectionIds = new Set();
+
+function getImagePriorityConfig(sectionId, itemIndex) {
+  const isPriority = prioritySectionIds.has(sectionId) && itemIndex < PRIORITY_IMAGE_LIMIT;
+  return {
+    decoding: isPriority ? "sync" : "async",
+    fetchPriority: isPriority ? "high" : "auto",
+    loading: isPriority ? "eager" : "lazy",
+  };
+}
+
+function applyImagePriority(image, sectionId, itemIndex) {
+  if (!image) return;
+  const config = getImagePriorityConfig(sectionId, itemIndex);
+  image.loading = config.loading;
+  image.decoding = config.decoding;
+  if (config.fetchPriority === "high") {
+    image.fetchPriority = config.fetchPriority;
+  }
+}
 
 function loadFavoriteSet(key) {
   try {
@@ -453,6 +479,9 @@ const sectionNavSections = Array.from(
       .filter(Boolean)
   )
 );
+const deferredRenderSections = Array.from(document.querySelectorAll("main .section[id]"))
+  .filter((section) => deferredRenderableSectionIds.has(section.id));
+let deferredSectionObserver = null;
 
 const sectionRouteBaseMap = {
   faq: "/faq/",
@@ -489,6 +518,19 @@ const ROUTE_SECTION_MAP = Object.entries(SECTION_ROUTE_MAP).reduce((acc, [sectio
 
   return acc;
 }, {});
+
+function markSectionPriority(sectionId) {
+  if (!sectionId) return;
+  prioritySectionIds.add(sectionId);
+}
+
+function unobserveDeferredSection(sectionId) {
+  if (!deferredSectionObserver) return;
+  const section = deferredRenderSections.find((target) => target.id === sectionId);
+  if (section) {
+    deferredSectionObserver.unobserve(section);
+  }
+}
 
 const characterIndexMap = new Map(characters.map((character, index) => [character, index]));
 const tierTabButtons = Array.from(document.querySelectorAll(".tier-tab"));
@@ -1445,7 +1487,7 @@ function createCourtMeterRow(label, value, symbol, meterClassName) {
   return row;
 }
 
-function createCourtCard(court) {
+function createCourtCard(court, itemIndex) {
   const card = document.createElement("article");
   card.className = "card";
 
@@ -1465,6 +1507,7 @@ function createCourtCard(court) {
   image.className = "card-image card-image--court";
   image.src = assetUrl(court.image);
   image.alt = `${localizeValue(court.name)} ${t("meta.iconSuffix")}`;
+  applyImagePriority(image, "courts", itemIndex);
 
   const media = document.createElement("div");
   media.className = "card-media";
@@ -1571,7 +1614,7 @@ function renderCourts() {
   const sortedCourts = sortCourts(filteredCourts, courtSort?.value || "name", courtOrder?.value || "game");
 
   const fragment = document.createDocumentFragment();
-  sortedCourts.forEach((court) => fragment.append(createCourtCard(court)));
+  sortedCourts.forEach((court, index) => fragment.append(createCourtCard(court, index)));
   courtList.replaceChildren(fragment);
   courtCount.textContent = t("common.count", { count: sortedCourts.length });
   updateApplyButtonCount("court-filter-apply", sortedCourts.length);
@@ -1727,7 +1770,7 @@ function createFavoriteButton(itemType, isFavorite, onToggle) {
   return button;
 }
 
-function createCharacterCard(character) {
+function createCharacterCard(character, itemIndex) {
   const card = document.createElement("article");
   card.className = "card";
   const characterIndex = characterIndexMap.get(character);
@@ -1752,8 +1795,8 @@ function createCharacterCard(character) {
   const image = document.createElement("img");
   image.src = assetUrl(character.image);
   image.alt = `${localizeValue(character.name)}${t("meta.iconSuffix")}`;
-  image.loading = "lazy";
   image.className = "card-image";
+  applyImagePriority(image, "characters", itemIndex);
 
   const media = document.createElement("div");
   media.className = "card-media";
@@ -1822,7 +1865,7 @@ function createCharacterCard(character) {
   return card;
 }
 
-function createRacketCard(racket) {
+function createRacketCard(racket, itemIndex) {
   const card = document.createElement("article");
   card.className = "card";
   const racketIndex = racketIndexMap.get(racket);
@@ -1850,9 +1893,8 @@ function createRacketCard(racket) {
   const image = document.createElement("img");
   image.src = assetUrl(racket.image);
   image.alt = `${localizeValue(racket.name)}${t("meta.iconSuffix")}`;
-  image.loading = "lazy";
-  image.decoding = "async";
   image.className = "card-image card-image--racket";
+  applyImagePriority(image, "rackets", itemIndex);
   image.onerror = () => {
     image.src = "data:image/svg+xml," + encodeURIComponent(
       '<svg xmlns="http://www.w3.org/2000/svg" width="240" height="240" viewBox="0 0 240 240"><rect width="240" height="240" rx="24" fill="#2a3544"/><text x="120" y="130" text-anchor="middle" font-family="sans-serif" font-size="14" fill="#8899aa">No Image</text></svg>'
@@ -2313,7 +2355,7 @@ function renderCharacters() {
   const sorted = sortItems(filteredCharacters, sortKey, orderValue);
 
   const fragment = document.createDocumentFragment();
-  sorted.forEach((character) => fragment.append(createCharacterCard(character)));
+  sorted.forEach((character, index) => fragment.append(createCharacterCard(character, index)));
   characterList.replaceChildren(fragment);
 
   characterCount.textContent = t("common.count", { count: sorted.length });
@@ -2423,7 +2465,7 @@ function getBeginnerVideoSummary(video) {
 
 async function loadBeginnerVideoMetadata() {
   try {
-    const response = await fetch(assetUrl("assets/beginner-video-metadata.json"), { cache: "no-store" });
+    const response = await fetch(assetUrl("assets/beginner-video-metadata.json"));
     if (!response.ok) {
       return;
     }
@@ -2436,6 +2478,14 @@ async function loadBeginnerVideoMetadata() {
   } catch {
     // Ignore metadata fetch failures and keep fallback labels.
   }
+}
+
+function ensureBeginnerVideoMetadataLoaded() {
+  if (beginnerVideoMetadataRequest) {
+    return beginnerVideoMetadataRequest;
+  }
+  beginnerVideoMetadataRequest = loadBeginnerVideoMetadata();
+  return beginnerVideoMetadataRequest;
 }
 
 function createBeginnerVideoCard(video) {
@@ -2544,7 +2594,7 @@ function renderRackets() {
   const sorted = sortItems(filteredRackets, "name", racketOrder.value);
 
   const fragment = document.createDocumentFragment();
-  sorted.forEach((racket) => fragment.append(createRacketCard(racket)));
+  sorted.forEach((racket, index) => fragment.append(createRacketCard(racket, index)));
   racketList.replaceChildren(fragment);
 
   racketCount.textContent = t("common.count", { count: sorted.length });
@@ -2854,8 +2904,15 @@ function activateSectionNav(sectionId) {
 
 function getSectionIdFromUrl() {
   const hashSectionId = window.location.hash?.replace("#", "");
-  if (hashSectionId && SECTION_ROUTE_MAP[hashSectionId]) {
-    return hashSectionId;
+  if (hashSectionId) {
+    if (SECTION_ROUTE_MAP[hashSectionId]) {
+      return hashSectionId;
+    }
+
+    const hashSection = document.getElementById(hashSectionId);
+    if (hashSection?.classList.contains("section")) {
+      return hashSectionId;
+    }
   }
 
   const routeSectionId = ROUTE_SECTION_MAP[normalizeSectionPath(window.location.pathname)]
@@ -2910,6 +2967,7 @@ function setupSectionNav() {
         return;
       }
 
+      ensureSectionRendered(targetId, { prioritizeImages: true });
       target.scrollIntoView({ behavior: "smooth", block: "start" });
       syncUrlToSection(targetId, "push");
       activateSectionNav(targetId);
@@ -2956,6 +3014,7 @@ function setupSectionNav() {
     const nextSection = document.getElementById(nextSectionId);
     if (!nextSection) return;
 
+    ensureSectionRendered(nextSectionId, { prioritizeImages: true });
     nextSection.scrollIntoView({ behavior: "smooth", block: "start" });
     activateSectionNav(nextSectionId);
   });
@@ -3712,6 +3771,112 @@ function renderAllTierBoards() {
   renderTierBoard("rackets");
 }
 
+function ensureCourtPredictionSetup() {
+  if (hasSetupCourtPrediction) return;
+  setupCourtPrediction();
+  hasSetupCourtPrediction = true;
+}
+
+const sectionRenderers = {
+  "beginner-videos": () => {
+    renderBeginnerVideos();
+    void ensureBeginnerVideoMetadataLoaded();
+  },
+  characters: () => {
+    renderCharacters();
+  },
+  courts: () => {
+    ensureCourtPredictionSetup();
+    renderCourts();
+    syncCourtPredictionLocale();
+  },
+  faq: () => {},
+  rackets: () => {
+    renderRackets();
+  },
+  techniques: () => {
+    renderTips();
+  },
+  tier: () => {
+    renderAllTierBoards();
+    renderTierPurposeRecommendations();
+    renderOfficialTierSections();
+  },
+};
+
+function renderSection(sectionId) {
+  const render = sectionRenderers[sectionId];
+  if (!render) return;
+  render();
+}
+
+function renderSectionOnce(sectionId) {
+  if (!sectionId || renderedSections.has(sectionId)) {
+    return;
+  }
+  renderSection(sectionId);
+  renderedSections.add(sectionId);
+  unobserveDeferredSection(sectionId);
+}
+
+function rerenderRenderedSections() {
+  renderedSections.forEach((sectionId) => {
+    renderSection(sectionId);
+  });
+}
+
+function ensureSectionRendered(sectionId, options = {}) {
+  if (!sectionId) return;
+  if (options.prioritizeImages) {
+    markSectionPriority(sectionId);
+  }
+  if (!deferredRenderableSectionIds.has(sectionId)) {
+    renderedSections.add(sectionId);
+    return;
+  }
+  renderSectionOnce(sectionId);
+}
+
+function setupDeferredSectionRendering() {
+  if (!deferredRenderSections.length) {
+    return;
+  }
+
+  const initialSectionId = getSectionIdFromUrl() || document.body.dataset.routeSection || sectionNavSections[0]?.id;
+  ensureSectionRendered(initialSectionId, { prioritizeImages: true });
+
+  const hashSectionId = window.location.hash?.replace("#", "");
+  if (hashSectionId && deferredRenderableSectionIds.has(hashSectionId)) {
+    ensureSectionRendered(hashSectionId, { prioritizeImages: true });
+  }
+
+  if (!("IntersectionObserver" in window)) {
+    deferredRenderSections.forEach((section) => ensureSectionRendered(section.id));
+    return;
+  }
+
+  deferredSectionObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) {
+          return;
+        }
+        ensureSectionRendered(entry.target.id);
+      });
+    },
+    {
+      rootMargin: "300px 0px",
+      threshold: 0.01,
+    }
+  );
+
+  deferredRenderSections.forEach((section) => {
+    if (!renderedSections.has(section.id)) {
+      deferredSectionObserver.observe(section);
+    }
+  });
+}
+
 
 
 function applyStaticTranslations() {
@@ -3830,15 +3995,8 @@ function applyLocale() {
     renderChangelogContent(changelogContent);
   }
   syncCharacterOrderAvailability();
-  renderCharacters();
-  renderRackets();
-  renderCourts();
-  syncCourtPredictionLocale();
-  renderTips();
-  renderBeginnerVideos();
-  renderAllTierBoards();
-  renderTierPurposeRecommendations();
-  renderOfficialTierSections();
+  syncCourtOrderAvailability();
+  rerenderRenderedSections();
   updateStructuredData();
 }
 function bindChangeListeners(elements, handler) {
@@ -3880,7 +4038,6 @@ setupTierRuleManagers();
 setupTierShareActions();
 setupTierModalActions();
 setupOfficialTierTabs();
-setupCourtPrediction();
 
 if (localeSelect) {
   localeSelect.addEventListener("change", (event) => {
@@ -3903,11 +4060,10 @@ if (localeSelect) {
 
 syncLocaleSelect();
 applyLocale();
-void loadBeginnerVideoMetadata();
 window.addEventListener("resize", debounce(syncTierPurposeReasonHeights, 120));
 setupSectionCollapse();
 setupAccordionRowSync();
 setupSectionNavVisibility();
 setupSectionNavToggle();
+setupDeferredSectionRendering();
 setupSectionNav();
-renderAllTierBoards();
