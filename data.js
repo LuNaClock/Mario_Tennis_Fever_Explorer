@@ -325,7 +325,7 @@
     {
       name: { ja: "アイスラケット", en: "Ice Racket" },
       category: "妨害",
-      timing: "即時",
+      timing: "バウンド時",
       effect: { ja: "氷の床を設置。踏んでいる間滑って切り替えししづらくなる。強打をすると短時間行動不可", en: "Creates an icy floor. While on it, you slide and struggle to change direction. Using a power shot briefly prevents actions." },
       text: { ja: "バウンドした場所に氷の床を作る。氷で足が滑って強いショットを打ち返すと転ぶ", en: "It creates an icy floor at the bounce point. You slip on the ice, and trying to return a strong shot can make you fall." },
       image: "assets/racket_icons/ice_racket.webp",
@@ -539,10 +539,10 @@
       image: "assets/racket_icons/metal_racket.webp",
     },
     {
-        name: { ja: "ハテナケット", en: "Question Racket" },
+        name: { ja: "ハテナラケット", en: "Question Racket" },
         category: "妨害",
         timing: "その他",
-        effect: { ja: "使用する度、全ラケットからランダムで効果が発生", en: "Each use triggers a random effect from the full racket pool." },
+        effect: { ja: "使用する度、全てのラケット(マイラケットとハテナラケットを除く)からランダムで効果が発生", en: "Each use triggers a random effect from every Fever Racket except My Racket and Question Racket." },
         text: { ja: "ショットするまでどの効果が出るか分からない。使うたびに効果がかわる", en: "You won’t know which effect appears until you shoot. The effect changes every time you use it." },
         image: "assets/racket_icons/hatena_racket.webp",
       },

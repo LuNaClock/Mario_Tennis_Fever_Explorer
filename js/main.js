@@ -249,7 +249,7 @@ const RACKET_UNLOCK_CONDITIONS = new Map([
   ["ドッスンラケット", { ja: "テニスの試合を36回プレイする", en: "Play 36 tennis matches." }],
   ["オシダシーラケット", { ja: "テニスの試合を38回プレイする", en: "Play 38 tennis matches." }],
   ["メタルラケット", { ja: "テニスの試合を42回プレイする", en: "Play 42 tennis matches." }],
-  ["ハテナケット", { ja: "このラケット以外のすべてのラケットを入手する", en: "Obtain every racket except this one." }],
+  ["ハテナラケット", { ja: "このラケット以外のすべてのラケットを入手する", en: "Obtain every racket except this one." }],
 ]);
 
 const localeSelect = document.getElementById("locale-select");
