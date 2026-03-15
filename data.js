@@ -846,16 +846,16 @@ export const tips = [
     content: { ja: "マメキノコで小さくなった後でも、スターラケットやメタルラケットを発動すると元の大きさに戻る", en: "Even after shrinking from Mini Mushroom, activating Star Racket or Metal Racket restores your normal size." },
   },
   {
-    title: { ja: "サンボへの無敵対策", en: "Invincible counter to Pokey" },
+    title: { ja: "サンボやドッスンの無敵での対策", en: "Invincible counter to Pokey" },
     category: "実践知識",
     verification: "検証済",
-    content: { ja: "スターラケットやメタルラケットの無敵状態であれば、サンボに触れても倒すことができる", en: "While invincible with Star Racket or Metal Racket, you can defeat Pokey by touching it." },
+    content: { ja: "スターラケットやメタルラケットの無敵状態であれば、サンボやドッスン本体に触れても倒すことができる", en: "While invincible with Star Racket or Metal Racket, you can defeat Pokey by touching it." },
   },
   {
     title: { ja: "おばけラケットと誘導ギミック", en: "Boo Racket and tracking gimmicks" },
     category: "実践知識",
     verification: "検証済",
-    content: { ja: "おばけラケット中は、マジックラケットやトゲゾーラケットのような自分を狙うギミックが追尾しなくなる。ただし、直接ふれると効果自体は受ける", en: "While Boo Racket is active, tracking gimmicks such as Magic Racket and Spiny Racket stop homing in on you. However, you still suffer the effect if you touch them directly." },
+    content: { ja: "おばけ中は、マジックラケットやトゲゾーラケットのような自キャラを狙うギミックが追尾しなくなる。ただし、直接触れると効果自体は受ける", en: "While Boo Racket is active, tracking gimmicks such as Magic Racket and Spiny Racket stop homing in on you. However, you still suffer the effect if you touch them directly." },
   },
   {
     title: { ja: "LATE条件", en: "LATE trigger conditions" },
@@ -864,7 +864,7 @@ export const tips = [
     content: { ja: "身体正面(ボディショット)判定でボールに触れると発生する。ただし相手の球速が速いと発生せず、サービスライン付近だとほぼ失敗する", en: "It triggers when the ball contacts the character's front-facing body-shot area. However, it will not trigger if the opponent's shot is too fast, and it almost always fails near the service line." },
   },
   {
-    title: { ja: "2ボタン強打", en: "2-button power shot" },
+    title: { ja: "2ボタンでの強打", en: "2-button power shot" },
     category: "実践知識",
     verification: "検証済",
     content: { ja: "1ボタンでのドロップ→トップ、または1ボタンでのロブ→スライスで、それぞれ強打が打てる。スマッシュへの咄嗟の反撃やダブルスでの前衛時に特に有効", en: "You can produce a power shot by inputting a 1-button drop followed by topspin, or a 1-button lob followed by slice. This is especially useful for quick counterattacks against smashes and when playing at the net in doubles." },
