@@ -399,6 +399,7 @@ const characterFavoriteFilter = document.getElementById("character-favorite-filt
 const racketFavoriteFilter = document.getElementById("racket-favorite-filter");
 const tipsCategoryFilter = document.getElementById("tips-category-filter");
 const tipsVerificationFilter = document.getElementById("tips-verification-filter");
+const tipsVerificationFilterField = tipsVerificationFilter?.closest(".filter");
 
 const FAVORITE_STORAGE_KEYS = {
   characters: "favoriteCharacters",
@@ -417,6 +418,18 @@ const PRIORITY_IMAGE_LIMIT = 4;
 const deferredRenderableSectionIds = new Set(["beginner-videos", "characters", "rackets", "courts", "techniques", "tier"]);
 const renderedSections = new Set();
 const prioritySectionIds = new Set();
+const FEATURED_TIP_COUNT = 3;
+const TIP_CATEGORY_ORDER = ["実践知識", "仕様"];
+const TIP_CATEGORY_CLASS_MAP = {
+  仕様: "spec",
+  実践知識: "practical",
+};
+const TIP_UI_COPY = {
+  featuredTitle: { ja: "注目Tips", en: "Featured Tips" },
+  featuredDescription: { ja: "先に押さえておきたい重要項目です。", en: "Important items to review first." },
+  listTitle: { ja: "カテゴリ別Tips一覧", en: "Browse Remaining Tips" },
+  listDescription: { ja: "残りのTipsをカテゴリごとに確認できます。", en: "Review the remaining tips grouped by topic." },
+};
 
 function getImagePriorityConfig(sectionId, itemIndex) {
   const isPriority = prioritySectionIds.has(sectionId) && itemIndex < PRIORITY_IMAGE_LIMIT;
@@ -2400,38 +2413,284 @@ function getFilteredTips() {
   });
 }
 
-function createTipCard(tip) {
+function getTipPriority(tip) {
+  return Number.isFinite(tip.priority) ? tip.priority : 0;
+}
+
+function getTipCategoryValue(tip) {
+  return rawValue(tip.category);
+}
+
+function getTipCategoryClass(tip) {
+  return TIP_CATEGORY_CLASS_MAP[getTipCategoryValue(tip)] || "neutral";
+}
+
+function compareTipsByPriority(a, b) {
+  return getTipPriority(b) - getTipPriority(a) || localizeValue(a.title).localeCompare(localizeValue(b.title), currentLocale);
+}
+
+function getTipCategoryRank(tip) {
+  const category = getTipCategoryValue(tip);
+  const index = TIP_CATEGORY_ORDER.indexOf(category);
+  return index === -1 ? TIP_CATEGORY_ORDER.length : index;
+}
+
+function compareTipsForList(a, b) {
+  return getTipCategoryRank(a) - getTipCategoryRank(b) || compareTipsByPriority(a, b);
+}
+
+function getTipSummaryText(tip) {
+  const content = localizeValue(tip.content)?.trim() || "";
+  if (!content) return "";
+
+  const delimiters = ["\u3002", "\uFF01", "\uFF1F", ".", "!", "?"];
+  const firstBreakIndex = delimiters
+    .map((delimiter) => content.indexOf(delimiter))
+    .filter((index) => index >= 0)
+    .sort((a, b) => a - b)[0];
+  const sentence = typeof firstBreakIndex === "number" ? content.slice(0, firstBreakIndex + 1).trim() : content;
+  if (sentence.length <= 90) {
+    return sentence;
+  }
+
+  return `${sentence.slice(0, 90).trim()}...`;
+}
+
+function splitTipContent(content) {
+  const normalized = (content || "").trim();
+  if (!normalized) {
+    return { lead: "", rest: "" };
+  }
+
+  const delimiters = ["\u3002", "\uFF01", "\uFF1F", ".", "!", "?"];
+  const firstBreakIndex = delimiters
+    .map((delimiter) => normalized.indexOf(delimiter))
+    .filter((index) => index >= 0)
+    .sort((a, b) => a - b)[0];
+
+  if (typeof firstBreakIndex !== "number") {
+    return { lead: normalized, rest: "" };
+  }
+
+  const lead = normalized.slice(0, firstBreakIndex + 1).trim();
+  const rest = normalized.slice(firstBreakIndex + 1).trim();
+  return { lead, rest };
+}
+
+function createTipSectionHeader(title, description, headingLevel = "h3") {
+  const header = document.createElement("div");
+  header.className = "tips-block-header";
+
+  const heading = document.createElement(headingLevel);
+  heading.className = "tips-block-header__title";
+  heading.textContent = title;
+  header.append(heading);
+
+  if (description) {
+    const copy = document.createElement("p");
+    copy.className = "tips-block-header__description";
+    copy.textContent = description;
+    header.append(copy);
+  }
+
+  return header;
+}
+
+function createTipCard(tip, { featured = false } = {}) {
   const card = document.createElement("article");
-  card.className = "tip-card";
+  const categoryClass = getTipCategoryClass(tip);
+  card.className = `tip-card tip-card--${categoryClass}${featured ? " tip-card--featured" : ""}`;
+  if (tip.id) {
+    card.dataset.tipId = tip.id;
+  }
+
+  const header = document.createElement("div");
+  header.className = "tip-card__header";
 
   const category = document.createElement("span");
   category.className = "tip-card__category";
-  category.textContent = t(`tipsCategory.${rawValue(tip.category)}`);
+  category.textContent = t(`tipsCategory.${getTipCategoryValue(tip)}`);
+  header.append(category);
+
+  const title = document.createElement("h4");
+  title.className = "tip-card__title";
+  title.textContent = localizeValue(tip.title);
+
+  const contentText = localizeValue(tip.content);
+  const featuredContent = featured ? splitTipContent(contentText) : { lead: "", rest: contentText };
+
+  const summary = document.createElement("p");
+  summary.className = "tip-card__summary";
+  summary.textContent = featuredContent.lead || getTipSummaryText(tip);
+
+  const text = document.createElement("p");
+  text.className = "tip-card__text";
+  text.textContent = featured ? (featuredContent.rest || "") : contentText;
+
+  const meta = document.createElement("div");
+  meta.className = "tip-card__meta";
 
   const verification = document.createElement("span");
   verification.className = "tip-card__verification";
   verification.textContent = t(`verification.${rawValue(tip.verification)}`);
+  meta.append(verification);
+
+  card.append(header, title);
+  if (featured && summary.textContent) {
+    card.append(summary);
+  }
+  if (text.textContent) {
+    card.append(text);
+  }
+  card.append(meta);
+  return card;
+}
+
+function createTipsFeaturedSection(featuredTips) {
+  if (!featuredTips.length) return null;
+
+  const section = document.createElement("section");
+  section.className = "tips-featured";
+  section.append(
+    createTipSectionHeader(
+      localizeValue(TIP_UI_COPY.featuredTitle),
+      localizeValue(TIP_UI_COPY.featuredDescription)
+    )
+  );
+
+  const grid = document.createElement("div");
+  grid.className = "tips-featured__grid";
+  featuredTips.forEach((tip) => grid.append(createTipCard(tip, { featured: true })));
+
+  section.append(grid);
+  return section;
+}
+
+function createTipsGroupSection(categoryKey, groupTips) {
+  if (!groupTips.length) return null;
+
+  const section = document.createElement("section");
+  section.className = "tips-group";
+
+  const header = document.createElement("div");
+  header.className = "tips-group__header";
 
   const title = document.createElement("h3");
-  title.className = "tip-card__title";
-  title.textContent = localizeValue(tip.title);
+  title.className = "tips-group__title";
+  title.textContent = t(`tipsCategory.${categoryKey}`);
 
-  const text = document.createElement("p");
-  text.className = "tip-card__text";
-  text.textContent = localizeValue(tip.content);
+  const count = document.createElement("span");
+  count.className = "tips-group__count";
+  count.textContent = String(groupTips.length);
 
-  card.append(category, verification, title, text);
-  return card;
+  header.append(title, count);
+
+  const grid = document.createElement("div");
+  grid.className = "tips-group__grid";
+  groupTips.forEach((tip) => grid.append(createTipCard(tip)));
+
+  section.append(header, grid);
+  return section;
+}
+
+function createTipsListSection(remainingTips) {
+  if (!remainingTips.length) return null;
+
+  const section = document.createElement("section");
+  section.className = "tips-groups";
+  section.append(
+    createTipSectionHeader(
+      localizeValue(TIP_UI_COPY.listTitle),
+      localizeValue(TIP_UI_COPY.listDescription)
+    )
+  );
+
+  const categories = [
+    ...TIP_CATEGORY_ORDER.filter((categoryKey) => remainingTips.some((tip) => getTipCategoryValue(tip) === categoryKey)),
+    ...[...new Set(remainingTips.map((tip) => getTipCategoryValue(tip)))]
+      .filter((categoryKey) => !TIP_CATEGORY_ORDER.includes(categoryKey))
+      .sort((a, b) => a.localeCompare(b, currentLocale)),
+  ];
+
+  categories.forEach((categoryKey) => {
+    const groupTips = remainingTips.filter((tip) => getTipCategoryValue(tip) === categoryKey);
+    const group = createTipsGroupSection(categoryKey, groupTips);
+    if (group) {
+      section.append(group);
+    }
+  });
+
+  return section;
+}
+
+function syncTipsVerificationFilterVisibility() {
+  if (!tipsVerificationFilter || !tipsVerificationFilterField) return;
+
+  const verificationValues = new Set(tips.map((tip) => rawValue(tip.verification)).filter(Boolean));
+  const shouldShow = verificationValues.size > 1;
+  tipsVerificationFilterField.hidden = !shouldShow;
+  tipsVerificationFilter.disabled = !shouldShow;
+
+  if (!shouldShow) {
+    tipsVerificationFilter.value = "all";
+  }
+}
+
+function syncTipsCategoryFilterOrder() {
+  if (!tipsCategoryFilter) return;
+
+  const allOption = tipsCategoryFilter.querySelector('option[value="all"]');
+  const categoryOptions = Array.from(tipsCategoryFilter.querySelectorAll("option"))
+    .filter((option) => option.value && option.value !== "all")
+    .sort((a, b) => {
+      const aRank = TIP_CATEGORY_ORDER.indexOf(a.value);
+      const bRank = TIP_CATEGORY_ORDER.indexOf(b.value);
+      const normalizedARank = aRank === -1 ? TIP_CATEGORY_ORDER.length : aRank;
+      const normalizedBRank = bRank === -1 ? TIP_CATEGORY_ORDER.length : bRank;
+      return normalizedARank - normalizedBRank || a.value.localeCompare(b.value, currentLocale);
+    });
+
+  if (allOption) {
+    tipsCategoryFilter.append(allOption);
+  }
+  categoryOptions.forEach((option) => tipsCategoryFilter.append(option));
 }
 
 function renderTips() {
   if (!tipsList || !tipsCount || !tipsEmpty) return;
 
-  const filteredTips = getFilteredTips();
+  syncTipsCategoryFilterOrder();
+  syncTipsVerificationFilterVisibility();
+
+  const filteredTips = getFilteredTips().slice().sort(compareTipsByPriority);
   const fragment = document.createDocumentFragment();
 
-  filteredTips.forEach((tip) => fragment.append(createTipCard(tip)));
+  if (!filteredTips.length) {
+    tipsList.replaceChildren();
+    tipsList.hidden = true;
+    tipsCount.textContent = t("common.count", { count: 0 });
+    tipsEmpty.hidden = false;
+    return;
+  }
+
+  const featuredTips = filteredTips.slice(0, FEATURED_TIP_COUNT);
+  const featuredIds = new Set(featuredTips.map((tip) => tip.id));
+  const remainingTips = filteredTips
+    .filter((tip) => !featuredIds.has(tip.id))
+    .sort(compareTipsForList);
+
+  const featuredSection = createTipsFeaturedSection(featuredTips);
+  const listSection = createTipsListSection(remainingTips);
+
+  if (featuredSection) {
+    fragment.append(featuredSection);
+  }
+  if (listSection) {
+    fragment.append(listSection);
+  }
+
   tipsList.replaceChildren(fragment);
+  tipsList.hidden = false;
 
   tipsCount.textContent = t("common.count", { count: filteredTips.length });
   tipsEmpty.hidden = filteredTips.length !== 0;
@@ -2862,8 +3121,11 @@ function setupSectionNavVisibility() {
       return;
     }
 
-    const triggerOffset = 120;
-    const shouldShow = faqSection.getBoundingClientRect().top <= triggerOffset;
+    const rootStyles = getComputedStyle(document.documentElement);
+    const scrollMargin = Number.parseFloat(rootStyles.getPropertyValue("--section-scroll-margin")) || 0;
+    const navOffset = Number.parseFloat(rootStyles.getPropertyValue("--section-nav-offset")) || 0;
+    const triggerOffset = Math.max(120, scrollMargin, nav.offsetHeight + navOffset);
+    const shouldShow = faqSection.getBoundingClientRect().top <= triggerOffset + 1;
     nav.classList.toggle("is-visible", shouldShow);
   };
 
@@ -2948,13 +3210,76 @@ function syncUrlToSection(sectionId, mode = "replace") {
   history.replaceState({ sectionId }, "", url);
 }
 
+function getDeferredSectionsBefore(sectionId) {
+  const targetIndex = deferredRenderSections.findIndex((section) => section.id === sectionId);
+  if (targetIndex <= 0) {
+    return [];
+  }
+  return deferredRenderSections.slice(0, targetIndex);
+}
+
+function waitForNextFrame() {
+  return new Promise((resolve) => {
+    window.requestAnimationFrame(() => resolve());
+  });
+}
+
+async function prepareSectionNavigation(sectionId, options = {}) {
+  if (!sectionId) return null;
+
+  const {
+    prioritizeImages = true,
+    includePrecedingDeferredSections = true,
+  } = options;
+
+  if (includePrecedingDeferredSections) {
+    getDeferredSectionsBefore(sectionId).forEach((section) => {
+      ensureSectionRendered(section.id);
+    });
+  }
+
+  ensureSectionRendered(sectionId, { prioritizeImages });
+  await waitForNextFrame();
+  await waitForNextFrame();
+
+  return document.getElementById(sectionId);
+}
+
+async function navigateToSection(sectionId, options = {}) {
+  const {
+    behavior = "smooth",
+    urlMode = null,
+    activateNav = true,
+    prioritizeImages = true,
+    includePrecedingDeferredSections = true,
+  } = options;
+
+  const target = await prepareSectionNavigation(sectionId, {
+    prioritizeImages,
+    includePrecedingDeferredSections,
+  });
+  if (!target) {
+    return;
+  }
+
+  target.scrollIntoView({ behavior, block: "start" });
+
+  if (urlMode) {
+    syncUrlToSection(sectionId, urlMode);
+  }
+
+  if (activateNav) {
+    activateSectionNav(sectionId);
+  }
+}
+
 function setupSectionNav() {
   if (!sectionNavItems.length || !sectionNavSections.length) {
     return;
   }
 
   sectionNavGroups.forEach((nav) => {
-    nav.addEventListener("click", (event) => {
+    nav.addEventListener("click", async (event) => {
       const link = event.target.closest("a[data-target]");
       if (!link || !nav.contains(link)) {
         return;
@@ -2962,15 +3287,7 @@ function setupSectionNav() {
 
       event.preventDefault();
       const targetId = link.dataset.target;
-      const target = document.getElementById(targetId);
-      if (!target) {
-        return;
-      }
-
-      ensureSectionRendered(targetId, { prioritizeImages: true });
-      target.scrollIntoView({ behavior: "smooth", block: "start" });
-      syncUrlToSection(targetId, "push");
-      activateSectionNav(targetId);
+      await navigateToSection(targetId, { behavior: "smooth", urlMode: "push" });
     });
   });
 
@@ -2993,30 +3310,19 @@ function setupSectionNav() {
   sectionNavSections.forEach((section) => observer.observe(section));
 
   const initialId = getSectionIdFromUrl() || sectionNavSections[0].id;
-  const initialSection = document.getElementById(initialId);
-  if (initialSection) {
-    initialSection.scrollIntoView({ block: "start" });
-  }
-
   const isRootFaqInitialRoute =
     (window.location.pathname === "/" || window.location.pathname === "/en/") &&
     !window.location.hash &&
     initialId === "faq";
 
-  if (!isRootFaqInitialRoute) {
-    syncUrlToSection(initialId, "replace");
-  }
+  void navigateToSection(initialId, {
+    behavior: "auto",
+    urlMode: isRootFaqInitialRoute ? null : "replace",
+  });
 
-  activateSectionNav(initialId);
-
-  window.addEventListener("popstate", () => {
+  window.addEventListener("popstate", async () => {
     const nextSectionId = getSectionIdFromUrl() || sectionNavSections[0].id;
-    const nextSection = document.getElementById(nextSectionId);
-    if (!nextSection) return;
-
-    ensureSectionRendered(nextSectionId, { prioritizeImages: true });
-    nextSection.scrollIntoView({ behavior: "smooth", block: "start" });
-    activateSectionNav(nextSectionId);
+    await navigateToSection(nextSectionId, { behavior: "smooth" });
   });
 }
 
