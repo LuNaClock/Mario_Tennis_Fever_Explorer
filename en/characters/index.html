@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />  <link rel="stylesheet" href="/css/style.css" />  <!-- Google tag (gtag.js) --><script async src="https://www.googletagmanager.com/gtag/js?id=G-TWSQ9VLNT5"></script><script>  window.dataLayer = window.dataLayer || [];  function gtag(){dataLayer.push(arguments);}  gtag('js', new Date());  gtag('config', 'G-TWSQ9VLNT5');</script></head><body data-route-section="characters">  <header class="site-header">    <div class="container">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />  <link rel="stylesheet" href="/css/style.css" />  <!-- Google tag (gtag.js) --><script async src="https://www.googletagmanager.com/gtag/js?id=G-TWSQ9VLNT5"></script><script>  window.dataLayer = window.dataLayer || [];  function gtag(){dataLayer.push(arguments);}  gtag('js', new Date());  gtag('config', 'G-TWSQ9VLNT5');</script></head><body data-route-section="characters">  <header class="site-header">    <div class="container">      <div class="site-header__top">        <h1 data-i18n="site.title">Mario Tennis Fever Explorer</h1>
   <title>Character List | Mario Tennis Fever Explorer</title>
   <meta name="description" content="A comparison page for all Mario Tennis Fever character types, key stats, and special abilities." />
   <link rel="canonical" href="https://mariotennis-fever-explorer.ai-lifebook.com/en/characters/" />
@@ -18,8 +18,6 @@
   <link rel="preload" as="image" href="/assets/character_icons/luigi.webp" />
   <link rel="preload" as="image" href="/assets/character_icons/peach.webp" />
   <link rel="preload" as="image" href="/assets/character_icons/daisy.webp" />
-      <div class="site-header__top">
-        <h1 data-i18n="site.title">Mario Tennis Fever Explorer</h1>
       </div>
       <label class="locale-switcher" for="locale-select">
         <span class="locale-switcher__label" data-i18n="site.language">Language</span>
@@ -406,13 +404,50 @@
 
         <div class="court-prediction" id="court-prediction" aria-live="polite">
           <h3 class="court-prediction__title" data-i18n="courtPrediction.title">Next Court Prediction (Beta)</h3>
-          <p class="court-prediction__description" data-i18n="courtPrediction.description">Shows likely next courts from the current court based on observed ranked-match rotations.</p>
+          <p class="court-prediction__description" data-i18n="courtPrediction.description">The current beta view assumes a fixed 15-court rotation based on shared observations.</p>
+          <p class="court-prediction__timezone" data-i18n="courtPrediction.timezone">*All date/time displays currently use Japan Standard Time (JST).</p>
           <label class="filter court-prediction__selector" for="court-prediction-current">
             <span data-i18n="courtPrediction.currentCourt">Current court</span>
             <select id="court-prediction-current" aria-label="Current court" data-i18n-attr="aria-label:courtPrediction.currentCourt"></select>
           </label>
           <ul class="court-prediction__list" id="court-prediction-list"></ul>
-          <p class="court-prediction__note" data-i18n="courtPrediction.note">*Beta: prediction accuracy improves as more data is added.</p>
+          <div class="court-prediction__tools">
+            <section class="court-prediction__panel">
+              <h4 class="court-prediction__panel-title" data-i18n="courtPrediction.dateTimeTitle">Court Lookup by Date/Time</h4>
+              <label class="filter" for="court-prediction-datetime">
+                <span data-i18n="courtPrediction.dateTimeLabel">Date / time (JST)</span>
+                <input id="court-prediction-datetime" type="datetime-local" />
+              </label>
+              <div class="court-prediction__summary" id="court-prediction-datetime-result"></div>
+            </section>
+            <section class="court-prediction__panel">
+              <h4 class="court-prediction__panel-title" data-i18n="courtPrediction.scheduleTitle">Daily Time Sheet</h4>
+              <label class="filter" for="court-prediction-schedule-date">
+                <span data-i18n="courtPrediction.scheduleDate">Date (JST)</span>
+                <input id="court-prediction-schedule-date" type="date" />
+              </label>
+              <div class="court-prediction-schedule" id="court-prediction-schedule-list"></div>
+            </section>
+            <section class="court-prediction__panel">
+              <h4 class="court-prediction__panel-title" data-i18n="courtPrediction.reverseTitle">Court Time Confirmation</h4>
+              <div class="court-prediction__panel-controls">
+                <label class="filter" for="court-prediction-target-court">
+                  <span data-i18n="courtPrediction.targetCourt">Court to check</span>
+                  <select id="court-prediction-target-court" aria-label="Court to check" data-i18n-attr="aria-label:courtPrediction.targetCourt"></select>
+                </label>
+                <label class="filter" for="court-prediction-target-date">
+                  <span data-i18n="courtPrediction.targetDate">Date to inspect (JST)</span>
+                  <input id="court-prediction-target-date" type="date" />
+                </label>
+              </div>
+              <div class="court-prediction__summary" id="court-prediction-target-summary"></div>
+              <div class="court-prediction-occurrences">
+                <p class="court-prediction-occurrences__title" data-i18n="courtPrediction.occurrencesOnDate">Occurrences on selected date</p>
+                <div class="court-prediction-occurrences__list" id="court-prediction-target-occurrences"></div>
+              </div>
+            </section>
+          </div>
+          <p class="court-prediction__note" data-i18n="courtPrediction.note">*This is still not fully confirmed. The legacy observed-rotation logic is preserved in code in case the cycle needs to be revisited.</p>
         </div>
       </div>
     </section>

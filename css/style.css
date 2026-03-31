@@ -2211,7 +2211,8 @@ img {
 }
 
 .court-prediction__description,
-.court-prediction__note {
+.court-prediction__note,
+.court-prediction__timezone {
   margin: 8px 0 0;
   color: var(--muted);
   font-size: 0.9rem;
@@ -2228,6 +2229,124 @@ img {
   display: grid;
   gap: 10px;
   width: min(100%, 780px);
+}
+
+.court-prediction__tools {
+  display: grid;
+  gap: 14px;
+  margin-top: 14px;
+}
+
+.court-prediction__panel {
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 14px;
+  background: rgba(8, 26, 42, 0.5);
+}
+
+.court-prediction__panel-title {
+  margin: 0 0 12px;
+  font-size: 0.98rem;
+}
+
+.court-prediction__panel-controls {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 12px;
+}
+
+.court-prediction__summary {
+  display: grid;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.court-prediction__summary:empty {
+  display: none;
+}
+
+.court-prediction__summary-row {
+  display: grid;
+  grid-template-columns: minmax(108px, 160px) minmax(0, 1fr);
+  gap: 10px;
+  align-items: start;
+  padding: 10px 12px;
+  border: 1px solid rgba(120, 176, 219, 0.2);
+  border-radius: 10px;
+  background: rgba(5, 22, 36, 0.5);
+}
+
+.court-prediction__summary-label {
+  color: var(--muted);
+  font-size: 0.84rem;
+}
+
+.court-prediction__summary-value {
+  color: var(--text);
+  font-weight: 700;
+}
+
+.court-prediction-schedule {
+  display: grid;
+  gap: 8px;
+  margin-top: 12px;
+  max-height: 520px;
+  overflow: auto;
+  padding-right: 4px;
+}
+
+.court-prediction-schedule__row {
+  display: grid;
+  grid-template-columns: minmax(110px, 150px) minmax(0, 1fr);
+  gap: 12px;
+  align-items: center;
+  padding: 9px 12px;
+  border: 1px solid rgba(120, 176, 219, 0.18);
+  border-radius: 10px;
+  background: rgba(5, 22, 36, 0.48);
+}
+
+.court-prediction-schedule__time {
+  color: var(--muted);
+  font-size: 0.84rem;
+}
+
+.court-prediction-schedule__court {
+  color: var(--text);
+  font-weight: 700;
+}
+
+.court-prediction-occurrences {
+  margin-top: 14px;
+}
+
+.court-prediction-occurrences__title {
+  margin: 0 0 8px;
+  color: var(--muted);
+  font-size: 0.84rem;
+}
+
+.court-prediction-occurrences__list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.court-prediction-occurrences__chip {
+  display: inline-flex;
+  align-items: center;
+  min-height: 34px;
+  padding: 0 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(120, 176, 219, 0.24);
+  background: rgba(5, 22, 36, 0.52);
+  color: var(--text);
+  font-weight: 700;
+}
+
+.court-prediction-occurrences__empty {
+  color: var(--muted);
+  font-size: 0.88rem;
 }
 
 .court-prediction__item {
@@ -2254,10 +2373,21 @@ img {
   cursor: pointer;
 }
 
+.court-prediction-card--prediction-only {
+  grid-template-columns: minmax(0, 1fr);
+  cursor: default;
+}
+
 .court-prediction-card:hover,
 .court-prediction-card:focus-visible {
   border-color: rgba(126, 198, 255, 0.8);
   transform: translateY(-1px);
+}
+
+.court-prediction-card--prediction-only:hover,
+.court-prediction-card--prediction-only:focus-visible {
+  border-color: rgba(120, 176, 219, 0.35);
+  transform: none;
 }
 
 .court-prediction-card__image {
@@ -2276,6 +2406,11 @@ img {
 
 .court-prediction-card__name {
   font-size: 1.05rem;
+}
+
+.court-prediction-card__meta {
+  color: var(--muted);
+  font-size: 0.85rem;
 }
 
 .court-prediction-card__stats {
