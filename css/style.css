@@ -361,6 +361,10 @@ img {
   color: var(--text);
 }
 
+.filter input {
+  min-width: 0;
+}
+
 .filter-modal {
   display: none;
 }
@@ -747,6 +751,121 @@ img {
 
 .favorite-toggle.is-active::before {
   content: "★";
+}
+
+.racket-randomizer {
+  margin-top: 28px;
+  padding: 18px;
+  border: 1px solid rgba(145, 182, 210, 0.32);
+  border-radius: 18px;
+  background: rgba(7, 22, 37, 0.74);
+  box-shadow: var(--shadow);
+  display: grid;
+  gap: 16px;
+}
+
+.racket-randomizer__header {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 16px;
+  align-items: end;
+}
+
+.racket-randomizer__title {
+  margin: 0;
+  font-size: 1.08rem;
+}
+
+.racket-randomizer__description {
+  margin: 8px 0 0;
+  color: var(--muted);
+}
+
+.racket-randomizer__controls {
+  display: flex;
+  align-items: end;
+  justify-content: flex-end;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.racket-randomizer__count {
+  min-width: 132px;
+}
+
+.racket-randomizer__button {
+  border: 1px solid rgba(79, 195, 255, 0.35);
+  background: rgba(19, 88, 132, 0.72);
+  color: var(--text);
+  border-radius: 12px;
+  padding: 11px 18px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+}
+
+.racket-randomizer__button:hover {
+  background: rgba(24, 105, 156, 0.82);
+  border-color: rgba(79, 195, 255, 0.5);
+}
+
+.racket-randomizer__button:active {
+  transform: translateY(1px);
+}
+
+.racket-randomizer__results {
+  display: grid;
+  gap: 16px;
+}
+
+.racket-randomizer__empty {
+  margin: 0;
+  padding: 14px 16px;
+  border: 1px dashed rgba(145, 182, 210, 0.28);
+  border-radius: 12px;
+  background: rgba(4, 16, 28, 0.82);
+  color: var(--muted);
+}
+
+.racket-randomizer__current {
+  display: grid;
+  gap: 12px;
+}
+
+.racket-randomizer__result-title {
+  margin: 0;
+  font-size: 0.96rem;
+  color: #9ed8ff;
+}
+
+.racket-randomizer__card-grid {
+  gap: 16px;
+}
+
+.racket-randomizer__history {
+  display: grid;
+  gap: 10px;
+}
+
+.racket-randomizer__history-title {
+  margin: 0;
+  font-size: 0.88rem;
+  color: var(--muted);
+}
+
+.racket-randomizer__name-list {
+  margin: 0;
+  padding: 14px 16px 14px 32px;
+  border: 1px solid rgba(145, 182, 210, 0.22);
+  border-radius: 12px;
+  background: rgba(4, 16, 28, 0.82);
+  color: var(--text);
+  display: grid;
+  gap: 8px;
+}
+
+.racket-randomizer__name-item {
+  line-height: 1.5;
 }
 
 
@@ -1846,6 +1965,24 @@ img {
     justify-content: space-between;
   }
 
+  .racket-randomizer__header {
+    grid-template-columns: 1fr;
+    align-items: stretch;
+  }
+
+  .racket-randomizer__controls {
+    justify-content: stretch;
+  }
+
+  .racket-randomizer__count {
+    min-width: 0;
+    width: 100%;
+  }
+
+  .racket-randomizer__button {
+    width: 100%;
+  }
+
   .filter-modal {
     position: fixed;
     inset: 0;
@@ -2184,6 +2321,62 @@ img {
   .stat-value {
     grid-template-columns: 1fr auto;
   }
+
+  .court-prediction__input-row {
+    grid-template-columns: 1fr;
+  }
+
+  .court-prediction__quick-action {
+    width: 100%;
+  }
+
+  .court-prediction__controls,
+  .court-prediction__panel-controls {
+    grid-template-columns: 1fr;
+  }
+
+  .court-prediction__info-chips {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  .court-prediction-schedule__row {
+    gap: 0;
+  }
+
+  .court-prediction-schedule__row-toggle {
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+
+  .court-prediction-schedule__summary {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+
+  .court-prediction-schedule__thumb,
+  .court-prediction-schedule__thumb-fallback {
+    width: 24px;
+    height: 24px;
+  }
+
+  .court-prediction-card--compact {
+    grid-template-columns: 36px minmax(0, 1fr);
+    min-width: 0;
+  }
+
+  .court-prediction-card--compact .court-prediction-card__image {
+    width: 36px;
+    height: 36px;
+  }
+
+  .court-prediction-card--compact .court-prediction-card__name {
+    font-size: 0.9rem;
+  }
+
+  .court-prediction-card__compact-chip,
+  .court-prediction-card__compact-facet {
+    font-size: 0.7rem;
+  }
 }
 
 @media (max-width: 360px) {
@@ -2218,8 +2411,42 @@ img {
   font-size: 0.9rem;
 }
 
-.court-prediction__selector {
+.court-prediction__controls {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 12px;
   margin-top: 12px;
+}
+
+.court-prediction__selector {
+  margin-top: 0;
+}
+
+.court-prediction__input-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 8px;
+  align-items: center;
+}
+
+.court-prediction__quick-action {
+  min-height: 42px;
+  padding: 0 14px;
+  border: 1px solid rgba(120, 176, 219, 0.34);
+  border-radius: 10px;
+  background: rgba(12, 41, 64, 0.92);
+  color: var(--text);
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: border-color 0.2s ease, transform 0.2s ease, background-color 0.2s ease;
+}
+
+.court-prediction__quick-action:hover,
+.court-prediction__quick-action:focus-visible {
+  border-color: rgba(126, 198, 255, 0.8);
+  background: rgba(16, 52, 80, 0.98);
+  transform: translateY(-1px);
 }
 
 .court-prediction__list {
@@ -2261,8 +2488,59 @@ img {
   margin-top: 12px;
 }
 
+.court-prediction__visual {
+  margin-top: 12px;
+}
+
 .court-prediction__summary:empty {
   display: none;
+}
+
+.court-prediction__visual:empty {
+  display: none;
+}
+
+.court-prediction__info-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.court-prediction__info-chip {
+  display: inline-grid;
+  gap: 2px;
+  min-height: 34px;
+  padding: 8px 10px;
+  border-radius: 10px;
+  border: 1px solid rgba(120, 176, 219, 0.2);
+  background: rgba(5, 22, 36, 0.5);
+}
+
+.court-prediction__info-chip[data-type="accent"] {
+  border-color: rgba(126, 198, 255, 0.45);
+  background: rgba(15, 47, 72, 0.62);
+}
+
+.court-prediction__info-chip-label {
+  color: var(--muted);
+  font-size: 0.72rem;
+}
+
+.court-prediction__info-chip-value {
+  color: var(--text);
+  font-size: 0.88rem;
+  font-weight: 700;
+}
+
+.court-prediction__card-strip {
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+}
+
+.court-prediction__card-strip .court-prediction-card--compact {
+  flex: 0 0 min(100%, 250px);
 }
 
 .court-prediction__summary-row {
@@ -2288,32 +2566,224 @@ img {
 
 .court-prediction-schedule {
   display: grid;
-  gap: 8px;
+  gap: 6px;
   margin-top: 12px;
   max-height: 520px;
   overflow: auto;
   padding-right: 4px;
 }
 
-.court-prediction-schedule__row {
+.court-prediction-schedule__section {
   display: grid;
-  grid-template-columns: minmax(110px, 150px) minmax(0, 1fr);
-  gap: 12px;
+  gap: 6px;
+}
+
+.court-prediction-schedule__section-toggle {
+  width: 100%;
+  display: flex;
   align-items: center;
-  padding: 9px 12px;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 8px 12px;
   border: 1px solid rgba(120, 176, 219, 0.18);
   border-radius: 10px;
-  background: rgba(5, 22, 36, 0.48);
+  background: rgba(6, 20, 31, 0.72);
+  color: var(--text);
+  font-weight: 800;
+  text-align: left;
+  cursor: pointer;
+}
+
+.court-prediction-schedule__section-toggle:hover,
+.court-prediction-schedule__section-toggle:focus-visible,
+.court-prediction-schedule__row-toggle:hover,
+.court-prediction-schedule__row-toggle:focus-visible,
+.court-prediction-schedule__show-more:hover,
+.court-prediction-schedule__show-more:focus-visible {
+  outline: none;
+  background: rgba(14, 34, 50, 0.88);
+}
+
+.court-prediction-schedule__section-title {
+  font-size: 0.84rem;
+}
+
+.court-prediction-schedule__section-indicator {
+  color: var(--muted);
+  font-size: 1rem;
+  line-height: 1;
+}
+
+.court-prediction-schedule__section-body {
+  display: grid;
+  gap: 6px;
+}
+
+.court-prediction-schedule__row {
+  display: grid;
+  gap: 0;
+  border: 1px solid rgba(90, 170, 230, 0.32);
+  border-left: 4px solid rgba(84, 201, 255, 0.95);
+  border-radius: 10px;
+  background: rgba(8, 24, 40, 0.88);
+  overflow: hidden;
+}
+
+.court-prediction-schedule__row:nth-child(even) {
+  border-left-color: rgba(255, 192, 88, 0.96);
+  border-color: rgba(255, 192, 88, 0.28);
+  background: rgba(46, 31, 9, 0.82);
+}
+
+.court-prediction-schedule__row[data-current="true"] {
+  border-left-color: rgba(132, 255, 191, 0.98);
+  border-color: rgba(132, 255, 191, 0.42);
+  background: rgba(12, 63, 52, 0.9);
+  box-shadow: inset 0 0 0 1px rgba(132, 255, 191, 0.18), 0 0 0 1px rgba(132, 255, 191, 0.08);
+}
+
+.court-prediction-schedule__row-toggle {
+  width: 100%;
+  display: grid;
+  grid-template-columns: minmax(104px, 118px) minmax(0, 1fr);
+  gap: 10px;
+  align-items: center;
+  padding: 7px 10px;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
 }
 
 .court-prediction-schedule__time {
+  position: relative;
+  display: block;
+  color: #dcefff;
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.court-prediction-schedule__row[data-current="true"] .court-prediction-schedule__time {
+  padding: 7px 0;
+  color: #f2fff7;
+  font-weight: 700;
+}
+
+.court-prediction-schedule__row[data-current="true"] .court-prediction-schedule__time::before,
+.court-prediction-schedule__row[data-current="true"] .court-prediction-schedule__time::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(132, 255, 191, 0), rgba(132, 255, 191, 0.85), rgba(132, 255, 191, 0));
+}
+
+.court-prediction-schedule__row[data-current="true"] .court-prediction-schedule__time::before {
+  top: 0;
+}
+
+.court-prediction-schedule__row[data-current="true"] .court-prediction-schedule__time::after {
+  bottom: 0;
+}
+
+.court-prediction-schedule__summary {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 8px;
+  align-items: center;
+}
+
+.court-prediction-schedule__summary-main {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+
+.court-prediction-schedule__summary-text {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+}
+
+.court-prediction-schedule__thumb,
+.court-prediction-schedule__thumb-fallback {
+  width: 28px;
+  height: 28px;
+  border-radius: 7px;
+  flex: 0 0 auto;
+}
+
+.court-prediction-schedule__thumb {
+  object-fit: cover;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(6, 19, 30, 0.8);
+}
+
+.court-prediction-schedule__thumb-fallback {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(126, 198, 255, 0.16);
+  color: #dcefff;
+  font-size: 0.8rem;
+  font-weight: 800;
+}
+
+.court-prediction-schedule__toggle-indicator {
   color: var(--muted);
-  font-size: 0.84rem;
+  font-size: 1rem;
+  line-height: 1;
 }
 
 .court-prediction-schedule__court {
   color: var(--text);
   font-weight: 700;
+  font-size: 0.88rem;
+  line-height: 1.3;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.court-prediction-schedule__badge {
+  display: inline-flex;
+  align-items: center;
+  min-height: 20px;
+  padding: 0 8px;
+  border-radius: 999px;
+  background: rgba(132, 255, 191, 0.14);
+  color: #e1fff0;
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+.court-prediction-schedule__detail {
+  padding: 0 10px 10px 10px;
+}
+
+.court-prediction-schedule__row[data-expanded="true"] .court-prediction-schedule__detail {
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  padding-top: 10px;
+}
+
+.court-prediction-schedule__detail .court-prediction-card--compact {
+  min-width: 0;
+}
+
+.court-prediction-schedule__show-more {
+  min-height: 42px;
+  padding: 0 14px;
+  border: 1px solid rgba(120, 176, 219, 0.3);
+  border-radius: 10px;
+  background: rgba(6, 20, 31, 0.72);
+  color: var(--text);
+  font-weight: 800;
+  cursor: pointer;
 }
 
 .court-prediction-occurrences {
@@ -2332,21 +2802,121 @@ img {
   gap: 8px;
 }
 
+.court-prediction-occurrences__list--stacked {
+  display: grid;
+  gap: 8px;
+}
+
+.court-prediction-occurrences__body {
+  display: grid;
+  gap: 8px;
+}
+
+.court-prediction-occurrences__body--stacked {
+  display: grid;
+  gap: 10px;
+}
+
+.court-prediction-occurrences__lead {
+  display: inline-flex;
+  align-items: center;
+  min-height: 28px;
+  width: fit-content;
+  padding: 0 12px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, rgba(126, 198, 255, 0.95), rgba(64, 151, 255, 0.92));
+  color: #07131d;
+  font-size: 0.76rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  box-shadow: 0 10px 24px rgba(10, 38, 63, 0.24);
+}
+
+.court-prediction-occurrences__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
 .court-prediction-occurrences__chip {
   display: inline-flex;
   align-items: center;
   min-height: 34px;
   padding: 0 12px;
   border-radius: 999px;
-  border: 1px solid rgba(120, 176, 219, 0.24);
-  background: rgba(5, 22, 36, 0.52);
-  color: var(--text);
+  border: 1px solid rgba(90, 170, 230, 0.34);
+  background: rgba(11, 30, 48, 0.9);
+  color: #f0fbff;
   font-weight: 700;
+}
+
+.court-prediction-occurrences__chips .court-prediction-occurrences__chip:nth-child(even) {
+  border-color: rgba(255, 192, 88, 0.38);
+  background: rgba(50, 33, 10, 0.88);
+  color: #fff4da;
 }
 
 .court-prediction-occurrences__empty {
   color: var(--muted);
   font-size: 0.88rem;
+}
+
+.court-prediction-occurrences__group {
+  display: grid;
+  gap: 8px;
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid rgba(90, 170, 230, 0.3);
+  border-left: 4px solid rgba(84, 201, 255, 0.95);
+  background: rgba(8, 24, 40, 0.86);
+}
+
+.court-prediction-occurrences__group:nth-child(even) {
+  border-left-color: rgba(255, 192, 88, 0.96);
+  border-color: rgba(255, 192, 88, 0.28);
+  background: rgba(46, 31, 9, 0.78);
+}
+
+.court-prediction-occurrences__item {
+  display: grid;
+  gap: 4px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid rgba(120, 176, 219, 0.18);
+  background: rgba(5, 22, 36, 0.48);
+}
+
+.court-prediction-occurrences__item[data-variant="academy"] {
+  border-color: rgba(255, 180, 84, 0.34);
+  background: rgba(66, 37, 6, 0.4);
+}
+
+.court-prediction-occurrences__item-title {
+  color: var(--text);
+  font-weight: 700;
+}
+
+.court-prediction-occurrences__item[data-variant="academy"] .court-prediction-occurrences__item-title {
+  color: #ffd795;
+}
+
+.court-prediction-occurrences__item-badge {
+  display: inline-flex;
+  align-items: center;
+  min-height: 20px;
+  padding: 0 8px;
+  border-radius: 999px;
+  background: rgba(255, 180, 84, 0.18);
+  color: #ffd795;
+  font-size: 0.72rem;
+  font-weight: 700;
+  vertical-align: middle;
+}
+
+.court-prediction-occurrences__item-detail {
+  color: var(--muted);
+  font-size: 0.84rem;
 }
 
 .court-prediction__item {
@@ -2371,6 +2941,14 @@ img {
   text-align: left;
   color: var(--text);
   cursor: pointer;
+}
+
+.court-prediction-card--compact {
+  grid-template-columns: 48px minmax(0, 1fr);
+  gap: 10px;
+  align-items: start;
+  min-width: min(100%, 250px);
+  padding: 8px;
 }
 
 .court-prediction-card--prediction-only {
@@ -2399,13 +2977,28 @@ img {
   background: rgba(6, 19, 30, 0.8);
 }
 
+.court-prediction-card--compact .court-prediction-card__image {
+  width: 48px;
+  height: 48px;
+  border-radius: 8px;
+}
+
 .court-prediction-card__content {
   display: grid;
   gap: 8px;
 }
 
+.court-prediction-card--compact .court-prediction-card__content {
+  gap: 6px;
+}
+
 .court-prediction-card__name {
   font-size: 1.05rem;
+}
+
+.court-prediction-card--compact .court-prediction-card__name {
+  font-size: 0.96rem;
+  line-height: 1.35;
 }
 
 .court-prediction-card__meta {
@@ -2413,9 +3006,17 @@ img {
   font-size: 0.85rem;
 }
 
+.court-prediction-card--compact .court-prediction-card__meta {
+  font-size: 0.75rem;
+}
+
 .court-prediction-card__stats {
   display: grid;
   gap: 6px;
+}
+
+.court-prediction-card--compact .court-prediction-card__stats {
+  gap: 4px;
 }
 
 .court-prediction-card__stat-row {
@@ -2439,10 +3040,61 @@ img {
   justify-content: start;
 }
 
+.court-prediction-card--compact .court-prediction-card__stat-row {
+  grid-template-columns: minmax(52px, auto) minmax(0, 1fr);
+  gap: 8px;
+}
+
+.court-prediction-card--compact .court-prediction-card__stat-label {
+  color: var(--muted);
+  font-size: 0.78rem;
+}
+
+.court-prediction-card--compact .court-prediction-card__stat-number {
+  font-size: 0.78rem;
+}
+
+.court-prediction-card--compact .court-meter {
+  gap: 3px;
+}
+
+.court-prediction-card--compact .court-meter__segment {
+  font-size: 0.78rem;
+}
+
 .court-prediction-card__stat-number {
   color: #f8fdff;
   font-weight: 700;
   min-width: 1ch;
+}
+
+.court-prediction-card__compact-chip-row,
+.court-prediction-card__compact-facets {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.court-prediction-card__compact-chip,
+.court-prediction-card__compact-facet {
+  display: inline-flex;
+  align-items: center;
+  min-height: 24px;
+  padding: 0 8px;
+  border-radius: 999px;
+  font-size: 0.74rem;
+  font-weight: 700;
+}
+
+.court-prediction-card__compact-chip {
+  background: rgba(126, 198, 255, 0.16);
+  color: #e3f7ff;
+}
+
+.court-prediction-card__compact-facet {
+  border: 1px solid rgba(120, 176, 219, 0.22);
+  background: rgba(5, 22, 36, 0.42);
+  color: var(--muted);
 }
 
 

@@ -5,15 +5,24 @@ const translations = {
     site: { pageTitle: "マリオテニスフィーバー Explorer", pageDescription: "マリオテニスフィーバーのキャラクターやラケット、システム関連データを一覧で確認できる参照サイト。", title: "マリオテニスフィーバー Explorer", language: "Language", lead: "キャラクターやラケットの特徴などを確認できるデータまとめサイトです。フィルタ・ソートで目的の情報を整理しながら参照できます。" },
     nav: { faq: "FAQ", characters: "キャラ", rackets: "ラケット", courts: "コート", tier: "Tier" },
     section: { faq: { title: "FAQ", description: "最短で知りたいことに辿り着けるよう、FAQを先頭にまとめています。" }, characters: { title: "キャラクター一覧", description: "タイプ別の特徴やパラメータを比較できます。" }, rackets: { title: "ラケット一覧", description: "効果やタイミングを比較できます。" }, courts: { title: "コート一覧", description: "コートごとのたまあしとバウンドの特性を比較できます。" }, tips: { description: "試合で役立つ操作のポイントを素早く確認できます。" }, tier: { title: "Tier表", description: "キャラとラケットを自分基準でランク付けできます。" } },
-    filter: { searchAndFilter: "検索・絞り込み", search: "検索", type: "タイプ", special: "特殊能力", favoritesOnly: "お気に入りのみ", sortBy: "ソート項目", order: "並び順", category: "種類", timing: "効果タイミング", tipsCategory: "カテゴリ", verification: "検証" },
+    filter: { searchAndFilter: "検索・絞り込み", search: "検索", type: "タイプ", special: "特殊能力", favoritesOnly: "お気に入りのみ", sortBy: "ソート項目", order: "並び順", category: "種類", timing: "効果タイミング", tipsCategory: "カテゴリ", verification: "検証", surface: "表面統合", trend: "傾向" },
     modal: { characterFilter: "キャラクターの検索・絞り込み", racketFilter: "ラケットの検索・絞り込み", courtFilter: "コートの検索・絞り込み" },
     placeholder: { characterSearch: "キャラクター名で検索", racketSearch: "ラケット名で検索", courtSearch: "コート名で検索" },
+    racketRandom: {
+      title: "ランダムラケット抽選",
+      description: "ラケット一覧の全ラケットからランダムで抽選します。件数を入力してボタンを押してください。",
+      countLabel: "抽選本数",
+      trigger: "抽選する",
+      resultTitle: "{{count}}本抽選",
+      historyTitle: "履歴",
+      empty: "まだ抽選結果はありません。"
+    },
     footer: { note: "データは仮入力を含みます。後日更新予定です。", contactLabel: "作成者・問い合わせ先:", contactAccount: "@Lu_Na_Clock", changelog: "更新履歴" },
     stat: { speed: "スピード", power: "パワー", control: "コントロール", spin: "スピン" },
-    court: { ballSpeed: "たまあし", bounce: "バウンド", note: "説明" },
+    court: { ballSpeed: "たまあし", bounce: "バウンド", note: "説明", shortBallSpeed: "速", shortBounce: "跳" },
     courtPrediction: {
       title: "次コート予測（β）",
-      description: "現在は共有された観測情報をもとにした固定15周期のβ版を表示しています。",
+      description: "ランクマッチでのコートを条件別に検索出来ます。",
       timezone: "※日時表示はすべて日本時間（JST）基準です。",
       currentCourt: "現在のコート",
       nextCourt: "次に来る想定コート",
@@ -25,29 +34,55 @@ const translations = {
       dateTimeCourt: "その時点のコート",
       dateTimeSlot: "対象枠",
       dateTimeNextSwitch: "次の切替",
+      densityLabel: "表示密度",
+      densityStandard: "標準",
+      densityDetailed: "詳細",
       scheduleTitle: "日別タイムシート",
       scheduleDate: "日付（JST）",
+      scheduleCountLabel: "表示件数",
+      scheduleCountAll: "全件",
       scheduleRange: "時間帯",
       scheduleCourt: "コート",
+      scheduleShowMore: "さらに表示",
+      scheduleExpand: "展開",
+      scheduleCollapse: "折りたたむ",
+      scheduleSectionLateNight: "深夜",
+      scheduleSectionMorning: "朝",
+      scheduleSectionAfternoon: "昼",
+      scheduleSectionEvening: "夜",
+      nowButton: "現在",
+      todayButton: "本日",
+      currentSlotBadge: "現在",
       reverseTitle: "指定コートの確定時間確認",
       targetCourt: "確認したいコート",
+      targetMode: "検索モード",
+      targetModeExact: "個別コート",
+      targetModeTrend: "傾向",
+      targetValue: "確認したい対象",
       targetDate: "出現日（JST）",
       cycleLabel: "周期",
       nextOccurrence: "次回出現",
       currentOccurrence: "現在の該当枠",
+      matchedCount: "一致対象",
+      nextMatches: "一致した次回出現",
       occurrencesOnDate: "指定日の出現時刻",
+      sectionLeadNext: "次回",
+      sectionLeadToday: "当日",
       noOccurrences: "この日の出現はありません。",
+      noNextMatches: "一致する次回出現はありません。",
       candidate: "候補{{rank}}",
       confidence: "確度",
       deterministic: "確定候補",
       note: "※確証はまだ100%ではありません。旧観測ロジックはコード内に退避保持しており、周期が崩れる情報が出た場合は再検証します。"
     },
+    courtSurface: { grass: "グラス", hard: "ハード", clay: "クレイ", other: "その他" },
+    courtTrend: { fast: "たまあし早め", slow: "たまあし遅め", highBounce: "バウンド高め", lowBounce: "バウンド低め" },
     sort: { name: "名前", ballSpeed: "たまあし", bounce: "バウンド" },
     order: { game: "ゲーム内順", asc: "昇順", desc: "降順", high: "数値が高い順", low: "数値が低い順" },
     common: { any: "指定なし", yes: "あり", no: "なし", wip: "仮実装", count: "{{count}}件表示", showCount: "{{count}}件を表示", searchHit: "検索ヒット: {{count}}件", noCharacter: "一致するキャラクターが見つかりません。", noRacket: "一致するラケットが見つかりません。", noTip: "一致するTipsが見つかりません。", language: "言語" },
     accordion: { special: "特殊能力", gameText: "ゲーム内テキスト", details: "全項目を見る", unlockCondition: "ラケットの開放条件", video: "動画で効果を確認する" },
     video: { unavailable: "動画は準備中です。", checking: "動画の有無を確認中です…", openYoutube: "YouTubeで開く" },
-    chip: { type: "タイプ", search: "検索", special: "特殊能力", favorites: "お気に入り", sort: "ソート", order: "並び順", category: "種類", timing: "効果タイミング", yes: "あり", no: "なし" },
+    chip: { type: "タイプ", search: "検索", special: "特殊能力", favorites: "お気に入り", sort: "ソート", order: "並び順", category: "種類", timing: "効果タイミング", yes: "あり", no: "なし", surface: "表面統合", trend: "傾向" },
     aria: { sectionNav: "セクションナビゲーション", mobileNav: "モバイルセクションナビ", close: "閉じる", showChangelog: "更新履歴を表示", collapseNav: "セクションナビをたたむ", expandNav: "セクションナビを表示", contactX: "Xアカウント @Lu_Na_Clock", officialTierTabs: "固定Tier項目" },
     type: { "オールラウンド": "オールラウンド", "テクニック": "テクニック", "パワー": "パワー", "ディフェンス": "ディフェンス", "トリッキー": "トリッキー", "スピード": "スピード" },
     category: { "妨害": "妨害", "強化": "強化", "その他": "その他", "不明": "不明" },
@@ -123,15 +158,24 @@ const translations = {
     site: { pageTitle: "Mario Tennis Fever Explorer", pageDescription: "Reference site for Mario Tennis Fever character, racket, and system data.", title: "Mario Tennis Fever Explorer", language: "Language", lead: "A reference site to compare character and racket traits with filters and sorting." },
     nav: { faq: "FAQs", characters: "Characters", rackets: "Rackets", courts: "Courts", tier: "Tier" },
     section: { faq: { title: "FAQs", description: "Common questions are placed first so you can reach the right section quickly." }, characters: { title: "Character List", description: "Compare traits and parameters by type." }, rackets: { title: "Racket List", description: "Compare effects and trigger timing." }, courts: { title: "Court List", description: "Compare each court's ball speed and bounce characteristics." }, tips: { description: "Quickly review useful operation tips for matches." }, tier: { title: "Tier Board", description: "Rank characters and rackets by your own criteria." } },
-    filter: { searchAndFilter: "Search / Filter", search: "Search", type: "Type", special: "Special", favoritesOnly: "Favorites only", sortBy: "Sort by", order: "Order", category: "Category", timing: "Effect timing", tipsCategory: "Category", verification: "Verification" },
+    filter: { searchAndFilter: "Search / Filter", search: "Search", type: "Type", special: "Special", favoritesOnly: "Favorites only", sortBy: "Sort by", order: "Order", category: "Category", timing: "Effect timing", tipsCategory: "Category", verification: "Verification", surface: "Surface group", trend: "Trend" },
     modal: { characterFilter: "Character Search / Filter", racketFilter: "Racket Search / Filter", courtFilter: "Court Search / Filter" },
     placeholder: { characterSearch: "Search by character name", racketSearch: "Search by racket name", courtSearch: "Search by court name" },
+    racketRandom: {
+      title: "Random Racket Draw",
+      description: "Draw from the full racket list at random. Enter how many to pull, then press the button.",
+      countLabel: "Draw count",
+      trigger: "Draw",
+      resultTitle: "{{count}}-Racket Draw",
+      historyTitle: "History",
+      empty: "No draw results yet."
+    },
     footer: { note: "Some data is provisional and will be updated later.", contactLabel: "Creator & Contact:", contactAccount: "@Lu_Na_Clock", changelog: "Changelog" },
     stat: { speed: "Speed", power: "Power", control: "Control", spin: "Spin" },
-    court: { ballSpeed: "Ball Speed", bounce: "Bounce", note: "Notes" },
+    court: { ballSpeed: "Ball Speed", bounce: "Bounce", note: "Notes", shortBallSpeed: "SPD", shortBounce: "BNC" },
     courtPrediction: {
       title: "Next Court Prediction (Beta)",
-      description: "The current beta view assumes a fixed 15-court rotation based on shared observations.",
+      description: "Search ranked-match courts by condition.",
       timezone: "*All date/time displays currently use Japan Standard Time (JST).",
       currentCourt: "Current court",
       nextCourt: "Expected next court",
@@ -143,29 +187,55 @@ const translations = {
       dateTimeCourt: "Court at that time",
       dateTimeSlot: "Active slot",
       dateTimeNextSwitch: "Next switch",
+      densityLabel: "Display density",
+      densityStandard: "Standard",
+      densityDetailed: "Detailed",
       scheduleTitle: "Daily Time Sheet",
       scheduleDate: "Date (JST)",
+      scheduleCountLabel: "Rows shown",
+      scheduleCountAll: "All",
       scheduleRange: "Time range",
       scheduleCourt: "Court",
+      scheduleShowMore: "Show more",
+      scheduleExpand: "Expand",
+      scheduleCollapse: "Collapse",
+      scheduleSectionLateNight: "Late Night",
+      scheduleSectionMorning: "Morning",
+      scheduleSectionAfternoon: "Afternoon",
+      scheduleSectionEvening: "Evening",
+      nowButton: "Now",
+      todayButton: "Today",
+      currentSlotBadge: "Now",
       reverseTitle: "Court Time Confirmation",
       targetCourt: "Court to check",
+      targetMode: "Lookup mode",
+      targetModeExact: "Specific court",
+      targetModeTrend: "Trend",
+      targetValue: "Target",
       targetDate: "Date to inspect (JST)",
       cycleLabel: "Cycle",
       nextOccurrence: "Next occurrence",
       currentOccurrence: "Current active slot",
+      matchedCount: "Matches",
+      nextMatches: "Upcoming matching slots",
       occurrencesOnDate: "Occurrences on selected date",
+      sectionLeadNext: "Next",
+      sectionLeadToday: "Today",
       noOccurrences: "This court does not appear on the selected date.",
+      noNextMatches: "No upcoming matching slots were found.",
       candidate: "Candidate {{rank}}",
       confidence: "Confidence",
       deterministic: "Fixed candidate",
       note: "*This is still not fully confirmed. The legacy observed-rotation logic is preserved in code in case the cycle needs to be revisited."
     },
+    courtSurface: { grass: "Grass", hard: "Hard", clay: "Clay", other: "Other" },
+    courtTrend: { fast: "Fast ball speed", slow: "Slow ball speed", highBounce: "High bounce", lowBounce: "Low bounce" },
     sort: { name: "Name", ballSpeed: "Ball Speed", bounce: "Bounce" },
     order: { game: "Game order", asc: "A → Z", desc: "Z → A", high: "High → Low", low: "Low → High" },
     common: { any: "Any", yes: "Yes", no: "None", wip: "Work in progress", count: "{{count}} shown", showCount: "Show {{count}}", searchHit: "Search hits: {{count}}", noCharacter: "No matching characters found.", noRacket: "No matching rackets found.", noTip: "No matching tips found.", language: "Language" },
     accordion: { special: "Special", gameText: "In-game text", details: "Show all", unlockCondition: "Unlock condition", video: "Watch effect video" },
     video: { unavailable: "Video is coming soon.", checking: "Checking video availability…", openYoutube: "Open on YouTube" },
-    chip: { type: "Type", search: "Search", special: "Special", favorites: "Favorites", sort: "Sort", order: "Order", category: "Category", timing: "Effect timing", yes: "Yes", no: "No" },
+    chip: { type: "Type", search: "Search", special: "Special", favorites: "Favorites", sort: "Sort", order: "Order", category: "Category", timing: "Effect timing", yes: "Yes", no: "No", surface: "Surface group", trend: "Trend" },
     aria: { sectionNav: "Section navigation", mobileNav: "Mobile section navigation", close: "Close", showChangelog: "Show changelog", collapseNav: "Collapse section nav", expandNav: "Expand section nav", contactX: "X account @Lu_Na_Clock", officialTierTabs: "Fixed tier categories" },
     type: { "オールラウンド": "All-Around", "テクニック": "Technical	", "パワー": "Powerful", "ディフェンス": "Defensive", "トリッキー": "Tricky", "スピード": "Speedy" },
     category: { "妨害": "Disruptive", "強化": "Boost", "その他": "Other", "不明": "Unknown" },
@@ -446,21 +516,35 @@ const racketSearch = document.getElementById("racket-search");
 const racketActiveFilters = document.getElementById("racket-active-filters");
 const racketSearchResults = document.getElementById("racket-search-results");
 const racketModalSearchResults = document.getElementById("racket-modal-search-results");
+const racketRandomCount = document.getElementById("racket-random-count");
+const racketRandomTrigger = document.getElementById("racket-random-trigger");
+const racketRandomResults = document.getElementById("racket-random-results");
 
 const courtSort = document.getElementById("court-sort");
 const courtOrder = document.getElementById("court-order");
 const courtSearch = document.getElementById("court-search");
 const courtFavoriteFilter = document.getElementById("court-favorite-filter");
+const courtSurfaceFilter = document.getElementById("court-surface-filter");
+const courtTrendFilter = document.getElementById("court-trend-filter");
 const courtActiveFilters = document.getElementById("court-active-filters");
 const courtPredictionCurrent = document.getElementById("court-prediction-current");
+const courtPredictionDensity = document.getElementById("court-prediction-density");
 const courtPredictionList = document.getElementById("court-prediction-list");
 const courtPredictionDateTime = document.getElementById("court-prediction-datetime");
+const courtPredictionDateTimeNow = document.getElementById("court-prediction-datetime-now");
 const courtPredictionDateTimeResult = document.getElementById("court-prediction-datetime-result");
 const courtPredictionScheduleDate = document.getElementById("court-prediction-schedule-date");
+const courtPredictionScheduleToday = document.getElementById("court-prediction-schedule-today");
+const courtPredictionScheduleCount = document.getElementById("court-prediction-schedule-count");
+const courtPredictionScheduleCurrent = document.getElementById("court-prediction-schedule-current");
 const courtPredictionScheduleList = document.getElementById("court-prediction-schedule-list");
+const courtPredictionTargetMode = document.getElementById("court-prediction-target-mode");
 const courtPredictionTargetCourt = document.getElementById("court-prediction-target-court");
 const courtPredictionTargetDate = document.getElementById("court-prediction-target-date");
+const courtPredictionTargetToday = document.getElementById("court-prediction-target-today");
+const courtPredictionTargetVisual = document.getElementById("court-prediction-target-visual");
 const courtPredictionTargetSummary = document.getElementById("court-prediction-target-summary");
+const courtPredictionTargetNextOccurrences = document.getElementById("court-prediction-target-next-occurrences");
 const courtPredictionTargetOccurrences = document.getElementById("court-prediction-target-occurrences");
 
 const characterFavoriteFilter = document.getElementById("character-favorite-filter");
@@ -474,6 +558,7 @@ const FAVORITE_STORAGE_KEYS = {
   rackets: "favoriteRackets",
   courts: "favoriteCourts",
 };
+const RACKET_RANDOM_HISTORY_LIMIT = 3;
 
 const beginnerVideoCategoryOrder = ["basics", "fever-shot", "advanced"];
 const beginnerVideoExpandedCategories = new Set();
@@ -481,6 +566,12 @@ const beginnerVideoVisibleCount = 3;
 let beginnerVideoMetadata = {};
 let beginnerVideoMetadataRequest = null;
 let hasSetupCourtPrediction = false;
+let courtPredictionScheduleExpandedKey = "";
+let courtPredictionScheduleVisibleCount = 12;
+let courtPredictionScheduleStateKey = "";
+let courtPredictionScheduleOpenedSections = new Set();
+let racketRandomHistory = [];
+let racketRandomDrawId = 0;
 
 const PRIORITY_IMAGE_LIMIT = 4;
 const deferredRenderableSectionIds = new Set(["beginner-videos", "characters", "rackets", "courts", "techniques", "tier"]);
@@ -1374,6 +1465,59 @@ const betaCourtPredictionNodeMap = new Map(betaCourtPredictionNodes.map((node) =
 const betaCourtPredictionValueMap = new Map(
   betaCourtPredictionNodes.map((node) => [node.linkedCourtName || rawValue(node.label), node])
 );
+const COURT_SURFACE_IDS = Object.freeze({
+  grass: "grass",
+  hard: "hard",
+  clay: "clay",
+  other: "other",
+});
+const COURT_TREND_IDS = Object.freeze({
+  fast: "fast",
+  slow: "slow",
+  highBounce: "highBounce",
+  lowBounce: "lowBounce",
+});
+const COURT_PREDICTION_TARGET_MODES = Object.freeze({
+  exact: "exact",
+  trend: "trend",
+});
+const COURT_PREDICTION_DENSITIES = Object.freeze({
+  standard: "standard",
+  detailed: "detailed",
+});
+const COURT_PREDICTION_SCHEDULE_INITIAL_VISIBLE_COUNT = 12;
+const COURT_PREDICTION_SCHEDULE_SECTIONS = Object.freeze([
+  { id: "lateNight", startHour: 0, endHour: 5, labelKey: "courtPrediction.scheduleSectionLateNight" },
+  { id: "morning", startHour: 6, endHour: 11, labelKey: "courtPrediction.scheduleSectionMorning" },
+  { id: "afternoon", startHour: 12, endHour: 17, labelKey: "courtPrediction.scheduleSectionAfternoon" },
+  { id: "evening", startHour: 18, endHour: 23, labelKey: "courtPrediction.scheduleSectionEvening" },
+]);
+const courtPredictionTrendOptionIds = [
+  COURT_TREND_IDS.fast,
+  COURT_TREND_IDS.slow,
+  COURT_TREND_IDS.highBounce,
+  COURT_TREND_IDS.lowBounce,
+];
+const courtPredictionCombinedExactTargets = [
+  {
+    value: "combined-hard",
+    label: { ja: "スタジアム / アカデミー ハード", en: "Stadium / Academy Hard" },
+    nodeIds: ["stadium-hard", "academy-hard"],
+  },
+  {
+    value: "combined-clay",
+    label: { ja: "スタジアム / アカデミー クレイ", en: "Stadium / Academy Clay" },
+    nodeIds: ["stadium-clay", "academy-clay"],
+  },
+  {
+    value: "combined-grass",
+    label: { ja: "スタジアム / アカデミー グラス", en: "Stadium / Academy Grass" },
+    nodeIds: ["stadium-grass", "academy-grass"],
+  },
+];
+const courtPredictionCombinedExactTargetMap = new Map(
+  courtPredictionCombinedExactTargets.map((target) => [target.value, target])
+);
 
 function mod(value, divisor) {
   return ((value % divisor) + divisor) % divisor;
@@ -1450,6 +1594,41 @@ function getTodayJstDate() {
   return parseJstDateInput(formatJstDateInputValue(new Date())) || new Date(COURT_CYCLE_ANCHOR_JST);
 }
 
+function isSameJstDate(left, right) {
+  return formatJstDateInputValue(left) === formatJstDateInputValue(right);
+}
+
+function getCourtSurfaceLabel(surfaceId) {
+  return t(`courtSurface.${surfaceId}`);
+}
+
+function getCourtTrendLabel(trendId) {
+  return t(`courtTrend.${trendId}`);
+}
+
+function getCourtSurfaceFromStats(ballSpeed, bounce) {
+  if (ballSpeed === 4 && bounce === 1) return COURT_SURFACE_IDS.grass;
+  if (ballSpeed === 2 && bounce === 2) return COURT_SURFACE_IDS.hard;
+  if (ballSpeed === 1 && bounce === 3) return COURT_SURFACE_IDS.clay;
+  return COURT_SURFACE_IDS.other;
+}
+
+function getCourtTrendIdsFromStats(ballSpeed, bounce) {
+  const trendIds = [];
+  if (ballSpeed >= 4) trendIds.push(COURT_TREND_IDS.fast);
+  if (ballSpeed <= 2) trendIds.push(COURT_TREND_IDS.slow);
+  if (bounce >= 4) trendIds.push(COURT_TREND_IDS.highBounce);
+  if (bounce <= 2) trendIds.push(COURT_TREND_IDS.lowBounce);
+  return trendIds;
+}
+
+function getCourtFacetInfo(ballSpeed, bounce) {
+  return {
+    surfaceId: getCourtSurfaceFromStats(ballSpeed, bounce),
+    trendIds: getCourtTrendIdsFromStats(ballSpeed, bounce),
+  };
+}
+
 function getCourtForDateTimeJst(date) {
   const minutesSinceAnchor = Math.floor((date.getTime() - COURT_CYCLE_ANCHOR_JST.getTime()) / 60000);
   const slotNumber = Math.floor(minutesSinceAnchor / COURT_SLOT_MINUTES);
@@ -1483,21 +1662,41 @@ function getCourtDayScheduleJst(date) {
   });
 }
 
+function findCourtByJaName(name) {
+  return courts.find((court) => rawValue(court.name) === name) || null;
+}
+
+function getCourtFacetInfoFromCourt(court) {
+  if (!court) return { surfaceId: COURT_SURFACE_IDS.other, trendIds: [] };
+  return getCourtFacetInfo(court.ballSpeed, court.bounce);
+}
+
+function getReferenceCourtForPredictionNode(node) {
+  if (!node) return null;
+  return findCourtByJaName(node.linkedCourtName) || findCourtByJaName(node.referenceCourtName) || null;
+}
+
+function getCourtFacetInfoFromPredictionNode(node) {
+  const referenceCourt = getReferenceCourtForPredictionNode(node);
+  if (referenceCourt) return getCourtFacetInfoFromCourt(referenceCourt);
+  return { surfaceId: COURT_SURFACE_IDS.other, trendIds: [] };
+}
+
+function getCurrentCourtPredictionValue(date = new Date()) {
+  const current = getCourtForDateTimeJst(date);
+  return getCourtPredictionNodeValue(current.node);
+}
+
 function getCourtOccurrencesForDateJst(courtValue, date) {
   return getCourtDayScheduleJst(date).filter((entry) => getCourtPredictionNodeValue(entry.node) === courtValue);
 }
 
-function getCurrentCourtOccurrenceJst(courtValue, fromDate) {
-  const current = getCourtForDateTimeJst(fromDate);
-  if (getCourtPredictionNodeValue(current.node) !== courtValue) return null;
-  return current;
-}
+function getNextCourtOccurrenceForNodeJst(node, fromDate) {
+  if (!node) return null;
 
-function getNextCourtOccurrenceJst(courtValue, fromDate) {
-  const targetNode = betaCourtPredictionValueMap.get(courtValue);
-  if (!targetNode) return null;
+  const targetIndex = betaCourtPredictionCycle.indexOf(node.id);
+  if (targetIndex === -1) return null;
 
-  const targetIndex = betaCourtPredictionCycle.indexOf(targetNode.id);
   const current = getCourtForDateTimeJst(fromDate);
   const offsetSlots = mod(targetIndex - current.cycleIndex, COURT_CYCLE_LENGTH);
   let occurrenceStart = addMinutes(current.slotStart, offsetSlots * COURT_SLOT_MINUTES);
@@ -1509,8 +1708,19 @@ function getNextCourtOccurrenceJst(courtValue, fromDate) {
   return {
     slotStart: occurrenceStart,
     slotEnd: addMinutes(occurrenceStart, COURT_SLOT_MINUTES),
-    node: targetNode,
+    node,
   };
+}
+
+function getCurrentCourtOccurrenceJst(courtValue, fromDate) {
+  const current = getCourtForDateTimeJst(fromDate);
+  if (getCourtPredictionNodeValue(current.node) !== courtValue) return null;
+  return current;
+}
+
+function getNextCourtOccurrenceJst(courtValue, fromDate) {
+  const targetNode = betaCourtPredictionValueMap.get(courtValue);
+  return getNextCourtOccurrenceForNodeJst(targetNode, fromDate);
 }
 
 function getCourtPredictionNodeLabel(node) {
@@ -1519,10 +1729,6 @@ function getCourtPredictionNodeLabel(node) {
 
 function getCourtPredictionNodeValue(node) {
   return node?.linkedCourtName || rawValue(node?.label || "");
-}
-
-function findCourtByJaName(name) {
-  return courts.find((court) => rawValue(court.name) === name) || null;
 }
 
 function resolveCourtPredictionDisplayNode(name) {
@@ -1607,8 +1813,225 @@ function getActiveCourtPredictionSource() {
   return getCourtPredictionSourceDefinition();
 }
 
+function getCourtPredictionTargetMode() {
+  return courtPredictionTargetMode?.value || COURT_PREDICTION_TARGET_MODES.exact;
+}
+
+function getCourtPredictionTargetOptions(mode = getCourtPredictionTargetMode()) {
+  if (mode === COURT_PREDICTION_TARGET_MODES.trend) {
+    return courtPredictionTrendOptionIds.map((value) => ({
+      value,
+      label: { ja: translations.ja.courtTrend[value], en: translations.en.courtTrend[value] },
+    }));
+  }
+
+  return [...getActiveCourtPredictionSource().getOptions(), ...courtPredictionCombinedExactTargets];
+}
+
+function getCourtPredictionTargetNodes(mode, value) {
+  if (mode === COURT_PREDICTION_TARGET_MODES.trend) {
+    return betaCourtPredictionNodes.filter((node) => getCourtFacetInfoFromPredictionNode(node).trendIds.includes(value));
+  }
+
+  const combinedTarget = courtPredictionCombinedExactTargetMap.get(value);
+  if (combinedTarget) {
+    return combinedTarget.nodeIds
+      .map((nodeId) => betaCourtPredictionNodeMap.get(nodeId))
+      .filter(Boolean);
+  }
+
+  const targetNode = betaCourtPredictionValueMap.get(value);
+  return targetNode ? [targetNode] : [];
+}
+
+function getCourtPredictionTargetSummaryValue(mode, value) {
+  if (mode === COURT_PREDICTION_TARGET_MODES.trend) return getCourtTrendLabel(value);
+  const combinedTarget = courtPredictionCombinedExactTargetMap.get(value);
+  if (combinedTarget) return localizeValue(combinedTarget.label);
+  return getCourtPredictionNodeLabel(betaCourtPredictionValueMap.get(value));
+}
+
+function getCurrentCourtOccurrenceForTargetJst(mode, value, fromDate) {
+  const current = getCourtForDateTimeJst(fromDate);
+  const matchedNodeIds = new Set(getCourtPredictionTargetNodes(mode, value).map((node) => node.id));
+  if (!matchedNodeIds.has(current.node?.id)) return null;
+  return current;
+}
+
+function getNextCourtOccurrencesForTargetJst(mode, value, fromDate) {
+  return getCourtPredictionTargetNodes(mode, value)
+    .map((node) => getNextCourtOccurrenceForNodeJst(node, fromDate))
+    .filter(Boolean)
+    .sort((a, b) => a.slotStart.getTime() - b.slotStart.getTime() || getCourtPredictionNodeLabel(a.node).localeCompare(getCourtPredictionNodeLabel(b.node), currentLocale));
+}
+
+function getCourtOccurrencesForTargetDateJst(mode, value, date) {
+  const matchedNodeIds = new Set(getCourtPredictionTargetNodes(mode, value).map((node) => node.id));
+  return getCourtDayScheduleJst(date).filter((entry) => matchedNodeIds.has(entry.node?.id));
+}
+
+function formatCourtPredictionMatchCount(count) {
+  return currentLocale === "ja"
+    ? `${count}件`
+    : `${count} match${count === 1 ? "" : "es"}`;
+}
+
 function formatPercent(value) {
   return `${Math.round(value * 100)}%`;
+}
+
+function getCourtPredictionDisplayDensity() {
+  return courtPredictionDensity?.value || COURT_PREDICTION_DENSITIES.detailed;
+}
+
+function getCourtPredictionScheduleEntryKey(entry) {
+  return `${formatJstDateInputValue(entry.slotStart)}-${entry.slotIndex}`;
+}
+
+function getCourtPredictionScheduleCountLimit() {
+  if (!courtPredictionScheduleCount) return courtPredictionScheduleVisibleCount;
+  const value = courtPredictionScheduleCount.value;
+  if (value === "all") return Number.POSITIVE_INFINITY;
+  const parsed = Number.parseInt(value, 10);
+  return Number.isFinite(parsed) && parsed > 0 ? parsed : COURT_PREDICTION_SCHEDULE_INITIAL_VISIBLE_COUNT;
+}
+
+function getCourtPredictionScheduleSectionId(date) {
+  const hour = getJstParts(date).hour;
+  return COURT_PREDICTION_SCHEDULE_SECTIONS.find((section) => hour >= section.startHour && hour <= section.endHour)?.id || "evening";
+}
+
+function getCourtPredictionScheduleSections(schedule) {
+  const groups = new Map(COURT_PREDICTION_SCHEDULE_SECTIONS.map((section) => [section.id, { ...section, entries: [] }]));
+  schedule.forEach((entry) => {
+    groups.get(getCourtPredictionScheduleSectionId(entry.slotStart))?.entries.push(entry);
+  });
+  return COURT_PREDICTION_SCHEDULE_SECTIONS.map((section) => groups.get(section.id)).filter(Boolean);
+}
+
+function getDefaultCourtPredictionScheduleOpenSectionId(sectionGroups) {
+  return sectionGroups.find((section) => section.id === "morning" && section.entries.length)?.id
+    || sectionGroups.find((section) => section.id === "afternoon" && section.entries.length)?.id
+    || sectionGroups.find((section) => section.entries.length)?.id
+    || "";
+}
+
+function syncCourtPredictionScheduleViewState(dateKey, isToday, sectionGroups = []) {
+  const nextStateKey = `${dateKey}:${isToday ? "today" : "day"}`;
+  if (courtPredictionScheduleStateKey === nextStateKey) return;
+
+  courtPredictionScheduleStateKey = nextStateKey;
+  courtPredictionScheduleExpandedKey = "";
+  const defaultSectionId = isToday ? "" : getDefaultCourtPredictionScheduleOpenSectionId(sectionGroups);
+  courtPredictionScheduleOpenedSections = defaultSectionId ? new Set([defaultSectionId]) : new Set();
+}
+
+function getTodayPriorityScheduleEntries(schedule, currentSlotIndex, visibleCount) {
+  if (!schedule.length) return [];
+  if (!Number.isFinite(visibleCount) || visibleCount >= schedule.length) {
+    return schedule;
+  }
+  if (!Number.isInteger(currentSlotIndex)) {
+    return schedule.slice(0, visibleCount);
+  }
+
+  const selectedIndexes = new Set([currentSlotIndex]);
+  let offset = 1;
+  while (selectedIndexes.size < Math.min(visibleCount, schedule.length)) {
+    const before = currentSlotIndex - offset;
+    const after = currentSlotIndex + offset;
+    if (before >= 0) selectedIndexes.add(before);
+    if (selectedIndexes.size >= Math.min(visibleCount, schedule.length)) break;
+    if (after < schedule.length) selectedIndexes.add(after);
+    if (before < 0 && after >= schedule.length) break;
+    offset += 1;
+  }
+
+  return [...selectedIndexes]
+    .sort((left, right) => left - right)
+    .map((index) => schedule[index]);
+}
+
+function getLimitedCourtPredictionScheduleSections(sectionGroups, visibleCount) {
+  if (!Number.isFinite(visibleCount)) return sectionGroups;
+
+  let remaining = visibleCount;
+  return sectionGroups
+    .map((section) => {
+      if (remaining <= 0) {
+        return { ...section, entries: [] };
+      }
+      const nextEntries = section.entries.slice(0, remaining);
+      remaining -= nextEntries.length;
+      return { ...section, entries: nextEntries };
+    })
+    .filter((section) => section.entries.length);
+}
+
+function createCourtPredictionValueChip(text, type = "neutral") {
+  const chip = document.createElement("span");
+  chip.className = "court-prediction__info-chip";
+  chip.dataset.type = type;
+  chip.textContent = text;
+  return chip;
+}
+
+function createCourtPredictionInfoChip(labelText, valueText, type = "neutral") {
+  const chip = document.createElement("div");
+  chip.className = "court-prediction__info-chip";
+  chip.dataset.type = type;
+
+  const label = document.createElement("span");
+  label.className = "court-prediction__info-chip-label";
+  label.textContent = labelText;
+
+  const value = document.createElement("strong");
+  value.className = "court-prediction__info-chip-value";
+  value.textContent = valueText;
+
+  chip.append(label, value);
+  return chip;
+}
+
+function createCourtPredictionInfoChipRow(items) {
+  const row = document.createElement("div");
+  row.className = "court-prediction__info-chips";
+  items.filter(Boolean).forEach((item) => row.append(item));
+  return row;
+}
+
+function createCompactCourtValueChip(labelText, value, type = "metric") {
+  const chip = document.createElement("span");
+  chip.className = "court-prediction-card__compact-chip";
+  chip.dataset.type = type;
+  chip.textContent = `${labelText}${value}`;
+  return chip;
+}
+
+function createCompactCourtChipRow(court) {
+  const row = document.createElement("div");
+  row.className = "court-prediction-card__compact-chip-row";
+  row.append(
+    createCompactCourtValueChip(t("court.shortBallSpeed"), Math.round(court.ballSpeed)),
+    createCompactCourtValueChip(t("court.shortBounce"), Math.round(court.bounce))
+  );
+  return row;
+}
+
+function createCompactCourtFacetRow(court) {
+  const { surfaceId, trendIds } = getCourtFacetInfoFromCourt(court);
+  const row = document.createElement("div");
+  row.className = "court-prediction-card__compact-facets";
+
+  const facetValues = [getCourtSurfaceLabel(surfaceId), ...trendIds.map((trendId) => getCourtTrendLabel(trendId))];
+  facetValues.forEach((text) => {
+    const chip = document.createElement("span");
+    chip.className = "court-prediction-card__compact-facet";
+    chip.textContent = text;
+    row.append(chip);
+  });
+
+  return row;
 }
 
 function createPredictedCourtStatRow(label, value, symbol, meterClassName) {
@@ -1659,9 +2082,16 @@ function focusCourtCard(court) {
 
   let targetCard = ensureVisibleWithCurrentFilters();
 
-  if (!targetCard && (courtSearch?.value || courtFavoriteFilter?.value === "favorites")) {
+  if (!targetCard && (
+    courtSearch?.value
+    || courtFavoriteFilter?.value === "favorites"
+    || (courtSurfaceFilter?.value && courtSurfaceFilter.value !== "all")
+    || (courtTrendFilter?.value && courtTrendFilter.value !== "all")
+  )) {
     if (courtSearch) courtSearch.value = "";
     if (courtFavoriteFilter) courtFavoriteFilter.value = "all";
+    if (courtSurfaceFilter) courtSurfaceFilter.value = "all";
+    if (courtTrendFilter) courtTrendFilter.value = "all";
     renderCourts();
     targetCard = ensureVisibleWithCurrentFilters();
   }
@@ -1673,13 +2103,45 @@ function focusCourtCard(court) {
   targetCard.scrollIntoView({ behavior: "smooth", block: "center" });
 }
 
+function createCompactPredictionCardMeta(court, metaText = "", density = getCourtPredictionDisplayDensity()) {
+  const fragment = document.createDocumentFragment();
+  if (density !== COURT_PREDICTION_DENSITIES.detailed) {
+    fragment.append(createCompactCourtChipRow(court));
+  }
+
+  if (density === COURT_PREDICTION_DENSITIES.detailed) {
+    const stats = document.createElement("div");
+    stats.className = "court-prediction-card__stats";
+    stats.append(
+      createPredictedCourtStatRow(t("court.ballSpeed"), court.ballSpeed, "→", "court-meter--speed"),
+      createPredictedCourtStatRow(t("court.bounce"), court.bounce, "↗", "court-meter--bounce")
+    );
+    fragment.append(stats, createCompactCourtFacetRow(court));
+  }
+
+  if (metaText) {
+    const meta = document.createElement("span");
+    meta.className = "court-prediction-card__meta";
+    meta.textContent = metaText;
+    fragment.append(meta);
+  }
+
+  return fragment;
+}
+
 function createPredictedCourtCard(court, labelOverride = court.name, options = {}) {
-  const { clickable = true, metaText = "" } = options;
+  const {
+    clickable = true,
+    metaText = "",
+    compact = false,
+    density = getCourtPredictionDisplayDensity(),
+  } = options;
   const card = document.createElement(clickable ? "button" : "div");
   if (clickable) {
     card.type = "button";
   }
-  card.className = `court-prediction-card${clickable ? "" : " court-prediction-card--prediction-only"}`;
+  card.className = `court-prediction-card${compact ? " court-prediction-card--compact" : ""}${clickable ? "" : " court-prediction-card--prediction-only"}`;
+  card.dataset.density = density;
 
   const image = document.createElement("img");
   image.className = "court-prediction-card__image";
@@ -1694,19 +2156,24 @@ function createPredictedCourtCard(court, labelOverride = court.name, options = {
   name.className = "court-prediction-card__name";
   name.textContent = localizeValue(labelOverride);
 
-  const stats = document.createElement("div");
-  stats.className = "court-prediction-card__stats";
-  stats.append(
-    createPredictedCourtStatRow(t("court.ballSpeed"), court.ballSpeed, "→", "court-meter--speed"),
-    createPredictedCourtStatRow(t("court.bounce"), court.bounce, "↗", "court-meter--bounce")
-  );
+  content.append(name);
 
-  content.append(name, stats);
-  if (metaText) {
-    const meta = document.createElement("span");
-    meta.className = "court-prediction-card__meta";
-    meta.textContent = metaText;
-    content.append(meta);
+  if (compact) {
+    content.append(createCompactPredictionCardMeta(court, metaText, density));
+  } else {
+    const stats = document.createElement("div");
+    stats.className = "court-prediction-card__stats";
+    stats.append(
+      createPredictedCourtStatRow(t("court.ballSpeed"), court.ballSpeed, "→", "court-meter--speed"),
+      createPredictedCourtStatRow(t("court.bounce"), court.bounce, "↗", "court-meter--bounce")
+    );
+    content.append(stats);
+    if (metaText) {
+      const meta = document.createElement("span");
+      meta.className = "court-prediction-card__meta";
+      meta.textContent = metaText;
+      content.append(meta);
+    }
   }
   card.append(image, content);
   if (clickable) {
@@ -1716,17 +2183,19 @@ function createPredictedCourtCard(court, labelOverride = court.name, options = {
   return card;
 }
 
-function createPredictionOnlyCourtCard(node) {
+function createPredictionOnlyCourtCard(node, options = {}) {
   const referenceCourt = node?.referenceCourtName ? findCourtByJaName(node.referenceCourtName) : null;
   if (referenceCourt) {
     return createPredictedCourtCard(referenceCourt, node.label, {
       clickable: false,
       metaText: t("courtPrediction.predictionOnly"),
+      compact: options.compact,
+      density: options.density,
     });
   }
 
   const card = document.createElement("div");
-  card.className = "court-prediction-card court-prediction-card--prediction-only";
+  card.className = `court-prediction-card${options.compact ? " court-prediction-card--compact" : ""} court-prediction-card--prediction-only`;
 
   const content = document.createElement("div");
   content.className = "court-prediction-card__content";
@@ -1745,12 +2214,12 @@ function createPredictionOnlyCourtCard(node) {
   return card;
 }
 
-function createCourtPredictionDisplay(node) {
+function createCourtPredictionDisplay(node, options = {}) {
   const matchedCourt = node?.linkedCourtName ? findCourtByJaName(node.linkedCourtName) : null;
   if (matchedCourt) {
-    return createPredictedCourtCard(matchedCourt, node.label);
+    return createPredictedCourtCard(matchedCourt, node.label, options);
   }
-  return createPredictionOnlyCourtCard(node);
+  return createPredictionOnlyCourtCard(node, options);
 }
 
 function createCourtPredictionSummaryRow(labelText, valueText) {
@@ -1809,10 +2278,13 @@ function renderPrimaryCourtPrediction() {
       detail.textContent = `${t("courtPrediction.confidence")}: ${formatPercent(entry.probability)}`;
     } else {
       label.textContent = t("courtPrediction.nextCourt");
-      detail.textContent = `${t("courtPrediction.source")}: ${t("courtPrediction.betaCycle")}`;
+      detail.textContent = "";
     }
 
-    item.append(label, createCourtPredictionDisplay(entry.node), detail);
+    item.append(label, createCourtPredictionDisplay(entry.node));
+    if (detail.textContent) {
+      item.append(detail);
+    }
     courtPredictionList.append(item);
   });
 }
@@ -1822,50 +2294,332 @@ function renderCourtPredictionDateTimeLookup() {
   const date = parseJstDateTimeInput(courtPredictionDateTime?.value) || new Date();
   const result = getCourtForDateTimeJst(date);
 
-  renderCourtPredictionSummary(courtPredictionDateTimeResult, [
-    { label: t("courtPrediction.dateTimeCourt"), value: getCourtPredictionNodeLabel(result.node) },
-    { label: t("courtPrediction.dateTimeSlot"), value: `${formatJstTimeLabel(result.slotStart)} - ${formatJstTimeLabel(result.slotEnd)}` },
-    { label: t("courtPrediction.dateTimeNextSwitch"), value: formatJstDateTimeLabel(result.slotEnd) },
-  ]);
+  courtPredictionDateTimeResult.replaceChildren(
+    createCourtPredictionDisplay(result.node, {
+      compact: true,
+      density: getCourtPredictionDisplayDensity(),
+    }),
+    createCourtPredictionInfoChipRow([
+      createCourtPredictionInfoChip(
+        t("courtPrediction.dateTimeSlot"),
+        `${formatJstTimeLabel(result.slotStart)} - ${formatJstTimeLabel(result.slotEnd)}`
+      ),
+      createCourtPredictionInfoChip(
+        t("courtPrediction.dateTimeNextSwitch"),
+        formatJstDateTimeLabel(result.slotEnd),
+        "accent"
+      ),
+    ])
+  );
+}
+
+function createCourtPredictionOccurrenceTimeChip(text) {
+  const chip = document.createElement("span");
+  chip.className = "court-prediction-occurrences__chip";
+  chip.textContent = text;
+  return chip;
+}
+
+function createCourtPredictionOccurrenceLead(text) {
+  const lead = document.createElement("div");
+  lead.className = "court-prediction-occurrences__lead";
+  lead.textContent = text;
+  return lead;
+}
+
+function createCourtPredictionOccurrenceGroup(node, times) {
+  const group = document.createElement("div");
+  group.className = "court-prediction-occurrences__group";
+
+  const chips = document.createElement("div");
+  chips.className = "court-prediction-occurrences__chips";
+  times.forEach((time) => chips.append(createCourtPredictionOccurrenceTimeChip(time)));
+
+  group.append(
+    createCourtPredictionDisplay(node, {
+      compact: true,
+      density: getCourtPredictionDisplayDensity(),
+    }),
+    chips
+  );
+
+  return group;
+}
+
+function groupCourtPredictionEntriesByNode(entries) {
+  const groups = new Map();
+  entries.forEach((entry) => {
+    if (!entry?.node?.id) return;
+    if (!groups.has(entry.node.id)) {
+      groups.set(entry.node.id, { node: entry.node, entries: [] });
+    }
+    groups.get(entry.node.id).entries.push(entry);
+  });
+  return [...groups.values()];
+}
+
+function renderCourtPredictionOccurrenceContent(container, entries, options = {}) {
+  if (!container) return;
+
+  const { emptyText, grouped = false, formatter, leadText = "" } = options;
+  const fragment = document.createDocumentFragment();
+  if (leadText) {
+    fragment.append(createCourtPredictionOccurrenceLead(leadText));
+  }
+
+  if (!entries.length) {
+    const empty = document.createElement("span");
+    empty.className = "court-prediction-occurrences__empty";
+    empty.textContent = emptyText;
+    fragment.append(empty);
+    container.replaceChildren(fragment);
+    return;
+  }
+
+  if (!grouped) {
+    const chips = document.createElement("div");
+    chips.className = "court-prediction-occurrences__body court-prediction-occurrences__chips";
+    entries.forEach((entry) => chips.append(createCourtPredictionOccurrenceTimeChip(formatter(entry))));
+    fragment.append(chips);
+    container.replaceChildren(fragment);
+    return;
+  }
+
+  const body = document.createElement("div");
+  body.className = "court-prediction-occurrences__body court-prediction-occurrences__body--stacked";
+  groupCourtPredictionEntriesByNode(entries).forEach(({ node, entries: groupedEntries }) => {
+    body.append(createCourtPredictionOccurrenceGroup(node, groupedEntries.map((entry) => formatter(entry))));
+  });
+  fragment.append(body);
+  container.replaceChildren(fragment);
+}
+
+function renderCourtPredictionTargetVisual(nodes) {
+  if (!courtPredictionTargetVisual) return;
+  if (!nodes.length) {
+    courtPredictionTargetVisual.replaceChildren();
+    return;
+  }
+
+  const strip = document.createElement("div");
+  strip.className = "court-prediction__card-strip";
+  nodes.forEach((node) => strip.append(createCourtPredictionDisplay(node, {
+    compact: true,
+    density: getCourtPredictionDisplayDensity(),
+  })));
+  courtPredictionTargetVisual.replaceChildren(strip);
+}
+
+function createCourtPredictionScheduleThumb(node) {
+  const referenceCourt = getReferenceCourtForPredictionNode(node);
+  if (referenceCourt?.image) {
+    const image = document.createElement("img");
+    image.className = "court-prediction-schedule__thumb";
+    image.src = assetUrl(referenceCourt.image);
+    image.alt = `${getCourtPredictionNodeLabel(node)} ${t("meta.iconSuffix")}`;
+    image.loading = "lazy";
+    return image;
+  }
+
+  const fallback = document.createElement("span");
+  fallback.className = "court-prediction-schedule__thumb-fallback";
+  fallback.textContent = getCourtPredictionNodeLabel(node).slice(0, 1);
+  return fallback;
+}
+
+function createCourtPredictionScheduleRow(entry, isCurrent) {
+  const row = document.createElement("article");
+  row.className = "court-prediction-schedule__row";
+  if (isCurrent) {
+    row.dataset.current = "true";
+  }
+
+  const rowKey = getCourtPredictionScheduleEntryKey(entry);
+  const isExpanded = courtPredictionScheduleExpandedKey === rowKey;
+  if (isExpanded) {
+    row.dataset.expanded = "true";
+  }
+
+  const toggle = document.createElement("button");
+  toggle.type = "button";
+  toggle.className = "court-prediction-schedule__row-toggle";
+  toggle.setAttribute("aria-expanded", String(isExpanded));
+  toggle.setAttribute(
+    "aria-label",
+    `${isExpanded ? t("courtPrediction.scheduleCollapse") : t("courtPrediction.scheduleExpand")}: ${formatJstTimeLabel(entry.slotStart)} - ${formatJstTimeLabel(entry.slotEnd)}`
+  );
+  toggle.addEventListener("click", () => {
+    courtPredictionScheduleExpandedKey = isExpanded ? "" : rowKey;
+    renderCourtPredictionDaySchedule();
+  });
+
+  const time = document.createElement("span");
+  time.className = "court-prediction-schedule__time";
+  time.textContent = `${formatJstTimeLabel(entry.slotStart)} - ${formatJstTimeLabel(entry.slotEnd)}`;
+
+  const summary = document.createElement("div");
+  summary.className = "court-prediction-schedule__summary";
+
+  const main = document.createElement("div");
+  main.className = "court-prediction-schedule__summary-main";
+  main.append(createCourtPredictionScheduleThumb(entry.node));
+
+  const text = document.createElement("div");
+  text.className = "court-prediction-schedule__summary-text";
+
+  const name = document.createElement("span");
+  name.className = "court-prediction-schedule__court";
+  name.textContent = getCourtPredictionNodeLabel(entry.node);
+  text.append(name);
+
+  if (isCurrent) {
+    const badge = document.createElement("span");
+    badge.className = "court-prediction-schedule__badge";
+    badge.textContent = t("courtPrediction.currentSlotBadge");
+    text.append(badge);
+  }
+
+  main.append(text);
+
+  const indicator = document.createElement("span");
+  indicator.className = "court-prediction-schedule__toggle-indicator";
+  indicator.textContent = isExpanded ? "−" : "+";
+
+  summary.append(main, indicator);
+  toggle.append(time, summary);
+  row.append(toggle);
+
+  if (isExpanded) {
+    const detail = document.createElement("div");
+    detail.className = "court-prediction-schedule__detail";
+    detail.append(createCourtPredictionDisplay(entry.node, {
+      compact: true,
+      density: COURT_PREDICTION_DENSITIES.detailed,
+      clickable: false,
+    }));
+    row.append(detail);
+  }
+
+  return row;
+}
+
+function createCourtPredictionScheduleSection(section, forceOpen = false) {
+  const wrapper = document.createElement("section");
+  wrapper.className = "court-prediction-schedule__section";
+
+  const isOpen = forceOpen || courtPredictionScheduleOpenedSections.has(section.id);
+  if (isOpen) {
+    wrapper.dataset.open = "true";
+  }
+
+  const toggle = document.createElement("button");
+  toggle.type = "button";
+  toggle.className = "court-prediction-schedule__section-toggle";
+  toggle.setAttribute("aria-expanded", String(isOpen));
+  toggle.setAttribute("aria-label", `${isOpen ? t("courtPrediction.scheduleCollapse") : t("courtPrediction.scheduleExpand")}: ${t(section.labelKey)}`);
+  toggle.addEventListener("click", () => {
+    if (forceOpen) return;
+    if (isOpen) {
+      courtPredictionScheduleOpenedSections.delete(section.id);
+    } else {
+      courtPredictionScheduleOpenedSections.add(section.id);
+    }
+    renderCourtPredictionDaySchedule();
+  });
+
+  const title = document.createElement("span");
+  title.className = "court-prediction-schedule__section-title";
+  title.textContent = `${t(section.labelKey)} (${section.entries.length})`;
+
+  const indicator = document.createElement("span");
+  indicator.className = "court-prediction-schedule__section-indicator";
+  indicator.textContent = isOpen ? "−" : "+";
+
+  toggle.append(title, indicator);
+  wrapper.append(toggle);
+
+  if (isOpen) {
+    const body = document.createElement("div");
+    body.className = "court-prediction-schedule__section-body";
+    section.entries.forEach((entry) => body.append(createCourtPredictionScheduleRow(entry, false)));
+    wrapper.append(body);
+  }
+
+  return wrapper;
 }
 
 function renderCourtPredictionDaySchedule() {
   if (!courtPredictionScheduleList) return;
   const date = parseJstDateInput(courtPredictionScheduleDate?.value) || getTodayJstDate();
   const schedule = getCourtDayScheduleJst(date);
+  const now = new Date();
+  const isToday = isSameJstDate(date, now);
+  const visibleCount = getCourtPredictionScheduleCountLimit();
+  const currentEntry = isToday
+    ? schedule.find((entry) => now.getTime() >= entry.slotStart.getTime() && now.getTime() < entry.slotEnd.getTime()) || null
+    : null;
+  const sectionGroups = isToday ? [] : getCourtPredictionScheduleSections(schedule);
+  syncCourtPredictionScheduleViewState(formatJstDateInputValue(date), isToday, sectionGroups);
   const fragment = document.createDocumentFragment();
 
-  schedule.forEach((entry) => {
-    const row = document.createElement("div");
-    row.className = "court-prediction-schedule__row";
+  if (courtPredictionScheduleCurrent) {
+    if (currentEntry) {
+      courtPredictionScheduleCurrent.replaceChildren(
+        createCourtPredictionDisplay(currentEntry.node, {
+          compact: true,
+          density: getCourtPredictionDisplayDensity(),
+        }),
+        createCourtPredictionInfoChipRow([
+          createCourtPredictionInfoChip(
+            t("courtPrediction.dateTimeSlot"),
+            `${formatJstTimeLabel(currentEntry.slotStart)} - ${formatJstTimeLabel(currentEntry.slotEnd)}`,
+            "accent"
+          ),
+        ])
+      );
+    } else {
+      courtPredictionScheduleCurrent.replaceChildren();
+    }
+  }
 
-    const time = document.createElement("span");
-    time.className = "court-prediction-schedule__time";
-    time.textContent = `${formatJstTimeLabel(entry.slotStart)} - ${formatJstTimeLabel(entry.slotEnd)}`;
+  if (isToday) {
+    const visibleEntries = getTodayPriorityScheduleEntries(
+      schedule,
+      currentEntry?.slotIndex ?? null,
+      visibleCount
+    );
 
-    const court = document.createElement("span");
-    court.className = "court-prediction-schedule__court";
-    court.textContent = getCourtPredictionNodeLabel(entry.node);
-
-    row.append(time, court);
-    fragment.append(row);
-  });
+    visibleEntries.forEach((entry) => {
+      const isCurrentEntry = Boolean(currentEntry && entry.slotStart.getTime() === currentEntry.slotStart.getTime());
+      fragment.append(createCourtPredictionScheduleRow(entry, isCurrentEntry));
+    });
+  } else {
+    const isShowAll = !Number.isFinite(visibleCount);
+    getLimitedCourtPredictionScheduleSections(sectionGroups, visibleCount).forEach((section) => {
+      if (!section.entries.length) return;
+      fragment.append(createCourtPredictionScheduleSection(section, isShowAll));
+    });
+  }
 
   courtPredictionScheduleList.replaceChildren(fragment);
 }
 
 function renderCourtPredictionReverseLookup() {
-  if (!courtPredictionTargetSummary || !courtPredictionTargetOccurrences) return;
-  const source = getActiveCourtPredictionSource();
-  const courtValue = courtPredictionTargetCourt?.value || source.getDefaultValue();
+  if (!courtPredictionTargetSummary || !courtPredictionTargetOccurrences || !courtPredictionTargetNextOccurrences) return;
+  const mode = getCourtPredictionTargetMode();
+  const targetValue = courtPredictionTargetCourt?.value || "";
   const selectedDate = parseJstDateInput(courtPredictionTargetDate?.value) || getTodayJstDate();
   const now = new Date();
-  const nextOccurrence = getNextCourtOccurrenceJst(courtValue, now);
-  const currentOccurrence = getCurrentCourtOccurrenceJst(courtValue, now);
-  const occurrences = getCourtOccurrencesForDateJst(courtValue, selectedDate);
+  const matchingNodes = getCourtPredictionTargetNodes(mode, targetValue);
+  const nextOccurrences = getNextCourtOccurrencesForTargetJst(mode, targetValue, now);
+  const currentOccurrence = getCurrentCourtOccurrenceForTargetJst(mode, targetValue, now);
+  const occurrences = getCourtOccurrencesForTargetDateJst(mode, targetValue, selectedDate);
+  const nextOccurrence = nextOccurrences[0] || null;
 
   const summaryRows = [
+    { label: t("courtPrediction.targetValue"), value: getCourtPredictionTargetSummaryValue(mode, targetValue) || "-" },
     { label: t("courtPrediction.cycleLabel"), value: formatCourtCycleDuration() },
+    { label: t("courtPrediction.matchedCount"), value: formatCourtPredictionMatchCount(matchingNodes.length) },
     { label: t("courtPrediction.nextOccurrence"), value: nextOccurrence ? formatJstDateTimeLabel(nextOccurrence.slotStart) : "-" },
   ];
 
@@ -1876,25 +2630,30 @@ function renderCourtPredictionReverseLookup() {
     });
   }
 
+  renderCourtPredictionTargetVisual(matchingNodes);
   renderCourtPredictionSummary(courtPredictionTargetSummary, summaryRows);
 
-  if (!occurrences.length) {
-    const empty = document.createElement("span");
-    empty.className = "court-prediction-occurrences__empty";
-    empty.textContent = t("courtPrediction.noOccurrences");
-    courtPredictionTargetOccurrences.replaceChildren(empty);
-    return;
-  }
+  renderCourtPredictionOccurrenceContent(
+    courtPredictionTargetNextOccurrences,
+    nextOccurrences,
+    {
+      emptyText: t("courtPrediction.noNextMatches"),
+      grouped: mode === COURT_PREDICTION_TARGET_MODES.trend,
+      leadText: t("courtPrediction.sectionLeadNext"),
+      formatter: (entry) => `${formatJstDateTimeLabel(entry.slotStart)} - ${formatJstTimeLabel(entry.slotEnd)}`,
+    }
+  );
 
-  const fragment = document.createDocumentFragment();
-  occurrences.forEach((entry) => {
-    const chip = document.createElement("span");
-    chip.className = "court-prediction-occurrences__chip";
-    chip.textContent = `${formatJstTimeLabel(entry.slotStart)} - ${formatJstTimeLabel(entry.slotEnd)}`;
-    fragment.append(chip);
-  });
-
-  courtPredictionTargetOccurrences.replaceChildren(fragment);
+  renderCourtPredictionOccurrenceContent(
+    courtPredictionTargetOccurrences,
+    occurrences,
+    {
+      emptyText: t("courtPrediction.noOccurrences"),
+      grouped: mode === COURT_PREDICTION_TARGET_MODES.trend,
+      leadText: t("courtPrediction.sectionLeadToday"),
+      formatter: (entry) => `${formatJstTimeLabel(entry.slotStart)} - ${formatJstTimeLabel(entry.slotEnd)}`,
+    }
+  );
 }
 
 function renderCourtPrediction() {
@@ -1904,14 +2663,14 @@ function renderCourtPrediction() {
   renderCourtPredictionReverseLookup();
 }
 
-function populateCourtPredictionSelect(selectElement, preferredValue = "") {
+function populateCourtPredictionSelect(selectElement, preferredValue = "", options = null, defaultValueOverride = "") {
   if (!selectElement) return;
 
   const source = getActiveCourtPredictionSource();
-  const options = source.getOptions();
+  const resolvedOptions = options || source.getOptions();
   const fragment = document.createDocumentFragment();
 
-  options.forEach((optionData) => {
+  resolvedOptions.forEach((optionData) => {
     const option = document.createElement("option");
     option.value = optionData.value;
     option.textContent = localizeValue(optionData.label);
@@ -1920,17 +2679,34 @@ function populateCourtPredictionSelect(selectElement, preferredValue = "") {
 
   selectElement.replaceChildren(fragment);
 
-  const fallbackValue = options[0]?.value || "";
-  const defaultValue = source.getDefaultValue();
-  const nextValue = options.some((option) => option.value === preferredValue)
+  const fallbackValue = resolvedOptions[0]?.value || "";
+  const defaultValue = resolvedOptions.some((option) => option.value === defaultValueOverride)
+    ? defaultValueOverride
+    : source.getDefaultValue();
+  const nextValue = resolvedOptions.some((option) => option.value === preferredValue)
     ? preferredValue
-    : (options.some((option) => option.value === defaultValue) ? defaultValue : fallbackValue);
+    : (resolvedOptions.some((option) => option.value === defaultValue) ? defaultValue : fallbackValue);
 
   selectElement.value = nextValue;
 }
 
+function populateCourtPredictionTargetSelect(preferredValue = "") {
+  const mode = getCourtPredictionTargetMode();
+  const options = getCourtPredictionTargetOptions(mode);
+  const defaultValue = mode === COURT_PREDICTION_TARGET_MODES.exact
+    ? getCurrentCourtPredictionValue()
+    : options[0]?.value || "";
+  populateCourtPredictionSelect(courtPredictionTargetCourt, preferredValue, options, defaultValue);
+}
+
 function ensureCourtPredictionDefaults() {
   const today = getTodayJstDate();
+  if (courtPredictionDensity && !courtPredictionDensity.value) {
+    courtPredictionDensity.value = COURT_PREDICTION_DENSITIES.detailed;
+  }
+  if (courtPredictionScheduleCount && !courtPredictionScheduleCount.value) {
+    courtPredictionScheduleCount.value = String(COURT_PREDICTION_SCHEDULE_INITIAL_VISIBLE_COUNT);
+  }
   if (courtPredictionDateTime && !courtPredictionDateTime.value) {
     courtPredictionDateTime.value = formatJstDateTimeInputValue(new Date());
   }
@@ -1945,21 +2721,45 @@ function ensureCourtPredictionDefaults() {
 function syncCourtPredictionLocale() {
   const currentValue = courtPredictionCurrent?.value || "";
   const targetValue = courtPredictionTargetCourt?.value || "";
-  populateCourtPredictionSelect(courtPredictionCurrent, currentValue);
-  populateCourtPredictionSelect(courtPredictionTargetCourt, targetValue);
+  populateCourtPredictionSelect(courtPredictionCurrent, currentValue, null, getCurrentCourtPredictionValue());
+  populateCourtPredictionTargetSelect(targetValue);
   renderCourtPrediction();
 }
 
 function setupCourtPrediction() {
   if (!courtPredictionCurrent) return;
-  populateCourtPredictionSelect(courtPredictionCurrent);
-  populateCourtPredictionSelect(courtPredictionTargetCourt);
   ensureCourtPredictionDefaults();
+  populateCourtPredictionSelect(courtPredictionCurrent, "", null, getCurrentCourtPredictionValue());
+  populateCourtPredictionTargetSelect();
   courtPredictionCurrent.addEventListener("change", renderCourtPrediction);
+  courtPredictionDensity?.addEventListener("change", renderCourtPrediction);
   courtPredictionDateTime?.addEventListener("input", renderCourtPrediction);
   courtPredictionScheduleDate?.addEventListener("input", renderCourtPrediction);
+  courtPredictionScheduleCount?.addEventListener("change", () => {
+    courtPredictionScheduleVisibleCount = getCourtPredictionScheduleCountLimit();
+    renderCourtPrediction();
+  });
+  courtPredictionTargetMode?.addEventListener("change", () => {
+    populateCourtPredictionTargetSelect();
+    renderCourtPrediction();
+  });
   courtPredictionTargetCourt?.addEventListener("change", renderCourtPrediction);
   courtPredictionTargetDate?.addEventListener("input", renderCourtPrediction);
+  courtPredictionDateTimeNow?.addEventListener("click", () => {
+    if (!courtPredictionDateTime) return;
+    courtPredictionDateTime.value = formatJstDateTimeInputValue(new Date());
+    renderCourtPrediction();
+  });
+  courtPredictionScheduleToday?.addEventListener("click", () => {
+    if (!courtPredictionScheduleDate) return;
+    courtPredictionScheduleDate.value = formatJstDateInputValue(getTodayJstDate());
+    renderCourtPrediction();
+  });
+  courtPredictionTargetToday?.addEventListener("click", () => {
+    if (!courtPredictionTargetDate) return;
+    courtPredictionTargetDate.value = formatJstDateInputValue(getTodayJstDate());
+    renderCourtPrediction();
+  });
   renderCourtPrediction();
 }
 
@@ -2030,6 +2830,23 @@ function createCourtMeterRow(label, value, symbol, meterClassName) {
   return row;
 }
 
+function createCourtFacetBadges(court) {
+  const { surfaceId, trendIds } = getCourtFacetInfoFromCourt(court);
+  const group = document.createElement("div");
+  group.className = "badge-group";
+
+  const createBadge = (text) => {
+    const badge = document.createElement("span");
+    badge.className = "badge badge--soft";
+    badge.textContent = text;
+    return badge;
+  };
+
+  group.append(createBadge(getCourtSurfaceLabel(surfaceId)));
+  trendIds.forEach((trendId) => group.append(createBadge(getCourtTrendLabel(trendId))));
+  return group;
+}
+
 function createCourtCard(court, itemIndex) {
   const card = document.createElement("article");
   card.className = "card";
@@ -2045,6 +2862,7 @@ function createCourtCard(court, itemIndex) {
 
   const title = document.createElement("div");
   title.innerHTML = `<h3>${localizeValue(court.name)}</h3>`;
+  title.append(createCourtFacetBadges(court));
 
   const image = document.createElement("img");
   image.className = "card-image card-image--court";
@@ -2083,9 +2901,21 @@ function createCourtCard(court, itemIndex) {
   return card;
 }
 
+function matchesCourtSurfaceFilter(court, surfaceValue) {
+  if (!surfaceValue || surfaceValue === "all") return true;
+  return getCourtFacetInfoFromCourt(court).surfaceId === surfaceValue;
+}
+
+function matchesCourtTrendFilter(court, trendValue) {
+  if (!trendValue || trendValue === "all") return true;
+  return getCourtFacetInfoFromCourt(court).trendIds.includes(trendValue);
+}
+
 function getFilteredCourts() {
   const searchValue = normalizeKana(courtSearch?.value?.trim() || "");
   const favoriteValue = courtFavoriteFilter?.value || "all";
+  const surfaceValue = courtSurfaceFilter?.value || "all";
+  const trendValue = courtTrendFilter?.value || "all";
 
   let filtered = courts;
   if (searchValue) {
@@ -2093,6 +2923,12 @@ function getFilteredCourts() {
   }
   if (favoriteValue === "favorites") {
     filtered = filtered.filter((court) => isFavoriteCourt(court));
+  }
+  if (surfaceValue !== "all") {
+    filtered = filtered.filter((court) => matchesCourtSurfaceFilter(court, surfaceValue));
+  }
+  if (trendValue !== "all") {
+    filtered = filtered.filter((court) => matchesCourtTrendFilter(court, trendValue));
   }
   return filtered;
 }
@@ -2128,6 +2964,12 @@ function updateCourtActiveFilterChips() {
   }
   if (courtFavoriteFilter?.value === "favorites") {
     chips.push({ key: "favorite", label: `${t("chip.favorites")}: ${t("filter.favoritesOnly")}` });
+  }
+  if (courtSurfaceFilter?.value && courtSurfaceFilter.value !== "all") {
+    chips.push({ key: "surface", label: `${t("chip.surface")}: ${getCourtSurfaceLabel(courtSurfaceFilter.value)}` });
+  }
+  if (courtTrendFilter?.value && courtTrendFilter.value !== "all") {
+    chips.push({ key: "trend", label: `${t("chip.trend")}: ${getCourtTrendLabel(courtTrendFilter.value)}` });
   }
   if (courtSort?.value && courtSort.value !== "name") {
     chips.push({ key: "sort", label: `${t("chip.sort")}: ${t(`sort.${courtSort.value}`)}` });
@@ -2408,12 +3250,13 @@ function createCharacterCard(character, itemIndex) {
   return card;
 }
 
-function createRacketCard(racket, itemIndex) {
+function createRacketCard(racket, itemIndex, options = {}) {
   const card = document.createElement("article");
   card.className = "card";
   const racketIndex = racketIndexMap.get(racket);
-  if (racketIndex >= 0) {
-    card.id = `racket-card-${racketIndex + 1}`;
+  const cardIdPrefix = options.cardIdPrefix ?? "racket-card";
+  if (racketIndex >= 0 && cardIdPrefix) {
+    card.id = `${cardIdPrefix}-${racketIndex + 1}`;
   }
 
   const mobileView = isMobileView();
@@ -2483,6 +3326,127 @@ function createRacketCard(racket, itemIndex) {
 
   card.append(header, effect, text, unlockCondition);
   return card;
+}
+
+function sampleRandomRackets(count) {
+  const shuffled = [...rackets];
+  for (let index = shuffled.length - 1; index > 0; index -= 1) {
+    const swapIndex = Math.floor(Math.random() * (index + 1));
+    [shuffled[index], shuffled[swapIndex]] = [shuffled[swapIndex], shuffled[index]];
+  }
+  return shuffled.slice(0, Math.min(count, shuffled.length));
+}
+
+function clampRacketRandomCount(value) {
+  const parsed = Number.parseInt(value, 10);
+  if (!Number.isInteger(parsed)) {
+    return 1;
+  }
+  return Math.min(Math.max(parsed, 1), rackets.length);
+}
+
+function syncRacketRandomCountInput() {
+  if (!racketRandomCount) {
+    return 1;
+  }
+
+  const nextValue = clampRacketRandomCount(racketRandomCount.value);
+  racketRandomCount.value = String(nextValue);
+  return nextValue;
+}
+
+function createRacketRandomCurrentResult(entry) {
+  const section = document.createElement("section");
+  section.className = "racket-randomizer__current";
+
+  const title = document.createElement("h4");
+  title.className = "racket-randomizer__result-title";
+  title.textContent = t("racketRandom.resultTitle", { count: entry.count });
+
+  const grid = document.createElement("div");
+  grid.className = "card-grid racket-randomizer__card-grid";
+  entry.rackets.forEach((racket, index) => {
+    grid.append(createRacketCard(racket, index, { cardIdPrefix: `racket-random-${entry.id}` }));
+  });
+
+  section.append(title, grid);
+  return section;
+}
+
+function createRacketRandomHistory(entry) {
+  const section = document.createElement("section");
+  section.className = "racket-randomizer__history";
+
+  const title = document.createElement("h4");
+  title.className = "racket-randomizer__history-title";
+  title.textContent = t("racketRandom.historyTitle");
+
+  const list = document.createElement("ul");
+  list.className = "racket-randomizer__name-list";
+
+  entry.forEach((historyEntry) => {
+    const item = document.createElement("li");
+    item.className = "racket-randomizer__name-item";
+    const names = historyEntry.rackets.map((racket) => localizeValue(racket.name)).join(" / ");
+    item.textContent = `${t("racketRandom.resultTitle", { count: historyEntry.count })}: ${names}`;
+    list.append(item);
+  });
+
+  section.append(title, list);
+  return section;
+}
+
+function renderRacketRandomResults() {
+  if (!racketRandomResults) {
+    return;
+  }
+
+  racketRandomResults.innerHTML = "";
+
+  if (racketRandomHistory.length === 0) {
+    const empty = document.createElement("p");
+    empty.className = "racket-randomizer__empty";
+    empty.textContent = t("racketRandom.empty");
+    racketRandomResults.append(empty);
+    return;
+  }
+
+  const [currentEntry, ...historyEntries] = racketRandomHistory;
+  racketRandomResults.append(createRacketRandomCurrentResult(currentEntry));
+  if (historyEntries.length > 0) {
+    racketRandomResults.append(createRacketRandomHistory(historyEntries));
+  }
+}
+
+function drawRandomRackets() {
+  if (!racketRandomCount) {
+    return;
+  }
+
+  const count = syncRacketRandomCountInput();
+
+  racketRandomDrawId += 1;
+  racketRandomHistory = [
+    {
+      id: racketRandomDrawId,
+      count,
+      rackets: sampleRandomRackets(count),
+    },
+    ...racketRandomHistory,
+  ].slice(0, RACKET_RANDOM_HISTORY_LIMIT);
+
+  renderRacketRandomResults();
+}
+
+function setupRacketRandomizer() {
+  if (racketRandomCount) {
+    racketRandomCount.min = "1";
+    racketRandomCount.max = String(rackets.length);
+    syncRacketRandomCountInput();
+    racketRandomCount.addEventListener("change", syncRacketRandomCountInput);
+    racketRandomCount.addEventListener("blur", syncRacketRandomCountInput);
+  }
+  racketRandomTrigger?.addEventListener("click", drawRandomRackets);
 }
 
 function getRacketUnlockCondition(racket) {
@@ -3385,6 +4349,7 @@ function renderRackets() {
   const fragment = document.createDocumentFragment();
   sorted.forEach((racket, index) => fragment.append(createRacketCard(racket, index)));
   racketList.replaceChildren(fragment);
+  renderRacketRandomResults();
 
   racketCount.textContent = t("common.count", { count: sorted.length });
   updateApplyButtonCount("racket-filter-apply", sorted.length);
@@ -3470,6 +4435,12 @@ function setupCourtFilterChips() {
         break;
       case "favorite":
         if (courtFavoriteFilter) courtFavoriteFilter.value = "all";
+        break;
+      case "surface":
+        if (courtSurfaceFilter) courtSurfaceFilter.value = "all";
+        break;
+      case "trend":
+        if (courtTrendFilter) courtTrendFilter.value = "all";
         break;
       case "sort":
         if (courtSort) courtSort.value = "name";
@@ -4850,7 +5821,7 @@ function debounce(callback, delay = 150) {
 
 bindChangeListeners([characterTypeFilter, characterSpecialFilter, characterFavoriteFilter, characterOrder].filter(Boolean), renderCharacters);
 bindChangeListeners([racketTypeFilter, racketTimingFilter, racketFavoriteFilter, racketOrder].filter(Boolean), renderRackets);
-bindChangeListeners([courtFavoriteFilter, courtOrder].filter(Boolean), renderCourts);
+bindChangeListeners([courtFavoriteFilter, courtSurfaceFilter, courtTrendFilter, courtOrder].filter(Boolean), renderCourts);
 characterSort.addEventListener("change", handleCharacterSortChange);
 courtSort?.addEventListener("change", handleCourtSortChange);
 characterSearch.addEventListener("input", debounce(renderCharacters));
@@ -4865,6 +5836,7 @@ setupRacketFilterChips();
 setupCourtFilterChips();
 setupCharacterSearchShortcutActions();
 setupRacketSearchShortcutActions();
+setupRacketRandomizer();
 setupFilterModal("character-filter-modal", "character-inline-filters", "character-modal-filters", "character-filter-apply", renderCharacters);
 setupFilterModal("racket-filter-modal", "racket-inline-filters", "racket-modal-filters", "racket-filter-apply", renderRackets);
 setupFilterModal("court-filter-modal", "court-inline-filters", "court-modal-filters", "court-filter-apply", renderCourts);

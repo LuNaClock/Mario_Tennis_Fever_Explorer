@@ -2,31 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />  <link rel="stylesheet" href="/css/style.css" />  <!-- Google tag (gtag.js) --><script async src="https://www.googletagmanager.com/gtag/js?id=G-TWSQ9VLNT5"></script><script>  window.dataLayer = window.dataLayer || [];  function gtag(){dataLayer.push(arguments);}  gtag('js', new Date());  gtag('config', 'G-TWSQ9VLNT5');</script></head><body data-route-section="courts">  <header class="site-header">    <div class="container">      <div class="site-header__top">        <h1 data-i18n="site.title">Mario Tennis Fever Explorer</h1>
-  <title>Court List | Mario Tennis Fever Explorer</title>
-  <meta name="description" content="Comparison page for each court's ball speed, bounce characteristics, and notes." />
-  <link rel="canonical" href="https://mariotennis-fever-explorer.ai-lifebook.com/en/courts/" />
-  <link rel="alternate" hreflang="ja" href="https://mariotennis-fever-explorer.ai-lifebook.com/courts/" />
-  <link rel="alternate" hreflang="en" href="https://mariotennis-fever-explorer.ai-lifebook.com/en/courts/" />
-  <link rel="alternate" hreflang="x-default" href="https://mariotennis-fever-explorer.ai-lifebook.com/" />
-  <meta property="og:type" content="article" />
-  <meta property="og:title" content="Court List | Mario Tennis Fever Explorer" />
-  <meta property="og:description" content="Comparison page for each court's ball speed, bounce characteristics, and notes." />
-  <meta property="og:url" content="https://mariotennis-fever-explorer.ai-lifebook.com/en/courts/" />
-  <meta property="og:site_name" content="Mario Tennis Fever Explorer" />
-  <link rel="preload" as="image" href="/assets/coat_icons/stadium_grass.webp" />
-  <link rel="preload" as="image" href="/assets/coat_icons/stadium_hard.webp" />
-  <link rel="preload" as="image" href="/assets/coat_icons/stadium_clay.webp" />
-  <link rel="preload" as="image" href="/assets/coat_icons/academy_wood.webp" />
-      </div>
-      <label class="locale-switcher" for="locale-select">
-        <span class="locale-switcher__label" data-i18n="site.language">Language</span>
-        <select id="locale-select" aria-label="Language selector">
-          <option value="ja">日本語</option>
-          <option value="en">English</option>
-        </select>
-      </label>
-      <p class="site-lead" data-i18n="site.lead">A reference site to compare character and racket traits with filters and sorting.</p>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />  <link rel="stylesheet" href="/css/style.css" />  <!-- Google tag (gtag.js) --><script async src="https://www.googletagmanager.com/gtag/js?id=G-TWSQ9VLNT5"></script><script>  window.dataLayer = window.dataLayer || [];  function gtag(){dataLayer.push(arguments);}  gtag('js', new Date());  gtag('config', 'G-TWSQ9VLNT5');</script></head><body data-route-section="courts">  <header class="site-header">    <div class="container">      <div class="site-header__top">        <h1 data-i18n="site.title">Mario Tennis Fever Explorer</h1>      </div>      <label class="locale-switcher" for="locale-select">        <span class="locale-switcher__label" data-i18n="site.language">Language</span>        <select id="locale-select" aria-label="Language selector">          <option value="ja">日本語</option>          <option value="en">English</option>        </select>      </label>      <p class="site-lead" data-i18n="site.lead">A reference site to compare character and racket traits with filters and sorting.</p>
     </div>
   </header>
 
@@ -334,6 +310,25 @@
       </div>
 
       <div id="racket-list" class="card-grid"></div>
+
+      <section class="racket-randomizer" id="racket-randomizer" aria-labelledby="racket-randomizer-title">
+        <div class="racket-randomizer__header">
+          <div>
+            <h3 class="racket-randomizer__title" id="racket-randomizer-title" data-i18n="racketRandom.title">Random Racket Draw</h3>
+            <p class="racket-randomizer__description" data-i18n="racketRandom.description">Draw from the full racket list at random. Enter how many to pull, then press the button.</p>
+          </div>
+          <div class="racket-randomizer__controls">
+            <label class="filter racket-randomizer__count">
+              <span data-i18n="racketRandom.countLabel">Draw count</span>
+              <input id="racket-random-count" type="number" min="1" step="1" value="1" inputmode="numeric" />
+            </label>
+            <button type="button" class="racket-randomizer__button" id="racket-random-trigger" data-i18n="racketRandom.trigger">Draw</button>
+          </div>
+        </div>
+        <div class="racket-randomizer__results" id="racket-random-results" aria-live="polite">
+          <p class="racket-randomizer__empty" data-i18n="racketRandom.empty">No draw results yet.</p>
+        </div>
+      </section>
       </div>
     </section>
 
@@ -371,6 +366,26 @@
           </select>
         </label>
         <label class="filter">
+          <span data-i18n="filter.surface">Surface group</span>
+          <select id="court-surface-filter">
+            <option value="all" data-i18n="common.any">Any</option>
+            <option value="grass" data-i18n="courtSurface.grass">Grass</option>
+            <option value="hard" data-i18n="courtSurface.hard">Hard</option>
+            <option value="clay" data-i18n="courtSurface.clay">Clay</option>
+            <option value="other" data-i18n="courtSurface.other">Other</option>
+          </select>
+        </label>
+        <label class="filter">
+          <span data-i18n="filter.trend">Trend</span>
+          <select id="court-trend-filter">
+            <option value="all" data-i18n="common.any">Any</option>
+            <option value="fast" data-i18n="courtTrend.fast">Fast ball speed</option>
+            <option value="slow" data-i18n="courtTrend.slow">Slow ball speed</option>
+            <option value="highBounce" data-i18n="courtTrend.highBounce">High bounce</option>
+            <option value="lowBounce" data-i18n="courtTrend.lowBounce">Low bounce</option>
+          </select>
+        </label>
+        <label class="filter">
           <span data-i18n="filter.sortBy">Sort by</span>
           <select id="court-sort">
             <option value="name" data-i18n="sort.name">Name</option>
@@ -404,50 +419,92 @@
 
         <div class="court-prediction" id="court-prediction" aria-live="polite">
           <h3 class="court-prediction__title" data-i18n="courtPrediction.title">Next Court Prediction (Beta)</h3>
-          <p class="court-prediction__description" data-i18n="courtPrediction.description">The current beta view assumes a fixed 15-court rotation based on shared observations.</p>
+          <p class="court-prediction__description" data-i18n="courtPrediction.description">Search ranked-match courts by condition.</p>
           <p class="court-prediction__timezone" data-i18n="courtPrediction.timezone">*All date/time displays currently use Japan Standard Time (JST).</p>
-          <label class="filter court-prediction__selector" for="court-prediction-current">
-            <span data-i18n="courtPrediction.currentCourt">Current court</span>
-            <select id="court-prediction-current" aria-label="Current court" data-i18n-attr="aria-label:courtPrediction.currentCourt"></select>
-          </label>
+          <div class="court-prediction__controls">
+            <label class="filter court-prediction__selector" for="court-prediction-current">
+              <span data-i18n="courtPrediction.currentCourt">Current court</span>
+              <select id="court-prediction-current" aria-label="Current court" data-i18n-attr="aria-label:courtPrediction.currentCourt"></select>
+            </label>
+            <label class="filter" for="court-prediction-density">
+              <span data-i18n="courtPrediction.densityLabel">Display density</span>
+              <select id="court-prediction-density" aria-label="Display density" data-i18n-attr="aria-label:courtPrediction.densityLabel">
+                <option value="standard" data-i18n="courtPrediction.densityStandard">Standard</option>
+                <option value="detailed" selected data-i18n="courtPrediction.densityDetailed">Detailed</option>
+              </select>
+            </label>
+          </div>
           <ul class="court-prediction__list" id="court-prediction-list"></ul>
           <div class="court-prediction__tools">
             <section class="court-prediction__panel">
               <h4 class="court-prediction__panel-title" data-i18n="courtPrediction.dateTimeTitle">Court Lookup by Date/Time</h4>
               <label class="filter" for="court-prediction-datetime">
                 <span data-i18n="courtPrediction.dateTimeLabel">Date / time (JST)</span>
-                <input id="court-prediction-datetime" type="datetime-local" />
+                <div class="court-prediction__input-row">
+                  <input id="court-prediction-datetime" type="datetime-local" />
+                  <button type="button" class="court-prediction__quick-action" id="court-prediction-datetime-now" data-i18n="courtPrediction.nowButton">Now</button>
+                </div>
               </label>
               <div class="court-prediction__summary" id="court-prediction-datetime-result"></div>
             </section>
             <section class="court-prediction__panel">
               <h4 class="court-prediction__panel-title" data-i18n="courtPrediction.scheduleTitle">Daily Time Sheet</h4>
-              <label class="filter" for="court-prediction-schedule-date">
-                <span data-i18n="courtPrediction.scheduleDate">Date (JST)</span>
-                <input id="court-prediction-schedule-date" type="date" />
-              </label>
+              <div class="court-prediction__panel-controls">
+                <label class="filter" for="court-prediction-schedule-date">
+                  <span data-i18n="courtPrediction.scheduleDate">Date (JST)</span>
+                  <div class="court-prediction__input-row">
+                    <input id="court-prediction-schedule-date" type="date" />
+                    <button type="button" class="court-prediction__quick-action" id="court-prediction-schedule-today" data-i18n="courtPrediction.todayButton">Today</button>
+                  </div>
+                </label>
+                <label class="filter" for="court-prediction-schedule-count">
+                  <span data-i18n="courtPrediction.scheduleCountLabel">Rows shown</span>
+                  <select id="court-prediction-schedule-count" aria-label="Rows shown" data-i18n-attr="aria-label:courtPrediction.scheduleCountLabel">
+                    <option value="6">6</option>
+                    <option value="9">9</option>
+                    <option value="12" selected>12</option>
+                    <option value="18">18</option>
+                    <option value="all" data-i18n="courtPrediction.scheduleCountAll">All</option>
+                  </select>
+                </label>
+              </div>
+              <div class="court-prediction__summary" id="court-prediction-schedule-current"></div>
               <div class="court-prediction-schedule" id="court-prediction-schedule-list"></div>
             </section>
             <section class="court-prediction__panel">
               <h4 class="court-prediction__panel-title" data-i18n="courtPrediction.reverseTitle">Court Time Confirmation</h4>
               <div class="court-prediction__panel-controls">
+                <label class="filter" for="court-prediction-target-mode">
+                  <span data-i18n="courtPrediction.targetMode">Lookup mode</span>
+                  <select id="court-prediction-target-mode" aria-label="Lookup mode" data-i18n-attr="aria-label:courtPrediction.targetMode">
+                    <option value="exact" data-i18n="courtPrediction.targetModeExact">Specific court</option>
+                    <option value="trend" data-i18n="courtPrediction.targetModeTrend">Trend</option>
+                  </select>
+                </label>
                 <label class="filter" for="court-prediction-target-court">
-                  <span data-i18n="courtPrediction.targetCourt">Court to check</span>
-                  <select id="court-prediction-target-court" aria-label="Court to check" data-i18n-attr="aria-label:courtPrediction.targetCourt"></select>
+                  <span data-i18n="courtPrediction.targetValue">Target</span>
+                  <select id="court-prediction-target-court" aria-label="Target" data-i18n-attr="aria-label:courtPrediction.targetValue"></select>
                 </label>
                 <label class="filter" for="court-prediction-target-date">
                   <span data-i18n="courtPrediction.targetDate">Date to inspect (JST)</span>
-                  <input id="court-prediction-target-date" type="date" />
+                  <div class="court-prediction__input-row">
+                    <input id="court-prediction-target-date" type="date" />
+                    <button type="button" class="court-prediction__quick-action" id="court-prediction-target-today" data-i18n="courtPrediction.todayButton">Today</button>
+                  </div>
                 </label>
               </div>
+              <div class="court-prediction__visual" id="court-prediction-target-visual"></div>
               <div class="court-prediction__summary" id="court-prediction-target-summary"></div>
               <div class="court-prediction-occurrences">
+                <p class="court-prediction-occurrences__title" data-i18n="courtPrediction.nextMatches">Upcoming matching slots</p>
+                <div class="court-prediction-occurrences__list court-prediction-occurrences__list--stacked" id="court-prediction-target-next-occurrences"></div>
+              </div>
+              <div class="court-prediction-occurrences">
                 <p class="court-prediction-occurrences__title" data-i18n="courtPrediction.occurrencesOnDate">Occurrences on selected date</p>
-                <div class="court-prediction-occurrences__list" id="court-prediction-target-occurrences"></div>
+                <div class="court-prediction-occurrences__list court-prediction-occurrences__list--stacked" id="court-prediction-target-occurrences"></div>
               </div>
             </section>
           </div>
-          <p class="court-prediction__note" data-i18n="courtPrediction.note">*This is still not fully confirmed. The legacy observed-rotation logic is preserved in code in case the cycle needs to be revisited.</p>
         </div>
       </div>
     </section>
