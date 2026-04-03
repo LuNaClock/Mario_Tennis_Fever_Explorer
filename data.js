@@ -114,7 +114,7 @@
     {
       name: { ja: "ドンキーコング", en: "Donkey Kong" },
       type: "パワー",
-      stats: { speed: 3.0, power: 5, control: 3.5, spin: 1 },
+      stats: { speed: 3.5, power: 5, control: 3.5, spin: 1 },
       special: { ja: "ストローク時、強打スライスに押し出し付与(スライスで返球されると無効)", en: "Power Slice strokes add pushback (canceled if returned with a slice)." },
       text: { ja: "陽気で力持ちなジャングルの王者。B→Bで打つストロークが特に強くスライスで打ち返さないとふきとぶ", en: "The cheerful, strong king of the jungle. B→B strokes are especially powerful—return with slice or get blown away.※To be confirmed after release." },
       image: "assets/character_icons/donkey-kong.webp",
