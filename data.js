@@ -318,6 +318,7 @@
       name: { ja: "ファイアラケット", en: "Flame Racket" },
       category: "妨害",
       timing: "バウンド時",
+      duration: { ja: "12秒", en: "12s" },
       effect: { ja: "十字方向に5つの炎を設置。触れると短時間ショット不可 + 強制移動 + ダメージ。", en: "Places five flames in a cross pattern. Touching them briefly prevents shots, forces movement, and deals damage." },
       text: { ja: "バウンドした場所から炎をまわりにまきちらす。ふれるとアチチ！と走りまわる。", en: "It scatters flames around the bounce point. Touch one and you start running around in a panic!" },
       image: "assets/racket_icons/fire_racket.webp",
@@ -326,6 +327,7 @@
       name: { ja: "アイスラケット", en: "Ice Racket" },
       category: "妨害",
       timing: "バウンド時",
+      duration: { ja: "20秒", en: "20s" },
       effect: { ja: "氷の床を設置。踏んでいる間滑って切り替えししづらくなる。床上でスーパーチャージショットを「打ち返す」と短時間行動不可", en: "Creates an icy floor. While on it, you slide and struggle to change direction. Returning a Super Charge Shot while on the ice briefly leaves you unable to act." },
       text: { ja: "バウンドした場所に氷の床を作る。氷で足が滑って強いショットを打ち返すと転ぶ", en: "It creates an icy floor at the bounce point. You slip on the ice, and trying to return a strong shot can make you fall." },
       image: "assets/racket_icons/ice_racket.webp",
@@ -334,6 +336,7 @@
       name: { ja: "サンダーラケット", en: "Lightning Racket" },
       category: "妨害",
       timing: "バウンド時",
+      duration: { ja: "10秒", en: "10s" },
       effect: { ja: "円状の雷の床を設置。触れると中時間操作不能+ダメージ", en: "Places a ring of lightning. Touch it and you’re unable to control your character for a medium duration and take damage." },
       text: { ja: "バウンドした場所に雷が発生。ふれると体がビリビリしてしばらく動けなくなる。", en: "Lightning strikes at the bounce point. Touch it and your body is shocked, leaving you unable to move for a while." },
       image: "assets/racket_icons/sunder_racket.webp",
@@ -342,6 +345,7 @@
       name: { ja: "ビューゴーラケット", en: "Ty-Foo Racket" },
       category: "妨害",
       timing: "バウンド時",
+      duration: { ja: "12秒", en: "12s" },
       effect: { ja: "動く竜巻を設置。触れると小時間操作不能+ダメージ。竜巻にボールが当たると軌道が変化する", en: "Places a moving tornado. Touching it briefly disables controls and deals damage. If the ball hits the tornado, its trajectory changes." },
       text: { ja: "バウンドした場所に強風が発生。ふれるとふきとばされる。ボールが当たると軌道が変わる。", en: "A strong wind appears at the bounce point. If touched, you get blown away. Balls that hit it will change trajectory." },
       image: "assets/racket_icons/hyou-go_racket.webp",
@@ -350,6 +354,7 @@
      name: { ja: "ドロドロラケット", en: "Mud Racket" },
      category: "妨害",
      timing: "バウンド時",
+     duration: { ja: "20秒", en: "20s" },
      effect: { ja: "ドロの床を設置。踏んでいる間移動速度低下+ダメージ。床上でボールのバウンド時、バウンドの高さが低くなる。", en: "Places a mud floor. While standing on it, movement speed is reduced and damage is taken. Balls that bounce on it rebound lower." },
      text: { ja: "バウンドした場所にドロの床を作って移動づらくなる。ボールもはねづらく体力も減る。", en: "It creates a muddy floor at the bounce point, making movement difficult. The ball also bounces less, and your stamina drains." },
      image: "assets/racket_icons/dorodoro_racket.webp",
@@ -358,6 +363,7 @@
      name: { ja: "マメキノコラケット", en: "Mini Mushroom Racket" },
      category: "妨害",
      timing: "バウンド時",
+     duration: { ja: "10秒", en: "10s" },
      effect: { ja: "縦に動く4列のマメキノコを設置。触れると体が小さくなり、返球時に押し出されやすくなる。リーチが短くなる為、とびつきやすくもなる。", en: "Places four vertically moving columns of Mini Mushrooms. Touching them shrinks you, makes you easier to push back when returning shots, and also makes diving easier because your reach is shorter." },
      text: { ja: "バウンドした場所のまわりにマメキノコを出現させる。ふれると体が小さくなる", en: "Mini Mushrooms appear around the bounce point. Touch one and your body shrinks." },
      image: "assets/racket_icons/mamekinoko_racket.webp",
@@ -366,6 +372,7 @@
         name: { ja: "ファイアフラワーラケット", en: "Fire Flower Racket" },
         category: "妨害",
         timing: "即時",
+        duration: { ja: "10秒", en: "10s" },
         effect: { ja: "打球時ファイアボールを2発ばらまく。チャージすると3発、スーパーチャージだと4発ばらまく。触れると短時間ショット不可 + 強制移動 + ダメージ", en: "Spreads 2 fireballs on hit. Charge shots fire 3, and super-charge shots fire 4. Contact causes brief shot disable + forced movement + damage." },
         text: { ja: "使うとしばらくの間打つときにファイアボールを発生させる。ふれるとアチチ!と走り回る", en: "For a while after use, your shots spawn fireballs. Touching them makes players run around in panic." },
         image: "assets/racket_icons/fireflower_racket.webp",
@@ -374,6 +381,7 @@
         name: { ja: "アイスフラワーラケット", en: "Ice Flower Racket" },
         category: "妨害",
         timing: "即時",
+        duration: { ja: "10秒", en: "10s" },
         effect: { ja: "打球時アイスボールを2発ばらまく。チャージすると3発、スーパーチャージだと4発ばらまく。触れると短時間行動不可 + ダメージ", en: "Spreads 2 ice balls on hit. Charge shots fire 3, and super-charge shots fire 4. Contact causes brief immobilization + damage." },
         text: { ja: "使うとしばらくの間打つときにアイスボールを発生させる。ふれるとこおって動けなくなる", en: "For a while after use, your shots spawn ice balls. Touch one and you freeze, unable to move." },
         image: "assets/racket_icons/iceflower_racket.webp",
@@ -382,6 +390,7 @@
         name: { ja: "スターラケット", en: "Star Racket" },
         category: "強化",
         timing: "即時",
+        duration: { ja: "8秒", en: "8s" },
         effect: { ja: "妨害を受けない無敵状態になり、スピードも上がる", en: "Grants an invincible state that ignores interference, and also increases speed." },
         text: { ja: "使うとしばらくの間コート上のジャマを受け付けない無敵になる。移動も少し速くなる", en: "Using it grants temporary invincibility against court hazards. Your movement speed also increases slightly." },
         image: "assets/racket_icons/star_racket.webp",
@@ -390,6 +399,7 @@
         name: { ja: "たつまきラケット", en: "Tornado Racket" },
         category: "妨害",
         timing: "即時",
+        duration: { ja: "15秒", en: "15s" },
         effect: { ja: "打った地点から前方に進む竜巻を発生。触れると小時間操作不能+ダメージ。竜巻にボールが当たると軌道が変化する", en: "Creates a tornado that moves forward from the hit point. Contact causes brief control loss + damage. Balls that hit the tornado change trajectory." },
         text: { ja: "使うとしばらくの間打つときにたつまきを発生させる。ふれたものはふきとばされる", en: "For a while after use, your shots create tornadoes. Anything they touch gets blown away." },
         image: "assets/racket_icons/tatumaki_racket.webp",
@@ -398,7 +408,8 @@
       name: { ja: "サンボラケット", en: "Pokey Racket" },
       category: "妨害",
       timing: "バウンド時",
-      effect: { ja: "4段分のサンボを設置(カウンター時は最大8段)。ボールやプレイヤーが当たると周囲に身体をバラまく。触れると小時間操作不能+ダメージ。", en: "Places a 4-segment Pokey (up to 8 segments on counter). If hit by a ball or player, it scatters body segments around. Touching it causes brief control loss + damage." },
+      duration: { ja: "20秒(崩れた後10秒)", en: "20s (10s after collapse)" },
+      effect: { ja: "4段分のサンボを設置(カウンター時は最大8段)。ボールやプレイヤーが当たると周囲に崩れた身体をバラまく。触れると小時間操作不能+ダメージ。", en: "Places a 4-segment Pokey (up to 8 segments on counter). If hit by a ball or player, it scatters body segments around. Touching it causes brief control loss + damage." },
       text: { ja: "バウンドした場所にサンボを出現させる。ボールを当てるとくずれる", en: "A Pokey appears at the bounce point. It collapses when hit by the ball." },
       image: "assets/racket_icons/sanbo_racket.webp",
     },
@@ -406,6 +417,7 @@
       name: { ja: "シャドウラケット", en: "Shadow Racket" },
       category: "強化",
       timing: "即時",
+      duration: { ja: "15秒", en: "15s" },
       effect: { ja: "分身を自コートに生成。分身位置はプレイヤー位置に依存。分身は自動で返球し、基本的に別ラケットの攻撃ギミックによる影響を受けない。", en: "Creates a clone on your side of the court. The clone's position depends on your position, automatically returns balls, and is generally unaffected by attack gimmicks from other rackets." },
       text: { ja: "使うと自分の分身を作る。しばらくの間勝手にうごいてボールを打ち返してくれる", en: "Using it creates your clone. For a while, it moves on its own and returns balls for you." },
       image: "assets/racket_icons/shadow_racket.webp",
@@ -414,6 +426,7 @@
         name: { ja: "ファイアバーラケット", en: "Fire Bar Racket" },
         category: "妨害",
         timing: "バウンド時",
+        duration: { ja: "15秒", en: "15s" },
         effect: { ja: "円運動をするファイアバーを設置。触れると短時間ショット不可 + 強制移動 + ダメージ。", en: "Places a rotating Fire Bar. Contact causes brief shot disable + forced movement + damage." },
         text: { ja: "バウンドした場所にファイアバーを出現させる。ふれるとアチチ！と走り回る。", en: "A Fire Bar appears at the bounce point. Touch it and you run around in panic." },
         image: "assets/racket_icons/firebar_racket.webp",
@@ -422,6 +435,7 @@
         name: { ja: "フリーズラケット", en: "Freezing Racket" },
         category: "妨害",
         timing: "バウンド時",
+        duration: { ja: "15秒", en: "15s" },
         effect: { ja: "左右に3つずつ、氷を放射状に設置。触れると小時間行動不可 + ダメージ。氷上でバウンドすると球が変化し、打ち返すと同様の効果が発生。", en: "Places 3 ice shards on each side in a radial pattern. Contact causes brief immobilization + damage. If the ball bounces on the ice it changes, and returning it triggers the same effect." },
         text: { ja: "バウンドした場所のまわりに氷をばらまく。ふれるとこおって動けなくなる", en: "It scatters ice around the bounce point. Touching it freezes you, leaving you unable to move." },
         image: "assets/racket_icons/frieze_racket.webp",
@@ -430,6 +444,7 @@
         name: { ja: "ビリキューラケット", en: "Amp Racket" },
         category: "妨害",
         timing: "即時",
+        duration: { ja: "12秒(本体23秒)", en: "12s (body 23s)" },
         effect: { ja: "打ったボールをビリキューにし、バウンド時に設置。最大3個まで設置でき、ビリキュー同士の間に雷が発生する。雷か本体に触れると小時間行動不可 + ダメージ", en: "Turns hit balls into Amps and places them at bounce points. Up to 3 can be placed, and lightning appears between Amps. Touching either the lightning or an Amp causes brief immobilization + damage." },
         text: { ja: "使うとしばらくの間打つときにボールをビリキューに変える。ビリキュー同士は雷でつながる。", en: "For a while after use, your shots turn balls into Amps. Amp balls connect to each other with lightning." },
         image: "assets/racket_icons/birikyu-_racket.webp",
@@ -438,6 +453,7 @@
         name: { ja: "カーブラケット", en: "Swerve Racket" },
         category: "強化",
         timing: "即時",
+        duration: { ja: "15秒", en: "15s" },
         effect: { ja: "トップ・スライス・ドロップ・ロブの各球種でよく曲がるようになる。ロブは着弾速度が高速化し、着弾後は曲がっている方向側へバウンドする", en: "Topspin, slice, drop, and lob shots all curve more. Lobs also land faster, then bounce toward the direction they were curving." },
         text: { ja: "使うとしばらくの間ショットを曲げる強化がつく。トップスピンやロブも曲がる", en: "For a while after use, your shots gain a curve effect. Topspin and lobs can curve too." },
         image: "assets/racket_icons/curve_racket.webp",
@@ -446,6 +462,7 @@
         name: { ja: "インクラケット", en: "Inky Racket" },
         category: "妨害",
         timing: "バウンド時",
+        duration: { ja: "20秒", en: "20s" },
         effect: { ja: "インクの床を設置。触れた後に打球すると自画面の一部が隠れる。カウンター時も都度小さなインクの床が設置される。床内でバウンドすると球が変化し、打ち返すと画面が一部隠れるが床は追加では設置されない。", en: "Places an ink puddle. If you touch it and then hit the ball, part of your own screen is obscured. Counters also place a small ink puddle each time. If the ball bounces in a puddle, it changes; returning that ball obscures part of the screen, but no extra puddle is placed." },
         text: { ja: "前を見づらくするインクをまく。インク内で打ち返す時やインクがついたボールを打つ時も効果あり", en: "It sprays ink that makes it hard to see ahead. The effect also applies when returning inside ink or hitting an ink-covered ball." },
         image: "assets/racket_icons/ink_racket.webp",
@@ -454,6 +471,7 @@
         name: { ja: "バナナラケット", en: "Banana Racket" },
         category: "妨害",
         timing: "バウンド時",
+        duration: { ja: "20秒", en: "20s" },
         effect: { ja: "6本のバナナの皮を設置。触ると小時間行動不可+ダメージ。カウンター時も都度2本のバナナが設置される。バナナにボールが当たると除去される。", en: "Places 6 banana peels. Contact causes brief immobilization + damage. Counters also place 2 bananas each time. Bananas are removed if hit by the ball." },
         text: { ja: "バウンドした時とカウンターした時にバナナの皮をまく。ふむとすべってころんでしまう。", en: "It drops banana peels on bounce and on counter shots. Step on one and you slip and fall." },
         image: "assets/racket_icons/banana_racket.webp",
@@ -462,6 +480,7 @@
         name: { ja: "かざんラケット", en: "Volcano Racket" },
         category: "妨害",
         timing: "バウンド時",
+        duration: { ja: "15秒", en: "15s" },
         effect: { ja: "火山口を設置。プレイヤー位置付近に円状の予告範囲が発生し、一定時間後に範囲内にいると短時間ショット不可 + 強制移動 + ダメージ。火山口本体に触れた際も同様", en: "Places a volcano vent. A circular warning zone appears near the player position; after a short delay, anyone inside suffers brief shot disable + forced movement + damage. The same applies if you touch the vent itself." },
         text: { ja: "バウンドした場所に火山口を作って岩をふらせる。ふれるとアチチ!と走りまわる", en: "It creates a crater at the bounce point that rains down rocks. Touching them makes you run around in panic." },
         image: "assets/racket_icons/kazan_racket.webp",
@@ -470,6 +489,7 @@
         name: { ja: "おばけラケット", en: "Boo Racket" },
         category: "強化",
         timing: "即時",
+        duration: { ja: "12秒", en: "12s" },
         effect: { ja: "自分の姿が相手に見えなくなり、打ったボールも途中で見えなくなる", en: "Your character becomes invisible to the opponent, and your struck ball also disappears mid-flight." },
         text: { ja: "使うとしばらくの間打ったボールと自分の姿が相手に見えなくなる", en: "For a while after use, the balls you hit and your character become invisible to the opponent." },
         image: "assets/racket_icons/obake_racket.webp",
@@ -478,6 +498,7 @@
         name: { ja: "ダッシュラケット", en: "Golden Dash Racket" },
         category: "強化",
         timing: "即時",
+        duration: { ja: "8秒", en: "8s" },
         effect: { ja: "飛びつきが出来る距離を大幅に強化する。通常の飛びつきとは異なり、ショットの種類も反映される。ショット時に飛びつきは強制されず、普段通りの行動も可能。逆方向への切り替えし最中やボールの方向に移動キーを入れていない場合は飛びつけない。", en: "Greatly increases dive reach. Unlike normal dives, shot type is reflected. Dives are not forced when shooting, so standard actions remain possible. You cannot dive while switching back in the opposite direction, or if you are not inputting movement toward the ball." },
         text: { ja: "使うとしばらくの間すばやく飛びつける強化がつく。はなれたボールにも追いつける", en: "For a while after use, you gain a quick lunge boost, letting you reach balls that are farther away." },
         image: "assets/racket_icons/dash_racket.webp",
@@ -486,6 +507,7 @@
         name: { ja: "ブルラケット", en: "Chargin' Chuck Racket" },
         category: "妨害",
         timing: "即時",
+        duration: { ja: "15秒", en: "15s" },
         effect: { ja: "打球時にボールを変化させ、バウンド時の軌道が不規則になる。バウンドするまで変化は持続する(変化中に強化時間が終了しても同様)。", en: "Transforms the ball on hit, causing an irregular trajectory after bounce. The effect lasts until the bounce (even if the buff ends beforehand)." },
         text: { ja: "使うとしばらくの間打つ時にボールを違う形に変える。バウンドのときあちこちにはねる", en: "For a while after use, balls you hit change into a different shape. They bounce unpredictably in many directions." },
         image: "assets/racket_icons/bull_racket.webp",
@@ -494,6 +516,7 @@
         name: { ja: "トゲゾーラケット", en: "Spiny Racket" },
         category: "妨害",
         timing: "バウンド時",
+        duration: { ja: "10秒", en: "10s" },
         effect: { ja: "トゲゾーを3体設置(カウンター時は最大6匹)。プレイヤーにゆっくりと誘導し、触れると小距離押し出し + ダメージ。トゲゾーにボールが当たると除去される。", en: "Places 3 Spinies (up to 6 on counter). They slowly home in on players; contact causes a short pushback + damage. Spinies are removed if hit by the ball." },
         text: { ja: "バウンドした場所にトゲゾーを出現させる。トゲゾーは歩いて近づいてくる", en: "A Spiny appears at the bounce point. It walks toward players as it approaches." },
         image: "assets/racket_icons/togezo_racket.webp",
@@ -502,6 +525,7 @@
         name: { ja: "マジックラケット", en: "Magic Racket" },
         category: "妨害",
         timing: "バウンド時",
+        duration: { ja: "12秒", en: "12s" },
         effect: { ja: "まほうの杖を設置。設置地点からプレイヤーに直線軌道で弾を発射。触れると小時間行動不可 + ダメージ + ラケットがフライパンになり、効果中はフラット以外の球種が使用できず、フィーバーゲージの自動増加が停止/フィーバーショットも使用不可になる。", en: "Places a magic wand. It fires projectiles in a straight line from its location toward players. On contact, it causes brief immobilization + damage, then turns your racket into a frying pan; while affected, only flat shots are available, Fever gauge auto-charge stops, and Fever Shot cannot be used." },
         text: { ja: "バウンドした場所にまほうの杖を出現させる。まほうにふれるとラケットが変化", en: "A magic wand appears at the bounce point. Touch its magic and your racket transforms." },
         image: "assets/racket_icons/magic_racket.webp",
@@ -510,6 +534,7 @@
         name: { ja: "キラーラケット", en: "Bullet Bill Racket" },
         category: "強化",
         timing: "即時",
+        duration: { ja: "10秒", en: "10s" },
         effect: { ja: "打球時ボールをキラーに変化させ、一定時間後高弾速になる。変化後速くなるタイミングは球種によって変化し、スマッシュだと即時。強化時はコントロールに制限がかかり、コート端を狙ったショットは不可", en: "Transforms the ball into a Bullet Bill on hit, then boosts it to very high speed after a delay. The acceleration timing varies by shot type (immediate on smash). While boosted, control is restricted and edge-targeted shots are unavailable." },
         text: { ja: "使うとしばらくの間打つ時にボールをキラーに変える。キラーは高速でまっすぐ飛ぶ", en: "For a while after use, balls you hit turn into Bullet Bills. Bullet Bills fly fast in a straight line." },
         image: "assets/racket_icons/killer_racket.webp",
@@ -518,6 +543,7 @@
         name: { ja: "ドッスンラケット", en: "Thwomp Racket" },
         category: "妨害",
         timing: "バウンド時",
+        duration: { ja: "12秒", en: "12s" },
         effect: { ja: "上空にドッスンを生成。キャラが近づくかボールが本体真下を通過すると落下する。落下地点付近にいると小時間行動不可+ダメージ。直撃するとK.O.。ボールがドッスンに当たると軌道が変化する。ダウン状態中直撃すると長時間行動不可になるが、カウント状態は変化しない。", en: "Summons a Thwomp overhead. It drops when a character approaches or when the ball passes directly underneath it. Being near its landing point causes brief immobilization + damage; a direct hit is a K.O. If the ball hits the Thwomp, its trajectory changes. A direct hit while downed causes a longer immobilization, but the count state does not change." },
         text: { ja: "バウンドした場所にドッスンを出現させる。近づくとふみつぶされてしまう", en: "A Thwomp appears at the bounce point. Get close and you’ll be crushed." },
         image: "assets/racket_icons/dossun_racket.webp",
@@ -526,6 +552,7 @@
         name: { ja: "オシダシーラケット", en: "Shova Racket" },
         category: "妨害",
         timing: "即時",
+        duration: { ja: "10秒", en: "10s" },
         effect: { ja: "打球時、スライドフットワーク・とびつき・ドロップショットを除く球種で、相手を押し出す強化状態になる。", en: "While active, all shot types except slide footwork, diving shots, and drop shots gain a pushback effect that shoves opponents backward on contact." },
         text: { ja: "使うとしばらくの間相手をコート奥に押し出す強化がつく。ショットの威力も少しあがる。", en: "For a while after use, your shots gain a pushback effect that forces opponents deeper into the court. Shot power also rises slightly." },
         image: "assets/racket_icons/oshidasi_racket.webp",
@@ -534,6 +561,7 @@
       name: { ja: "メタルラケット", en: "Metal Racket" },
       category: "強化",
       timing: "即時",
+      duration: { ja: "8秒", en: "8s" },
       effect: { ja: "妨害を受けない無敵状態になり、ショット威力も上がる", en: "Become invincible and boost shot power." },
       text: { ja: "使うとしばらくの間コート上のジャマを受けないメタル状態に。ショット威力が少しあがる", en: "Using it puts you in a Metal state for a while, ignoring court hazards. Shot power increases slightly." },
       image: "assets/racket_icons/metal_racket.webp",
@@ -800,6 +828,17 @@ export const beginnerVideos = [
     youtubeId: "BM6YcvMlL4Y",
     priority: 1,
   },
+  {
+    id: "advanced-volley-guide",
+    category: "basics",
+    title: { ja: "ボレー解説", en: "Volley Guide" },
+    summary: {
+      ja: "初心者向けに、勝率に直結するボレーの考え方を解説した動画です。",
+      en: "A beginner-friendly guide to volleys that can directly improve your win rate.",
+    },
+    youtubeId: "PBXHXtV56m8",
+    priority: 6,
+  },
 ];
 
 export const tips = [
@@ -936,75 +975,263 @@ export const tips = [
   /** @type {{ date: { ja: string; en: string }; items: { ja: string; en: string }[] }[]} */
   export const changelog = [
     {
-      date: { ja: "2025-02-07", en: "2025-02-07" },
-      items: [
-        { ja: "ロゼッタ/ベビィマリオ/ヘイホーのパラメータやテキストを修正\n", en: "Adjusted Rosetta/Baby Mario/Shy Guy parameters and text.\n" },
-        { ja: "スマホとタブレットで、検索画面が崩れる不具合を修正\n", en: "Fixed a layout issue on the search screen on smartphones and tablets.\n" },
-        { ja: "スマホの検索画面で特定数以上候補がある場合、スクロールする必要があった仕様を撤廃。\nスクロール無しで全件確認出来るよう変更", en: "Removed the old mobile behavior that required scrolling when there were many search candidates.\nNow all candidates can be viewed without scrolling." },
+      title: {
+        ja: "マリオテニス フィーバー 更新データVer. 1.0.2",
+        en: "Mario Tennis Fever Update Data Ver. 1.0.2",
+      },
+      updatedAt: {
+        ja: "データ更新日: 2026年3月27日",
+        en: "Data Updated: March 27, 2026",
+      },
+      sections: [
+        {
+          title: {
+            ja: "キャラクター性能に関する変更",
+            en: "Character Performance Changes",
+          },
+          description: {
+            ja: "一部のキャラクターの性能を変更しました。",
+            en: "Adjusted the performance of some characters.",
+          },
+          groups: [
+            {
+              name: { ja: "ディディーコング", en: "Diddy Kong" },
+              items: [
+                {
+                  ja: "ショットとサーブの威力を、わずかにアップしました。",
+                  en: "Slightly increased shot and serve power.",
+                },
+              ],
+            },
+            {
+              name: { ja: "カロン", en: "Dry Bones" },
+              items: [
+                {
+                  ja: "安定して打ち返せる距離を、少し長くしました。",
+                  en: "Slightly increased the distance from which returns remain stable.",
+                },
+                {
+                  ja: "サイドライン際をねらう能力を、わずかにアップしました。",
+                  en: "Slightly improved the ability to target near the sidelines.",
+                },
+              ],
+            },
+            {
+              name: { ja: "ベビィピーチ", en: "Baby Peach" },
+              items: [
+                {
+                  ja: "安定して打ち返せる距離を、少し長くしました。",
+                  en: "Slightly increased the distance from which returns remain stable.",
+                },
+              ],
+            },
+            {
+              name: { ja: "キノピコ", en: "Toadette" },
+              items: [
+                {
+                  ja: "安定して打ち返せる距離を、少し長くしました。",
+                  en: "Slightly increased the distance from which returns remain stable.",
+                },
+              ],
+            },
+            {
+              name: { ja: "ヘイホー", en: "Shy Guy" },
+              items: [
+                {
+                  ja: "安定して打ち返せる距離を、少し長くしました。",
+                  en: "Slightly increased the distance from which returns remain stable.",
+                },
+              ],
+            },
+            {
+              name: { ja: "ドンキーコング", en: "Donkey Kong" },
+              items: [
+                {
+                  ja: "安定して打ち返せる距離を、少し短くしました。",
+                  en: "Slightly reduced the distance from which returns remain stable.",
+                },
+                {
+                  ja: "移動の走り出しを、少し遅くしました。",
+                  en: "Slightly slowed the movement startup.",
+                },
+                {
+                  ja: "左右に動いたときに、モーションが当たり判定から大きく出ていたため、モーションの調整を行いました。",
+                  en: "Adjusted the animation because lateral movement extended too far beyond the hitbox.",
+                },
+              ],
+            },
+            {
+              name: { ja: "ボスパックン", en: "Petey Piranha" },
+              items: [
+                {
+                  ja: "安定して打ち返せる距離を、少し短くしました。",
+                  en: "Slightly reduced the distance from which returns remain stable.",
+                },
+                {
+                  ja: "移動の走り出しを、少し遅くしました。",
+                  en: "Slightly slowed the movement startup.",
+                },
+              ],
+            },
+            {
+              name: { ja: "ロゼッタ", en: "Rosalina" },
+              items: [
+                {
+                  ja: "安定して打ち返せる距離を、少し短くしました。",
+                  en: "Slightly reduced the distance from which returns remain stable.",
+                },
+              ],
+            },
+            {
+              name: { ja: "ハナチャン", en: "Wiggler" },
+              items: [
+                {
+                  ja: "安定して打ち返せる距離を、少し短くしました。",
+                  en: "Slightly reduced the distance from which returns remain stable.",
+                },
+              ],
+            },
+          ],
+        },
+        {
+          title: {
+            ja: "フィーバーラケット性能に関する変更",
+            en: "Fever Racket Performance Changes",
+          },
+          description: {
+            ja: "一部のフィーバーラケットの性能を変更しました。",
+            en: "Adjusted the performance of some Fever Rackets.",
+          },
+          groups: [
+            {
+              name: { ja: "ダッシュラケット", en: "Dash Racket" },
+              items: [
+                {
+                  ja: "効果時間を12秒から8秒に、短くしました。",
+                  en: "Reduced the effect duration from 12 seconds to 8 seconds.",
+                },
+              ],
+            },
+            {
+              name: { ja: "メタルラケット", en: "Metal Racket" },
+              items: [
+                {
+                  ja: "効果時間を10秒から8秒に、短くしました。",
+                  en: "Reduced the effect duration from 10 seconds to 8 seconds.",
+                },
+                {
+                  ja: "効果時間中、トゲゾーラケットのトゲゾーを倒せるようになりました。",
+                  en: "While active, it can now defeat Spinies from the Spiny Racket.",
+                },
+              ],
+            },
+            {
+              name: { ja: "スターラケット", en: "Star Racket" },
+              items: [
+                {
+                  ja: "効果時間を10秒から8秒に、短くしました。",
+                  en: "Reduced the effect duration from 10 seconds to 8 seconds.",
+                },
+                {
+                  ja: "効果時間中、トゲゾーラケットのトゲゾーを倒せるようになりました。",
+                  en: "While active, it can now defeat Spinies from the Spiny Racket.",
+                },
+              ],
+            },
+            {
+              name: { ja: "マジックラケット", en: "Magic Racket" },
+              items: [
+                {
+                  ja: "効果時間を15秒から12秒に、短くしました。",
+                  en: "Reduced the effect duration from 15 seconds to 12 seconds.",
+                },
+                {
+                  ja: "ラケットがすでにフライパンになっている場合は、ラケットがフライパンに変化するモーションをしないようにしました（HPへのダメージは受けます）。",
+                  en: "If the racket is already a frying pan, the transformation animation no longer plays, though HP damage still applies.",
+                },
+              ],
+            },
+            {
+              name: { ja: "おばけラケット", en: "Boo Racket" },
+              items: [
+                {
+                  ja: "効果時間を15秒から12秒に、短くしました。",
+                  en: "Reduced the effect duration from 15 seconds to 12 seconds.",
+                },
+                {
+                  ja: "ロブの場合、ボールが消えるまでの時間が0.5秒長くなり、ショットの軌道を確認できる時間が少し長くなりました。",
+                  en: "For lobs, the ball now takes 0.5 seconds longer to disappear, slightly increasing the time available to confirm its trajectory.",
+                },
+              ],
+            },
+            {
+              name: { ja: "インクラケット", en: "Ink Racket" },
+              items: [
+                {
+                  ja: "インクが画面に付いてから落ちはじめるまでの時間を、半分に短くしました。",
+                  en: "Halved the time before ink on the screen starts to drip away.",
+                },
+              ],
+            },
+          ],
+        },
+        {
+          title: {
+            ja: "ショット挙動の変更",
+            en: "Shot Behavior Changes",
+          },
+          items: [
+            {
+              ja: "チャージキャンセルしたとき、スライドフットワークや飛びつきが発生してしまうことがないように調整しました（ただし、マルチボールのときの挙動は、Ver. 1.0.1から変更ありません）。",
+              en: "Adjusted behavior so slide footwork or diving no longer triggers when charge canceling. Multiball behavior remains unchanged from Ver. 1.0.1.",
+            },
+          ],
+        },
+        {
+          title: {
+            ja: "その他の変更",
+            en: "Other Changes",
+          },
+          items: [
+            {
+              ja: "ランクマッチで、毎月1日の午前9時（日本時間）のレーティング調整が行われないことがある不具合を修正しました。",
+              en: "Fixed an issue in Ranked Match where the rating adjustment at 9:00 AM JST on the first day of each month sometimes did not occur.",
+            },
+            {
+              ja: "ストーリーモードの「上空」での対戦後、イベントが進まなくなる不具合を修正しました。また、イベントが進まなくなったセーブデータから再開した場合、イベントが進むように修正しました。",
+              en: "Fixed an issue where events could stop progressing after the battle in \"Upper Sky\" in Story Mode. Save data already affected by the issue will now also progress correctly when resumed.",
+            },
+            {
+              ja: "その他、ゲームを快適に遊んでいただけるよう、いくつかの問題を修正しました。",
+              en: "Also fixed several other issues to improve the overall gameplay experience.",
+            },
+          ],
+        },
       ],
     },
     {
-      date: { ja: "2025-02-08", en: "2025-02-08" },
-      items: [
-        { ja: "ラケット一覧を更新(体験版時点で分かる範囲のみ)", en: "Updated the racket list (within what was confirmed in the demo build)." },
-        { ja: "検索画面の処理高速化", en: "Improved search screen performance." },
-        { ja: "ラケット一覧の誤記を修正", en: "Fixed typos in the racket list." },
-        { ja: "各パラメータを確認しやすいように、スマホ版の「全項目を見る」の挙動変更。", en: "Adjusted the mobile 'Show all' behavior to make each parameter easier to check." },
+      title: {
+        ja: "マリオテニス フィーバー 更新データVer. 1.0.1",
+        en: "Mario Tennis Fever Update Data Ver. 1.0.1",
+      },
+      updatedAt: {
+        ja: "データ更新日: 2026年2月12日",
+        en: "Data Updated: February 12, 2026",
+      },
+      sections: [
+        {
+          title: {
+            ja: "全般",
+            en: "General",
+          },
+          items: [
+            {
+              ja: "ゲームを快適に遊んでいただけるよう、いくつかの問題を修正しました。",
+              en: "Fixed several issues to improve the overall gameplay experience.",
+            },
+          ],
+        },
       ],
     },
-    {
-      date: { ja: "2025-02-09", en: "2025-02-09" },
-      items: [
-          { ja: "PC版に各項目へジャンプ出来るヘッダーを実装", en: "Implemented a PC header that allows jumping to each section." },
-          { ja: "言語切り替え機能を実装", en: "Implemented language switch to English." }
-      ],
-    },
-    {
-        date: { ja: "2025-02-10", en: "2025-02-10" },
-        items: [
-            { ja: "ラケット一覧に動画再生機能を実装", en: "Implemented 'Watch effect video' function for rackets." },
-            { ja: "お気に入り機能を実装し、フィルタにも対応", en: "Implemented favorite feature with filter support." },
-            { ja: "Tier表作成機能を実装", en: "Implemented tier list creation function." }
-        ],
-      },
-      {
-        date: { ja: "2025-02-11", en: "2025-02-11" },
-        items: [
-            { ja: "Tipsを実装", en: "Implemented Tips." },
-            { ja: "Tier表のアイコンを入れ替え出来るよう修正", en: "Updated so icons in the Tier table can be swapped." }
-        ],
-      },
-      {
-        date: { ja: "2025-02-12", en: "2025-02-12" },
-        items: [
-            { ja: "ラケット一覧の効果大幅更新", en: "Major overhaul of racket effect descriptions in the racket list." },
-        ],
-      },
-      {
-        date: { ja: "2025-02-13", en: "2025-02-13" },
-        items: [
-            { ja: "コート一覧を実装", en: "Implemented the court list." },
-            { ja: "特殊能力を更新", en: "Updated special abilities." },
-            { ja: "Tipsを更新", en: "Updated Tips." }
-        ],
-      },
-      {
-        date: { ja: "2026-02-15", en: "2026-02-15" },
-        items: [
-            { ja: "Tier表にメモ欄追加", en: "Added a notes section to the tier list." },
-            { ja: "次コート予測機能(β)を実装", en: "Implemented next-court prediction feature (beta)." }
-        ],
-      },
-      {
-        date: { ja: "2026-02-17", en: "2026-02-17" },
-        items: [
-            { ja: "Tierに、目的別おすすめ欄を追加", en: "Added a purpose-based recommendations section to the tier list." }
-        ],
-      },
-      {
-        date: { ja: "2026-03-07", en: "2026-03-07" },
-        items: [
-            { ja: "Tipsを追加(フラット返球・スマッシュ返球)", en: "Added Tips: returning flat shots and smash return with topspin volley." }
-        ],
-      },];
+  ];
   

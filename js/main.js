@@ -17,7 +17,7 @@ const translations = {
       historyTitle: "履歴",
       empty: "まだ抽選結果はありません。"
     },
-    footer: { note: "データは仮入力を含みます。後日更新予定です。", contactLabel: "作成者・問い合わせ先:", contactAccount: "@Lu_Na_Clock", changelog: "更新履歴" },
+    footer: { contactLabel: "作成者・問い合わせ先:", contactAccount: "@Lu_Na_Clock", changelog: "ゲームのアップデート履歴" },
     stat: { speed: "スピード", power: "パワー", control: "コントロール", spin: "スピン" },
     court: { ballSpeed: "たまあし", bounce: "バウンド", note: "説明", shortBallSpeed: "速", shortBounce: "跳" },
     courtPrediction: {
@@ -79,11 +79,11 @@ const translations = {
     courtTrend: { fast: "たまあし早め", slow: "たまあし遅め", highBounce: "バウンド高め", lowBounce: "バウンド低め" },
     sort: { name: "名前", ballSpeed: "たまあし", bounce: "バウンド" },
     order: { game: "ゲーム内順", asc: "昇順", desc: "降順", high: "数値が高い順", low: "数値が低い順" },
-    common: { any: "指定なし", yes: "あり", no: "なし", wip: "仮実装", count: "{{count}}件表示", showCount: "{{count}}件を表示", searchHit: "検索ヒット: {{count}}件", noCharacter: "一致するキャラクターが見つかりません。", noRacket: "一致するラケットが見つかりません。", noTip: "一致するTipsが見つかりません。", language: "言語" },
+    common: { any: "指定なし", yes: "あり", no: "なし", wip: "仮実装", count: "{{count}}件表示", showCount: "{{count}}件を表示", searchHit: "検索ヒット: {{count}}件", noCharacter: "一致するキャラクターが見つかりません。", noRacket: "一致するラケットが見つかりません。", noTip: "一致するTipsが見つかりません。", language: "言語", effectDuration: "効果時間" },
     accordion: { special: "特殊能力", gameText: "ゲーム内テキスト", details: "全項目を見る", unlockCondition: "ラケットの開放条件", video: "動画で効果を確認する" },
     video: { unavailable: "動画は準備中です。", checking: "動画の有無を確認中です…", openYoutube: "YouTubeで開く" },
     chip: { type: "タイプ", search: "検索", special: "特殊能力", favorites: "お気に入り", sort: "ソート", order: "並び順", category: "種類", timing: "効果タイミング", yes: "あり", no: "なし", surface: "表面統合", trend: "傾向" },
-    aria: { sectionNav: "セクションナビゲーション", mobileNav: "モバイルセクションナビ", close: "閉じる", showChangelog: "更新履歴を表示", collapseNav: "セクションナビをたたむ", expandNav: "セクションナビを表示", contactX: "Xアカウント @Lu_Na_Clock", officialTierTabs: "固定Tier項目" },
+    aria: { sectionNav: "セクションナビゲーション", mobileNav: "モバイルセクションナビ", close: "閉じる", showChangelog: "ゲームのアップデート履歴を表示", collapseNav: "セクションナビをたたむ", expandNav: "セクションナビを表示", contactX: "Xアカウント @Lu_Na_Clock", officialTierTabs: "固定Tier項目" },
     type: { "オールラウンド": "オールラウンド", "テクニック": "テクニック", "パワー": "パワー", "ディフェンス": "ディフェンス", "トリッキー": "トリッキー", "スピード": "スピード" },
     category: { "妨害": "妨害", "強化": "強化", "その他": "その他", "不明": "不明" },
     timing: { "即時": "即時", "バウンド時": "バウンド時", "不明": "不明" },
@@ -91,7 +91,7 @@ const translations = {
     verification: { "検証中": "検証中", "検証済": "検証済" },
     tierValue: { hard: "ハード", clay: "クレー", grass: "グラス", singles: "シングルス", doubles: "ダブルス", fever: "フィーバー" },
     meta: { iconSuffix: "のアイコン" },
-    changelog: { title: "更新履歴" },
+    changelog: { title: "ゲームのアップデート履歴" },
 
     faq: {
       categories: { beginner: "初心者向け", tier: "Tier基準", losing: "勝てない際の考え方" },
@@ -170,7 +170,7 @@ const translations = {
       historyTitle: "History",
       empty: "No draw results yet."
     },
-    footer: { note: "Some data is provisional and will be updated later.", contactLabel: "Creator & Contact:", contactAccount: "@Lu_Na_Clock", changelog: "Changelog" },
+    footer: { contactLabel: "Creator & Contact:", contactAccount: "@Lu_Na_Clock", changelog: "Game Update History" },
     stat: { speed: "Speed", power: "Power", control: "Control", spin: "Spin" },
     court: { ballSpeed: "Ball Speed", bounce: "Bounce", note: "Notes", shortBallSpeed: "SPD", shortBounce: "BNC" },
     courtPrediction: {
@@ -232,11 +232,11 @@ const translations = {
     courtTrend: { fast: "Fast ball speed", slow: "Slow ball speed", highBounce: "High bounce", lowBounce: "Low bounce" },
     sort: { name: "Name", ballSpeed: "Ball Speed", bounce: "Bounce" },
     order: { game: "Game order", asc: "A → Z", desc: "Z → A", high: "High → Low", low: "Low → High" },
-    common: { any: "Any", yes: "Yes", no: "None", wip: "Work in progress", count: "{{count}} shown", showCount: "Show {{count}}", searchHit: "Search hits: {{count}}", noCharacter: "No matching characters found.", noRacket: "No matching rackets found.", noTip: "No matching tips found.", language: "Language" },
+    common: { any: "Any", yes: "Yes", no: "None", wip: "Work in progress", count: "{{count}} shown", showCount: "Show {{count}}", searchHit: "Search hits: {{count}}", noCharacter: "No matching characters found.", noRacket: "No matching rackets found.", noTip: "No matching tips found.", language: "Language", effectDuration: "Duration" },
     accordion: { special: "Special", gameText: "In-game text", details: "Show all", unlockCondition: "Unlock condition", video: "Watch effect video" },
     video: { unavailable: "Video is coming soon.", checking: "Checking video availability…", openYoutube: "Open on YouTube" },
     chip: { type: "Type", search: "Search", special: "Special", favorites: "Favorites", sort: "Sort", order: "Order", category: "Category", timing: "Effect timing", yes: "Yes", no: "No", surface: "Surface group", trend: "Trend" },
-    aria: { sectionNav: "Section navigation", mobileNav: "Mobile section navigation", close: "Close", showChangelog: "Show changelog", collapseNav: "Collapse section nav", expandNav: "Expand section nav", contactX: "X account @Lu_Na_Clock", officialTierTabs: "Fixed tier categories" },
+    aria: { sectionNav: "Section navigation", mobileNav: "Mobile section navigation", close: "Close", showChangelog: "Show game update history", collapseNav: "Collapse section nav", expandNav: "Expand section nav", contactX: "X account @Lu_Na_Clock", officialTierTabs: "Fixed tier categories" },
     type: { "オールラウンド": "All-Around", "テクニック": "Technical	", "パワー": "Powerful", "ディフェンス": "Defensive", "トリッキー": "Tricky", "スピード": "Speedy" },
     category: { "妨害": "Disruptive", "強化": "Boost", "その他": "Other", "不明": "Unknown" },
     timing: { "即時": "Instant", "バウンド時": "On Bounce", "不明": "Unknown" },
@@ -244,7 +244,7 @@ const translations = {
     verification: { "検証中": "Verifying", "検証済": "Verified" },
     tierValue: { hard: "Hard", clay: "Clay", grass: "Grass", singles: "Singles", doubles: "Doubles", fever: "Fever" },
     meta: { iconSuffix: " icon" },
-    changelog: { title: "Changelog" },
+    changelog: { title: "Game Update History" },
     faq: {
       categories: { beginner: "For beginners", tier: "Tier criteria", losing: "How to think when you keep losing" },
       beginnerCharacter: {
@@ -3268,11 +3268,15 @@ function createRacketCard(racket, itemIndex, options = {}) {
   header.className = "card-header";
 
   const title = document.createElement("div");
+  const durationBadge = racket.duration
+    ? `<span class="badge badge--duration">${t("common.effectDuration")}:約${localizeValue(racket.duration)}</span>`
+    : "";
   title.innerHTML = `
     <h3 class="racket-title">${localizeValue(racket.name)}</h3>
     <div class="badge-group badge-group--racket">
       <span class="badge">${t(`category.${rawValue(racket.category)}`)}</span>
       <span class="badge badge--soft">${t(`timing.${rawValue(racket.timing)}`)}</span>
+      ${durationBadge}
     </div>
   `;
 
@@ -4582,26 +4586,119 @@ function setupChangelogModal() {
   });
 }
 
+function createLocalizedList(items, className) {
+  const list = document.createElement("ul");
+  list.className = className;
+
+  items.forEach((item) => {
+    const li = document.createElement("li");
+    li.textContent = localizeValue(item);
+    list.append(li);
+  });
+
+  return list;
+}
+
 function renderChangelogContent(content) {
   content.innerHTML = "";
-  changelog.forEach((entry) => {
-    const div = document.createElement("div");
-    div.className = "changelog-entry";
 
-    const dateEl = document.createElement("p");
-    dateEl.className = "changelog-entry__date";
-    dateEl.textContent = localizeValue(entry.date);
+  changelog.forEach((entry, index) => {
+    const article = document.createElement("details");
+    article.className = "changelog-entry";
+    article.open = index === 0;
 
-    const ul = document.createElement("ul");
-    ul.className = "changelog-entry__items";
-    entry.items.forEach((item) => {
-      const li = document.createElement("li");
-      li.textContent = localizeValue(item);
-      ul.append(li);
+    const summaryEl = document.createElement("summary");
+    summaryEl.className = "changelog-entry__summary";
+
+    const summaryTextEl = document.createElement("span");
+    summaryTextEl.className = "changelog-entry__summary-text";
+
+    if (entry.title) {
+      const titleEl = document.createElement("span");
+      titleEl.className = "changelog-entry__title";
+      titleEl.textContent = localizeValue(entry.title);
+      summaryTextEl.append(titleEl);
+    }
+
+    if (entry.updatedAt) {
+      const updatedAtEl = document.createElement("span");
+      updatedAtEl.className = "changelog-entry__updated-at";
+      updatedAtEl.textContent = localizeValue(entry.updatedAt);
+      summaryTextEl.append(updatedAtEl);
+    }
+
+    const summaryIndicatorEl = document.createElement("span");
+    summaryIndicatorEl.className = "changelog-entry__summary-indicator";
+    summaryIndicatorEl.setAttribute("aria-hidden", "true");
+    summaryIndicatorEl.textContent = "▾";
+
+    summaryEl.append(summaryTextEl, summaryIndicatorEl);
+    article.append(summaryEl);
+
+    const bodyEl = document.createElement("div");
+    bodyEl.className = "changelog-entry__body";
+
+    if (entry.description) {
+      const descriptionEl = document.createElement("p");
+      descriptionEl.className = "changelog-entry__description";
+      descriptionEl.textContent = localizeValue(entry.description);
+      bodyEl.append(descriptionEl);
+    }
+
+    (entry.sections ?? []).forEach((section) => {
+      const sectionEl = document.createElement("section");
+      sectionEl.className = "changelog-entry__section";
+
+      if (section.title) {
+        const sectionTitleEl = document.createElement("h4");
+        sectionTitleEl.className = "changelog-entry__section-title";
+        sectionTitleEl.textContent = localizeValue(section.title);
+        sectionEl.append(sectionTitleEl);
+      }
+
+      if (section.description) {
+        const sectionDescriptionEl = document.createElement("p");
+        sectionDescriptionEl.className = "changelog-entry__section-description";
+        sectionDescriptionEl.textContent = localizeValue(section.description);
+        sectionEl.append(sectionDescriptionEl);
+      }
+
+      if (Array.isArray(section.groups) && section.groups.length > 0) {
+        const groupsEl = document.createElement("div");
+        groupsEl.className = "changelog-entry__groups";
+
+        section.groups.forEach((group) => {
+          const groupEl = document.createElement("article");
+          groupEl.className = "changelog-group";
+
+          const nameEl = document.createElement("h5");
+          nameEl.className = "changelog-group__name";
+          nameEl.textContent = localizeValue(group.name);
+          groupEl.append(nameEl);
+
+          if (Array.isArray(group.items) && group.items.length > 0) {
+            groupEl.append(createLocalizedList(group.items, "changelog-group__items"));
+          }
+
+          groupsEl.append(groupEl);
+        });
+
+        sectionEl.append(groupsEl);
+      }
+
+      if (Array.isArray(section.items) && section.items.length > 0) {
+        sectionEl.append(createLocalizedList(section.items, "changelog-entry__items"));
+      }
+
+      bodyEl.append(sectionEl);
     });
 
-    div.append(dateEl, ul);
-    content.append(div);
+    if (Array.isArray(entry.items) && entry.items.length > 0) {
+      bodyEl.append(createLocalizedList(entry.items, "changelog-entry__items"));
+    }
+
+    article.append(bodyEl);
+    content.append(article);
   });
 }
 
