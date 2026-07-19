@@ -202,10 +202,10 @@ function applyEnglishFallbacks(html) {
     .replace('data-nav-label="コート"', 'data-nav-label="Courts"');
 }
 
-const baseTemplate = fs.readFileSync(indexPath, "utf8");
+const baseTemplate = fs.readFileSync(indexPath, "utf8").replace(/\r\n?/g, "\n");
 
 for (const route of allRoutes) {
-  const rendered = renderHtml(baseTemplate, route);
+  const rendered = renderHtml(baseTemplate, route).replace(/\n/g, "\r\n");
   if (route.path === "/" || route.path === "/en/") {
     const outputPath = route.path === "/" ? indexPath : path.join(root, "en", "index.html");
     fs.mkdirSync(path.dirname(outputPath), { recursive: true });

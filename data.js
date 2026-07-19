@@ -34,7 +34,8 @@
     {
       name: { ja: "ロゼッタ", en: "Rosalina" },
       type: "トリッキー",
-      stats: { speed: 3.5, power: 3.5, control: 3.5, spin: 3.5 },
+      stats: { speed: 3, power: 3.5, control: 2.5, spin: 3.5 },
+      statsBefore110: { speed: 3.5, control: 3.5 },
       special: { ja: "ロブ強化。浮遊:チャージ中の移動速度が速く、フィーバーラケットの床効果を受けない", en: "Enhanced Lob. Floating: faster movement speed while charging and nullifies Fever Racket floor effects" },
       text: { ja: "力強いショットとスピンで圧倒する。ネット際の相手の上をぬくロブは曲がる軌道で流れ星のように落ちる", en: "Overwhelms with powerful shots and heavy spin. Her lobs that sail over net players curve and drop like a shooting star.※To be confirmed after release." },
       image: "assets/character_icons/rosetta.webp",
@@ -42,7 +43,8 @@
     {
       name: { ja: "ポリーン", en: "Pauline" },
       type: "スピード",
-      stats: { speed: 5, power: 1.5, control: 3, spin: 1.5 },
+      stats: { speed: 5, power: 1.5, control: 3.5, spin: 1.5 },
+      statsBefore110: { control: 3 },
       special: { ja: "なし", en: "None" },
       text: { ja: "コート上のスピードスター。上品なたたずまいながら遠くの球にもあきらめず追いつく姿には人気がある", en: "A speed star on the court. Despite her elegant style, she never gives up on far balls—fans love it.※To be confirmed after release." },
       image: "assets/character_icons/pauline.webp",
@@ -114,7 +116,8 @@
     {
       name: { ja: "ドンキーコング", en: "Donkey Kong" },
       type: "パワー",
-      stats: { speed: 3.5, power: 5, control: 3.5, spin: 1 },
+      stats: { speed: 3, power: 5, control: 2.5, spin: 1 },
+      statsBefore110: { speed: 3.5, control: 3.5 },
       special: { ja: "ストローク時、強打スライスに押し出し付与(スライスで返球されると無効)", en: "Power Slice strokes add pushback (canceled if returned with a slice)." },
       text: { ja: "陽気で力持ちなジャングルの王者。B→Bで打つストロークが特に強くスライスで打ち返さないとふきとぶ", en: "The cheerful, strong king of the jungle. B→B strokes are especially powerful—return with slice or get blown away.※To be confirmed after release." },
       image: "assets/character_icons/donkey-kong.webp",
@@ -162,7 +165,8 @@
     {
       name: { ja: "ディディーコング", en: "Diddy Kong" },
       type: "スピード",
-      stats: { speed: 5, power: 2.5, control: 2.5, spin: 3 },
+      stats: { speed: 5, power: 3, control: 2.5, spin: 3 },
+      statsBefore110: { power: 2.5 },
       special: { ja: "スライスチャージ速度向上", en: "Faster Slice Charge" },
       text: { ja: "すばしっこくボールに追いつける。Bで打てるスライスを早くチャージできる", en: "Quick enough to reach the ball easily. Can charge the Slice B faster.※To be confirmed after release." },
       image: "assets/character_icons/diddy-kong.webp",
@@ -234,7 +238,8 @@
     {
       name: { ja: "カロン", en: "Dry Bones" },
       type: "トリッキー",
-      stats: { speed: 1.5, power: 3, control: 3, spin: 3.5 },
+      stats: { speed: 2, power: 3, control: 3.5, spin: 3.5 },
+      statsBefore110: { speed: 1.5, control: 3 },
       special: { ja: "ドロップが曲がる", en: "Curving drop shot" },
       text: { ja: "コウラに入って移動するがノコノコとちがってけっこうおそい。B→Aのドロップショットが曲がる", en: "Moseys around the court in a slow-moving shell. Drop shot B→A curves." },
       image: "assets/character_icons/karon.webp",
@@ -582,6 +587,14 @@
       text: { ja: "使うとしばらくの間自分のまわりをぐるぐるまわってボールを打ち返してくれる", en: "For a while after use, boomerangs spin around you and return balls on your behalf." },
       image: "assets/racket_icons/boomerang_racket.webp",
     },
+    {
+      name: { ja: "ブラックホールラケット", en: "Black Hole Racket" },
+      category: "妨害",
+      timing: "バウンド時",
+      effect: { ja: "ブラックホールを設置。エフェクト範囲内に入るとダメージを受け、ブラックホールの中心に引き寄せられる。HPが0になるとブラックホールに吸い込まれK.O.となる。", en: "Places a black hole. Players within its area of effect take damage and are pulled toward its center. If their HP reaches 0, they are sucked into the black hole and K.O.'d." },
+      text: { ja: "バウンドした場所にブラックホールを作る。近づくと引き寄せられて危険。", en: "Creates a black hole at the bounce point. Getting close is dangerous because it pulls players in." },
+      image: "assets/racket_icons/blackwhole_racket.png",
+    },
   ];
 
 export const tierPurposeRecommendations = [
@@ -746,6 +759,7 @@ export const courts = [
   { name: { ja: "ワルイージピンボール", en: "Waluigi's Pinball Arcade" }, ballSpeed: 3, bounce: 2, description: { ja: "（個人的な説明欄は後日更新予定）", en: "(Personal notes will be added later.)" }, text: { ja: "ピンボールをイメージして作られたコート。ド派手なライトに気分も高まる?", en: "Inspired by pinball arcades, complete with neon lights and tile floors!" }, image: "assets/coat_icons/waluigi_pinball.webp" },
   { name: { ja: "ラケットファクトリー", en: "Racket Factory" }, ballSpeed: 3, bounce: 4, description: { ja: "（個人的な説明欄は後日更新予定）", en: "(Personal notes will be added later.)" }, text: { ja: "ラケット工場内に作られたコート。これから使うラケットもここで作られたのかも", en: "Built inside a factory that might've made your racket!" }, image: "assets/coat_icons/racket_factory.webp" },
   { name: { ja: "ワンダーコート", en: "Wonder Court" }, ballSpeed: 4, bounce: 2, description: { ja: "（個人的な説明欄は後日更新予定）", en: "(Personal notes will be added later.)" }, text: { ja: "『スーパーマリオブラザーズ ワンダー』より。フラワー王国に作られた不思議なコート", en: "Designed in the Flower Kingdom from Super Mario Bros. Wonder." }, image: "assets/coat_icons/wonder_court.webp" },
+  { name: { ja: "ギャラクシーコート", en: "Galaxy Court" }, ballSpeed: 2, bounce: 4, description: { ja: "（個人的な説明欄は後日更新予定）", en: "(Personal notes will be added later.)" }, text: { ja: "『スーパーマリオギャラクシー』より。宇宙の惑星に作られたバウンドが高いコート", en: "From Super Mario Galaxy. A high-bouncing court built on a planet in outer space." }, image: "assets/coat_icons/galaxy_court.webp" },
 ];
 
 
@@ -974,6 +988,348 @@ export const tips = [
 
   /** @type {{ date: { ja: string; en: string }; items: { ja: string; en: string }[] }[]} */
   export const changelog = [
+    {
+      title: {
+        ja: "マリオテニス フィーバー 更新データVer. 1.1.0",
+        en: "Mario Tennis Fever Update Data Ver. 1.1.0",
+      },
+      updatedAt: {
+        ja: "データ更新日: 2026年7月16日",
+        en: "Data Updated: July 16, 2026",
+      },
+      sections: [
+        {
+          title: {
+            ja: "「おすそわけ通信」に「ゲームチャットであそぶ」を追加",
+            en: "Added “GameShare” and “Play via GameChat”",
+          },
+          items: [
+            {
+              ja: "離れた場所にいるフレンドとゲームチャットをしながら、ソフトをおすそわけして一緒に遊ぶことができる機能を追加しました。",
+              en: "Added functionality to play the game with friends on GameChat who don’t have the game.",
+            },
+            {
+              ja: "「ゲームチャットであそぶ」では、ボタン操作でのテニスの試合とスペシャルゲームの他に、スイング操作でのテニスの試合も遊ぶことができます。",
+              en: "In “Play via GameChat,” you can play tennis matches with swing controls in addition to tennis matches with button controls and games in Mix It Up.",
+            },
+            {
+              ja: "ゲームチャットを利用するには、「Nintendo Switch Online（有料）」への加入が必要です。",
+              en: "A Nintendo Switch Online membership is required to use GameChat.",
+            },
+          ],
+        },
+        {
+          title: {
+            ja: "新しいフィーバーラケット「ブラックホールラケット」の追加",
+            en: "Added a New Fever Racket, the “Black Hole Racket”",
+          },
+          items: [
+            {
+              ja: "フィーバーショットが地面に当たったときにブラックホールが発生する、新しいフィーバーラケット「ブラックホールラケット」を追加しました。",
+              en: "The new “Black Hole Racket” Fever Racket has been added which causes a black hole when the Fever Shot hits the ground.",
+            },
+            {
+              ja: "発生したブラックホールが大きくなったとき、近くにいるプレイヤーをブラックホールの中心に引き寄せる効果があります。",
+              en: "The black hole it causes has the effect of pulling players who are nearby into the black hole when it gets large.",
+            },
+            {
+              ja: "ブラックホールに近づくとHPにダメージを受けます。ブラックホールの効果によってHPが0になりK.O.となると、ブラックホールに吸い込まれます。",
+              en: "Your HP Gauge will take damage if you get close to the black hole. If your HP reaches 0 due to the black hole and you are knocked out, you will be sucked into the black hole.",
+            },
+            {
+              ja: "飛んできたボールを引き寄せる効果はありません。",
+              en: "Black holes do not have the effect of drawing in incoming balls.",
+            },
+          ],
+        },
+        {
+          title: {
+            ja: "新しいコート「ギャラクシーコート」の追加",
+            en: "Added a New Court, the “Galaxy Court”",
+          },
+          items: [
+            {
+              ja: "『スーパーマリオギャラクシー』をテーマにした、新しいコートを追加しました。",
+              en: "A new court has been added based on Super Mario Galaxy.",
+            },
+            {
+              ja: "宇宙の惑星に作られたコートで、たまあしはあまり速くないですが、ボールが高くバウンドします。",
+              en: "The court is made on a distant planet, and although the ball speed isn’t particularly fast, balls have a high bounce.",
+            },
+            {
+              ja: "試合用のフリーマッチ・ランクマッチとスペシャルゲームで、コートの形状が異なります。",
+              en: "The court has a different shape depending on whether you are playing Free Play or Ranked Match matches, or in Special Match.",
+            },
+          ],
+        },
+        {
+          title: {
+            ja: "新しいスペシャルゲーム「ギャラクシーコートマッチ」の追加",
+            en: "Added a New Special Match, “Galaxy Court Match”",
+          },
+          items: [
+            {
+              ja: "宇宙の惑星に作られた球状のコートで遊ぶ、特別な対戦ルール「ギャラクシーコートマッチ」を追加しました。",
+              en: "Special “Galaxy Court Match” match rules have been added where you play on a spherical court made on a distant planet.",
+            },
+            {
+              ja: "試合が進むと、3種類の「いたずらコメット」のいずれかが発生し、試合の駆け引きに大きな変化が起こります。",
+              en: "As the match progresses, one of three types of “Prankster Comets” will appear and will greatly change the strategy of the match.",
+            },
+          ],
+        },
+        {
+          title: {
+            ja: "新しい色の「チコ」の追加",
+            en: "Added New Colors for Luma",
+          },
+          items: [
+            {
+              ja: "プレイヤーとして、新しく5色の「チコ」を追加しました。",
+              en: "Added five new colors of Luma as playable characters.",
+            },
+          ],
+        },
+        {
+          title: {
+            ja: "「オーバーオール姿のマリオ」を追加",
+            en: "Added Mario’s Classic Outfit",
+          },
+          items: [
+            {
+              ja: "5つの達成メダルを獲得した報酬として、「オーバーオール姿のマリオ」を追加しました。",
+              en: "Added Mario’s classic outfit as a reward for collecting 5 medals.",
+            },
+          ],
+        },
+        {
+          title: {
+            ja: "キャラクター性能に関する変更",
+            en: "Changes to Character Specifications",
+          },
+          description: {
+            ja: "一部のキャラクターの性能を変更しました。",
+            en: "Changed specifications of some characters.",
+          },
+          groups: [
+            {
+              name: { ja: "ディディーコング", en: "Diddy Kong" },
+              items: [
+                { ja: "ショットの威力を、アップしました。", en: "Slightly increased the strength of shots." },
+                { ja: "サイドライン際をねらう能力を、わずかにアップしました。", en: "The ability to aim for the sidelines has been increased slightly." },
+                { ja: "バックハンドスマッシュが弱くなってしまうことがある不具合を修正しました。", en: "Fixed a bug where backhand Star Shots are weak." },
+              ],
+            },
+            {
+              name: { ja: "カメック", en: "Kamek" },
+              items: [
+                { ja: "ショットのスピン量を、アップしました。", en: "Increased the amount of spin on shots." },
+              ],
+            },
+            {
+              name: { ja: "カロン", en: "Dry Bones" },
+              items: [
+                { ja: "走っているときの移動速度を、速くしました。", en: "Increased movement speed while running." },
+                { ja: "サイドライン際をねらう能力を、アップしました。", en: "Increased the ability to aim for the sidelines." },
+                { ja: "安定して打ち返せる距離を、少し長くしました。", en: "The distance the ball can be hit back stably from has been increased slightly." },
+              ],
+            },
+            {
+              name: { ja: "ポリーン", en: "Pauline" },
+              items: [
+                { ja: "サイドライン際をねらう能力を、アップしました。", en: "Increased the ability to aim for the sidelines." },
+              ],
+            },
+            {
+              name: { ja: "クッパJr.", en: "Bowser Jr." },
+              items: [
+                { ja: "サイドライン際をねらう能力を、アップしました。", en: "Increased the ability to aim for the sidelines." },
+              ],
+            },
+            {
+              name: { ja: "ベビィピーチ", en: "Baby Peach" },
+              items: [
+                { ja: "安定して打ち返せる距離を、長くしました。", en: "The distance the ball can be hit back stably from has been increased." },
+              ],
+            },
+            {
+              name: { ja: "パックンフラワー", en: "Piranha Plant" },
+              items: [
+                { ja: "安定して打ち返せる距離を、少し長くしました。", en: "The distance the ball can be hit back stably from has been increased slightly." },
+              ],
+            },
+            {
+              name: { ja: "ヨッシー", en: "Yoshi" },
+              items: [
+                { ja: "バックハンドスマッシュが弱くなってしまうことがある不具合を修正しました。", en: "Fixed a bug where backhand Star Shots are weak." },
+              ],
+            },
+            {
+              name: { ja: "トッテン", en: "Nabbit" },
+              items: [
+                { ja: "フォアハンドスマッシュが弱くなってしまうことがある不具合を修正しました。", en: "Fixed a bug where forehand Star Shots are weak." },
+                { ja: "バックハンドの威力を、アップしました。", en: "Increased strength of backhand shots." },
+              ],
+            },
+            {
+              name: { ja: "ほねクッパ", en: "Dry Bowser" },
+              items: [
+                { ja: "フォアハンドの威力を、アップしました。", en: "Increased strength of forehand shots." },
+              ],
+            },
+            {
+              name: { ja: "ルイージ", en: "Luigi" },
+              items: [
+                { ja: "高さ方向の捕球範囲を、アップしました。", en: "Increased vertical reach." },
+              ],
+            },
+            {
+              name: { ja: "ベビィルイージ", en: "Baby Luigi" },
+              items: [
+                { ja: "高さ方向の捕球範囲を、アップしました。", en: "Increased vertical reach." },
+              ],
+            },
+            {
+              name: { ja: "キノピオ", en: "Toad" },
+              items: [
+                { ja: "ラケットのエフェクトがずれて表示されていた不具合を修正しました。これにより、安定して打ち返せる距離が、わずかに長くなりました。", en: "Fixed a bug where racket effects are displayed incorrectly. Because of this, the distance the ball can be hit back stably from has increased slightly." },
+              ],
+            },
+            {
+              name: { ja: "ロゼッタ", en: "Rosalina" },
+              items: [
+                { ja: "移動の走り出しを、遅くしました。", en: "Made it so you start running a little later when moving." },
+                { ja: "サイドライン際をねらう能力を、ダウンしました。", en: "Decreased the ability to aim for the sidelines." },
+                { ja: "ドロップショットのバウンドを跳ねやすく、また伸びやすくしました。", en: "Made it so drop shots bounce more easily and travel farther." },
+              ],
+            },
+            {
+              name: { ja: "ドンキーコング", en: "Donkey Kong" },
+              items: [
+                { ja: "移動の走り出しを、遅くしました。", en: "Made it so you start running a little later when moving." },
+                { ja: "サイドライン際をねらう能力を、ダウンしました。", en: "Decreased the ability to aim for the sidelines." },
+              ],
+            },
+            {
+              name: { ja: "ゲッソー", en: "Blooper" },
+              items: [
+                { ja: "サイドライン際をねらう能力を、わずかにダウンしました。", en: "The ability to aim for the sidelines has been decreased slightly." },
+              ],
+            },
+          ],
+        },
+        {
+          title: {
+            ja: "フィーバーラケット性能に関する変更",
+            en: "Changes to Fever Racket Specifications",
+          },
+          description: {
+            ja: "一部のフィーバーラケットの性能を変更しました。",
+            en: "Changed specifications of some Fever Rackets.",
+          },
+          groups: [
+            {
+              name: { ja: "マメキノコラケット", en: "Mini Mushroom Racket" },
+              items: [
+                { ja: "得点が決まったときに、体が小さくなる効力が消えるようにしました。", en: "Made it so the effect of being shrunken goes away when a point is scored." },
+              ],
+            },
+            {
+              name: { ja: "アイスフラワーラケット", en: "Ice Flower Racket" },
+              items: [
+                { ja: "アイスボールに触れたときの硬直時間を、短くしました。", en: "Shortened the amount of time you’re stopped for when you touch an Ice Ball." },
+                { ja: "アイスボールの最大出現個数を、5個から4個に減らしました。", en: "Decreased the maximum number of Ice Balls that appear from 5 to 4." },
+              ],
+            },
+            {
+              name: { ja: "スターラケット", en: "Star Racket" },
+              items: [
+                { ja: "効果時間中、マメキノコラケットのマメキノコを消すようにしました。", en: "While its effect is active, the racket now gets rid of Mini Mushrooms from the Mini Mushroom Racket." },
+              ],
+            },
+            {
+              name: { ja: "キラーラケット", en: "Bullet Bill Racket" },
+              items: [
+                { ja: "サイドライン際をねらう能力を、アップしました。", en: "Increased the ability to aim for the sidelines." },
+              ],
+            },
+            {
+              name: { ja: "フリーズラケット", en: "Freezing Racket" },
+              items: [
+                { ja: "効果が消える条件が、15秒経過もしくはラリー10回でしたが、ラリー10回の条件をなくし、15秒経過で消えるのみに変更しました。", en: "The conditions for the racket’s effect disappearing were either 15 seconds passing, or 10 rallies. This has now changed so there is no rally condition, and it only disappears when 15 seconds pass." },
+              ],
+            },
+            {
+              name: { ja: "ビリキューラケット", en: "Amp Racket" },
+              items: [
+                { ja: "効果が消える条件が、ラリー20回でしたが、12秒経過で消えるように変更しました。", en: "The condition for the racket’s effect disappearing was 20 rallies. This has now changed to it disappearing when 12 seconds pass." },
+              ],
+            },
+            {
+              name: { ja: "メタルラケット", en: "Metal Racket" },
+              items: [
+                { ja: "効果時間中、移動速度が遅くなるようにしました。移動速度はHPが減っているときと同じになります。効果発動時にHPがすでに減っているときは、移動速度は遅くなりません。", en: "While its effect is active, you now move slower. Your movement speed will now be the same as when your HP is low. If your HP is already low while the effect is active, your movement speed will not decrease." },
+                { ja: "効果時間中、マメキノコラケットのマメキノコを消すようにしました。", en: "While its effect is active, the racket now gets rid of Mini Mushrooms from the Mini Mushroom Racket." },
+              ],
+            },
+            {
+              name: { ja: "ハテナラケット", en: "? Block Racket" },
+              items: [
+                { ja: "フィーバーショットで選ばれる効果として、ブラックホールショットを追加しました。", en: "Black Hole Shots have been added as a possible effect of its Fever Shots." },
+              ],
+            },
+          ],
+        },
+        {
+          title: {
+            ja: "ショット挙動の変更",
+            en: "Changes to Shot Behavior",
+          },
+          items: [
+            {
+              ja: "スマッシュが出しやすくなるように、スマッシュポイントの判定を調整しました。",
+              en: "Adjusted the star point detection to make it easier to execute Star Shots.",
+            },
+          ],
+        },
+        {
+          title: {
+            ja: "その他の変更",
+            en: "Other Changes",
+          },
+          items: [
+            {
+              ja: "コートセレクトで選択できるコートについて、新しいコート「ギャラクシーコート」の他に、「アカデミー グラス」・「アカデミー ハード」・「アカデミー クレイ」の3種類のコートを追加しました。",
+              en: "In addition to the new “Galaxy Court”, you can now select “Academy Court (Grass),” “Academy Court (Hard),” and “Academy Court (Clay)” in court selection.",
+            },
+            {
+              ja: "ラケットセレクト画面で、「おまかせ」を選択できるようにしました。試合終了時に「つづけて遊ぶ」を選択した場合は、毎試合異なるフィーバーラケットで勝負ができます。",
+              en: "You can now select “Random” on the racket selection screen. If you select “Continue” when the match ends, you can compete with a different racket each match.",
+            },
+            {
+              ja: "AボタンとBボタンを同時に押してフラットを打つ入力方法を、オプションでオフに設定できるようにしました。",
+              en: "Added an option to disable pressing the A Button and B Button simultaneously to hit a flat shot.",
+            },
+            {
+              ja: "ランクマッチの「すべてのモードからさがす」について、モードの抽選方法を調整しました。",
+              en: "Adjusted how modes are randomly selected for “Search All Modes” in Ranked Match matches.",
+            },
+            {
+              ja: "ランクマッチのコートとして「ギャラクシーコート」を追加し、コートの登場順を変更しました。",
+              en: "Added “Galaxy Court” as a Ranked Match court and adjusted the order courts appear in.",
+            },
+            {
+              ja: "スペシャルゲーム「ラケットファクトリーマッチ」で、フィーバーラケットを拾ったときにFVゲージが1回分たまっていなかった場合、FVゲージが1回分までたまるようにしました。",
+              en: "Made it so when you’re playing the “Racket Factory Match” special game, if you don’t have a FV Gauge bar filled when picking up a Fever Racket, your FV Gauge will fill up to 1 bar.",
+            },
+            {
+              ja: "その他、ゲームを快適に遊んでいただけるよう、いくつかの問題を修正しました。",
+              en: "Several other adjustments and fixes have been made to improve the gameplay experience.",
+            },
+          ],
+        },
+      ],
+    },
     {
       title: {
         ja: "マリオテニス フィーバー 更新データVer. 1.0.2",

@@ -1,4 +1,13 @@
 import { characters, rackets, courts, beginnerVideos, changelog, tierPurposeRecommendations, officialTierSections, tips } from "../data.js";
+import {
+  RANKED_COURT_CYCLE_ANCHOR_JST,
+  RANKED_COURT_CYCLE_MINUTES,
+  RANKED_COURT_SLOT_MINUTES,
+  getNextRankedCourtOccurrence,
+  getRankedCourtNextIds,
+  getRankedCourtSlot,
+  getRankedCourtSlots,
+} from "./court-rotation.js";
 
 const translations = {
   ja: {
@@ -19,16 +28,17 @@ const translations = {
     },
     footer: { contactLabel: "作成者・問い合わせ先:", contactAccount: "@Lu_Na_Clock", changelog: "ゲームのアップデート履歴" },
     stat: { speed: "スピード", power: "パワー", control: "コントロール", spin: "スピン" },
+    characterStatsVersion: { label: "パラメータのバージョン", current: "Ver. 1.1.0", previous: "Ver. 1.0.3以前", changes: "Ver. 1.1.0 更新内容" },
     court: { ballSpeed: "たまあし", bounce: "バウンド", note: "説明", shortBallSpeed: "速", shortBounce: "跳" },
     courtPrediction: {
       title: "次コート予測（β）",
-      description: "ランクマッチでのコートを条件別に検索出来ます。",
+      description: "共有された観測情報をもとにした固定17枠のβ版です。ランクマッチのコートを条件別に検索できます。",
       timezone: "※日時表示はすべて日本時間（JST）基準です。",
       currentCourt: "現在のコート",
       nextCourt: "次に来る想定コート",
       source: "予測ソース",
-      betaCycle: "固定15周期β版",
-      predictionOnly: "フリーマッチ選択不可（コート一覧には未掲載）",
+      betaCycle: "固定17枠β版",
+      predictionOnly: "コート一覧未掲載（同種サーフェス値を参照）",
       dateTimeTitle: "日時指定によるコート予測",
       dateTimeLabel: "日時（JST）",
       dateTimeCourt: "その時点のコート",
@@ -172,16 +182,17 @@ const translations = {
     },
     footer: { contactLabel: "Creator & Contact:", contactAccount: "@Lu_Na_Clock", changelog: "Game Update History" },
     stat: { speed: "Speed", power: "Power", control: "Control", spin: "Spin" },
+    characterStatsVersion: { label: "Parameter version", current: "Ver. 1.1.0", previous: "Ver. 1.0.3 and earlier", changes: "Ver. 1.1.0 changes" },
     court: { ballSpeed: "Ball Speed", bounce: "Bounce", note: "Notes", shortBallSpeed: "SPD", shortBounce: "BNC" },
     courtPrediction: {
       title: "Next Court Prediction (Beta)",
-      description: "Search ranked-match courts by condition.",
+      description: "A fixed 17-slot beta cycle based on shared observations. Search ranked-match courts by condition.",
       timezone: "*All date/time displays currently use Japan Standard Time (JST).",
       currentCourt: "Current court",
       nextCourt: "Expected next court",
       source: "Prediction source",
-      betaCycle: "Fixed 15-court beta cycle",
-      predictionOnly: "Prediction-only node (not listed in the court database yet)",
+      betaCycle: "Fixed 17-slot beta cycle",
+      predictionOnly: "Not listed in the court database; equivalent surface values are used",
       dateTimeTitle: "Court Lookup by Date/Time",
       dateTimeLabel: "Date / time (JST)",
       dateTimeCourt: "Court at that time",
@@ -483,6 +494,8 @@ const characterSortLabels = {
 
 const maxStatValue = 5;
 const mobileDetailsStatOrder = ["speed", "power", "control", "spin"];
+const CHARACTER_STATS_VERSION_CURRENT = "1.1.0";
+const CHARACTER_STATS_VERSION_PREVIOUS = "before-1.1.0";
 
 function getStatTier(value) {
   return Math.min(maxStatValue, Math.max(1, Math.floor(value)));
@@ -724,6 +737,13 @@ const tierPurposeLabelKeyMap = {
 
 const characterByJaName = new Map(characters.map((character) => [rawValue(character.name), character]));
 const racketByJaName = new Map(rackets.map((racket) => [rawValue(racket.name), racket]));
+const character110UpdateGroupByName = (() => {
+  const updateEntry = changelog.find((entry) => rawValue(entry.title).includes("Ver. 1.1.0"));
+  const characterGroups = (updateEntry?.sections || [])
+    .flatMap((section) => section.groups || [])
+    .filter((group) => characterByJaName.has(rawValue(group.name)));
+  return new Map(characterGroups.map((group) => [rawValue(group.name), group]));
+})();
 const tierRowModal = document.getElementById("tier-row-modal");
 const tierRowModalClose = document.getElementById("tier-row-modal-close");
 const tierRowLabelInput = document.getElementById("tier-row-label-input");
@@ -1419,46 +1439,28 @@ const COURT_PREDICTION_SOURCE_IDS = Object.freeze({
 const ACTIVE_COURT_PREDICTION_SOURCE_ID = COURT_PREDICTION_SOURCE_IDS.betaCycle;
 const JST_OFFSET_MINUTES = 9 * 60;
 const JST_OFFSET_MS = JST_OFFSET_MINUTES * 60 * 1000;
-const COURT_SLOT_MINUTES = 30;
-const COURT_CYCLE_LENGTH = 15;
+const COURT_SLOT_MINUTES = RANKED_COURT_SLOT_MINUTES;
 const COURT_DAY_SLOT_COUNT = (24 * 60) / COURT_SLOT_MINUTES;
-const COURT_CYCLE_MINUTES = COURT_SLOT_MINUTES * COURT_CYCLE_LENGTH;
-const COURT_CYCLE_ANCHOR_JST = new Date(Date.UTC(2026, 2, 31, 15, 0, 0));
+const COURT_CYCLE_MINUTES = RANKED_COURT_CYCLE_MINUTES;
+const COURT_CYCLE_ANCHOR_JST = RANKED_COURT_CYCLE_ANCHOR_JST;
 
 const betaCourtPredictionNodes = [
-  { id: "stadium-hard", label: { ja: "スタジアム ハード", en: "Stadium Court (Hard)" }, linkedCourtName: "スタジアム ハード" },
-  { id: "academy-block", label: { ja: "アカデミー ブロック", en: "Academy Court (Brick)" }, linkedCourtName: "アカデミー ブロック" },
-  { id: "racket-factory", label: { ja: "ラケットファクトリー", en: "Racket Factory" }, linkedCourtName: "ラケットファクトリー" },
-  { id: "stadium-clay", label: { ja: "スタジアム クレイ", en: "Stadium Court (Clay)" }, linkedCourtName: "スタジアム クレイ" },
-  { id: "academy-sand", label: { ja: "アカデミー サンド", en: "Academy Court (Sand)" }, linkedCourtName: "アカデミー サンド" },
   { id: "forest", label: { ja: "フォレストコート", en: "Forest Court" }, linkedCourtName: "フォレストコート" },
   { id: "academy-grass", label: { ja: "アカデミー グラス", en: "Academy Court (Grass)" }, predictionOnly: true, referenceCourtName: "スタジアム グラス" },
   { id: "academy-carpet", label: { ja: "アカデミー カーペット", en: "Academy Court (Carpet)" }, linkedCourtName: "アカデミー カーペット" },
   { id: "pinball", label: { ja: "ワルイージピンボール", en: "Waluigi's Pinball Arcade" }, linkedCourtName: "ワルイージピンボール" },
   { id: "academy-hard", label: { ja: "アカデミー ハード", en: "Academy Court (Hard)" }, predictionOnly: true, referenceCourtName: "スタジアム ハード" },
-  { id: "wonder", label: { ja: "ワンダーコート", en: "Wonder Court" }, linkedCourtName: "ワンダーコート" },
   { id: "academy-clay", label: { ja: "アカデミー クレイ", en: "Academy Court (Clay)" }, predictionOnly: true, referenceCourtName: "スタジアム クレイ" },
+  { id: "wonder", label: { ja: "ワンダーコート", en: "Wonder Court" }, linkedCourtName: "ワンダーコート" },
+  { id: "galaxy", label: { ja: "ギャラクシーコート", en: "Galaxy Court" }, linkedCourtName: "ギャラクシーコート" },
   { id: "stadium-grass", label: { ja: "スタジアム グラス", en: "Stadium Court (Grass)" }, linkedCourtName: "スタジアム グラス" },
   { id: "academy-wood", label: { ja: "アカデミー ウッド", en: "Academy Court (Wood)" }, linkedCourtName: "アカデミー ウッド" },
   { id: "airship", label: { ja: "飛行船コート", en: "Airship Court" }, linkedCourtName: "飛行船コート" },
-];
-
-const betaCourtPredictionCycle = [
-  "stadium-hard",
-  "academy-block",
-  "racket-factory",
-  "stadium-clay",
-  "academy-sand",
-  "forest",
-  "academy-grass",
-  "academy-carpet",
-  "pinball",
-  "academy-hard",
-  "wonder",
-  "academy-clay",
-  "stadium-grass",
-  "academy-wood",
-  "airship",
+  { id: "stadium-hard", label: { ja: "スタジアム ハード", en: "Stadium Court (Hard)" }, linkedCourtName: "スタジアム ハード" },
+  { id: "academy-block", label: { ja: "アカデミー ブロック", en: "Academy Court (Brick)" }, linkedCourtName: "アカデミー ブロック" },
+  { id: "stadium-clay", label: { ja: "スタジアム クレイ", en: "Stadium Court (Clay)" }, linkedCourtName: "スタジアム クレイ" },
+  { id: "racket-factory", label: { ja: "ラケットファクトリー", en: "Racket Factory" }, linkedCourtName: "ラケットファクトリー" },
+  { id: "academy-sand", label: { ja: "アカデミー サンド", en: "Academy Court (Sand)" }, linkedCourtName: "アカデミー サンド" },
 ];
 
 const betaCourtPredictionNodeMap = new Map(betaCourtPredictionNodes.map((node) => [node.id, node]));
@@ -1518,14 +1520,6 @@ const courtPredictionCombinedExactTargets = [
 const courtPredictionCombinedExactTargetMap = new Map(
   courtPredictionCombinedExactTargets.map((target) => [target.value, target])
 );
-
-function mod(value, divisor) {
-  return ((value % divisor) + divisor) % divisor;
-}
-
-function addMinutes(date, minutes) {
-  return new Date(date.getTime() + minutes * 60 * 1000);
-}
 
 function getJstParts(date) {
   const shifted = new Date(date.getTime() + JST_OFFSET_MS);
@@ -1630,21 +1624,11 @@ function getCourtFacetInfo(ballSpeed, bounce) {
 }
 
 function getCourtForDateTimeJst(date) {
-  const minutesSinceAnchor = Math.floor((date.getTime() - COURT_CYCLE_ANCHOR_JST.getTime()) / 60000);
-  const slotNumber = Math.floor(minutesSinceAnchor / COURT_SLOT_MINUTES);
-  const cycleIndex = mod(slotNumber, COURT_CYCLE_LENGTH);
-  const slotStart = addMinutes(COURT_CYCLE_ANCHOR_JST, slotNumber * COURT_SLOT_MINUTES);
-  const slotEnd = addMinutes(slotStart, COURT_SLOT_MINUTES);
-  const nodeId = betaCourtPredictionCycle[cycleIndex];
-  const node = betaCourtPredictionNodeMap.get(nodeId) || null;
+  const rotationSlot = getRankedCourtSlot(date);
+  const node = betaCourtPredictionNodeMap.get(rotationSlot.courtId) || null;
 
   return {
-    date,
-    minutesSinceAnchor,
-    slotNumber,
-    cycleIndex,
-    slotStart,
-    slotEnd,
+    ...rotationSlot,
     node,
   };
 }
@@ -1653,11 +1637,11 @@ function getCourtDayScheduleJst(date) {
   const { year, month, day } = getJstParts(date);
   const dayStart = createDateFromJstParts(year, month, day, 0, 0);
 
-  return Array.from({ length: COURT_DAY_SLOT_COUNT }, (_, slotIndex) => {
-    const slotStart = addMinutes(dayStart, slotIndex * COURT_SLOT_MINUTES);
+  return getRankedCourtSlots(dayStart, COURT_DAY_SLOT_COUNT).map((rotationSlot, slotIndex) => {
     return {
-      ...getCourtForDateTimeJst(slotStart),
+      ...rotationSlot,
       slotIndex,
+      node: betaCourtPredictionNodeMap.get(rotationSlot.courtId) || null,
     };
   });
 }
@@ -1694,20 +1678,11 @@ function getCourtOccurrencesForDateJst(courtValue, date) {
 function getNextCourtOccurrenceForNodeJst(node, fromDate) {
   if (!node) return null;
 
-  const targetIndex = betaCourtPredictionCycle.indexOf(node.id);
-  if (targetIndex === -1) return null;
-
-  const current = getCourtForDateTimeJst(fromDate);
-  const offsetSlots = mod(targetIndex - current.cycleIndex, COURT_CYCLE_LENGTH);
-  let occurrenceStart = addMinutes(current.slotStart, offsetSlots * COURT_SLOT_MINUTES);
-
-  if (offsetSlots === 0 && fromDate.getTime() > current.slotStart.getTime()) {
-    occurrenceStart = addMinutes(occurrenceStart, COURT_CYCLE_MINUTES);
-  }
+  const occurrence = getNextRankedCourtOccurrence(node.id, fromDate);
+  if (!occurrence) return null;
 
   return {
-    slotStart: occurrenceStart,
-    slotEnd: addMinutes(occurrenceStart, COURT_SLOT_MINUTES),
+    ...occurrence,
     node,
   };
 }
@@ -1792,19 +1767,20 @@ function getCourtPredictionSourceDefinition(sourceId = ACTIVE_COURT_PREDICTION_S
       const currentNode = betaCourtPredictionValueMap.get(currentCourtJaName);
       if (!currentNode) return [];
 
-      const currentIndex = betaCourtPredictionCycle.indexOf(currentNode.id);
-      if (currentIndex === -1) return [];
-
-      const nextNodeId = betaCourtPredictionCycle[(currentIndex + 1) % betaCourtPredictionCycle.length];
-      const nextNode = betaCourtPredictionNodeMap.get(nextNodeId);
-      return nextNode
-        ? [
-            {
-              kind: "fixed",
-              node: nextNode,
-            },
-          ]
-        : [];
+      const nextNodeIds = getRankedCourtNextIds(currentNode.id);
+      const isAmbiguous = nextNodeIds.length > 1;
+      return nextNodeIds
+        .map((nextNodeId, index) => {
+          const nextNode = betaCourtPredictionNodeMap.get(nextNodeId);
+          return nextNode
+            ? {
+                kind: isAmbiguous ? "cycle-ambiguous" : "fixed",
+                rank: index + 1,
+                node: nextNode,
+              }
+            : null;
+        })
+        .filter(Boolean);
     },
   };
 }
@@ -2276,6 +2252,9 @@ function renderPrimaryCourtPrediction() {
         ? t("courtPrediction.deterministic")
         : t("courtPrediction.candidate", { rank: entry.rank });
       detail.textContent = `${t("courtPrediction.confidence")}: ${formatPercent(entry.probability)}`;
+    } else if (entry.kind === "cycle-ambiguous") {
+      label.textContent = t("courtPrediction.candidate", { rank: entry.rank });
+      detail.textContent = "";
     } else {
       label.textContent = t("courtPrediction.nextCourt");
       detail.textContent = "";
@@ -3023,6 +3002,74 @@ function getMobileDetailsStatEntries(stats) {
     .map((key) => [key, stats[key]]);
 }
 
+function getCharacterStats(character, version = CHARACTER_STATS_VERSION_CURRENT) {
+  if (version === CHARACTER_STATS_VERSION_PREVIOUS) {
+    return { ...character.stats, ...character.statsBefore110 };
+  }
+  return character.stats;
+}
+
+function createCharacterStatsVersionSwitcher(onChange) {
+  const wrapper = document.createElement("div");
+  wrapper.className = "character-stats-version";
+
+  const label = document.createElement("span");
+  label.className = "character-stats-version__label";
+  label.textContent = t("characterStatsVersion.label");
+
+  const options = document.createElement("div");
+  options.className = "character-stats-version__options";
+  options.setAttribute("role", "group");
+  options.setAttribute("aria-label", t("characterStatsVersion.label"));
+
+  const versions = [
+    [CHARACTER_STATS_VERSION_CURRENT, t("characterStatsVersion.current")],
+    [CHARACTER_STATS_VERSION_PREVIOUS, t("characterStatsVersion.previous")],
+  ];
+
+  versions.forEach(([version, text]) => {
+    const button = document.createElement("button");
+    const isCurrent = version === CHARACTER_STATS_VERSION_CURRENT;
+    button.type = "button";
+    button.className = "character-stats-version__button";
+    button.classList.toggle("is-active", isCurrent);
+    button.setAttribute("aria-pressed", String(isCurrent));
+    button.textContent = text;
+    button.addEventListener("click", () => {
+      options.querySelectorAll(".character-stats-version__button").forEach((target) => {
+        const isActive = target === button;
+        target.classList.toggle("is-active", isActive);
+        target.setAttribute("aria-pressed", String(isActive));
+      });
+      onChange(version);
+    });
+    options.append(button);
+  });
+
+  wrapper.append(label, options);
+  return wrapper;
+}
+
+function createCharacter110UpdateDetails(updateGroup) {
+  const details = document.createElement("details");
+  details.className = "character-version-update";
+
+  const summary = document.createElement("summary");
+  summary.className = "character-version-update__summary";
+  summary.textContent = t("characterStatsVersion.changes");
+
+  const list = document.createElement("ul");
+  list.className = "character-version-update__list";
+  (updateGroup.items || []).forEach((item) => {
+    const listItem = document.createElement("li");
+    listItem.textContent = localizeValue(item);
+    list.append(listItem);
+  });
+
+  details.append(summary, list);
+  return details;
+}
+
 function createAccordion(title, content) {
   const wrapper = document.createElement("div");
   wrapper.className = "accordion";
@@ -3201,18 +3248,32 @@ function createCharacterCard(character, itemIndex) {
   media.append(image, favoriteButton);
   header.append(title, media);
 
-  const stats = document.createElement("div");
-  stats.className = "stats";
-  Object.entries(character.stats).forEach(([key, value]) => {
-    stats.append(createStatRow(statLabels[key], value));
-  });
+  const updateGroup = character110UpdateGroupByName.get(rawValue(character.name));
+  const updateDetails = updateGroup ? createCharacter110UpdateDetails(updateGroup) : null;
+  const hasVersionedStats = Boolean(character.statsBefore110);
 
   if (mobileView) {
     const compactStats = document.createElement("div");
     compactStats.className = "stats stats--compact";
-    const sortedStats = getSortedStatEntries(character.stats);
-    const detailsStats = getMobileDetailsStatEntries(character.stats);
-    renderStatRows(compactStats, sortedStats, 2);
+    let activeStatsVersion = CHARACTER_STATS_VERSION_CURRENT;
+    let detailsExpanded = false;
+
+    const renderCompactStats = () => {
+      const activeStats = getCharacterStats(character, activeStatsVersion);
+      const entries = detailsExpanded
+        ? getMobileDetailsStatEntries(activeStats)
+        : getSortedStatEntries(activeStats);
+      renderStatRows(compactStats, entries, detailsExpanded ? 4 : 2);
+    };
+
+    const statsVersionSwitcher = hasVersionedStats
+      ? createCharacterStatsVersionSwitcher((version) => {
+          activeStatsVersion = version;
+          renderCompactStats();
+          if (updateDetails) updateDetails.open = true;
+        })
+      : null;
+    renderCompactStats();
 
     const special = createAccordion(t("accordion.special"), localizeValue(character.special));
 
@@ -3224,29 +3285,47 @@ function createCharacterCard(character, itemIndex) {
     details.classList.add("accordion--details");
     const detailsButton = details.querySelector(".accordion-toggle");
 
-    const renderCompactStatsByExpandedState = (isExpanded) => {
-      renderStatRows(compactStats, isExpanded ? detailsStats : sortedStats, isExpanded ? 4 : 2);
-    };
-
     if (detailsButton) {
       detailsButton.addEventListener("click", () => {
-        const isExpanded = detailsButton.getAttribute("aria-expanded") === "true";
-        renderCompactStatsByExpandedState(isExpanded);
+        detailsExpanded = detailsButton.getAttribute("aria-expanded") === "true";
+        renderCompactStats();
       });
 
       detailsButton.addEventListener("accordion-sync-state", (event) => {
-        const isExpanded = event.detail?.expanded === true;
-        renderCompactStatsByExpandedState(isExpanded);
+        detailsExpanded = event.detail?.expanded === true;
+        renderCompactStats();
       });
     }
 
-    card.append(header, compactStats, special, details);
+    card.append(header);
+    if (statsVersionSwitcher) card.append(statsVersionSwitcher);
+    card.append(compactStats);
+    if (updateDetails) card.append(updateDetails);
+    card.append(special, details);
     return card;
   }
 
+  const stats = document.createElement("div");
+  stats.className = "stats";
+  const renderDesktopStats = (version) => {
+    const activeStats = getCharacterStats(character, version);
+    renderStatRows(stats, Object.entries(activeStats), Object.keys(activeStats).length);
+  };
+  const statsVersionSwitcher = hasVersionedStats
+    ? createCharacterStatsVersionSwitcher((version) => {
+        renderDesktopStats(version);
+        if (updateDetails) updateDetails.open = true;
+      })
+    : null;
+  renderDesktopStats(CHARACTER_STATS_VERSION_CURRENT);
+
   const special = createAccordion(t("accordion.special"), localizeValue(character.special));
   const text = createAccordion(t("accordion.gameText"), localizeValue(character.text));
-  card.append(header, stats, special, text);
+  card.append(header);
+  if (statsVersionSwitcher) card.append(statsVersionSwitcher);
+  card.append(stats);
+  if (updateDetails) card.append(updateDetails);
+  card.append(special, text);
   return card;
 }
 
