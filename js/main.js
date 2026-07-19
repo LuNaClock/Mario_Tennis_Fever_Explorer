@@ -28,7 +28,8 @@ const translations = {
     },
     footer: { contactLabel: "作成者・問い合わせ先:", contactAccount: "@Lu_Na_Clock", changelog: "ゲームのアップデート履歴" },
     stat: { speed: "スピード", power: "パワー", control: "コントロール", spin: "スピン" },
-    characterStatsVersion: { label: "パラメータのバージョン", current: "Ver. 1.1.0", previous: "Ver. 1.0.3以前", changes: "Ver. 1.1.0 更新内容" },
+    characterStatsVersion: { label: "パラメータのバージョン", current: "Ver. 1.1.0", previous: "Ver. 1.0.3以前" },
+    versionUpdate: { changes110: "Ver. 1.1.0 更新内容" },
     court: { ballSpeed: "たまあし", bounce: "バウンド", note: "説明", shortBallSpeed: "速", shortBounce: "跳" },
     courtPrediction: {
       title: "次コート予測（β）",
@@ -182,7 +183,8 @@ const translations = {
     },
     footer: { contactLabel: "Creator & Contact:", contactAccount: "@Lu_Na_Clock", changelog: "Game Update History" },
     stat: { speed: "Speed", power: "Power", control: "Control", spin: "Spin" },
-    characterStatsVersion: { label: "Parameter version", current: "Ver. 1.1.0", previous: "Ver. 1.0.3 and earlier", changes: "Ver. 1.1.0 changes" },
+    characterStatsVersion: { label: "Parameter version", current: "Ver. 1.1.0", previous: "Ver. 1.0.3 and earlier" },
+    versionUpdate: { changes110: "Ver. 1.1.0 changes" },
     court: { ballSpeed: "Ball Speed", bounce: "Bounce", note: "Notes", shortBallSpeed: "SPD", shortBounce: "BNC" },
     courtPrediction: {
       title: "Next Court Prediction (Beta)",
@@ -737,13 +739,21 @@ const tierPurposeLabelKeyMap = {
 
 const characterByJaName = new Map(characters.map((character) => [rawValue(character.name), character]));
 const racketByJaName = new Map(rackets.map((racket) => [rawValue(racket.name), racket]));
-const character110UpdateGroupByName = (() => {
-  const updateEntry = changelog.find((entry) => rawValue(entry.title).includes("Ver. 1.1.0"));
-  const characterGroups = (updateEntry?.sections || [])
+function createVersionUpdateGroupMap(itemByJaName, version) {
+  const updateEntry = changelog.find((entry) => entry.version === version);
+  const updateGroups = (updateEntry?.sections || [])
     .flatMap((section) => section.groups || [])
-    .filter((group) => characterByJaName.has(rawValue(group.name)));
-  return new Map(characterGroups.map((group) => [rawValue(group.name), group]));
-})();
+    .filter((group) => itemByJaName.has(rawValue(group.name)));
+  return new Map(updateGroups.map((group) => [rawValue(group.name), group]));
+}
+const character110UpdateGroupByName = createVersionUpdateGroupMap(
+  characterByJaName,
+  CHARACTER_STATS_VERSION_CURRENT,
+);
+const racket110UpdateGroupByName = createVersionUpdateGroupMap(
+  racketByJaName,
+  CHARACTER_STATS_VERSION_CURRENT,
+);
 const tierRowModal = document.getElementById("tier-row-modal");
 const tierRowModalClose = document.getElementById("tier-row-modal-close");
 const tierRowLabelInput = document.getElementById("tier-row-label-input");
@@ -3050,16 +3060,16 @@ function createCharacterStatsVersionSwitcher(onChange) {
   return wrapper;
 }
 
-function createCharacter110UpdateDetails(updateGroup) {
+function createVersionUpdateDetails(updateGroup) {
   const details = document.createElement("details");
-  details.className = "character-version-update";
+  details.className = "version-update";
 
   const summary = document.createElement("summary");
-  summary.className = "character-version-update__summary";
-  summary.textContent = t("characterStatsVersion.changes");
+  summary.className = "version-update__summary";
+  summary.textContent = t("versionUpdate.changes110");
 
   const list = document.createElement("ul");
-  list.className = "character-version-update__list";
+  list.className = "version-update__list";
   (updateGroup.items || []).forEach((item) => {
     const listItem = document.createElement("li");
     listItem.textContent = localizeValue(item);
@@ -3249,7 +3259,7 @@ function createCharacterCard(character, itemIndex) {
   header.append(title, media);
 
   const updateGroup = character110UpdateGroupByName.get(rawValue(character.name));
-  const updateDetails = updateGroup ? createCharacter110UpdateDetails(updateGroup) : null;
+  const updateDetails = updateGroup ? createVersionUpdateDetails(updateGroup) : null;
   const hasVersionedStats = Boolean(character.statsBefore110);
 
   if (mobileView) {
@@ -3393,6 +3403,8 @@ function createRacketCard(racket, itemIndex, options = {}) {
   effect.className = "effect";
   effect.textContent = localizeValue(racket.effect);
 
+  const updateGroup = racket110UpdateGroupByName.get(rawValue(racket.name));
+  const updateDetails = updateGroup ? createVersionUpdateDetails(updateGroup) : null;
   const text = createAccordion(t("accordion.gameText"), localizeValue(racket.text));
   const unlockCondition = createRacketUnlockAccordion(racket);
 
@@ -3403,11 +3415,15 @@ function createRacketCard(racket, itemIndex, options = {}) {
 
     const details = createAccordion(t("accordion.details"), detailsBody);
     details.classList.add("accordion--details");
-    card.append(header, details);
+    card.append(header);
+    if (updateDetails) card.append(updateDetails);
+    card.append(details);
     return card;
   }
 
-  card.append(header, effect, text, unlockCondition);
+  card.append(header, effect);
+  if (updateDetails) card.append(updateDetails);
+  card.append(text, unlockCondition);
   return card;
 }
 

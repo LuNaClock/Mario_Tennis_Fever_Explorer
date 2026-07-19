@@ -540,7 +540,7 @@
         category: "強化",
         timing: "即時",
         duration: { ja: "10秒", en: "10s" },
-        effect: { ja: "打球時ボールをキラーに変化させ、一定時間後高弾速になる。変化後速くなるタイミングは球種によって変化し、スマッシュだと即時。強化時はコントロールに制限がかかり、コート端を狙ったショットは不可", en: "Transforms the ball into a Bullet Bill on hit, then boosts it to very high speed after a delay. The acceleration timing varies by shot type (immediate on smash). While boosted, control is restricted and edge-targeted shots are unavailable." },
+        effect: { ja: "打球時ボールをキラーに変化させ、一定時間後高弾速になる。変化後速くなるタイミングは球種によって変化し、スマッシュだと即時。強化時はコントロールに制限がかかる。", en: "Transforms the ball into a Bullet Bill on hit, then boosts it to very high speed after a delay. The acceleration timing varies by shot type (immediate on smash). While boosted, control is restricted." },
         text: { ja: "使うとしばらくの間打つ時にボールをキラーに変える。キラーは高速でまっすぐ飛ぶ", en: "For a while after use, balls you hit turn into Bullet Bills. Bullet Bills fly fast in a straight line." },
         image: "assets/racket_icons/killer_racket.webp",
       },
@@ -986,9 +986,10 @@ export const tips = [
   },
 ];
 
-  /** @type {{ date: { ja: string; en: string }; items: { ja: string; en: string }[] }[]} */
+  /** @type {{ version: string; title: { ja: string; en: string }; sections: object[] }[]} */
   export const changelog = [
     {
+      version: "1.1.0",
       title: {
         ja: "マリオテニス フィーバー 更新データVer. 1.1.0",
         en: "Mario Tennis Fever Update Data Ver. 1.1.0",
@@ -1331,6 +1332,7 @@ export const tips = [
       ],
     },
     {
+      version: "1.0.2",
       title: {
         ja: "マリオテニス フィーバー 更新データVer. 1.0.2",
         en: "Mario Tennis Fever Update Data Ver. 1.0.2",
@@ -1566,6 +1568,7 @@ export const tips = [
       ],
     },
     {
+      version: "1.0.1",
       title: {
         ja: "マリオテニス フィーバー 更新データVer. 1.0.1",
         en: "Mario Tennis Fever Update Data Ver. 1.0.1",
