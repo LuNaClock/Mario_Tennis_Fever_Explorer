@@ -1025,7 +1025,7 @@ function getTierShareText(boardKey) {
   const selectedCharacter = boardKey === "characters" ? getMatchupBaseCharacter(profile) : null;
   const selectedLabel = selectedCharacter ? ` / ${t("tier.matchupSummary")} ${localizeValue(selectedCharacter.name)}${t("tier.matchupPerspectiveSuffix")}` : "";
   return `#マリオテニスフィーバー ${title} | ${baseMeta}${selectedLabel}
-https://mariotennis-fever-explorer.ai-lifebook.com/
+https://mario-tennis-fever-explorer.lunaclock.chatgpt.site/
 #MariTenniExplorer`;
 }
 

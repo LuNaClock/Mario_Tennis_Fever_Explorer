@@ -5,7 +5,7 @@ const root = process.cwd();
 const indexPath = path.join(root, "index.html");
 const dataPath = path.join(root, "data.js");
 const mainJsPath = path.join(root, "js", "main.js");
-const siteOrigin = "https://mariotennis-fever-explorer.ai-lifebook.com";
+const siteOrigin = "https://mario-tennis-fever-explorer.lunaclock.chatgpt.site";
 
 function loadSiteData() {
   const source = fs.readFileSync(dataPath, "utf8");
