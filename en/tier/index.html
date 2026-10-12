@@ -586,20 +586,26 @@
         </div>
       </div>
 
-      <div class="tier-purpose" id="tier-purpose-recommendations">
-        <h3 class="tier-purpose__title" id="tier-recommendation" data-i18n="tier.purposeTitle">Recommendations by Purpose</h3>
+      <details class="tier-purpose" id="tier-purpose-recommendations">
+        <summary class="tier-purpose__summary" id="tier-recommendation">
+          <h3 class="tier-purpose__title" data-i18n="tier.purposeTitle">Recommendations by Purpose</h3>
+          <span class="tier-purpose__version" data-i18n="characterStatsVersion.previous">Ver. 1.0.3 and earlier</span>
+        </summary>
         <p class="tier-reciprocal-links">
           <a class="faq-link" href="/en/faq/" data-i18n="faq.backToFaq">← Back to FAQs</a>
         </p>
         <div class="tier-purpose__list" id="tier-purpose-list"></div>
-      </div>
+      </details>
 
-      <div class="tier-purpose" id="official-tier-sections">
-        <h3 class="tier-purpose__title" data-i18n="tier.officialTitle">Fixed Tier Board</h3>
+      <details class="tier-purpose" id="official-tier-sections">
+        <summary class="tier-purpose__summary">
+          <h3 class="tier-purpose__title" data-i18n="tier.officialTitle">Fixed Tier Board</h3>
+          <span class="tier-purpose__version" data-i18n="characterStatsVersion.previous">Ver. 1.0.3 and earlier</span>
+        </summary>
         <div class="official-tier-tabs official-tier-tabs--groups" id="official-tier-group-tabs" role="tablist" data-i18n-attr="aria-label:aria.officialTierTabs" aria-label="Fixed tier categories"></div>
         <div class="official-tier-tabs official-tier-tabs--sections" id="official-tier-section-tabs" role="tablist" data-i18n-attr="aria-label:aria.officialTierTabs" aria-label="Fixed tier categories"></div>
         <div class="tier-purpose__list" id="official-tier-list"></div>
-      </div>
+      </details>
 
       <div class="tier-controls">
         <button type="button" class="tier-tab is-active" data-tier-tab="characters" data-i18n="tier.characterBoard">Character Tier</button>

@@ -1043,8 +1043,54 @@ img {
 }
 
 .tier-purpose__title {
-  margin: 0 0 10px;
+  margin: 0;
   font-size: 0.98rem;
+}
+
+.tier-purpose__summary {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px 10px;
+  cursor: pointer;
+  list-style: none;
+}
+
+.tier-purpose__summary::-webkit-details-marker {
+  display: none;
+}
+
+.tier-purpose__summary:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+  border-radius: 4px;
+}
+
+.tier-purpose__summary::after {
+  content: "";
+  width: 8px;
+  height: 8px;
+  margin-left: auto;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: rotate(45deg);
+}
+
+.tier-purpose[open] > .tier-purpose__summary {
+  margin-bottom: 10px;
+}
+
+.tier-purpose[open] > .tier-purpose__summary::after {
+  transform: rotate(225deg);
+}
+
+.tier-purpose__version {
+  border: 1px solid rgba(255, 209, 102, 0.55);
+  border-radius: 999px;
+  padding: 1px 8px;
+  color: #ffd166;
+  font-size: 0.78rem;
+  font-weight: 700;
 }
 
 .official-tier-tabs {

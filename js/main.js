@@ -5595,6 +5595,26 @@ function syncTierPurposeReasonHeights() {
   });
 }
 
+function setupLegacyTierDetails() {
+  const recommendations = document.getElementById("tier-purpose-recommendations");
+  if (!recommendations) return;
+
+  recommendations.addEventListener("toggle", () => {
+    if (recommendations.open) {
+      syncTierPurposeReasonHeights();
+    }
+  });
+
+  const openLinkedRecommendations = () => {
+    if (window.location.hash === "#tier-recommendation") {
+      recommendations.open = true;
+    }
+  };
+
+  openLinkedRecommendations();
+  window.addEventListener("hashchange", openLinkedRecommendations);
+}
+
 function renderTierPurposeRecommendations() {
   if (!tierPurposeList) return;
   tierPurposeList.innerHTML = "";
@@ -6038,6 +6058,7 @@ setupTierRuleManagers();
 setupTierShareActions();
 setupTierModalActions();
 setupOfficialTierTabs();
+setupLegacyTierDetails();
 
 if (localeSelect) {
   localeSelect.addEventListener("change", (event) => {
